@@ -29,7 +29,7 @@ async function bootstrap() {
 
   if (isDevelopmentEnvironment) {
     const config = new DocumentBuilder()
-      .setTitle('TaxNav API documentation')
+      .setTitle('API documentation')
       .setDescription('')
       .setVersion('1.0')
       .build();
