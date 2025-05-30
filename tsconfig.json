@@ -1,20 +1,20 @@
 {
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2021"],
-    "types": ["node"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
+    "compilerOptions": {
+        "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2021"],
+        "types": ["node"],
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "strict": true,
+        "jsx": "react-jsx",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "esModuleInterop": true
     },
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "react-jsx",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true
-  },
-  "include": ["src"]
+    "include": ["src"]
 }

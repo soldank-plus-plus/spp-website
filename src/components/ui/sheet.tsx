@@ -1,15 +1,15 @@
-import * as React from "react"
-import * as SheetPrimitive from "@radix-ui/react-dialog"
-import { cn } from "@/lib/utils"
-import { X } from "lucide-react"
+import * as React from "react";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { cn } from "@/lib/utils";
+import { X } from "lucide-react";
 
-const Sheet = SheetPrimitive.Root
-const SheetTrigger = SheetPrimitive.Trigger
-const SheetClose = SheetPrimitive.Close
+const Sheet = SheetPrimitive.Root;
+const SheetTrigger = SheetPrimitive.Trigger;
+const SheetClose = SheetPrimitive.Close;
 
 const SheetPortal = (props: SheetPrimitive.DialogPortalProps) => (
     <SheetPrimitive.Portal {...props} />
-)
+);
 
 const SheetOverlay = React.forwardRef<
     React.ElementRef<typeof SheetPrimitive.Overlay>,
@@ -23,14 +23,14 @@ const SheetOverlay = React.forwardRef<
         )}
         {...props}
     />
-))
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+));
+SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
 
 const SheetContent = React.forwardRef<
     React.ElementRef<typeof SheetPrimitive.Content>,
     React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content> & {
-    side?: "top" | "bottom" | "left" | "right"
-}
+        side?: "top" | "bottom" | "left" | "right";
+    }
 >(({ side = "right", className, children, ...props }, ref) => (
     <SheetPortal>
         <SheetOverlay />
@@ -52,12 +52,7 @@ const SheetContent = React.forwardRef<
             </SheetPrimitive.Close>
         </SheetPrimitive.Content>
     </SheetPortal>
-))
-SheetContent.displayName = "SheetContent"
+));
+SheetContent.displayName = "SheetContent";
 
-export {
-    Sheet,
-    SheetTrigger,
-    SheetClose,
-    SheetContent,
-}
+export { Sheet, SheetTrigger, SheetClose, SheetContent };

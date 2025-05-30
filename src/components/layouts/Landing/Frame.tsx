@@ -5,7 +5,7 @@ export const Frame = () => {
         <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 mb-20">
             <div
                 className="relative overflow-hidden w-full"
-                style={{ paddingTop: '56.25%' }} // 16:9 aspect ratio
+                style={{ paddingTop: "56.25%" }} // 16:9 aspect ratio
             >
                 <iframe
                     className="absolute top-0 left-0 w-full h-full border border-solid border-border rounded"

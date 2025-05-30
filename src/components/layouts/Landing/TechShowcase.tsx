@@ -15,17 +15,22 @@ const technologies = [
     { src: nestjs, alt: "NestJS" },
 ];
 
-const techIconClass = "w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] object-contain";
+const techIconClass =
+    "w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] object-contain";
 
 export const TechShowcase = () => {
     return (
         <div className="flex flex-col items-center justify-center gap-5 w-full bg-[#111] px-[30px] py-[120px] overflow-hidden relative">
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
-
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                         {technologies.map((tech, index) => (
-                            <img key={index} src={tech.src} alt={tech.alt} className={techIconClass} />
+                            <img
+                                key={index}
+                                src={tech.src}
+                                alt={tech.alt}
+                                className={techIconClass}
+                            />
                         ))}
                     </div>
 
@@ -34,9 +39,12 @@ export const TechShowcase = () => {
                             Powered by versatile programming languages
                         </h3>
                         <p className="text-sm text-white/70">
-                            Developed as a passion project, the game is still in progress and made using popular, flexible programming languages.
-                            Each repository is open source and welcome to contributions.
-                            The development team intentionally chose these technologies to explore new standards and expand their skills.
+                            Developed as a passion project, the game is still in
+                            progress and made using popular, flexible
+                            programming languages. Each repository is open
+                            source and welcome to contributions. The development
+                            team intentionally chose these technologies to
+                            explore new standards and expand their skills.
                         </p>
                     </div>
                 </div>
