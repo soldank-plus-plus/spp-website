@@ -9,8 +9,8 @@ import rct from "@/assets/technologies/rct.png";
 const technologies = [
     { src: cpp, alt: "C++" },
     { src: dart, alt: "Dart" },
-    { src: golang, alt: "Golang" },
-    { src: dascript, alt: "DaScript" },
+    { src: golang, alt: "Go" },
+    { src: dascript, alt: "DaSlang" },
     { src: rct, alt: "React" },
     { src: nestjs, alt: "NestJS" },
 ];
@@ -23,14 +23,16 @@ export const TechShowcase = () => {
         <div className="flex flex-col items-center justify-center gap-5 w-full bg-[#111] px-[30px] py-[120px] overflow-hidden relative">
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
                         {technologies.map((tech, index) => (
-                            <img
-                                key={index}
-                                src={tech.src}
-                                alt={tech.alt}
-                                className={techIconClass}
-                            />
+                            <div key={index} className="flex flex-col items-center">
+                                <img
+                                    src={tech.src}
+                                    alt={tech.alt}
+                                    className={techIconClass}
+                                />
+                                <p className="mt-2 text-white text-sm font-medium">{tech.alt}</p>
+                            </div>
                         ))}
                     </div>
 
