@@ -25,13 +25,18 @@ export const TechShowcase = () => {
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
                         {technologies.map((tech, index) => (
-                            <div key={index} className="flex flex-col items-center">
+                            <div
+                                key={index}
+                                className="flex flex-col items-center"
+                            >
                                 <img
                                     src={tech.src}
                                     alt={tech.alt}
                                     className={techIconClass}
                                 />
-                                <p className="mt-2 text-white text-sm font-medium">{tech.alt}</p>
+                                <p className="mt-2 text-white text-sm font-medium">
+                                    {tech.alt}
+                                </p>
                             </div>
                         ))}
                     </div>

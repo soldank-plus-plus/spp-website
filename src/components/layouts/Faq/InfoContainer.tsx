@@ -12,13 +12,17 @@ export const InfoContainer = () => {
                 transition={{ duration: 2, ease: "easeOut" }}
                 className="relative max-w-6xl w-full text-white"
             >
-                <h1 className="mt-60 mb-6 text-center">Frequently Asked Questions</h1>
+                <h1 className="mt-60 mb-6 text-center">
+                    Frequently Asked Questions
+                </h1>
 
                 <div className="mx-auto max-w-md space-y-4">
                     <p className="text-left">
-                        Find answers to the most common questions about gameplay, modes, and features.
-                        If you're new or curious, this is a great place to start. If you’d like to see
-                        what’s coming in the future, tap Roadmap to view our plan.
+                        Find answers to the most common questions about
+                        gameplay, modes, and features. If you're new or curious,
+                        this is a great place to start. If you’d like to see
+                        what’s coming in the future, tap Roadmap to view our
+                        plan.
                     </p>
 
                     <Button

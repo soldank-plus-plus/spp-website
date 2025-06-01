@@ -9,7 +9,6 @@ export const Header = () => {
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-sm">
             <div className="container flex justify-between items-center px-6 sm:px-12 lg:px-20 h-16">
-
                 {/* Desktop devices */}
                 <nav className="hidden md:flex items-center gap-4 sm:gap-6 lg:gap-8 text-sm font-tomorrow font-semibold uppercase">
                     <a

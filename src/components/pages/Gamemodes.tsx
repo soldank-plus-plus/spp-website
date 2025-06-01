@@ -8,10 +8,7 @@ const Gamemodes = () => {
         <>
             <Header />
             <main className="flex justify-center items-center min-h-screen px-4">
-                <img
-                    src={underconstr}
-                    alt="Under construction"
-                />
+                <img src={underconstr} alt="Under construction" />
             </main>
             <Footer />
         </>

@@ -11,10 +11,16 @@ export const Contact = () => {
                             You didn't find your question?
                         </h3>
                         <p className="text-sm text-white/70 [&_a]:underline [&_a:hover]:underline">
-                            For additional questions, the easiest and fastest way
-                            is to contact us at:  <a href="https://discord.gg/gvhsk8NZHD">
-                            https://discord.gg/gvhsk8NZHD</a> or  send an email to Nedi
-                            directly:  <a href="mailto:kknedi@gmail.com">kknedi@gmail.com</a>.
+                            For additional questions, the easiest and fastest
+                            way is to contact us at:{" "}
+                            <a href="https://discord.gg/gvhsk8NZHD">
+                                https://discord.gg/gvhsk8NZHD
+                            </a>{" "}
+                            or send an email to Nedi directly:{" "}
+                            <a href="mailto:kknedi@gmail.com">
+                                kknedi@gmail.com
+                            </a>
+                            .
                         </p>
                     </div>
 
