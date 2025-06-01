@@ -50,8 +50,6 @@ Thumbs.db
 
 # NestJS
 dist/
-*.js
-*.js.map
 
 # Vercel
 .vercel
