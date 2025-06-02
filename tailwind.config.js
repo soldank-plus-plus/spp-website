@@ -17,14 +17,16 @@ module.exports = {
             },
             colors: {
                 background: "#000000",
-                foreground: "#ffffff",
+                foreground: "#ebebeb",
                 primary: "#000000",
                 secondary: "#999999",
                 border: "#A6A8B4",
-                heading: "#ffffff",
+                heading: "#ebebeb",
                 dark: "#9CA3AF",
                 light: "#FFFFFFB3",
+                sombre: '#111111',
                 accent: "#2e4183",
+                accenthover: "#2c3350",
             },
             keyframes: {
                 "accordion-down": {

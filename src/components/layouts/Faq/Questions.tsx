@@ -58,7 +58,7 @@ export const Questions = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...baseTransition, delay: 0 }}
-                className="text-center mb-6 text-2xl font-semibold"
+                className="text-center text-heading mb-6 text-2xl font-semibold"
             >
                 Quick Answers
             </motion.h2>

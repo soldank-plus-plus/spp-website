@@ -25,7 +25,7 @@
         @apply text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl text-heading font-medium;
     }
     h3 {
-        @apply text-lg sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-accent font-medium;
+        @apply text-lg sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-heading font-medium;
     }
     h4 {
         @apply text-secondary font-semibold uppercase;
@@ -34,7 +34,7 @@
         @apply text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base text-secondary font-sans font-450;
     }
     a {
-        @apply text-secondary hover:text-white font-medium;
+        @apply text-secondary hover:text-heading font-medium;
     }
     ::-webkit-scrollbar {
         width: 8px;

@@ -15,7 +15,7 @@ export const Footer = () => {
             {/* Fix containers for better readability */}
             <div className="flex flex-col md:flex-row justify-between items-start w-full max-w-[1000px] mx-auto px-6 gap-10">
                 <div className="text-dark w-full md:w-auto flex flex-col gap-2 max-w-xs">
-                    <p className="text-3xl text-white font-tomorrow font-bold uppercase">
+                    <p className="text-3xl text-heading font-tomorrow font-bold uppercase">
                         Soldank++
                     </p>
                     <p className="text-sm bg-black opacity-80 font-semibold max-w-[280px]">

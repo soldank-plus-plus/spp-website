@@ -37,16 +37,15 @@ export const Hero = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xs mx-auto">
                     <Button
-                        size="lg"
-                        className="bg-accent hover:bg-accenthover w-full sm:w-auto"
-                    >
-                        Early Access
-                        <LucideArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    size="lg"
+                    variant="ghostInverted"
+                >
+                    Early Access
+                    <LucideArrowRight className="ml-2 h-4 w-4" />
+                </Button>
                     <Button
                         size="lg"
-                        variant="outline"
-                        className="w-full sm:w-auto "
+                        variant="default"
                     >
                         Contribute
                     </Button>

@@ -27,7 +27,7 @@ export const InfoContainer = () => {
 
                     <Button
                         size="lg"
-                        className="bg-accent hover:bg-accenthover w-full sm:w-auto"
+                        variant="ghostInverted"
                     >
                         Roadmap
                         <ListTodo className="ml-2 h-4 w-4" />

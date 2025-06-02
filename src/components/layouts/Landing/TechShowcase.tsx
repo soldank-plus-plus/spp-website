@@ -20,7 +20,7 @@ const techIconClass =
 
 export const TechShowcase = () => {
     return (
-        <div className="flex flex-col items-center justify-center gap-5 w-full bg-[#111] px-[30px] py-[120px] overflow-hidden relative">
+        <div className="flex flex-col items-center justify-center gap-5 w-full bg-sombre px-[30px] py-[120px] overflow-hidden relative">
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 text-center">
@@ -34,7 +34,7 @@ export const TechShowcase = () => {
                                     alt={tech.alt}
                                     className={techIconClass}
                                 />
-                                <p className="mt-2 text-white text-sm font-medium">
+                                <p className="mt-2 text-heading text-sm font-medium">
                                     {tech.alt}
                                 </p>
                             </div>
@@ -42,7 +42,7 @@ export const TechShowcase = () => {
                     </div>
 
                     <div className="flex flex-col justify-center items-start gap-y-4 text-left max-w-sm">
-                        <h3 className="text-white text-xl font-semibold">
+                        <h3 className="text-heading text-xl font-semibold">
                             Powered by versatile programming languages
                         </h3>
                         <p className="text-sm text-white/70">
