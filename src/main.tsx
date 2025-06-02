@@ -8,6 +8,8 @@ import Maps from "@/components/pages/Maps";
 import Learn from "@/components/pages/Learn";
 import Servers from "@/components/pages/Servers";
 import Faq from "@/components/pages/Faq";
+import Login from "@/components/sections/Login";
+import Signup from "@/components/sections/Signup";
 import Contributing from "@/components/sections/Contributing";
 import "./index.css";
 
@@ -22,6 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/learn" element={<Learn />} />
                 <Route path="/servers" element={<Servers />} />
                 <Route path="/faq" element={<Faq />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
                 <Route path="/contributing" element={<Contributing />} />
             </Routes>
         </BrowserRouter>

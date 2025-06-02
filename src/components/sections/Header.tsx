@@ -26,7 +26,7 @@ export const Header = () => {
                 </nav>
 
                 <div className="hidden md:flex items-center ml-4">
-                    <a href="/">
+                    <a href="/login">
                         <img
                             src={login}
                             alt="Login"
@@ -40,12 +40,12 @@ export const Header = () => {
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button variant="ghost" size="icon">
-                                <Menu className="h-6 w-6 text-white" />
+                                <Menu className="h-6 w-6 text-heading" />
                             </Button>
                         </SheetTrigger>
                         <SheetContent
                             side="left"
-                            className="bg-black/90 text-white overflow-y-auto"
+                            className="bg-black/90 text-heading overflow-y-auto"
                         >
                             <nav className="flex flex-col gap-4 mt-6 font-tomorrow font-semibold uppercase px-6">
                                 <Link to="/ranking">Ranking</Link>
