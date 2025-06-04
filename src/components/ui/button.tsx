@@ -22,7 +22,7 @@ const buttonVariants = cva(
                 ghostInverted:
                     "w-full sm:w-auto bg-accent hover:bg-transparent hover:bg-accenthover",
                 link:
-                    "text-primary underline-offset-4 hover:underline",
+                    "bg-background hover:bg-transparent hover:bg-sombre",
             },
             size: {
                 default: "h-10 rounded px-4 py-2",
