@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "@/components/pages/Landing";
+import Gameplay from "@/components/pages/Gameplay";
 import Ranking from "@/components/pages/Ranking";
 import Gamemodes from "@/components/pages/Gamemodes";
 import Maps from "@/components/pages/Maps";
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Landing />} />
+                <Route path="/gameplay" element={<Gameplay />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/gamemodes" element={<Gamemodes />} />
                 <Route path="/maps" element={<Maps />} />
