@@ -13,7 +13,7 @@ const faqItems = [
     {
         id: "item-1",
         question: "What exactly is Soldank++ about",
-        answer: 'Soldank++ is a unique 2D (side-view) arcade game based on legendary 2D Soldat game engine made by Nedi. The main part of the game is based on passing various maps of difficulty with the possibility of achieving faster time than other players. Side modes offer a variety of multiplayer options incluidng shooting competition, hide and seek, dodgeball, zombies and much more. List of full gameplay features can be found <a href="/gamemodes">here</a>.',
+        answer: 'Soldank++ is a unique 2D (side-view) arcade game based on legendary 2D Soldat game engine made by Nedi. The main part of the game is based on passing various maps of difficulty with the possibility of achieving faster time than other players. Side modes offer a variety of multiplayer options incluidng shooting competition, hide and seek, dodgeball, zombies and much more. List of full gameplay features can be found <a href="/gameplay">here</a>.',
     },
     {
         id: "item-2",

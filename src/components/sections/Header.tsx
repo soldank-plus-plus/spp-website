@@ -17,8 +17,8 @@ export const Header = () => {
                     >
                         S++
                     </a>
+                    <Link to="/gameplay">Gameplay</Link>
                     <Link to="/ranking">Ranking</Link>
-                    <Link to="/gamemodes">Gamemodes</Link>
                     <Link to="/maps">Maps</Link>
                     <Link to="/learn">Learn</Link>
                     <Link to="/servers">Servers</Link>
@@ -48,16 +48,17 @@ export const Header = () => {
                             className="bg-black/90 text-heading overflow-y-auto"
                         >
                             <nav className="flex flex-col gap-4 mt-6 font-tomorrow font-semibold uppercase px-6">
+                                <Link to="/">Home</Link>
+                                <Link to="/gameplay">Gameplay</Link>
                                 <Link to="/ranking">Ranking</Link>
-                                <Link to="/gamemodes">Gamemodes</Link>
                                 <Link to="/maps">Maps</Link>
                                 <Link to="/learn">Learn</Link>
                                 <Link to="/servers">Servers</Link>
                                 <Link to="/faq">FAQ</Link>
 
                                 <div className="pt-4 flex flex-col gap-2 w-full font-tomorrow">
-                                    <Button variant="ghost" className="w-full">
-                                        SIGN IN
+                                    <Button variant="ghost" className="w-full uppercase">
+                                        Sign in
                                     </Button>
                                 </div>
                             </nav>
