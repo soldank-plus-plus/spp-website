@@ -22,13 +22,13 @@
         @apply text-3xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl 2xl:text-5xl text-heading font-medium;
     }
     h2 {
-        @apply text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl text-heading font-medium;
+        @apply text-xl sm:text-xl md:text-xl lg:text-2xl xl:text-2xl 2xl:text-3xl text-heading font-semibold;
     }
     h3 {
-        @apply text-lg sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-heading font-medium;
+        @apply text-lg sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-heading font-semibold;
     }
     h4 {
-        @apply text-secondary font-semibold uppercase;
+        @apply text-heading font-semibold uppercase;
     }
     p {
         @apply text-base sm:text-base md:text-base lg:text-base xl:text-base 2xl:text-base text-secondary font-sans font-450;
