@@ -33,6 +33,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/contributing" element={<Contributing />} />
                 <Route path="/commits" element={<Commits />} />
                 <Route path="/roadmap" element={<Roadmap />} />
+
+                {/* Wildcard route - any unmatched url */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
