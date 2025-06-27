@@ -20,7 +20,7 @@ export const Header = () => {
                     <Link to="/gameplay">Gameplay</Link>
                     <Link to="/ranking">Ranking</Link>
                     <Link to="/maps">Maps</Link>
-                    <Link to="/learn">Learn</Link>
+                    <Link to="/gamemodes">Gamemodes</Link>
                     <Link to="/servers">Servers</Link>
                     <Link to="/faq">FAQ</Link>
                 </nav>

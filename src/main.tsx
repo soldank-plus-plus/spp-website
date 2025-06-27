@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/gameplay" element={<Gameplay />} />
                 <Route path="/ranking" element={<Ranking />} />
                 <Route path="/maps" element={<Maps />} />
-                <Route path="/learn" element={<Learn />} />
+                <Route path="/gamemodes" element={<Gamemodes />} />
                 <Route path="/servers" element={<Servers />} />
                 <Route path="/faq" element={<Faq />} />
                 <Route path="/login" element={<Login />} />
