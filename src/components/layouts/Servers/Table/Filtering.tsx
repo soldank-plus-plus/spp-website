@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
-
 export interface Server {
     gamemode: string;
     server: string;
@@ -21,9 +20,16 @@ interface Props {
     onStatsChange?: (stats: Stats) => void;
 }
 
-export const Filtering: React.FC<Props> = ({ data, onChange, onStatsChange }) => {
+export const Filtering: React.FC<Props> = ({
+    data,
+    onChange,
+    onStatsChange,
+}) => {
     const [filter, setFilter] = useState("");
-    const [sortConfig, setSortConfig] = useState<{ key: keyof Server; direction: "asc" | "desc" }>({
+    const [sortConfig, setSortConfig] = useState<{
+        key: keyof Server;
+        direction: "asc" | "desc";
+    }>({
         key: "gamemode",
         direction: "asc",
     });
@@ -80,16 +86,19 @@ export const Filtering: React.FC<Props> = ({ data, onChange, onStatsChange }) =>
                 return sum + (parsed ? parsed[0] : 0);
             }, 0);
 
-            onStatsChange({totalPlayers});
+            onStatsChange({ totalPlayers });
         }
     }, [filteredSortedData, onChange, onStatsChange]);
 
     const sortingHandler = (key: keyof Server) => {
         setSortConfig((current) => {
             if (current.key === key) {
-                return {key, direction: current.direction === "asc" ? "desc" : "asc"};
+                return {
+                    key,
+                    direction: current.direction === "asc" ? "desc" : "asc",
+                };
             }
-            return {key, direction: "asc"};
+            return { key, direction: "asc" };
         });
     };
 
@@ -97,7 +106,7 @@ export const Filtering: React.FC<Props> = ({ data, onChange, onStatsChange }) =>
         <div className="w-full flex justify-center mb-6">
             <div className="flex flex-wrap items-center justify-center gap-4 max-w-4xl w-full px-4">
                 <div className="relative flex-1 min-w-[200px] max-w-sm">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"/>
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
                     <Input
                         type="text"
                         placeholder="Search servers, gamemode, map..."
@@ -109,7 +118,15 @@ export const Filtering: React.FC<Props> = ({ data, onChange, onStatsChange }) =>
                 </div>
 
                 <div className="flex flex-wrap gap-2 justify-center">
-                    {(["gamemode", "players", "map", "server", "latency"] as (keyof Server)[]).map((key) => (
+                    {(
+                        [
+                            "gamemode",
+                            "players",
+                            "map",
+                            "server",
+                            "latency",
+                        ] as (keyof Server)[]
+                    ).map((key) => (
                         <button
                             key={key}
                             onClick={() => sortingHandler(key)}
@@ -121,7 +138,12 @@ export const Filtering: React.FC<Props> = ({ data, onChange, onStatsChange }) =>
                                     : "bg-sombre text-secondary"
                             }`}
                         >
-                            {key.charAt(0).toUpperCase() + key.slice(1)} {sortConfig.key === key ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+                            {key.charAt(0).toUpperCase() + key.slice(1)}{" "}
+                            {sortConfig.key === key
+                                ? sortConfig.direction === "asc"
+                                    ? "▲"
+                                    : "▼"
+                                : ""}
                         </button>
                     ))}
                 </div>

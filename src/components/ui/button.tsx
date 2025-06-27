@@ -11,18 +11,14 @@ const buttonVariants = cva(
             variant: {
                 default:
                     "border border-input bg-background hover:bg-transparent hover:bg-sombre",
-                destructive:
-                    "bg-background bg-sombre hover:bg-primary",
+                destructive: "bg-background bg-sombre hover:bg-primary",
                 outline:
                     "w-full bg-sombre text-white hover:bg-black border border-white/20",
-                secondary:
-                    "w-full bg-white text-black hover:bg-neutral-200",
-                ghost:
-                    "hover:bg-accent hover:text-accent-foreground",
+                secondary: "w-full bg-white text-black hover:bg-neutral-200",
+                ghost: "hover:bg-accent hover:text-accent-foreground",
                 ghostInverted:
                     "w-full sm:w-auto bg-accent hover:bg-transparent hover:bg-accenthover",
-                link:
-                    "bg-background hover:bg-transparent hover:bg-sombre",
+                link: "bg-background hover:bg-transparent hover:bg-sombre",
             },
             size: {
                 default: "h-10 rounded px-4 py-2",

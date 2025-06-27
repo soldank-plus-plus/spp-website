@@ -12,8 +12,10 @@ const YourServer = () => {
                     Host your own server
                 </h2>
                 <p className="text-sm text-white/70">
-                    Launch a dedicated server and fully control your gameplay experience. <br />
-                    Customize your rules, maps, mods, and player limits — perfect for communities and private events.
+                    Launch a dedicated server and fully control your gameplay
+                    experience. <br />
+                    Customize your rules, maps, mods, and player limits —
+                    perfect for communities and private events.
                 </p>
                 <Button asChild variant="default">
                     <Link

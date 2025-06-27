@@ -7,9 +7,9 @@ const Gamemodes = () => {
     return (
         <>
             <Header />
-                <main>
-                    <List />
-                </main>
+            <main>
+                <List />
+            </main>
             <Footer />
         </>
     );

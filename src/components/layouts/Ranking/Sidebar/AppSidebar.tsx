@@ -6,13 +6,18 @@ import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { GoSidebarExpand, GoSidebarCollapse } from "react-icons/go";
 import { LogOutIcon } from "lucide-react";
-import { navStructure, NavItem } from "@/components/layouts/Ranking/Sidebar/NavStructure";
+import {
+    navStructure,
+    NavItem,
+} from "@/components/layouts/Ranking/Sidebar/NavStructure";
 
 export function AppSidebar() {
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [desktopOpen, setDesktopOpen] = useState(true);
-    const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+    const [openSections, setOpenSections] = useState<Record<string, boolean>>(
+        {}
+    );
     const [searchQuery, setSearchQuery] = useState("");
 
     const toggleSection = (label: string) => {
@@ -25,9 +30,12 @@ export function AppSidebar() {
                 const subItems = item.subItems?.filter((sub) =>
                     sub.label.toLowerCase().includes(searchQuery.toLowerCase())
                 );
-                const matchesMain = item.label.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesMain = item.label
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase());
 
-                if (!matchesMain && (!subItems || subItems.length === 0)) return null;
+                if (!matchesMain && (!subItems || subItems.length === 0))
+                    return null;
 
                 return {
                     ...item,
@@ -74,7 +82,8 @@ export function AppSidebar() {
             <nav className="flex-1 px-2 py-4 space-y-2">
                 {filterNav(navStructure).map((item) => {
                     const isActive = location.pathname === item.path;
-                    const hasSubItems = item.subItems && item.subItems.length > 0;
+                    const hasSubItems =
+                        item.subItems && item.subItems.length > 0;
 
                     return (
                         <div key={item.label}>
@@ -84,7 +93,9 @@ export function AppSidebar() {
                                     onClick={() => setMobileOpen(false)}
                                     className={cn(
                                         "flex items-center gap-2 px-3 py-2 rounded hover:bg-muted/70",
-                                        isActive ? "bg-muted text-primary" : "text-default",
+                                        isActive
+                                            ? "bg-muted text-primary"
+                                            : "text-default",
                                         !desktopOpen && "justify-center"
                                     )}
                                 >
@@ -97,7 +108,9 @@ export function AppSidebar() {
                                     onClick={() => toggleSection(item.label)}
                                     className={cn(
                                         "w-full flex items-center gap-2 px-3 py-2 rounded hover:bg-muted/70",
-                                        location.pathname.startsWith(`/gameplay/${item.label.toLowerCase()}`)
+                                        location.pathname.startsWith(
+                                            `/gameplay/${item.label.toLowerCase()}`
+                                        )
                                             ? "bg-muted text-primary"
                                             : "text-default",
                                         !desktopOpen && "justify-center"
@@ -108,26 +121,33 @@ export function AppSidebar() {
                                 </button>
                             )}
 
-                            {desktopOpen && openSections[item.label] && hasSubItems && (
-                                <div className="ml-6">
-                                    {item.subItems!.map((sub) => {
-                                        const subIsActive = location.pathname === sub.path;
-                                        return (
-                                            <Link
-                                                key={sub.label}
-                                                to={sub.path}
-                                                onClick={() => setMobileOpen(false)}
-                                                className={cn(
-                                                    "block w-full px-2 py-1 text-sm rounded hover:bg-muted/70",
-                                                    subIsActive ? "bg-muted text-primary" : "text-default"
-                                                )}
-                                            >
-                                                {sub.label}
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-                            )}
+                            {desktopOpen &&
+                                openSections[item.label] &&
+                                hasSubItems && (
+                                    <div className="ml-6">
+                                        {item.subItems!.map((sub) => {
+                                            const subIsActive =
+                                                location.pathname === sub.path;
+                                            return (
+                                                <Link
+                                                    key={sub.label}
+                                                    to={sub.path}
+                                                    onClick={() =>
+                                                        setMobileOpen(false)
+                                                    }
+                                                    className={cn(
+                                                        "block w-full px-2 py-1 text-sm rounded hover:bg-muted/70",
+                                                        subIsActive
+                                                            ? "bg-muted text-primary"
+                                                            : "text-default"
+                                                    )}
+                                                >
+                                                    {sub.label}
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                         </div>
                     );
                 })}

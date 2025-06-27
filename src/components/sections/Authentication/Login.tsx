@@ -1,13 +1,20 @@
-import React from "react"
+import React from "react";
 import { Header } from "@/components/sections/Header";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Footer } from "@/components/sections/Footer";
 
-const Login = function() {
+const Login = function () {
     return (
         <>
             <Header />
@@ -16,14 +23,17 @@ const Login = function() {
                     <CardHeader>
                         <CardTitle>Sign in</CardTitle>
                         <CardDescription>
-                            Enter your email or username below to login to your account
+                            Enter your email or username below to login to your
+                            account
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form>
                             <div className="flex flex-col gap-6">
                                 <div className="grid gap-2 ">
-                                    <Label htmlFor="email">Email/username</Label>
+                                    <Label htmlFor="email">
+                                        Email/username
+                                    </Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -33,7 +43,9 @@ const Login = function() {
                                 </div>
                                 <div className="grid gap-2">
                                     <div className="flex items-center">
-                                        <Label htmlFor="password">Password</Label>
+                                        <Label htmlFor="password">
+                                            Password
+                                        </Label>
                                         <a
                                             href="#"
                                             className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
@@ -41,7 +53,11 @@ const Login = function() {
                                             Forgot your password?
                                         </a>
                                     </div>
-                                    <Input id="password" type="password" required />
+                                    <Input
+                                        id="password"
+                                        type="password"
+                                        required
+                                    />
                                 </div>
                             </div>
                         </form>

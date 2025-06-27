@@ -8,10 +8,10 @@ const Servers = () => {
     return (
         <>
             <Header />
-                <main>
-                    <Fetching />
-                    <YourServer />
-                </main>
+            <main>
+                <Fetching />
+                <YourServer />
+            </main>
             <Footer />
         </>
     );

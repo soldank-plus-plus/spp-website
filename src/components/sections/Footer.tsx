@@ -23,9 +23,7 @@ export const Footer = () => {
                         icons & software logos are the property of their
                         respective owners.
                     </p>
-                    <p className="font-semibold">
-                        © 2025 Soldank++
-                    </p>
+                    <p className="font-semibold">© 2025 Soldank++</p>
                 </div>
 
                 <div className="text-dark w-full md:w-auto">

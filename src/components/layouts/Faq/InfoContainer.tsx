@@ -13,7 +13,6 @@ export const InfoContainer = () => {
                 transition={{ duration: 1.2, ease: "easeOut" }}
                 className="relative max-w-6xl w-full text-white"
             >
-
                 <motion.h1
                     className="mt-60 mb-6 text-center"
                     initial={{ y: 40, opacity: 0 }}
@@ -40,7 +39,11 @@ export const InfoContainer = () => {
                     <motion.div
                         initial={{ x: -300, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
+                        transition={{
+                            duration: 1,
+                            delay: 0.6,
+                            ease: "easeOut",
+                        }}
                     >
                         <Button asChild size="lg" variant="ghostInverted">
                             <Link

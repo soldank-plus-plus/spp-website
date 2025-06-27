@@ -57,7 +57,10 @@ export const Header = () => {
                                 <Link to="/faq">FAQ</Link>
 
                                 <div className="pt-4 flex flex-col gap-2 w-full font-tomorrow">
-                                    <Button variant="ghost" className="w-full uppercase">
+                                    <Button
+                                        variant="ghost"
+                                        className="w-full uppercase"
+                                    >
                                         Sign in
                                     </Button>
                                 </div>

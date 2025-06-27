@@ -17,12 +17,12 @@ const directionMap = {
 };
 
 export const SlideInSection: React.FC<SlideInSectionProps> = ({
-                                                                  children,
-                                                                  direction = "up",
-                                                                  delay = 0,
-                                                                  once = true,
-                                                                  className = "",
-                                                              }) => {
+    children,
+    direction = "up",
+    delay = 0,
+    once = true,
+    className = "",
+}) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once, margin: "-100px" });
     const initialPos = directionMap[direction];

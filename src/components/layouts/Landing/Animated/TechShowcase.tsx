@@ -24,12 +24,19 @@ const techIconClass =
 
 export const TechShowcase = () => {
     return (
-        <SlideInSection direction="left" className="flex flex-col items-center justify-center gap-5 w-full bg-sombre px-[30px] py-[120px] overflow-hidden relative">
+        <SlideInSection
+            direction="left"
+            className="flex flex-col items-center justify-center gap-5 w-full bg-sombre px-[30px] py-[120px] overflow-hidden relative"
+        >
             <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
                 <div className="grid grid-cols-3 gap-6 text-center">
                     {technologies.map((tech, index) => (
                         <div key={index} className="flex flex-col items-center">
-                            <img src={tech.src} alt={tech.alt} className={techIconClass} />
+                            <img
+                                src={tech.src}
+                                alt={tech.alt}
+                                className={techIconClass}
+                            />
                             <p className="mt-2 text-heading text-sm font-medium">
                                 {tech.alt}
                             </p>
@@ -39,11 +46,12 @@ export const TechShowcase = () => {
                 <div className="flex flex-col justify-center items-start gap-y-4 text-left max-w-sm">
                     <h3>Powered by versatile programming languages</h3>
                     <p className="text-sm text-white/70">
-                        Developed as a passion project, the game is still in progress and
-                        made using popular, flexible programming languages. Each repository
-                        is open source and welcome to contributions. The development team
-                        intentionally chose these technologies to explore new standards and
-                        expand their skills.
+                        Developed as a passion project, the game is still in
+                        progress and made using popular, flexible programming
+                        languages. Each repository is open source and welcome to
+                        contributions. The development team intentionally chose
+                        these technologies to explore new standards and expand
+                        their skills.
                     </p>
                     <Button asChild variant="destructive">
                         <Link

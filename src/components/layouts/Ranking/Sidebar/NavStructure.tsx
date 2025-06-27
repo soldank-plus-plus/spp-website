@@ -33,21 +33,17 @@ export const navStructure: NavItem[] = [
     {
         label: "Records",
         icon: <GiMountainClimbing className="h-5 w-5" />,
-        subItems: [
-            "Latest climbs",
-            "Positions obtained",
-            "Coops",
-        ].map((item) => ({
-            label: item,
-            path: `/gameplay/${item.toLowerCase().replace(/\s+/g, "-")}`,
-        })),
+        subItems: ["Latest climbs", "Positions obtained", "Coops"].map(
+            (item) => ({
+                label: item,
+                path: `/gameplay/${item.toLowerCase().replace(/\s+/g, "-")}`,
+            })
+        ),
     },
     {
         label: "Tournaments",
         icon: <CiTrophy className="h-5 w-5" />,
-        subItems: [
-            "2026",
-        ].map((item) => ({
+        subItems: ["2026"].map((item) => ({
             label: item,
             path: `/gameplay/${item.toLowerCase().replace(/\s+/g, "-")}`,
         })),

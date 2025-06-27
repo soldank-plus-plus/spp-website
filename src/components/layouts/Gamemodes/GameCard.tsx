@@ -8,7 +8,12 @@ interface GameCardProps {
     link: string;
 }
 
-export const GameCard: React.FC<GameCardProps> = ({ title, description, image, link }) => {
+export const GameCard: React.FC<GameCardProps> = ({
+    title,
+    description,
+    image,
+    link,
+}) => {
     return (
         <Link
             to={link}

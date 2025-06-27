@@ -11,7 +11,7 @@ export type Server = {
     name: string;
     num_bots: number;
     os: string;
-    players:any[];
+    players: any[];
     port: number;
     private: boolean;
     realistic: boolean;

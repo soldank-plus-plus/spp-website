@@ -54,7 +54,11 @@ export const Hero = () => {
                     <motion.div
                         initial={{ x: -300, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ duration: 1, delay: 1.4, ease: "easeOut" }}
+                        transition={{
+                            duration: 1,
+                            delay: 1.4,
+                            ease: "easeOut",
+                        }}
                     >
                         <Button asChild size="lg" variant="ghostInverted">
                             <Link
@@ -70,7 +74,11 @@ export const Hero = () => {
                     <motion.div
                         initial={{ x: 300, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        transition={{ duration: 1, delay: 1.6, ease: "easeOut" }}
+                        transition={{
+                            duration: 1,
+                            delay: 1.6,
+                            ease: "easeOut",
+                        }}
                     >
                         <Button size="lg" variant="default">
                             <Link

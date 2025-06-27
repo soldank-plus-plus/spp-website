@@ -11,10 +11,10 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '/api': {
-                target: 'https://api.soldankpp.app',
+            "/api": {
+                target: "https://api.soldankpp.app",
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ''),
+                rewrite: (path) => path.replace(/^\/api/, ""),
             },
         },
     },
