@@ -15,7 +15,7 @@ import Contributing from "@/components/sections/Contributing";
 import Commits from "@/components/sections/Commits";
 import Hosting from "@/components/sections/Hosting";
 import Roadmap from "@/components/sections/Roadmap";
-import "./index.css";
+import NotFound from "@/components/sections/NotFound";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
