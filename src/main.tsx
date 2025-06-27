@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from '@/hooks/ScrollToTop';
 import "./index.css";
 
 import Landing from "@/components/pages/Landing";
@@ -24,6 +25,7 @@ import NotFound from "@/components/sections/NotFound";
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/gameplay" element={<Gameplay />} />
@@ -40,7 +42,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/hosting" element={<Hosting />} />
                 <Route path="/roadmap" element={<Roadmap />} />
 
-                {/* Wildcard route - any unmatched url */}
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
