@@ -1,15 +1,17 @@
 import React from "react";
 import { Header } from "@/components/sections/Header";
+import Fetching from "@/components/layouts/Servers/Table/Fetching";
+import YourServer from "@/components/layouts/Servers/Hosting/YourServer";
 import { Footer } from "@/components/sections/Footer";
-import underconstr from "@/assets/icons/underconstr.png";
 
 const Servers = () => {
     return (
         <>
             <Header />
-            <main className="flex justify-center items-center min-h-screen px-4">
-                <img src={underconstr} alt="Under construction" />
-            </main>
+                <main>
+                    <Fetching />
+                    <YourServer />
+                </main>
             <Footer />
         </>
     );

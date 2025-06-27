@@ -1,0 +1,22 @@
+export type Server = {
+    advanced: boolean;
+    anti_cheat_on: boolean;
+    bonus_frequency: number;
+    country: string;
+    current_map: string;
+    game_style: string;
+    ip: string;
+    info: string;
+    max_players: number;
+    name: string;
+    num_bots: number;
+    os: string;
+    players:any[];
+    port: number;
+    private: boolean;
+    realistic: boolean;
+    respawn: number;
+    survival: boolean;
+    version: string;
+    wm: boolean;
+};
