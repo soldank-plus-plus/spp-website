@@ -5,7 +5,7 @@ import Landing from "@/components/pages/Landing";
 import Gameplay from "@/components/pages/Gameplay";
 import Ranking from "@/components/pages/Ranking";
 import Maps from "@/components/pages/Maps";
-import Learn from "@/components/pages/Learn";
+import Gamemodes from "@/components/pages/Gamemodes";
 import Servers from "@/components/pages/Servers";
 import Faq from "@/components/pages/Faq";
 import Login from "@/components/sections/Authentication/Login";

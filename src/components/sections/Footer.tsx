@@ -24,7 +24,7 @@ export const Footer = () => {
                         respective owners.
                     </p>
                     <p className="font-semibold">
-                        © 2025 Soldank++ Development
+                        © 2025 Soldank++
                     </p>
                 </div>
 
@@ -32,32 +32,32 @@ export const Footer = () => {
                     <h4>Links</h4>
                     <ul className="space-y-1 text-sm">
                         <li>
-                            <a href="#" className="hover:underline">
+                            <a href="/ranking" className="hover:underline">
                                 Ranking
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
-                                Gamemodes
+                            <a href="/gameplay" className="hover:underline">
+                                Gameplay
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
+                            <a href="/maps" className="hover:underline">
                                 Maps
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
-                                Learn
+                            <a href="/gamemodes" className="hover:underline">
+                                Gamemodes
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
+                            <a href="/servers" className="hover:underline">
                                 Servers
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="hover:underline">
+                            <a href="/faq" className="hover:underline">
                                 FAQ
                             </a>
                         </li>
