@@ -3,7 +3,7 @@ import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import underconstr from "@/assets/icons/underconstr.png";
 
-const Learn = () => {
+const Hosting = () => {
     return (
         <>
             <Header />
@@ -15,4 +15,4 @@ const Learn = () => {
     );
 };
 
-export default Learn;
+export default Hosting;

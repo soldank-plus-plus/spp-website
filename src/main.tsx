@@ -13,6 +13,7 @@ import Signup from "@/components/sections/Authentication/Signup";
 import EarlyAccess from "@/components/sections/EarlyAccess";
 import Contributing from "@/components/sections/Contributing";
 import Commits from "@/components/sections/Commits";
+import Hosting from "@/components/sections/Hosting";
 import Roadmap from "@/components/sections/Roadmap";
 import "./index.css";
 
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/earlyaccess" element={<EarlyAccess />} />
                 <Route path="/contributing" element={<Contributing />} />
                 <Route path="/commits" element={<Commits />} />
+                <Route path="/hosting" element={<Hosting />} />
                 <Route path="/roadmap" element={<Roadmap />} />
 
                 {/* Wildcard route - any unmatched url */}

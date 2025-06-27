@@ -3,7 +3,7 @@ import { Header } from "@/components/sections/Header";
 import { Footer } from "@/components/sections/Footer";
 import underconstr from "@/assets/icons/underconstr.png";
 
-const Contributing = () => {
+const Commits = () => {
     return (
         <>
             <Header />
@@ -15,4 +15,4 @@ const Contributing = () => {
     );
 };
 
-export default Contributing;
+export default Commits;
