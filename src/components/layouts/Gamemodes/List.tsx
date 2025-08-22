@@ -2,12 +2,12 @@ import React from "react";
 import { GameCard } from "@/components/layouts/Gamemodes/GameCard";
 import { motion } from "framer-motion";
 
-import aimlabsImg from "@/assets/gamemodes/aimlabs.jpg";
 import boostmodeImg from "@/assets/gamemodes/boostmode.png";
+import capturetheflagImg from "@/assets/gamemodes/capturetheflag.png";
 import comingsoonImg from "@/assets/gamemodes/comingsoon.jpg";
-import portalImg from "@/assets/gamemodes/portal.jpg";
-import prophuntImg from "@/assets/gamemodes/prophunt.jpg";
-import runmodeImg from "@/assets/gamemodes/runmode.png";
+import hoverraceImg from "@/assets/gamemodes/hoverrace.png";
+import portalImg from "@/assets/gamemodes/portal.png";
+import saveclimbImg from "@/assets/gamemodes/saveclimb.png";
 
 interface Game {
     title: string;
@@ -21,7 +21,7 @@ const games: Game[] = [
         title: "Aimlab",
         description:
             "Training platform to help sharpen up your core aiming skills, similar to the Aimlabs game.",
-        image: aimlabsImg,
+        image: comingsoonImg,
         link: "#",
     },
     {
@@ -35,7 +35,7 @@ const games: Game[] = [
         title: "Capture The Flag",
         description:
             "The goal is for each team to steal the enemy's flag and bring it to your own base.",
-        image: comingsoonImg,
+        image: capturetheflagImg,
         link: "#",
     },
     {
@@ -70,7 +70,7 @@ const games: Game[] = [
         title: "Hoverrace",
         description:
             "The Minigun’s rapid backward-fired pellets generate strong recoil, causing significant backward momentum.",
-        image: comingsoonImg,
+        image: hoverraceImg,
         link: "#",
     },
     {
@@ -105,7 +105,7 @@ const games: Game[] = [
         title: "Prop Hunt",
         description:
             "The props are disguised as objects around the map and merge with the environment hiding from the hunter.",
-        image: prophuntImg,
+        image: comingsoonImg,
         link: "#",
     },
     {
@@ -119,14 +119,14 @@ const games: Game[] = [
         title: "Runmode",
         description:
             "Fast-paced gamemode focused on speedrunning through custom maps and their routes, improving your movement speed.",
-        image: runmodeImg,
+        image: comingsoonImg,
         link: "#",
     },
     {
         title: "Save Climb",
         description:
             "This mode is just like the main climb gamemode, but you get 5 saves per map.",
-        image: comingsoonImg,
+        image: saveclimbImg,
         link: "#",
     },
     {
