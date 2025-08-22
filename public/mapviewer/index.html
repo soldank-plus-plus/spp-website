@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>Mapviewer</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="lib/jquery-1.11.2.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="src/jszip/dist/jszip.js"></script>
+    <script src="src/jsziputils/dist/jszip-utils.js"></script>
+    <script src="src/filesaver.js"></script>
+    <script src="src/fuzzy.js"></script>
+    <script src="src/gfx.js"></script>
+    <script src="src/map.js"></script>
+    <script src="src/render.js?"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-133296170-1');
+    </script>
+</head>
+<body class="loading">
+<div class="loader">LOADING</div>
+<div class="error">MAP NOT FOUND</div>
+<canvas></canvas>
+<div id="search-container" class="ui-widget">
+    <input id="search" placeholder="Search maps..." />
+    <button id="photo" class="screenshot">📷</button>
+    <input hidden id="screenshot-scale" value="1x" size="5" />
+</div>
+<div id="map_box">
+    <div class="map-row" id="map-name">
+        <p id="map"></p>
+    </div>
+    <div class="map-row" id="desc" style="margin-bottom: 3em;font-size: 1.2vh"></div>
+    <div class="map-row" id="author" target="_blank"></div>
+    <div class="map-row" id="cat"></div>
+    <div class="map-row" id="texture">
+        <span class="label">Texture:</span>
+        <a id="texture-name" class="texture-link" target="_blank"></a>
+        <a id="txtdwn" class="screenshot" target="_blank">&#128229;</a>
+    </div>
+    <div class="map-row" id="polies"></div>
+    <div class="map-row" id="spawns"></div>
+    <div class="map-row" id="jets"></div>
+    <div style="text-align: center; padding: 20px 8px;">
+        <a id="dwnbutton" class="button3"></a>
+    </div>
+</div>
+<div class="view-options">
+    <div>
+        <input checked="checked" id="cfg-background" type="checkbox" />
+        <label for="cfg-background"></label><label for="cfg-background">Background</label>
+    </div>
+    <div>
+        <input checked="checked" id="cfg-polygons" type="checkbox" />
+        <label for="cfg-polygons"></label><label for="cfg-polygons">Polygons</label>
+    </div>
+    <div>
+        <input checked="checked" id="cfg-texture" type="checkbox" />
+        <label for="cfg-texture"></label><label for="cfg-texture">Texture</label>
+    </div>
+    <div>
+        <input id="cfg-wireframe" type="checkbox" />
+        <label for="cfg-wireframe"></label><label for="cfg-wireframe">Wireframe</label>
+    </div>
+    <div>
+        <input id="cfg-colliders" type="checkbox" />
+        <label for="cfg-colliders"></label><label for="cfg-colliders">Colliders</label>
+    </div>
+    <div>
+        <input checked="checked" id="cfg-scenery" type="checkbox" />
+        <label for="cfg-scenery"></label><label for="cfg-scenery">Scenery</label>
+    </div>
+    <div id="cfg-scenery-options" class="indent">
+        <div>
+            <input checked="checked" id="cfg-scenery_back" type="checkbox" />
+            <label for="cfg-scenery_back"></label><label for="cfg-scenery_back">Back</label>
+        </div>
+        <div>
+            <input checked="checked" id="cfg-scenery_middle" type="checkbox" />
+            <label for="cfg-scenery_middle"></label><label for="cfg-scenery_middle">Middle</label>
+        </div>
+        <div>
+            <input checked="checked" id="cfg-scenery_front" type="checkbox" />
+            <label for="cfg-scenery_front"></label><label for="cfg-scenery_front">Front</label>
+        </div>
+    </div>
+    <div>
+        <input checked="checked" id="cfg-objects" type="checkbox" />
+        <label for="cfg-objects"></label><label for="cfg-objects">Spawns</label>
+    </div>
+    <div id="cfg-objects-options" class="indent">
+        <script>
+            (function(options) {
+                for (var i = 0, n = options.length; i < n; i++)
+                {
+                    document.writeln("<div>");
+                    document.writeln("<input checked id=\"cfg-objects_" + i + "\" type=\"checkbox\" />");
+                    document.writeln("<label for=\"cfg-objects_" + i + "\"></label>" +
+                        "<label for=\"cfg-objects_" + i + "\">" + options[i] + "</label>");
+                    document.writeln("</div>");
+                }
+            })([
+                "General",
+                "Alpha",
+                "Bravo",
+                "Charlie",
+                "Delta",
+                "Alpha Flag",
+                "Bravo Flag",
+                "Grenades",
+                "Medkits",
+                "Clusters",
+                "Vest",
+                "Flamer",
+                "Berserker",
+                "Predator",
+                "Yellow Flag",
+                "Rambo Bow",
+                "Stat Gun"
+            ]);
+        </script>
+    </div>
+    <div>
+        <input id="cfg-highlight" type="checkbox" />
+        <label for="cfg-highlight"></label><label for="cfg-highlight">Highlight polygons</label>
+    </div>
+    <div id="cfg-highlight-options" class="indent">
+        <script>
+            (function(options) {
+                for (var i = 0, n = options.length; i < n; i++)
+                {
+                    document.writeln("<div>");
+                    document.writeln("<input id=\"cfg-highlight_" + i + "\" type=\"checkbox\" />");
+                    document.writeln("<label for=\"cfg-highlight_" + i + "\"></label>" +
+                        "<label for=\"cfg-highlight_" + i + "\">" + options[i] + "</label>");
+                    document.writeln("</div>");
+                }
+            })([
+                "Normal",
+                "Only Bullets Collide",
+                "Only Players Collide",
+                "No Collide",
+                "Ice",
+                "Deadly",
+                "Bloody deadly",
+                "Hurts",
+                "Regenerates",
+                "Lava",
+                "Alpha Bullets",
+                "Alpha Players",
+                "Bravo Bullets",
+                "Bravo Players",
+                "Charlie Bullets",
+                "Charlie Players",
+                "Delta Bullets",
+                "Delta Players",
+                "Bouncy",
+                "Explosive",
+                "Hurt Flaggers",
+                "Flagger Collides",
+                "Non Flagger Collides",
+                "Flag Collides",
+                "Background",
+                "Background Transition"
+            ]);
+        </script>
+    </div>
+</div>
+<script src="src/app.js"></script>
+</body>
+</html>
