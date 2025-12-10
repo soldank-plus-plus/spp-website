@@ -21,12 +21,6 @@ import Hosting from "@/components/layouts/Servers/YourServer/Hosting/Hosting";
 import Roadmap from "@/components/layouts/Faq/Roadmap/Roadmap";
 import NotFound from "@/components/sections/NotFound";
 
-// Icons
-import { PiRanking } from "react-icons/pi";
-import { GiMountainClimbing } from "react-icons/gi";
-import { CiTrophy } from "react-icons/ci";
-import { MdAccountCircle } from "react-icons/md";
-
 export interface AppRoute {
     path: string;
     element: React.ReactNode;
@@ -40,6 +34,8 @@ export const appRoutes: AppRoute[] = [
     { path: "/", element: <Landing />, hidden: true },
     { path: "*", element: <NotFound />, hidden: true },
 
+    { path: "/gameplay", element: <Gameplay />, hidden: true },
+    { path: "/ranking", element: <Ranking />, hidden: true },
     { path: "/maps", element: <Maps />, hidden: true },
     { path: "/gamemodes", element: <Gamemodes />, hidden: true },
     { path: "/servers", element: <Servers />, hidden: true },
@@ -53,51 +49,4 @@ export const appRoutes: AppRoute[] = [
     { path: "/commits", element: <Commits />, hidden: true },
     { path: "/hosting", element: <Hosting />, hidden: true },
     { path: "/roadmap", element: <Roadmap />, hidden: true },
-
-    // Sidebar in ranking page
-    {
-        path: "/ranking",
-        element: <Ranking />,
-        label: "Rankings",
-        icon: <PiRanking className="h-5 w-5" />,
-        children: [
-            { path: "climbed-maps", element: <Gameplay />, label: "Climbed maps" },
-            { path: "gold-medals", element: <Gameplay />, label: "Gold medals" },
-            { path: "hardest-maps", element: <Gameplay />, label: "Hardest maps" },
-            { path: "duels-won", element: <Gameplay />, label: "Duels won" },
-        ],
-    },
-
-    {
-        path: "/records",
-        element: <Gameplay />,
-        label: "Records",
-        icon: <GiMountainClimbing className="h-5 w-5" />,
-        children: [
-            { path: "latest-climbs", element: <Gameplay />, label: "Latest climbs" },
-            { path: "positions-obtained", element: <Gameplay />, label: "Positions obtained" },
-            { path: "coops", element: <Gameplay />, label: "Coops" },
-        ],
-    },
-
-    {
-        path: "/tournaments",
-        element: <Gameplay />,
-        label: "Tournaments",
-        icon: <CiTrophy className="h-5 w-5" />,
-        children: [{ path: "2026", element: <Gameplay />, label: "2026" }],
-    },
-
-    {
-        path: "/account",
-        element: <Gameplay />,
-        label: "Account",
-        icon: <MdAccountCircle className="h-5 w-5" />,
-        children: [
-            { path: "climbing-records", element: <Gameplay />, label: "Climbing records" },
-            { path: "your-medals", element: <Gameplay />, label: "Your medals" },
-            { path: "maps-created", element: <Gameplay />, label: "Maps created" },
-            { path: "clan-info", element: <Gameplay />, label: "Clan info" },
-        ],
-    },
 ];
