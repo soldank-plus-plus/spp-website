@@ -1,0 +1,150 @@
+export const features = {
+    core: [
+        {
+            name: "All movement animations (running, jumping, changing weapon, etc..)",
+            status: "done",
+        },
+        {
+            name: "Basic movement physics (collision detection with the map, gravity affecting soldiers, being able to move around the map)",
+            status: "done",
+        },
+        {
+            name: "Shared library containing core of the game (to be used by both client and server)",
+            status: "done",
+        },
+        { name: "Dropping/picking up weapons", status: "done" },
+        {
+            name: "Bullet physics (collision detection with map, soldiers, objects)",
+            status: "planned",
+        },
+        { name: "Spawning bullets from all the weapons", status: "planned" },
+        { name: "Interval between shots", status: "planned" },
+        { name: "Ammo (reloading weapons)", status: "planned" },
+        { name: "Spawning grenades", status: "planned" },
+        {
+            name: "Grenades physics (collision detection with map, soldiers, objects)",
+            status: "planned",
+        },
+        { name: "Other objects physics (flags, kits etc.)", status: "planned" },
+        {
+            name: "Implement game mode system (generic way to create rules for various game modes) and add Soldat game modes",
+            status: "planned",
+        },
+        { name: "All polygon types physics", status: "planned" },
+        { name: "Bots", status: "planned" },
+        { name: "Sounds", status: "planned" },
+        { name: "Parachute", status: "planned" },
+        {
+            name: "Experiment with collision resolution methods to fix polybugs",
+            status: "planned",
+        },
+    ],
+    visual: [
+        {
+            name: "Rendering all map objects (polygons, sceneries, textures) excluding GIF sceneries",
+            status: "done",
+        },
+        {
+            name: "Rendering soldiers (all parts, weapons in hands)",
+            status: "done",
+        },
+        { name: "Rendering cursor", status: "done" },
+        { name: "Rendering of all bullets", status: "planned" },
+        {
+            name: "Rendering of all other objects (flags, kits, etc.)",
+            status: "planned",
+        },
+        {
+            name: "Rendering special effects (sparks, bullet trails, blood)",
+            status: "planned",
+        },
+        {
+            name: "Configuring soldier colors and appearance",
+            status: "planned",
+        },
+        {
+            name: "Moddable interface rendering (like Soldat)",
+            status: "planned",
+        },
+        { name: "Implement chat (Soldat + QoL features)", status: "planned" },
+        { name: "GIF rendering", status: "planned" },
+        { name: "Weather effects", status: "planned" },
+    ],
+    mapeditor: [
+        // Done
+        { name: "Vertex Selection Tool", status: "done" },
+        { name: "Load a new map", status: "done" },
+        { name: "Window docking", status: "done" },
+        { name: "Tabs", status: "done" },
+        {
+            name: "[SceneryTool] Scale/rotate right after placing",
+            status: "done",
+        },
+        {
+            name: "[TransformTool] Option to automatically fix the texture to the new vertex position",
+            status: "done",
+        },
+        {
+            name: "Dynamic cursors depending on the current tool/action",
+            status: "done",
+        },
+        { name: "Icons for tools", status: "done" },
+        { name: "Invert zoom", status: "done" },
+        { name: "Tool details window", status: "done" },
+        { name: "Vertex color tool", status: "done" },
+        { name: "Better file picker for sceneries/textures", status: "done" },
+        { name: "Transform tool", status: "done" },
+        { name: "Tool details", status: "done" },
+        { name: "Zooming to mouse", status: "planned" },
+        { name: "Play mode", status: "planned" },
+        { name: "Removing objects", status: "planned" },
+        { name: "Description of current tool/action", status: "planned" },
+        { name: "Mouse position on map/screen, display", status: "planned" },
+        { name: "Hide/Show windows", status: "planned" },
+        { name: "Spawning the player on chosen spawns", status: "planned" },
+        { name: "Update map boundaries", status: "planned" },
+        { name: "Shortcuts", status: "planned" },
+        { name: "Scenery Tool", status: "planned" },
+        { name: "Polygon Tool", status: "planned" },
+        { name: "Properties window", status: "planned" },
+        { name: "Display window", status: "planned" },
+        { name: "Undo/redo", status: "planned" },
+        { name: "Saving the map", status: "planned" },
+        { name: "Status bar", status: "planned" },
+        { name: "Map settings modal", status: "planned" },
+        { name: "Palette window", status: "planned" },
+        { name: "Selection Tool", status: "planned" },
+    ],
+    networking: [
+        { name: "Client/Server connection", status: "done" },
+        {
+            name: "Server reconciliation and client-side prediction",
+            status: "done",
+        },
+        { name: "Simple ping calculation", status: "done" },
+        { name: "Spawning projectiles over network", status: "done" },
+        { name: "Killing and spawning soldiers over network", status: "done" },
+        { name: "Player leaving the server", status: "done" },
+        { name: "Bullets synchronization", status: "planned" },
+        { name: "Objects (things) synchronization", status: "planned" },
+        { name: "Netcode optimizations", status: "planned" },
+        { name: "Netcode security and validation", status: "planned" },
+    ],
+    tools: [
+        {
+            name: "Lobby server (API to register Soldank servers and fetch info)",
+            status: "done",
+        },
+        { name: "Server Scripting", status: "planned" },
+        { name: "Demo recording and playback", status: "planned" },
+        {
+            name: "Launcher (GUI to start game, show servers, configure via GUI)",
+            status: "planned",
+        },
+        {
+            name: "Interactive tutorials guiding the player step by step",
+            status: "planned",
+        },
+    ],
+};
+export default features;
