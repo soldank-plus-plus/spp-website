@@ -1,13 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Server as RawServerType } from "@/components/layouts/Servers/Table/serverTypes";
 import ServersTable from "@/components/layouts/Servers/Table/ServerTable";
-import { Filtering, Server as FilteredServerType } from "@/components/layouts/Servers/Table/Filtering";
+import {
+    Filtering,
+    Server as FilteredServerType,
+} from "@/components/layouts/Servers/Table/Filtering";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 const Fetching: React.FC = () => {
     const [rawServers, setRawServers] = useState<RawServerType[]>([]);
-    const [filteredSortedServers, setFilteredSortedServers] = useState<FilteredServerType[]>([]);
+    const [filteredSortedServers, setFilteredSortedServers] = useState<
+        FilteredServerType[]
+    >([]);
     const [totalPlayers, setTotalPlayers] = useState(0);
 
     useEffect(() => {
@@ -42,7 +47,9 @@ const Fetching: React.FC = () => {
             <Filtering
                 data={transformedData}
                 onChange={setFilteredSortedServers}
-                onStatsChange={({ totalPlayers }) => setTotalPlayers(totalPlayers)}
+                onStatsChange={({ totalPlayers }) =>
+                    setTotalPlayers(totalPlayers)
+                }
             />
             <ServersTable
                 servers={rawServers}

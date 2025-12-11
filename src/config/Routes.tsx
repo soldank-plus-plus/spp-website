@@ -24,10 +24,10 @@ import NotFound from "@/components/sections/NotFound";
 export interface AppRoute {
     path: string;
     element: React.ReactNode;
-    label?: string;       // sidebar label
+    label?: string; // sidebar label
     icon?: React.ReactNode;
     children?: AppRoute[];
-    hidden?: boolean;     // don’t show in sidebar
+    hidden?: boolean; // don’t show in sidebar
 }
 
 export const appRoutes: AppRoute[] = [
