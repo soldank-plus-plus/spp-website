@@ -60,6 +60,9 @@ export const Header = () => {
                                     <Button
                                         variant="ghost"
                                         className="w-full uppercase"
+                                        onClick={() =>
+                                            (window.location.href = "/login")
+                                        }
                                     >
                                         Sign in
                                     </Button>
