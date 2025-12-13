@@ -1,14 +1,16 @@
 import React from "react";
 import { Header } from "@/components/sections/Header";
+import { Navigation } from "@/components/layouts/Ranking/Navigation";
+import { Outlet } from "react-router-dom";
 import { Footer } from "@/components/sections/Footer";
-import underconstr from "@/assets/icons/underconstr.png";
 
 const Ranking = () => {
     return (
         <>
             <Header />
-            <main className="flex justify-center items-center min-h-screen px-4">
-                <img src={underconstr} alt="Under construction" />
+            <main>
+                <Navigation />
+                <Outlet />
             </main>
             <Footer />
         </>
