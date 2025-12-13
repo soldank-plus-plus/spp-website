@@ -37,7 +37,7 @@ const EarlyAccess = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Download
+                                latest-win-32.x64.zip
                                 <ArrowDownCircle className="w-4 h-4" />
                             </a>
                         </Button>
@@ -58,7 +58,7 @@ const EarlyAccess = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Download
+                                latest-linux.x64.tar.gz
                                 <ArrowDownCircle className="w-4 h-4" />
                             </a>
                         </Button>
@@ -77,7 +77,7 @@ const EarlyAccess = () => {
                             className="mt-4 w-full text-foreground"
                             disabled
                         >
-                            Currently Unavailable
+                            currently unavailable
                             <XCircle className="w-4 h-4" />
                         </Button>
                     </div>
