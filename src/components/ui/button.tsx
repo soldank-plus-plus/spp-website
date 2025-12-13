@@ -11,7 +11,7 @@ const buttonVariants = cva(
             variant: {
                 default:
                     "border border-input bg-background hover:bg-transparent hover:bg-sombre",
-                destructive: "bg-background bg-sombre hover:bg-primary",
+                destructive: "hover:bg-sombre",
                 outline:
                     "w-full bg-sombre text-white hover:bg-black border border-white/20",
                 secondary: "w-full bg-white text-black hover:bg-neutral-200",
