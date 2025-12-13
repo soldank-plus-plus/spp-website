@@ -25,6 +25,8 @@ module.exports = {
                 dark: "#9CA3AF",
                 light: "#FFFFFFB3",
                 sombre: "#111111",
+                rowlight: "#141414",
+                rowdark: "#1c1c1c",
                 nocturne: "#0a0a0a",
                 accent: "#2e4183",
                 accenthover: "#2c3350",
