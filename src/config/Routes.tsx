@@ -13,6 +13,14 @@ import Faq from "@/components/pages/Faq";
 import Login from "@/components/sections/Authentication/Login";
 import Signup from "@/components/sections/Authentication/Signup";
 
+// Ranking
+import { Global } from "@/components/layouts/Ranking/Global/Global";
+import { Country } from "@/components/layouts/Ranking/Country/Country";
+import { Clan } from "@/components/layouts/Ranking/Clan/Clan";
+import { Records } from "@/components/layouts/Ranking/Records/Records";
+import { Positions } from "@/components/layouts/Ranking/Positions/Positions";
+import { More } from "@/components/layouts/Ranking/More/More";
+
 // Layouts / misc
 import EarlyAccess from "@/components/layouts/Landing/Buttons/EarlyAccess";
 import Contributing from "@/components/layouts/Landing/Buttons/Contributing";
@@ -35,7 +43,20 @@ export const appRoutes: AppRoute[] = [
     { path: "*", element: <NotFound />, hidden: true },
 
     { path: "/gameplay", element: <Gameplay />, hidden: true },
-    { path: "/ranking", element: <Ranking />, hidden: true },
+    {
+        path: "/ranking",
+        element: <Ranking />, // wrapper z <Outlet />
+        hidden: true,
+        children: [
+            { index: true, element: <Global /> }, // domyślnie Global na /ranking
+            { path: "global", element: <Global /> },
+            { path: "country", element: <Country /> },
+            { path: "clan", element: <Clan /> },
+            { path: "records", element: <Records /> },
+            { path: "positions", element: <Positions /> },
+            { path: "more", element: <More /> },
+        ],
+    },
     { path: "/maps", element: <Maps />, hidden: true },
     { path: "/gamemodes", element: <Gamemodes />, hidden: true },
     { path: "/servers", element: <Servers />, hidden: true },
