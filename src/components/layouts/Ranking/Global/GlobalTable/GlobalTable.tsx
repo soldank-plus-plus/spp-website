@@ -17,6 +17,11 @@ import {
 import { useNavigate } from "react-router-dom";
 import { CustomPagination } from "@/components/layouts/Ranking/Pagination";
 
+//TODO:
+// How to organize folder structure for future expanding
+// Move hooks to different folder so i can organize the file differently
+// Margin on buttons is not big enough on mobile devices
+
 export const GlobalTable: React.FC = () => {
     const [sortBy, setSortBy] = useState<keyof User>("records");
     const [players, setPlayers] = useState<User[]>(usersData);

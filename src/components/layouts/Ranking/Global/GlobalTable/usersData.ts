@@ -1,5 +1,6 @@
 import avatarImg from "@/assets/avatars/avatar.png";
 
+// Tempporary data for testing tables
 export interface User {
     rank: number;
     username: string;

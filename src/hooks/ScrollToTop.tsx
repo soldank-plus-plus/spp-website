@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+// Custom hook that resets scroll position to top during AnimatePresence transitions
 const ScrollToTop: React.FC = () => {
     const { pathname } = useLocation();
 
