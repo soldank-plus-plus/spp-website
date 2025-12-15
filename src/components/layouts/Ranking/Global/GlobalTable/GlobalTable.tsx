@@ -79,7 +79,7 @@ export const GlobalTable: React.FC = () => {
                             }`}
                         >
                             {key === "records"
-                                ? "Passed"
+                                ? "Records"
                                 : key === "hardest"
                                   ? "Hardest"
                                   : "Golds"}{" "}
