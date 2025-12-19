@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { User } from "@/components/layouts/Ranking/Global/GlobalTable/usersData";
+import { User } from "@/components/layouts/Ranking/Children/Global/GlobalTable/usersData";
 
 export type SortKey = "records" | "hardest" | "gold";
 

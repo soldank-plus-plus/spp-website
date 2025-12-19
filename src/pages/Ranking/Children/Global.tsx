@@ -1,5 +1,5 @@
 import React from "react";
-import { GlobalTable } from "./GlobalTable/GlobalTable";
+import { GlobalTable } from "@/components/layouts/Ranking/Children/Global/GlobalTable/GlobalTable";
 
 export const Global: React.FC = () => {
     return (

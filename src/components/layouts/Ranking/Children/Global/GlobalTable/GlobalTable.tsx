@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/table";
 import { usersData } from "./usersData";
 import { CustomPagination } from "@/components/layouts/Ranking/Pagination";
-import { usePlayerSearch } from "@/components/layouts/Ranking/Global/GlobalTable/hooks/usePlayerSearch";
-import { useSortPlayers } from "@/components/layouts/Ranking/Global/GlobalTable/hooks/useSortPlayers";
-import { usePagination } from "@/components/layouts/Ranking/Global/GlobalTable/hooks/usePagination";
-import { SortButtons } from "@/components/layouts/Ranking/SharedComponents/SortButtons/SortButtons";
-import { PlayerRow } from "@/components/layouts/Ranking/Global/GlobalTable/PlayerRow";
-import { SearchPlayer } from "@/components/layouts/Ranking/Global/GlobalTable/SearchPlayer";
+import { usePlayerSearch } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/usePlayerSearch";
+import { useSortPlayers } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/useSortPlayers";
+import { usePagination } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/usePagination";
+import { SortButtons } from "@/components/layouts/Ranking/Children/SharedComponents/SortButtons/SortButtons";
+import { PlayerRow } from "@/components/layouts/Ranking/Children/Global/GlobalTable/PlayerRow";
+import { SearchPlayer } from "@/components/layouts/Ranking/Children/Global/GlobalTable/SearchPlayer";
 
 export const GlobalTable: React.FC = () => {
     const pageSize = 20;
@@ -48,7 +48,7 @@ export const GlobalTable: React.FC = () => {
                 />
             </div>
 
-            {/* Table */}
+            {/* Fetching */}
             <Table className="min-w-[600px] border-separate border-spacing-y-1">
                 <TableHeader>
                     <TableRow>
