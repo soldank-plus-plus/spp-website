@@ -5,7 +5,7 @@ import {
     TableRow,
     TableHead,
     TableBody,
-} from "@/components/ui/table";
+} from "@/components/ui/shadcn/table";
 import { usersData } from "./usersData";
 import { CustomPagination } from "@/components/layouts/Ranking/Pagination";
 import { usePlayerSearch } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/usePlayerSearch";

@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/shadcn/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/shadcn/sheet";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import login from "@/assets/icons/login.png";

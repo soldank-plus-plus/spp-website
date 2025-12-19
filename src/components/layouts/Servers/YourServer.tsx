@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { CiServer } from "react-icons/ci";
 import { Link } from "react-router-dom";
 

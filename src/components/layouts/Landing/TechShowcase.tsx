@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { Link } from "react-router-dom";
 import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 

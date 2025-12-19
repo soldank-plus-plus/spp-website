@@ -7,7 +7,7 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/components/ui/shadcn/pagination";
 
 interface PaginationProps {
     currentPage: number;

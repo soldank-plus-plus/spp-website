@@ -5,8 +5,8 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/shadcn/card";
+import { Button } from "@/components/ui/shadcn/button";
 import { Link } from "react-router-dom";
 
 const SignupCard: React.FC = () => {

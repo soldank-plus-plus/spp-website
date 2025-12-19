@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { ArrowDownCircle } from "lucide-react";
 import { XCircle } from "lucide-react";
 import windowsicon from "@/assets/icons/windowsicon.png";

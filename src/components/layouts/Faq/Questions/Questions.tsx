@@ -4,9 +4,9 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/shadcn/accordion";
 import { faqItems } from "@/components/layouts/Faq/Questions/FaqItems";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/ui/shadcn/input";
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
 

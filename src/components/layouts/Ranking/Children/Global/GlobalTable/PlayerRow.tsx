@@ -1,5 +1,5 @@
 import React from "react";
-import { TableRow, TableCell } from "@/components/ui/table";
+import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router-dom";
 import { User } from "./usersData";

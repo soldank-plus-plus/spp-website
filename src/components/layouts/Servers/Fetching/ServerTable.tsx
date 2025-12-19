@@ -7,7 +7,7 @@ import {
     TableBody,
     TableCell,
     TableFooter,
-} from "@/components/ui/table";
+} from "@/components/ui/shadcn/table";
 import React, { useState } from "react";
 
 type Props = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { LucideArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/shadcn/button";
 import { Link } from "react-router-dom";
 import game from "@/assets/backgrounds/game.png";
 

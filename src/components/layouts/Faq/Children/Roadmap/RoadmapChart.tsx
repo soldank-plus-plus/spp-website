@@ -13,7 +13,7 @@ import {
     ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/ui/shadcn/chart";
 import features from "./roadmapData";
 
 export default function RoadmapChart() {

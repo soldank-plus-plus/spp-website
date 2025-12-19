@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/shadcn/radio-group";
+import { Label } from "@/components/ui/shadcn/label";
 import { CheckCircle, Clock } from "lucide-react";
 import { features } from "./roadmapData"; // ✅ import z roadmapData.ts
 
