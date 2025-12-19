@@ -1,4 +1,4 @@
-import { Server } from "@/components/layouts/Servers/Table/serverTypes";
+import { Server } from "@/components/layouts/Servers/Fetching/serverTypes";
 import {
     Table,
     TableHeader,

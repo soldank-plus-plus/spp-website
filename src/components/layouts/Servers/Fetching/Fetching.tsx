@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Server as RawServerType } from "@/components/layouts/Servers/Table/serverTypes";
-import ServersTable from "@/components/layouts/Servers/Table/ServerTable";
+import { Server as RawServerType } from "@/components/layouts/Servers/Fetching/serverTypes";
+import ServersTable from "@/components/layouts/Servers/Fetching/ServerTable";
 import {
     Filtering,
     Server as FilteredServerType,
-} from "@/components/layouts/Servers/Table/Filtering";
+} from "@/components/layouts/Servers/Fetching/Filtering";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
