@@ -1,6 +1,4 @@
 import React from "react";
-import { Header } from "@/components/sections/Header";
-import { Footer } from "@/components/sections/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowDownCircle } from "lucide-react";
 import { XCircle } from "lucide-react";
@@ -8,10 +6,9 @@ import windowsicon from "@/assets/icons/windowsicon.png";
 import linuxicon from "@/assets/icons/linuxicon.png";
 import macosicon from "@/assets/icons/macosicon.png";
 
-const EarlyAccess = () => {
+const Preview = () => {
     return (
         <>
-            <Header />
             <h1 className="mt-60 mb-6 text-center">Early Access</h1>
 
             <p className="mx-auto max-w-3xl text-center px-4 ">
@@ -20,7 +17,7 @@ const EarlyAccess = () => {
                 unavailable as it has not been fully tested yet.
             </p>
 
-            <main className="flex justify-center items-start px-4 pt-20 pb-40 mb-20">
+            <div className="flex justify-center items-start px-4 pt-20 pb-40 mb-20">
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="bg-transparent border border-border border-solid rounded shadow-lg p-6 flex flex-col items-center w-64">
                         <img
@@ -82,10 +79,9 @@ const EarlyAccess = () => {
                         </Button>
                     </div>
                 </div>
-            </main>
-            <Footer />
+            </div>
         </>
     );
 };
 
-export default EarlyAccess;
+export default Preview;

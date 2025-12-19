@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { SlideInSection } from "@/components/layouts/Landing/Animated/SlideInSection";
+import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 
 import cpp from "@/assets/technologies/cpp.png";
 import dart from "@/assets/technologies/dart.png";

@@ -1,6 +1,6 @@
 import React from "react";
 import soldatgame from "@/assets/backgrounds/soldatgame.jpg";
-import { SlideInSection } from "@/components/layouts/Landing/Animated/SlideInSection";
+import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 
 export const GameEngine = () => {
     return (
