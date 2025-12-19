@@ -1,5 +1,5 @@
 import React from "react";
-import { Header } from "@/components/sections/Header";
+import { Header } from "@/components/ui/custom/core/Header";
 
 const Maps = () => {
     return (

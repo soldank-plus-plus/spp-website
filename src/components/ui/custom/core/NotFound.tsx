@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Header } from "@/components/sections/Header";
-import { Footer } from "@/components/sections/Footer";
+import { Header } from "@/components/ui/custom/core/Header";
+import { Footer } from "@/components/ui/custom/core/Footer";
 import { ArrowLeft } from "lucide-react";
 import notfound from "@/assets/backgrounds/notfound.png";
 

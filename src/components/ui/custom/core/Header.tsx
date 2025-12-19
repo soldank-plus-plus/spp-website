@@ -12,7 +12,7 @@ export const Header = () => {
                 {/* Desktop devices */}
                 <nav className="hidden md:flex items-center gap-4 sm:gap-6 lg:gap-8 text-sm font-tomorrow font-semibold uppercase">
                     <a
-                        href="/"
+                        href="/public"
                         className="text-2xl sm:text-3xl lg:text-4xl text-heading font-tomorrow font-bold uppercase"
                     >
                         S++

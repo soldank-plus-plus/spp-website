@@ -1,9 +1,9 @@
 import React from "react";
-import { Header } from "@/components/sections/Header";
+import { Header } from "@/components/ui/custom/core/Header";
 import { InfoContainer } from "@/components/layouts/Faq/InfoContainer";
 import { Questions } from "@/components/layouts/Faq/Questions/Questions";
 import { Contact } from "@/components/layouts/Faq/Contact";
-import { Footer } from "@/components/sections/Footer";
+import { Footer } from "@/components/ui/custom/core/Footer";
 
 const Faq = () => {
     return (

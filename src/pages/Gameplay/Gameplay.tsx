@@ -1,5 +1,5 @@
-import { Header } from "@/components/sections/Header";
-import { Footer } from "@/components/sections/Footer";
+import { Header } from "@/components/ui/custom/core/Header";
+import { Footer } from "@/components/ui/custom/core/Footer";
 import underconstr from "@/assets/icons/underconstr.png";
 
 const Gameplay = () => {

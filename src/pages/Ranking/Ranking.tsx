@@ -1,8 +1,8 @@
 import React from "react";
-import { Header } from "@/components/sections/Header";
+import { Header } from "@/components/ui/custom/core/Header";
 import { Navigation } from "@/components/layouts/Ranking/Navigation";
 import { Outlet } from "react-router-dom";
-import { Footer } from "@/components/sections/Footer";
+import { Footer } from "@/components/ui/custom/core/Footer";
 
 const Ranking = () => {
     return (
