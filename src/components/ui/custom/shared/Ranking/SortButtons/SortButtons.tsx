@@ -1,4 +1,4 @@
-import { SortKey } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/useSortPlayers";
+import { SortKey } from "@/components/ui/custom/shared/Ranking/SortButtons/useSortPlayers";
 
 interface Props {
     sortBy: SortKey;

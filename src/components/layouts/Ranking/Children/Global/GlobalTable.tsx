@@ -7,13 +7,13 @@ import {
     TableBody,
 } from "@/components/ui/shadcn/table";
 import { usersData } from "./usersData";
-import { CustomPagination } from "@/components/layouts/Ranking/Pagination";
-import { usePlayerSearch } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/usePlayerSearch";
-import { useSortPlayers } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/useSortPlayers";
-import { usePagination } from "@/components/layouts/Ranking/Children/Global/GlobalTable/hooks/usePagination";
-import { SortButtons } from "@/components/layouts/Ranking/Children/SharedComponents/SortButtons/SortButtons";
-import { PlayerRow } from "@/components/layouts/Ranking/Children/Global/GlobalTable/PlayerRow";
-import { SearchPlayer } from "@/components/layouts/Ranking/Children/Global/GlobalTable/SearchPlayer";
+import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { usePlayerSearch } from "@/components/ui/custom/shared/Ranking/SearchPlayer/usePlayerSearch";
+import { useSortPlayers } from "@/components/ui/custom/shared/Ranking/SortButtons/useSortPlayers";
+import { usePagination } from "@/components/ui/custom/shared/Ranking/Pagination/usePagination";
+import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
+import { PlayerRow } from "@/components/ui/custom/shared/Ranking/PlayerRow/PlayerRow";
+import { SearchPlayer } from "@/components/ui/custom/shared/Ranking/SearchPlayer/SearchPlayer";
 
 export const GlobalTable: React.FC = () => {
     const pageSize = 20;

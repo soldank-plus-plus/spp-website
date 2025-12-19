@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { User } from "@/components/layouts/Ranking/Children/Global/GlobalTable/usersData";
+import { User } from "@/components/layouts/Ranking/Children/Global/usersData";
 
 export const usePlayerSearch = (players: User[]) => {
     const [searchTerm, setSearchTerm] = useState("");
