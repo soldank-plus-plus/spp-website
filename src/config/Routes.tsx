@@ -1,17 +1,17 @@
 import React from "react";
 
 // Pages
-import Landing from "@/components/pages/Landing";
-import Gameplay from "@/components/pages/Gameplay";
-import Ranking from "@/components/pages/Ranking";
-import Maps from "@/components/pages/Maps";
-import Gamemodes from "@/components/pages/Gamemodes";
-import Servers from "@/components/pages/Servers";
-import Faq from "@/components/pages/Faq";
+import Landing from "@/pages/Landing/Landing";
+import Gameplay from "@/pages/Gameplay/Gameplay";
+import Ranking from "@/pages/Ranking/Ranking";
+import Maps from "@/pages/Maps/Maps";
+import Gamemodes from "@/pages/Gamemodes/Gamemodes";
+import Servers from "@/pages/Servers/Servers";
+import Faq from "@/pages/Faq/Faq";
 
 // Auth
-import Login from "@/components/sections/Authentication/Login";
-import Signup from "@/components/sections/Authentication/Signup";
+import Login from "@/pages/Auth/Login";
+import Signup from "@/pages/Auth/Signup";
 
 // Ranking
 import { Global } from "@/components/layouts/Ranking/Global/Global";
