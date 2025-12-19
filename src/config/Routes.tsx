@@ -14,19 +14,19 @@ import Login from "@/pages/Auth/Login";
 import Signup from "@/pages/Auth/Signup";
 
 // Ranking
-import { Global } from "@/components/layouts/Ranking/Global/Global";
-import { Country } from "@/components/layouts/Ranking/Country/Country";
-import { Clan } from "@/components/layouts/Ranking/Clan/Clan";
-import { Records } from "@/components/layouts/Ranking/Records/Records";
-import { Positions } from "@/components/layouts/Ranking/Positions/Positions";
-import { More } from "@/components/layouts/Ranking/More/More";
+import { Global } from "@/pages/Ranking/Children/Global";
+import { Country } from "@/pages/Ranking/Children/Country";
+import { Clan } from "@/pages/Ranking/Children/Clan";
+import { Records } from "@/pages/Ranking/Children/Records";
+import { Positions } from "@/pages/Ranking/Children/Positions";
+import { More } from "@/pages/Ranking/Children/More";
 
 // Layouts / misc
-import EarlyAccess from "@/components/layouts/Landing/Buttons/EarlyAccess";
-import Contributing from "@/components/layouts/Landing/Buttons/Contributing";
-import Commits from "@/components/layouts/Landing/Buttons/Commits";
-import Hosting from "@/components/layouts/Servers/YourServer/Hosting/Hosting";
-import Roadmap from "@/components/layouts/Faq/Roadmap/Roadmap";
+import EarlyAccess from "@/pages/Landing/Children/EarlyAccess/EarlyAccess";
+import Contributing from "@/pages/Landing/Children/Contributing/Contributing";
+import Commits from "@/pages/Landing/Children/Commits/Commits";
+import Hosting from "@/pages/Servers/Children/Hosting";
+import Roadmap from "@/pages/Faq/Children/Roadmap/Roadmap";
 import NotFound from "@/components/sections/NotFound";
 
 export interface AppRoute {

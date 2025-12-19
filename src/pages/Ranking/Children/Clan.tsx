@@ -1,6 +1,6 @@
 import React from "react";
 import underconstr from "@/assets/icons/underconstr.png";
-import { ClanTable } from "@/components/layouts/Country/CountryTable/CountryTable"; // Uncomment when ready
+// import { ClanTable } from "@/components/layouts/Country/CountryTable/CountryTable"; Uncomment when ready
 
 export const Clan: React.FC = () => {
     return (

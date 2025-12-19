@@ -1,6 +1,6 @@
 import React from "react";
 import underconstr from "@/assets/icons/underconstr.png";
-import { RecordsTable } from "@/components/layouts/Country/CountryTable/CountryTable"; // Uncomment when ready
+// import { RecordsTable } from "@/components/layouts/Country/CountryTable/CountryTable"; Uncomment when ready
 
 export const Records: React.FC = () => {
     return (

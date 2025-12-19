@@ -1,6 +1,6 @@
 import React from "react";
 import underconstr from "@/assets/icons/underconstr.png";
-import { PositionsTable } from "@/components/layouts/Country/CountryTable/CountryTable"; // Uncomment when ready
+// import { PositionsTable } from "@/components/layouts/Country/CountryTable/CountryTable"; Uncomment when ready
 
 export const Positions: React.FC = () => {
     return (
