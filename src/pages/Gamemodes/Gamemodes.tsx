@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "@/components/sections/Header";
-import { List } from "@/components/layouts/Gamemodes/List";
+import { List } from "@/components/layouts/Gamemodes/List/List";
 import { Footer } from "@/components/sections/Footer";
 
 const Gamemodes = () => {

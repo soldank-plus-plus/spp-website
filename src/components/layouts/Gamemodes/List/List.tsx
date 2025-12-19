@@ -1,5 +1,5 @@
 import React from "react";
-import { GameCard } from "@/components/layouts/Gamemodes/GameCard";
+import { GameCard } from "@/components/layouts/Gamemodes/List/GameCard";
 import { motion } from "framer-motion";
 
 import boostmodeImg from "@/assets/gamemodes/boostmode.png";
