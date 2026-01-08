@@ -27,15 +27,14 @@ import Contributing from "@/pages/Landing/Children/Contributing/Contributing";
 import Commits from "@/pages/Landing/Children/Commits/Commits";
 import Hosting from "@/pages/Servers/Children/Hosting";
 import Roadmap from "@/pages/Faq/Children/Roadmap/Roadmap";
-import NotFound from "@/components/sections/NotFound";
+import NotFound from "@/components/ui/custom/core/NotFound";
 
 export interface AppRoute {
     path: string;
     element: React.ReactNode;
-    label?: string; // sidebar label
     icon?: React.ReactNode;
     children?: AppRoute[];
-    hidden?: boolean; // don’t show in sidebar
+    hidden?: boolean; // check if save to delete
 }
 
 export const appRoutes: AppRoute[] = [
@@ -45,10 +44,10 @@ export const appRoutes: AppRoute[] = [
     { path: "/gameplay", element: <Gameplay />, hidden: true },
     {
         path: "/ranking",
-        element: <Ranking />, // wrapper z <Outlet />
+        element: <Ranking />,
         hidden: true,
         children: [
-            { index: true, element: <Global /> }, // domyślnie Global na /ranking
+            { index: true, element: <Global /> },
             { path: "global", element: <Global /> },
             { path: "country", element: <Country /> },
             { path: "clan", element: <Clan /> },
