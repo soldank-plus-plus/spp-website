@@ -19,7 +19,7 @@ const Preview = () => {
 
             <div className="flex justify-center items-start px-4 pt-20 pb-40 mb-20">
                 <div className="flex flex-col md:flex-row gap-8">
-                    <div className="bg-transparent border border-border border-solid rounded shadow-lg p-6 flex flex-col items-center w-64">
+                    <div className="bg-sombre border border-border border-solid rounded shadow-lg p-6 flex flex-col items-center w-64">
                         <img
                             src={windowsicon}
                             alt="Windows"
@@ -40,7 +40,7 @@ const Preview = () => {
                         </Button>
                     </div>
 
-                    <div className="bg-transparent border border-border border-solid rounded  shadow-lg p-6 flex flex-col items-center w-64">
+                    <div className="bg-sombre border border-border border-solid rounded  shadow-lg p-6 flex flex-col items-center w-64">
                         <img
                             src={linuxicon}
                             alt="Linux"
@@ -61,7 +61,7 @@ const Preview = () => {
                         </Button>
                     </div>
 
-                    <div className="bg-transparent border border-border border-solid rounded  shadow-lg p-6 flex flex-col items-center w-64">
+                    <div className="bg-sombre border border-border border-solid rounded  shadow-lg p-6 flex flex-col items-center w-64">
                         <img
                             src={macosicon}
                             alt="macOS"
