@@ -1,41 +1,49 @@
 import React from "react";
 
 // Pages
-import Landing from "@/components/pages/Landing";
-import Gameplay from "@/components/pages/Gameplay";
-import Ranking from "@/components/pages/Ranking";
-import Maps from "@/components/pages/Maps";
-import Gamemodes from "@/components/pages/Gamemodes";
-import Servers from "@/components/pages/Servers";
-import Faq from "@/components/pages/Faq";
+import Landing from "@/pages/Landing/Landing";
+import Gameplay from "@/pages/Gameplay/Gameplay";
+import Ranking from "@/pages/Ranking/Ranking";
+import Maps from "@/pages/Maps/Maps";
+import Gamemodes from "@/pages/Gamemodes/Gamemodes";
+import Servers from "@/pages/Servers/Servers";
+import Faq from "@/pages/Faq/Faq";
 
 // Auth
-import Login from "@/components/sections/Authentication/Login";
-import Signup from "@/components/sections/Authentication/Signup";
+import Login from "@/pages/Auth/Login";
+import Signup from "@/pages/Auth/Signup";
+
+//Account
+import Account from "@/pages/Account/Account";
+import { AccountOverview } from "@/pages/Account/Children/AccountOverview";
+import { AccountClan } from "@/pages/Account/Children/AccountClan";
+import { AccountRecords } from "@/pages/Account/Children/AccountRecords";
+import { AccountPositions } from "@/pages/Account/Children/AccountPositions";
+import { AccountMedals } from "@/pages/Account/Children/AccountMedals";
+import { AccountMaps } from "@/pages/Account/Children/AccountMaps";
 
 // Ranking
-import { Global } from "@/components/layouts/Ranking/Global/Global";
-import { Country } from "@/components/layouts/Ranking/Country/Country";
-import { Clan } from "@/components/layouts/Ranking/Clan/Clan";
-import { Records } from "@/components/layouts/Ranking/Records/Records";
-import { Positions } from "@/components/layouts/Ranking/Positions/Positions";
-import { More } from "@/components/layouts/Ranking/More/More";
+import { Global } from "@/pages/Ranking/Children/Global";
+import { Country } from "@/pages/Ranking/Children/Country";
+import { Clan } from "@/pages/Ranking/Children/Clan";
+import { Records } from "@/pages/Ranking/Children/Records";
+import { Positions } from "@/pages/Ranking/Children/Positions";
+import { More } from "@/pages/Ranking/Children/More";
 
 // Layouts / misc
-import EarlyAccess from "@/components/layouts/Landing/Buttons/EarlyAccess";
-import Contributing from "@/components/layouts/Landing/Buttons/Contributing";
-import Commits from "@/components/layouts/Landing/Buttons/Commits";
-import Hosting from "@/components/layouts/Servers/YourServer/Hosting/Hosting";
-import Roadmap from "@/components/layouts/Faq/Roadmap/Roadmap";
-import NotFound from "@/components/sections/NotFound";
+import EarlyAccess from "@/pages/Landing/Children/EarlyAccess/EarlyAccess";
+import Contributing from "@/pages/Landing/Children/Contributing/Contributing";
+import Commits from "@/pages/Landing/Children/Commits/Commits";
+import Hosting from "@/pages/Servers/Children/Hosting";
+import Roadmap from "@/pages/Faq/Children/Roadmap/Roadmap";
+import NotFound from "@/components/ui/custom/core/NotFound";
 
 export interface AppRoute {
     path: string;
     element: React.ReactNode;
-    label?: string; // sidebar label
     icon?: React.ReactNode;
     children?: AppRoute[];
-    hidden?: boolean; // don’t show in sidebar
+    hidden?: boolean; // check if save to delete
 }
 
 export const appRoutes: AppRoute[] = [
@@ -45,10 +53,10 @@ export const appRoutes: AppRoute[] = [
     { path: "/gameplay", element: <Gameplay />, hidden: true },
     {
         path: "/ranking",
-        element: <Ranking />, // wrapper z <Outlet />
+        element: <Ranking />,
         hidden: true,
         children: [
-            { index: true, element: <Global /> }, // domyślnie Global na /ranking
+            { index: true, element: <Global /> },
             { path: "global", element: <Global /> },
             { path: "country", element: <Country /> },
             { path: "clan", element: <Clan /> },
@@ -57,6 +65,22 @@ export const appRoutes: AppRoute[] = [
             { path: "more", element: <More /> },
         ],
     },
+
+    {
+        path: "/account/:username",
+        element: <Account />,
+        hidden: true,
+        children: [
+            { index: true, element: <AccountOverview /> },
+            { path: "overview", element: <AccountOverview /> },
+            { path: "clan", element: <AccountClan /> },
+            { path: "records", element: <AccountRecords /> },
+            { path: "positions", element: <AccountPositions /> },
+            { path: "medals", element: <AccountMedals /> },
+            { path: "maps", element: <AccountMaps /> },
+        ],
+    },
+
     { path: "/maps", element: <Maps />, hidden: true },
     { path: "/gamemodes", element: <Gamemodes />, hidden: true },
     { path: "/servers", element: <Servers />, hidden: true },
