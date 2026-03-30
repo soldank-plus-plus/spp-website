@@ -30,6 +30,10 @@ module.exports = {
                 nocturne: "#0a0a0a",
                 accent: "#2e4183",
                 accenthover: "#2c3350",
+                gold: "#FFD700",
+                silver: "#C0C0C0",
+                bronze: "#CD7F32",
+                nomedal: "#444444",
             },
             keyframes: {
                 "accordion-down": {

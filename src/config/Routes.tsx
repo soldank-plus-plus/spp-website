@@ -13,6 +13,15 @@ import Faq from "@/pages/Faq/Faq";
 import Login from "@/pages/Auth/Login";
 import Signup from "@/pages/Auth/Signup";
 
+//Account
+import Account from "@/pages/Account/Account";
+import { AccountOverview } from "@/pages/Account/Children/AccountOverview";
+import { AccountClan } from "@/pages/Account/Children/AccountClan";
+import { AccountRecords } from "@/pages/Account/Children/AccountRecords";
+import { AccountPositions } from "@/pages/Account/Children/AccountPositions";
+import { AccountMedals } from "@/pages/Account/Children/AccountMedals";
+import { AccountMaps } from "@/pages/Account/Children/AccountMaps";
+
 // Ranking
 import { Global } from "@/pages/Ranking/Children/Global";
 import { Country } from "@/pages/Ranking/Children/Country";
@@ -56,6 +65,22 @@ export const appRoutes: AppRoute[] = [
             { path: "more", element: <More /> },
         ],
     },
+
+    {
+        path: "/account/:username",
+        element: <Account />,
+        hidden: true,
+        children: [
+            { index: true, element: <AccountOverview /> },
+            { path: "overview", element: <AccountOverview /> },
+            { path: "clan", element: <AccountClan /> },
+            { path: "records", element: <AccountRecords /> },
+            { path: "positions", element: <AccountPositions /> },
+            { path: "medals", element: <AccountMedals /> },
+            { path: "maps", element: <AccountMaps /> },
+        ],
+    },
+
     { path: "/maps", element: <Maps />, hidden: true },
     { path: "/gamemodes", element: <Gamemodes />, hidden: true },
     { path: "/servers", element: <Servers />, hidden: true },
