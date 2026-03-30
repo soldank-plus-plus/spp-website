@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "@/components/ui/custom/core/Header";
-import LoginCard from "@/components/layouts/Auth/LoginCard"; // <- bez { }
+import LoginCard from "@/components/layouts/Auth/LoginCard";
 import { Footer } from "@/components/ui/custom/core/Footer";
 
 const Login: React.FC = () => {
