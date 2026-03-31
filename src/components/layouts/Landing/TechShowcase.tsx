@@ -1,6 +1,4 @@
 import React from "react";
-import { Button } from "@/components/ui/shadcn/button";
-import { Link } from "react-router-dom";
 import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 
 import cpp from "@/assets/technologies/cpp.png";
@@ -53,14 +51,6 @@ export const TechShowcase = () => {
                         these technologies to explore new standards and expand
                         their skills.
                     </p>
-                    <Button asChild variant="destructive">
-                        <Link
-                            to="/commits"
-                            className="text-inherit no-underline inline-flex items-center"
-                        >
-                            More info
-                        </Link>
-                    </Button>
                 </div>
             </div>
         </SlideInSection>

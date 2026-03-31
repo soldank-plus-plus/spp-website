@@ -33,7 +33,6 @@ import { More } from "@/pages/Ranking/Children/More";
 // Layouts / misc
 import EarlyAccess from "@/pages/Landing/Children/EarlyAccess/EarlyAccess";
 import Contributing from "@/pages/Landing/Children/Contributing/Contributing";
-import Commits from "@/pages/Landing/Children/Commits/Commits";
 import Hosting from "@/pages/Servers/Children/Hosting";
 import Roadmap from "@/pages/Faq/Children/Roadmap/Roadmap";
 import NotFound from "@/components/ui/custom/core/NotFound";
@@ -91,7 +90,6 @@ export const appRoutes: AppRoute[] = [
 
     { path: "/earlyaccess", element: <EarlyAccess />, hidden: true },
     { path: "/contributing", element: <Contributing />, hidden: true },
-    { path: "/commits", element: <Commits />, hidden: true },
     { path: "/hosting", element: <Hosting />, hidden: true },
     { path: "/roadmap", element: <Roadmap />, hidden: true },
 ];
