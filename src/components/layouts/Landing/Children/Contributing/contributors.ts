@@ -2,6 +2,7 @@ import cpp from "@/assets/technologies/cpp.png";
 import dart from "@/assets/technologies/dart.png";
 import artist from "@/assets/icons/artist.png";
 import tester from "@/assets/icons/tester.png";
+import dascript from "@/assets/technologies/dascript.png";
 
 export type Contributor = {
     role: string;
@@ -14,7 +15,7 @@ export const contributors: Contributor[] = [
         role: "C++ Developer",
         icon: cpp,
         description:
-            "The entire game core is written in C++, so there’s plenty to work on. Developers can help implement features, fix bugs, and optimize game mechanics.",
+            "The core of the game is written in C++, possibility of contributing in networking, game mechanics, improving performance, and implement new functionalities.",
     },
     {
         role: "Dart Developer",
@@ -33,5 +34,11 @@ export const contributors: Contributor[] = [
         icon: tester,
         description:
             "Test updates, verify new features, and provide feedback. We especially welcome testers with macOS experience to help ensure cross-platform stability.",
+    },
+    {
+        role: "DaScript Scripter",
+        icon: dascript,
+        description:
+            "Write scripts for in-game dedicated servers and shape gameplay logic. Create custom gamemodes or modify existing ones.",
     },
 ];

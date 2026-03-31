@@ -1,55 +1,66 @@
-import React from "react";
-import { FiGitMerge } from "react-icons/fi";
-import { contributors } from "./contributors";
+"use client";
 
-const Contribute = () => {
+import * as React from "react";
+import { contributors } from "./contributors";
+import { Card, CardContent } from "@/components/ui/shadcn/card";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/shadcn/carousel";
+
+const Contribute: React.FC = () => {
     return (
         <main>
-            <h1 className="mt-60 mb-6 text-center">Contributing</h1>
+            <section className="max-w-3xl mx-auto mb-16 text-center">
+                <h1 className="mt-60 mb-6 text-center">Contributing</h1>
+                <p className="mx-auto max-w-3xl text-center px-4 ">
+                    Download the game to test it, or contribute directly by
+                    forking the repository and submitting a pull request. Share
+                    your improvements, fixes, or suggestions, and we’ll review
+                    them together in #dev_chat on Discord. This is an
+                    open-source community project, nothing is set in stone, and
+                    plans can evolve based on contributions, giving everyone the
+                    freedom to participate.
+                </p>
+            </section>
 
-            <p className="mb-10 max-w-3xl mx-auto px-4">
-                We welcome everyone — whether you’re a developer, tester, artist
-                or just a gamer. Your ideas, skills, and feedback are highly
-                valued. Join us and contribute at your own pace in this
-                community project, where nothing is set in stone, and plans can
-                change based on your contributions.
-            </p>
+            <section className="max-w-6xl mx-auto mb-28 relative px-8">
+                <Carousel opts={{ align: "start" }} className="w-full relative">
+                    <CarouselContent className="-ml-4">
+                        {contributors.map((c, idx) => (
+                            <CarouselItem
+                                key={idx}
+                                className="pl-3 flex-shrink-0 md:basis-1/2 lg:basis-1/4"
+                            >
+                                <Card className="bg-sombre border-gray-800 rounded-xl shadow-md flex flex-col items-center h-96 w-full">
+                                    <CardContent className="flex flex-col items-center text-center p-6 flex-1">
+                                        <img
+                                            src={c.icon}
+                                            alt={c.role}
+                                            className="w-20 h-20 mb-4 rounded-full"
+                                        />
+                                        <h4 className="font-semibold text-white mb-2">
+                                            {c.role}
+                                        </h4>
+                                        <p className="text-gray-300">
+                                            {c.description}
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
 
-            <div className="flex flex-col gap-6 w-full items-center mt-14 mb-20">
-                {contributors.map((c, idx) => (
-                    <div
-                        key={idx}
-                        className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-4 rounded-lg hover:bg-gray-800 transition-colors w-full max-w-3xl"
-                    >
-                        <img
-                            src={c.icon}
-                            alt={c.role}
-                            className="w-14 h-14 flex-shrink-0"
-                        />
-                        <div className="flex-1 text-center sm:text-left">
-                            <h4>{c.role}</h4>
-                            <p className="text-sm text-white/70">
-                                {c.description}
-                            </p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <section className="w-full px-6 pb-16 bg-background">
-                <div className="max-w-4xl mx-auto text-left space-y-6">
-                    <h2 className="flex items-center justify-center gap-2 text-center">
-                        <FiGitMerge className="text-3xl" />
-                        Join the project
-                    </h2>
-                    <p className="text-sm text-center text-white/70">
-                        The best way to get involved is to join us on Discord.
-                        Download the game to test it or contribute directly by
-                        forking the repository and submitting a pull request.
-                        Share your ideas, improvements, or fixes, and we’ll
-                        review them together in #dev_chat on Discord.
-                    </p>
-                </div>
+                    <CarouselPrevious className="absolute -left-8 top-1/2 -translate-y-1/2 z-10 text-white p-2 rounded-full ">
+                        &#8249;
+                    </CarouselPrevious>
+                    <CarouselNext className="absolute -right-8 top-1/2 -translate-y-1/2 z-10 text-white p-2 rounded-full">
+                        &#8250;
+                    </CarouselNext>
+                </Carousel>
             </section>
         </main>
     );
