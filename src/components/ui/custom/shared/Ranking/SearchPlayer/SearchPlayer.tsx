@@ -14,7 +14,7 @@ export const SearchPlayer: React.FC<Props> = ({
     onSearch,
 }) => {
     return (
-        <div className="relative min-w-[160px] max-w-[200px]">
+        <div className="relative min-w-[160px] max-w-[200px] my-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
             <Input
                 type="text"

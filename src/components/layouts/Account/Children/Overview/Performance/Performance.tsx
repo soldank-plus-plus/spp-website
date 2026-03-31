@@ -43,7 +43,7 @@ const Performance: React.FC = () => {
 
     return (
         <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-0 space-y-5 sm:space-y-6">
-            <h3 className="text-lg sm:text-xl">Performance</h3>
+            <h3>Performance</h3>
 
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6">
                 <Completed points={exampleStats.points} maxMaps={MAX_MAPS} />

@@ -41,7 +41,7 @@ const games: Game[] = [
     {
         title: "Chase & Run",
         description:
-            "Chasers must choose a weapon to eliminate the runners. Avoiding capture requires agility, map knowledge, and teamwork.",
+            "Chasers must choose a weapon to eliminate the runners. Avoiding capture requires agility and map knowledge.",
         image: comingsoonImg,
         link: "#",
     },
@@ -118,7 +118,7 @@ const games: Game[] = [
     {
         title: "Runmode",
         description:
-            "Fast-paced gamemode focused on speedrunning through custom maps and their routes, improving your movement speed.",
+            "Fast-paced gamemode focused on speedrunning through custom maps and their routes, improving your movement.",
         image: comingsoonImg,
         link: "#",
     },

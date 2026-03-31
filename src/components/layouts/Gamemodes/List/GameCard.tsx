@@ -26,7 +26,7 @@ export const GameCard: React.FC<GameCardProps> = ({
                     className="w-full h-40 sm:h-56 object-cover transform group-hover:scale-110 transition-transform duration-300"
                 />
             </div>
-            <div className="p-4 h-40 bg-sombre">
+            <div className="p-4 h-48 bg-sombre">
                 <h4 className="text-heading break-words">{title}</h4>
                 <p className="text-sm text-secondary">{description}</p>
             </div>
