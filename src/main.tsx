@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ScrollToTop from "@/hooks/ScrollToTop";
+import ScrollToTop from "@/hooks/core/ScrollToTop";
 import "./index.css";
 
 import { appRoutes, AppRoute } from "@/config/Routes";
