@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Table,
     TableHeader,
@@ -6,49 +6,47 @@ import {
     TableHead,
     TableBody,
 } from "@/components/ui/shadcn/table";
-import { usersData } from "./usersData";
 import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
-import { usePlayerSearch } from "@/components/ui/custom/shared/Ranking/SearchPlayer/usePlayerSearch";
-import { useSortPlayers } from "@/components/ui/custom/shared/Ranking/SortButtons/useSortPlayers";
-import { usePagination } from "@/components/ui/custom/shared/Ranking/Pagination/usePagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
-import { PlayerRow } from "@/components/ui/custom/shared/Ranking/PlayerRow/PlayerRow";
-import { SearchPlayer } from "@/components/ui/custom/shared/Ranking/SearchPlayer/SearchPlayer";
+import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
+import { useUsers } from "@/hooks/users/useUsers";
+import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 
 export const GlobalTable: React.FC = () => {
     const pageSize = 20;
 
-    // Search
-    const { searchTerm, setSearchTerm, filteredPlayers } =
-        usePlayerSearch(usersData);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [sortBy, setSortBy] = useState<"records" | "hardest" | "gold">(
+        "records"
+    );
+    const [searchTerm, setSearchTerm] = useState("");
 
-    // Sort
-    const { sortBy, setSortBy, sortedPlayers } =
-        useSortPlayers(filteredPlayers);
-
-    // Pagination
-    const { currentPage, setCurrentPage, totalPages, paginatedItems } =
-        usePagination(sortedPlayers, pageSize);
+    const { users, totalPages, loading, error } = useUsers({
+        page: currentPage,
+        pageSize,
+        search: searchTerm,
+        sort: sortBy,
+    });
 
     return (
         <div className="overflow-x-auto px-4 max-w-[900px] mx-auto">
             {/* Search and sort */}
             <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-x-4">
-                <SearchPlayer
+                <SearchUser
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
-                    onSearch={() => setCurrentPage(1)}
+                    onSearch={() => setCurrentPage(1)} // reset page on search
                 />
                 <SortButtons
                     sortBy={sortBy}
                     onSortChange={(key) => {
                         setSortBy(key);
-                        setCurrentPage(1);
+                        setCurrentPage(1); // reset page on sort
                     }}
                 />
             </div>
 
-            {/* Fetching */}
+            {/* Table */}
             <Table className="min-w-[600px] border-separate border-spacing-y-1">
                 <TableHeader>
                     <TableRow>
@@ -61,10 +59,10 @@ export const GlobalTable: React.FC = () => {
                         <TableHead className="px-1 py-2 text-left text-blue-200 font-semibold w-[40px]">
                             Passed
                         </TableHead>
-                        <TableHead className="px-1 py-2 text-left text-blue-200 font-semibold w-[40px]">
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[40px]">
                             Records
                         </TableHead>
-                        <TableHead className="px-1 py-2 text-left text-blue-200 font-semibold w-[40px]">
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[40px]">
                             Hardest
                         </TableHead>
                         <TableHead className="px-0.5 py-2 text-center text-blue-200 font-semibold w-[40px]">
@@ -80,16 +78,36 @@ export const GlobalTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {paginatedItems.map((player, index) => (
-                        <PlayerRow
-                            key={player.rank}
-                            player={player}
-                            index={index}
-                            currentPage={currentPage}
-                            pageSize={pageSize}
-                            sortBy={sortBy}
-                        />
-                    ))}
+                    {loading && (
+                        <TableRow>
+                            <td className="text-center py-4" colSpan={8}>
+                                Loading...
+                            </td>
+                        </TableRow>
+                    )}
+
+                    {error && (
+                        <TableRow>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={8}
+                            >
+                                {error}
+                            </td>
+                        </TableRow>
+                    )}
+
+                    {!loading &&
+                        users.map((user, index) => (
+                            <UserRow
+                                key={user.id}
+                                player={user}
+                                index={index}
+                                currentPage={currentPage}
+                                pageSize={pageSize}
+                                sortBy={sortBy}
+                            />
+                        ))}
                 </TableBody>
             </Table>
 

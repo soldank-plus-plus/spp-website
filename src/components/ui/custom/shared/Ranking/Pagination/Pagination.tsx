@@ -20,11 +20,20 @@ export const CustomPagination: React.FC<PaginationProps> = ({
     totalPages,
     onPageChange,
 }) => {
-    const pages = [];
+    const getPages = () => {
+        const pages: number[] = [];
 
-    for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-    }
+        const start = Math.max(1, currentPage - 2);
+        const end = Math.min(totalPages, currentPage + 2);
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        return pages;
+    };
+
+    const pages = getPages();
 
     return (
         <Pagination>
@@ -39,8 +48,19 @@ export const CustomPagination: React.FC<PaginationProps> = ({
                     />
                 </PaginationItem>
 
-                {pages.map((page, idx) => (
-                    <PaginationItem key={idx}>
+                {currentPage > 3 && (
+                    <>
+                        <PaginationItem>
+                            <PaginationLink onClick={() => onPageChange(1)}>
+                                1
+                            </PaginationLink>
+                        </PaginationItem>
+                        <PaginationEllipsis />
+                    </>
+                )}
+
+                {pages.map((page) => (
+                    <PaginationItem key={page}>
                         <PaginationLink
                             href="#"
                             isActive={page === currentPage}
@@ -54,10 +74,17 @@ export const CustomPagination: React.FC<PaginationProps> = ({
                     </PaginationItem>
                 ))}
 
-                {totalPages > pages.length && (
-                    <PaginationItem>
+                {currentPage < totalPages - 2 && (
+                    <>
                         <PaginationEllipsis />
-                    </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink
+                                onClick={() => onPageChange(totalPages)}
+                            >
+                                {totalPages}
+                            </PaginationLink>
+                        </PaginationItem>
+                    </>
                 )}
 
                 <PaginationItem>
@@ -73,4 +100,4 @@ export const CustomPagination: React.FC<PaginationProps> = ({
             </PaginationContent>
         </Pagination>
     );
-};
+}

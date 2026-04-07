@@ -1,4 +1,4 @@
-import { SortKey } from "@/components/ui/custom/shared/Ranking/SortButtons/useSortPlayers";
+import { SortKey } from "@/hooks/users/useUsers";
 
 interface Props {
     sortBy: SortKey;

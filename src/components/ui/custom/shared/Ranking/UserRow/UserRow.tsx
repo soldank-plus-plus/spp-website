@@ -2,7 +2,7 @@ import React from "react";
 import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import ReactCountryFlag from "react-country-flag";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../../../../layouts/Ranking/Children/Global/usersData";
+import { User } from "@/types/user";
 
 interface Props {
     player: User;
@@ -12,7 +12,7 @@ interface Props {
     sortBy: "records" | "hardest" | "gold";
 }
 
-export const PlayerRow: React.FC<Props> = ({
+export const UserRow: React.FC<Props> = ({
     player,
     index,
     currentPage,
@@ -23,7 +23,6 @@ export const PlayerRow: React.FC<Props> = ({
 
     return (
         <TableRow
-            key={player.rank}
             className={`${
                 index % 2 === 0 ? "bg-rowdark" : "bg-rowlight"
             } hover:bg-accenthover transition-colors duration-200`}
@@ -62,7 +61,7 @@ export const PlayerRow: React.FC<Props> = ({
                     sortBy === "records" ? "text-foreground" : "text-secondary"
                 }`}
             >
-                {player.records}
+                {player.points}
             </TableCell>
 
             <TableCell
