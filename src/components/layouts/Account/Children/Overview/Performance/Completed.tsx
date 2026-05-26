@@ -9,23 +9,21 @@ interface CompletedProps {
 
 const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
     const percent = Math.min((completed / maxMaps) * 100, 100);
+    const remaining = maxMaps - completed;
 
     return (
-        <div className="w-full">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-                <div className="flex flex-col items-center sm:items-start gap-1 min-w-[100px]">
+        <div className="flex flex-col gap-4 h-full justify-between">
+            <div className="flex items-center gap-4">
+                <div className="flex flex-col min-w-[70px]">
                     <span className="text-2xl sm:text-3xl font-bold tabular-nums">
                         {completed.toLocaleString()}
                     </span>
-                    <span className="text-xs text-muted-foreground">
-                        / {maxMaps.toLocaleString()}
-                    </span>
                     <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                        Completed
+                        Records
                     </span>
                 </div>
 
-                <div className="flex-1 w-full">
+                <div className="flex-1">
                     <div className="h-2 sm:h-3 bg-sombre rounded-full overflow-hidden">
                         <div
                             className="h-full rounded-full transition-all duration-1000 bg-gradient-to-r from-blue-500 to-accent/90"
@@ -36,6 +34,17 @@ const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
                         {percent.toFixed(1)}%
                     </p>
                 </div>
+            </div>
+
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+
+            <div className="flex items-baseline gap-2">
+                <span className="text-lg font-bold tabular-nums">
+                    {remaining.toLocaleString()}
+                </span>
+                <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                    Maps left to complete
+                </span>
             </div>
         </div>
     );

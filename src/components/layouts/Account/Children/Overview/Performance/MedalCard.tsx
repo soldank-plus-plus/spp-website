@@ -23,21 +23,13 @@ const MedalCard: React.FC<MedalCardProps> = ({ medals }) => {
     ];
 
     return (
-        <div className="flex flex-col lg:flex-row items-start lg:items-center min-w-[235px] p-4 gap-4">
-            <div className="hidden lg:block w-px self-stretch bg-gradient-to-b from-transparent via-white/30 to-transparent" />
-
-            <div className="flex flex-row lg:flex-col gap-3 lg:gap-6 w-full lg:w-auto justify-between">
-                {medalData.map((m, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                        <img
-                            src={m.icon}
-                            className="w-6 h-6"
-                            alt="Medal icon"
-                        />
-                        <span className="font-semibold text-xs">{m.count}</span>
-                    </div>
-                ))}
-            </div>
+        <div className="flex flex-col gap-4 justify-between h-full">
+            {medalData.map((m, index) => (
+                <div key={index} className="flex items-center gap-3">
+                    <img src={m.icon} className="w-6 h-6" alt="Medal icon" />
+                    <span className="font-semibold text-sm tabular-nums">{m.count}</span>
+                </div>
+            ))}
         </div>
     );
 };
