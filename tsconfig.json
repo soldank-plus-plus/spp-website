@@ -2,14 +2,13 @@
     "compilerOptions": {
         "lib": ["DOM", "DOM.Iterable", "ESNext", "ES2021"],
         "types": ["node", "vite/client"],
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
+            "@/*": ["./src/*"],
         },
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "Bundler",
         "strict": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
