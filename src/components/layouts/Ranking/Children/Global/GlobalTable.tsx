@@ -9,16 +9,14 @@ import {
 import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
-import { useUsers } from "@/hooks/users/useUsers";
+import { useUsers, SortKey } from "@/hooks/users/useUsers";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 
 export const GlobalTable: React.FC = () => {
     const pageSize = 20;
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortBy, setSortBy] = useState<"records" | "hardest" | "gold">(
-        "records"
-    );
+    const [sortBy, setSortBy] = useState<SortKey>("unique_caps");
     const [searchTerm, setSearchTerm] = useState("");
 
     const { users, totalPages, loading, error } = useUsers({

@@ -1,4 +1,5 @@
-import { SortKey } from "@/hooks/users/useUsers";
+import React from "react";
+import { SortKey } from "@/api/users";
 
 interface Props {
     sortBy: SortKey;
@@ -8,7 +9,7 @@ interface Props {
 export const SortButtons: React.FC<Props> = ({ sortBy, onSortChange }) => {
     return (
         <div className="flex flex-wrap gap-2">
-            {(["records", "hardest", "gold"] as const).map((key) => (
+            {(["unique_caps", "hardest", "gold"] as const).map((key) => (
                 <button
                     key={key}
                     onClick={() => onSortChange(key)}
@@ -18,7 +19,7 @@ export const SortButtons: React.FC<Props> = ({ sortBy, onSortChange }) => {
                             : "bg-sombre text-secondary"
                     }`}
                 >
-                    {key === "records"
+                    {key === "unique_caps"
                         ? "Records"
                         : key === "hardest"
                           ? "Hardest"

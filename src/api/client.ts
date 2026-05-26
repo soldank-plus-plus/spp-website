@@ -17,7 +17,7 @@ export interface ApiError {
 class ApiClient {
     private baseURL: string;
 
-    constructor(baseURL = "http://localhost:3000") {
+    constructor(baseURL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000") {
         this.baseURL = baseURL;
     }
 
@@ -27,14 +27,10 @@ class ApiClient {
     ): Promise<ApiResponse<T>> {
         const url = `${this.baseURL}${endpoint}`;
 
-        const defaultHeaders = {
-            "Content-Type": "application/json",
-        };
-
         const response = await fetch(url, {
             ...options,
             headers: {
-                ...defaultHeaders,
+                "Content-Type": "application/json",
                 ...options.headers,
             },
         });
@@ -50,34 +46,36 @@ class ApiClient {
                 error.message = errorData.message || error.message;
                 error.code = errorData.code;
             } catch {
-                // Ignore JSON parsing errors for error responses
+                // ignore JSON parsing errors for error responses
             }
 
             throw new Error(error.message);
         }
 
-        const data = await response.json();
-        return data;
+        return response.json();
     }
 
-    // GET request
     async get<T>(
         endpoint: string,
-        params?: Record<string, any>
+        params?: Record<string, any>,
+        signal?: AbortSignal
     ): Promise<ApiResponse<T>> {
-        const url = new URL(endpoint, this.baseURL);
+        let url = endpoint;
+
         if (params) {
+            const searchParams = new URLSearchParams();
             Object.entries(params).forEach(([key, value]) => {
-                if (value !== undefined && value !== null) {
-                    url.searchParams.append(key, String(value));
+                if (value !== undefined && value !== null && value !== "") {
+                    searchParams.append(key, String(value));
                 }
             });
+            const qs = searchParams.toString();
+            if (qs) url += "?" + qs;
         }
 
-        return this.request<T>(url.pathname + url.search);
+        return this.request<T>(url, { signal });
     }
 
-    // POST request
     async post<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "POST",
@@ -85,7 +83,6 @@ class ApiClient {
         });
     }
 
-    // PUT request
     async put<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "PUT",
@@ -93,14 +90,10 @@ class ApiClient {
         });
     }
 
-    // DELETE request
     async delete<T>(endpoint: string): Promise<ApiResponse<T>> {
-        return this.request<T>(endpoint, {
-            method: "DELETE",
-        });
+        return this.request<T>(endpoint, { method: "DELETE" });
     }
 
-    // PATCH request
     async patch<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "PATCH",

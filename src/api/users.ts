@@ -1,11 +1,14 @@
 import { apiClient, ApiResponse } from "@/api/client";
-import { User } from "@/types/user";
+import { User, AccountUser } from "@/types/user";
+
+export type SortKey = "unique_caps" | "hardest" | "gold";
 
 export interface GetUsersParams {
     page: number;
     pageSize: number;
     search?: string;
-    sort?: "records" | "hardest" | "gold";
+    sort?: SortKey;
+    signal?: AbortSignal;
 }
 
 export interface GetUsersResponse extends ApiResponse<User[]> {
@@ -23,17 +26,26 @@ export const usersApi = {
         pageSize,
         search,
         sort,
+        signal,
     }: GetUsersParams): Promise<GetUsersResponse> => {
-        return apiClient.get<User[]>("/users", {
-            page: String(page),
-            pageSize: String(pageSize),
-            ...(search && { search }),
-            ...(sort && { sort }),
-        });
+        return apiClient.get<User[]>(
+            "/users",
+            {
+                page: String(page),
+                pageSize: String(pageSize),
+                ...(search && { search }),
+                ...(sort && { sort }),
+            },
+            signal
+        );
     },
 
     getUserById: async (id: number) => {
         return apiClient.get<User>(`/users/${id}`);
+    },
+
+    getUserByUsername: async (username: string) => {
+        return apiClient.get<AccountUser>(`/users/by-username/${encodeURIComponent(username)}`);
     },
 
     updateUser: async (id: number, data: Partial<User>) => {
