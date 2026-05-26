@@ -1,19 +1,30 @@
 import React from "react";
+import { useParams, Outlet } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Navigation } from "@/components/layouts/Account/Navigation";
 import Sidebar from "@/components/layouts/Account/Children/Sidebar";
-import { Outlet } from "react-router-dom";
 import { Footer } from "@/components/ui/custom/core/Footer";
+import { useUser } from "@/hooks/users/useUser";
+import { AccountUser } from "@/types/user";
+
+export interface AccountOutletContext {
+    user: AccountUser | null;
+    loading: boolean;
+    error: string | null;
+}
 
 const Account: React.FC = () => {
+    const { username } = useParams<{ username: string }>();
+    const { user, loading, error } = useUser(username);
+
     return (
         <>
             <Header />
             <main>
                 <Navigation />
                 <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[320px_3fr] gap-8 px-4 mb-20">
-                    <Sidebar />
-                    <Outlet />
+                    <Sidebar user={user} loading={loading} />
+                    <Outlet context={{ user, loading, error } satisfies AccountOutletContext} />
                 </div>
             </main>
             <Footer />
