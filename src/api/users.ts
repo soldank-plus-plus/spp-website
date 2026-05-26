@@ -1,5 +1,5 @@
 import { apiClient, ApiResponse } from "@/api/client";
-import { User, AccountUser } from "@/types/user";
+import { User, AccountUser, ActivityDay } from "@/types/user";
 
 export type SortKey = "unique_caps" | "hardest" | "gold";
 
@@ -54,5 +54,9 @@ export const usersApi = {
 
     deleteUser: async (id: number) => {
         return apiClient.delete<void>(`/users/${id}`);
+    },
+
+    getUserActivity: async (id: number, type: "records" | "golds" | "silvers" | "bronzes", signal?: AbortSignal): Promise<ApiResponse<ActivityDay[]>> => {
+        return apiClient.get<ActivityDay[]>(`/users/${id}/activity`, { type }, signal);
     },
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
 import Performance from "@/components/layouts/Account/Children/Overview/Performance/Performance";
+import { Activity } from "@/components/layouts/Account/Children/Overview/Activity/Activity";
 import { AccountOutletContext } from "@/pages/Account/Account";
 
 export const AccountOverview: React.FC = () => {
@@ -13,6 +14,7 @@ export const AccountOverview: React.FC = () => {
     return (
         <section>
             <Performance user={user} />
+            <Activity userId={user.id} />
         </section>
     );
 };

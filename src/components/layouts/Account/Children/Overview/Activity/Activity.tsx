@@ -1,66 +1,31 @@
 "use client";
 
-import React from "react";
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/shadcn/tooltip";
-
-type ActivityDay = {
-    day: string; // YYYY-MM-DD
-    count: number;
-};
+import React, { useState, useEffect } from "react";
+import { TooltipProvider } from "@/components/ui/shadcn/tooltip";
+import { usersApi } from "@/api/users";
+import { ActivityDay } from "@/types/user";
+import { ActivityFilter, PALETTE, generateCalendar, getMonthLabels } from "./activityTypes";
+import { ActivityFilters } from "./ActivityFilters";
+import { ActivityGrid } from "./ActivityGrid";
 
 type Props = {
-    data: ActivityDay[];
+    userId: number;
     onDayClick?: (day: string, count: number) => void;
 };
 
-function generateCalendar() {
-    const today = new Date();
-    const days: string[] = [];
+export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
+    const [filter, setFilter] = useState<ActivityFilter>("records");
+    const [data, setData] = useState<ActivityDay[]>([]);
 
-    for (let i = 364; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
-        days.push(d.toISOString().slice(0, 10));
-    }
+    useEffect(() => {
+        const controller = new AbortController();
+        usersApi.getUserActivity(userId, filter, controller.signal)
+            .then((res) => setData(res.data))
+            .catch(() => {});
+        return () => controller.abort();
+    }, [userId, filter]);
 
-    const remainder = days.length % 7;
-    if (remainder > 0) {
-        days.splice(0, remainder);
-    }
-
-    return days;
-}
-
-function getColor(count: number) {
-    if (count === 0) return "bg-[#2a2a2a]";
-    if (count < 3) return "bg-[#0d3f6d]";
-    if (count < 6) return "bg-[#0a5ca0]";
-    if (count < 10) return "bg-[#1e7ae6]";
-    return "bg-[#4aa3ff]";
-}
-
-function getMonthLabels(days: string[]) {
-    const labels: { index: number; label: string }[] = [];
-
-    days.forEach((day, i) => {
-        const date = new Date(day);
-        if (date.getDate() === 1) {
-            labels.push({
-                index: i,
-                label: date.toLocaleString("default", { month: "short" }),
-            });
-        }
-    });
-
-    return labels;
-}
-
-export const Activity: React.FC<Props> = ({ data, onDayClick }) => {
+    const palette = PALETTE[filter];
     const days = generateCalendar();
     const activityMap: Record<string, number> = {};
     data.forEach((d) => (activityMap[d.day] = d.count));
@@ -79,92 +44,19 @@ export const Activity: React.FC<Props> = ({ data, onDayClick }) => {
     const months = getMonthLabels(days);
 
     return (
-        <div className="w-full max-w-4xl mt-16 rounded-xl">
+        <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-0 mt-16 rounded-xl">
             <h3 className="my-5">Activity</h3>
 
             <TooltipProvider>
                 <div className="space-y-3">
-                    <div className="flex gap-[3px] pl-[2px] justify-center">
-                        {weeks.map((_, i) => {
-                            const label = months.find(
-                                (m) => Math.floor(m.index / 7) === i
-                            );
-                            return (
-                                <div
-                                    key={i}
-                                    className="w-[12px] text-[10px] text-muted-foreground"
-                                >
-                                    {label ? label.label : ""}
-                                </div>
-                            );
-                        })}
-                    </div>
-
-                    <div className="overflow-x-auto">
-                        <div className="flex gap-[3px] justify-center">
-                            {weeks.map((week, i) => (
-                                <div
-                                    key={i}
-                                    className="flex flex-col gap-[3px]"
-                                >
-                                    {week.map((day, j) => {
-                                        const count = day
-                                            ? activityMap[day] || 0
-                                            : 0;
-                                        return day ? (
-                                            <Tooltip key={day}>
-                                                <TooltipTrigger asChild>
-                                                    <div
-                                                        onClick={() =>
-                                                            onDayClick?.(
-                                                                day,
-                                                                count
-                                                            )
-                                                        }
-                                                        className={`
-                              w-[12px] h-[12px]
-                              rounded-[2px]
-                              border border-[#00000033]
-                              transition-all
-                              hover:scale-125
-                              cursor-pointer
-                              ${getColor(count)}
-                            `}
-                                                    />
-                                                </TooltipTrigger>
-                                                <TooltipContent>
-                                                    <p className="text-xs">
-                                                        {count} route
-                                                        {count !== 1
-                                                            ? "s"
-                                                            : ""}{" "}
-                                                        on {day}
-                                                    </p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        ) : (
-                                            <div
-                                                key={j}
-                                                className="w-[12px] h-[12px] rounded-[2px] bg-[#2a2a2a]"
-                                            />
-                                        );
-                                    })}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="flex items-center justify-center gap-2 text-xs">
-                        <span>Less</span>
-                        <div className="flex gap-[3px]">
-                            <div className="w-[12px] h-[12px] bg-[#2a2a2a] rounded-[2px]" />
-                            <div className="w-[12px] h-[12px] bg-[#0d3f6d] rounded-[2px]" />
-                            <div className="w-[12px] h-[12px] bg-[#0a5ca0] rounded-[2px]" />
-                            <div className="w-[12px] h-[12px] bg-[#1e7ae6] rounded-[2px]" />
-                            <div className="w-[12px] h-[12px] bg-[#4aa3ff] rounded-[2px]" />
-                        </div>
-                        <span>More</span>
-                    </div>
+                    <ActivityFilters filter={filter} onFilterChange={setFilter} />
+                    <ActivityGrid
+                        weeks={weeks}
+                        months={months}
+                        activityMap={activityMap}
+                        palette={palette}
+                        onDayClick={onDayClick}
+                    />
                 </div>
             </TooltipProvider>
         </div>

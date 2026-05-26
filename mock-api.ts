@@ -84,6 +84,36 @@ function sortUsers(users: MockUser[], sort: string): MockUser[] {
     return [...users].sort((a, b) => b[key] - a[key]);
 }
 
+type ActivityType = "records" | "golds" | "silvers" | "bronzes";
+
+const ACTIVITY_STAT: Record<ActivityType, keyof MockUser> = {
+    records: "unique_caps",
+    golds:   "gold",
+    silvers: "silver",
+    bronzes: "bronze",
+};
+
+function generateActivityData(total: number, seed: number): { day: string; count: number }[] {
+    if (total === 0) return [];
+
+    const today = new Date();
+    const result: { day: string; count: number }[] = [];
+    let placed = 0;
+
+    for (let i = 0; i < 365 && placed < total; i++) {
+        const rng = Math.abs(Math.sin(seed + i * 31) * 10000) % 1;
+        if (rng > 0.72) {
+            const count = Math.min(total - placed, Math.max(1, Math.floor(rng * 6)));
+            const d = new Date(today);
+            d.setDate(today.getDate() - i);
+            result.push({ day: d.toISOString().slice(0, 10), count });
+            placed += count;
+        }
+    }
+
+    return result;
+}
+
 function sendJson(res: ServerResponse, status: number, body: unknown) {
     const json = JSON.stringify(body);
     res.writeHead(status, {
@@ -152,6 +182,22 @@ export function mockApiPlugin(): Plugin {
                             golds: rankBy("gold"),
                         },
                     };
+                    return sendJson(res, 200, { data });
+                }
+
+                // GET /users/:id/activity?type=records|golds|silvers|bronzes
+                const activityMatch = url.pathname.match(/^\/users\/(\d+)\/activity$/);
+                if (activityMatch && req.method === "GET") {
+                    const id = parseInt(activityMatch[1]);
+                    const user = mockUsers.find((u) => u.id === id);
+                    if (!user) return sendJson(res, 404, { message: "User not found" });
+
+                    const rawType = url.searchParams.get("type") ?? "records";
+                    const validTypes: ActivityType[] = ["records", "golds", "silvers", "bronzes"];
+                    const type: ActivityType = validTypes.includes(rawType as ActivityType) ? (rawType as ActivityType) : "records";
+                    const statKey = ACTIVITY_STAT[type];
+                    const total = user[statKey] as number;
+                    const data = generateActivityData(total, user.id + Object.keys(ACTIVITY_STAT).indexOf(type) * 1000);
                     return sendJson(res, 200, { data });
                 }
 

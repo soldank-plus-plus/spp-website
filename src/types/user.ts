@@ -1,3 +1,8 @@
+export type ActivityDay = {
+    day: string;
+    count: number;
+};
+
 export type User = {
     id: number;
     rank: number;
