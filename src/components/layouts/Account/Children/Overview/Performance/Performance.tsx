@@ -1,66 +1,52 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Completed from "@/components/layouts/Account/Children/Overview/Performance/Completed";
 import MedalCard from "@/components/layouts/Account/Children/Overview/Performance/MedalCard";
 import Placement from "@/components/layouts/Account/Children/Overview/Performance/Placement";
 import { Activity } from "@/components/layouts/Account/Children/Overview/Activity/Activity";
+import { AccountUser } from "@/types/user";
 
-const MAX_MAPS = 3300;
+const TOTAL_MAPS = 200;
 
-const exampleStats = {
-    username: "PlayerOne",
-    points: 1300,
-    gold: 20,
-    silver: 5,
-    bronze: 3,
-    no_medal: 1272,
-    playtime: 360000,
-    ranking: {
-        records: 42,
-        hardest: 15,
-        golds: 78,
-    },
-};
+function generateActivity(seed: number) {
+    const today = new Date();
+    const data = [];
+    const rng = (n: number) => Math.abs(Math.sin(seed + n) * 10) % 12;
 
-const sampleActivityData = [
-    { day: "2026-03-24", count: 5 },
-    { day: "2026-03-23", count: 2 },
-    { day: "2026-03-22", count: 7 },
-    { day: "2026-03-21", count: 1 },
-];
+    for (let i = 0; i < 120; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() - i * 3);
+        const count = Math.floor(rng(i));
+        if (count > 0) {
+            data.push({ day: d.toISOString().slice(0, 10), count });
+        }
+    }
+    return data;
+}
 
-const Performance: React.FC = () => {
-    const handleDayClick = (day: string, count: number) => {
-        console.log(`Clicked on ${day} with ${count} routes`);
-    };
+interface Props {
+    user: AccountUser;
+}
 
-    const medals = {
-        gold: exampleStats.gold,
-        silver: exampleStats.silver,
-        bronze: exampleStats.bronze,
-    };
+const Performance: React.FC<Props> = ({ user }) => {
+    const activityData = useMemo(() => generateActivity(user.id), [user.id]);
 
     return (
         <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-0 space-y-5 sm:space-y-6">
             <h3>Performance</h3>
 
             <div className="flex flex-col md:flex-row items-start md:items-center gap-4 sm:gap-6">
-                <Completed points={exampleStats.points} maxMaps={MAX_MAPS} />
-                <MedalCard medals={medals} />
+                <Completed completed={user.unique_caps} maxMaps={TOTAL_MAPS} />
+                <MedalCard medals={{ gold: user.gold, silver: user.silver, bronze: user.bronze }} />
             </div>
 
-            {exampleStats.ranking && (
-                <div className="pt-2 sm:pt-0">
-                    <Placement ranking={exampleStats.ranking} />
-                </div>
-            )}
+            <div className="pt-2 sm:pt-0">
+                <Placement ranking={user.placement} />
+            </div>
 
             <div className="pt-2 sm:pt-4">
-                <Activity
-                    data={sampleActivityData}
-                    onDayClick={handleDayClick}
-                />
+                <Activity data={activityData} />
             </div>
         </div>
     );

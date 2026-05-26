@@ -3,14 +3,23 @@ export type User = {
     rank: number;
     username: string;
     passed: number;
-    points: number;
+    unique_caps: number;
+    total_caps: number;
     hardest: number;
     gold: number;
     silver: number;
     bronze: number;
-    todo_maps: string;
+    no_medal: number;
+    maps_created: number;
+    playtime: number;
     created_at: number;
     last_active_at: number;
-    avatar?: string | null;
-    country?: string | null;
+};
+
+export type AccountUser = User & {
+    placement: {
+        records: number;
+        hardest: number;
+        golds: number;
+    };
 };
