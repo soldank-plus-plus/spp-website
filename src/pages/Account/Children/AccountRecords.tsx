@@ -1,10 +1,16 @@
 import React from "react";
-import underconstr from "@/assets/icons/underconstr.png";
+import { useOutletContext } from "react-router-dom";
+import { AccountOutletContext } from "@/pages/Account/Account";
+import { UserRecords } from "@/components/layouts/Account/Children/Records/UserRecordsTable";
 
 export const AccountRecords: React.FC = () => {
+    const { user, loading } = useOutletContext<AccountOutletContext>();
+
+    if (loading || !user) return null;
+
     return (
-        <section className="flex justify-center items-center min-h-screen px-4">
-            <img src={underconstr} alt="Under construction" />
+        <section className="flex justify-center px-4 pt-8">
+            <UserRecords userId={user.id} />
         </section>
     );
 };
