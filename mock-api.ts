@@ -99,6 +99,7 @@ type MockUser = {
     id: number;
     rank: number;
     username: string;
+    clan_id: number | null;
     passed: number;
     unique_caps: number;
     total_caps: number;
@@ -138,6 +139,9 @@ function generate(): MockUser[] {
         "WarpShot", "XenonBlade", "YellowBolt", "ZeroEdge", "ArcticFox",
     ];
 
+    const COUNTRY_COUNT = 30;
+    const CLAN_COUNT = 30;
+
     return names.map((username, i) => {
         const unique_caps = Math.floor(Math.random() * (TOTAL_MAPS - 5)) + 1;
         const total_caps = unique_caps + Math.floor(Math.random() * 300);
@@ -145,11 +149,18 @@ function generate(): MockUser[] {
         const silver = Math.floor(Math.random() * 200);
         const bronze = Math.floor(Math.random() * 350);
         const no_medal = total_caps - gold - silver - bronze;
+        // Assign country/clan deterministically so they don't change on hot-reload
+        const country_id = (Math.floor(Math.abs(Math.sin(i * 7 + 1)) * COUNTRY_COUNT) % COUNTRY_COUNT) + 1;
+        const clan_id = Math.abs(Math.sin(i * 11)) > 0.4
+            ? (Math.floor(Math.abs(Math.sin(i * 13)) * CLAN_COUNT) % CLAN_COUNT) + 1
+            : null;
 
         return {
             id: i + 1,
             rank: i + 1,
             username,
+            country_id,
+            clan_id,
             passed: Math.round((unique_caps / TOTAL_MAPS) * 100),
             unique_caps,
             total_caps,
@@ -169,6 +180,135 @@ function generate(): MockUser[] {
 const mockUsers = generate();
 const mockStats = generateStats(mockUsers);
 const mockEvents = generateEvents(mockUsers);
+const mockClans = generateClans(mockUsers);
+const mockCountries = generateCountries(mockUsers);
+
+type MockClan = {
+    id: number;
+    clanname: string;
+    tag: string | null;
+    owner: number | null;
+    members: string | null;
+    unique_caps: number;
+    total_caps: number;
+    maps_created: number;
+    hardest: number;
+    gold: number;
+    silver: number;
+    bronze: number;
+    users_count: number;
+};
+
+function generateClans(users: { id: number; username: string }[]): MockClan[] {
+    const clanDefs = [
+        { name: "Arctic Wolves",   tag: "AW"  },
+        { name: "BladeRunners",    tag: "BR"  },
+        { name: "CryptoForce",     tag: "CF"  },
+        { name: "Dark Matter",     tag: "DM"  },
+        { name: "Echo Squad",      tag: "ES"  },
+        { name: "Frost Hunters",   tag: "FH"  },
+        { name: "Ghost Protocol", tag: "GP"  },
+        { name: "HyperNova",       tag: "HN"  },
+        { name: "Iron Legion",     tag: "IL"  },
+        { name: "Jade Phoenix",    tag: "JP"  },
+        { name: "Kraken Crew",     tag: "KC"  },
+        { name: "LunarStrike",     tag: "LS"  },
+        { name: "Midnight Ops",    tag: "MO"  },
+        { name: "Nova Battalion",  tag: "NB"  },
+        { name: "Omega Squad",     tag: "OS"  },
+        { name: "Pixel Raiders",   tag: "PR"  },
+        { name: "Quantum Force",   tag: "QF"  },
+        { name: "RavenClaw",       tag: "RC"  },
+        { name: "ShadowPact",      tag: "SP"  },
+        { name: "Titan Guard",     tag: "TG"  },
+        { name: "UltraVoid",       tag: null  },
+        { name: "Vortex Team",     tag: "VT"  },
+        { name: "WarpGate",        tag: "WG"  },
+        { name: "Xenon Division",  tag: "XD"  },
+        { name: "Yellow Jacket",   tag: "YJ"  },
+        { name: "Zero Gravity",    tag: "ZG"  },
+        { name: "Apex Predators",  tag: "AP"  },
+        { name: "Binary Storm",    tag: "BS"  },
+        { name: "Cobalt Strike",   tag: "CS"  },
+        { name: "Delta Force",     tag: "DF"  },
+    ];
+
+    return clanDefs.map((def, i) => {
+        const memberCount = 3 + (i % 8);
+        const seed = i + 1;
+        const unique_caps = Math.floor(Math.abs(Math.sin(seed * 17)) * (TOTAL_MAPS * memberCount * 0.4)) + memberCount * 3;
+        const total_caps = unique_caps + Math.floor(Math.abs(Math.sin(seed * 5)) * 800);
+        const gold = Math.floor(Math.abs(Math.sin(seed * 3)) * memberCount * 25);
+        const silver = Math.floor(Math.abs(Math.sin(seed * 7)) * memberCount * 60);
+        const bronze = Math.floor(Math.abs(Math.sin(seed * 11)) * memberCount * 100);
+        const ownerIdx = (i * 3) % users.length;
+
+        return {
+            id: i + 1,
+            clanname: def.name,
+            tag: def.tag,
+            owner: users[ownerIdx]?.id ?? null,
+            members: null,
+            unique_caps,
+            total_caps,
+            maps_created: Math.floor(Math.abs(Math.sin(seed * 13)) * memberCount * 3),
+            hardest: Math.floor(Math.abs(Math.sin(seed * 19)) * 30),
+            gold,
+            silver,
+            bronze,
+            users_count: memberCount,
+        };
+    });
+}
+
+type MockCountry = {
+    id: number;
+    countryname: string;
+    unique_caps: number;
+    total_caps: number;
+    maps_created: number;
+    hardest: number;
+    gold: number;
+    silver: number;
+    bronze: number;
+    users_count: number;
+};
+
+function generateCountries(users: { id: number; username: string }[]): MockCountry[] {
+    const countryNames = [
+        "Poland", "Germany", "United States", "Brazil", "France",
+        "Netherlands", "Sweden", "Finland", "Norway", "Denmark",
+        "Canada", "Australia", "United Kingdom", "Russia", "Ukraine",
+        "Czech Republic", "Slovakia", "Hungary", "Romania", "Serbia",
+        "Italy", "Spain", "Portugal", "Turkey", "Israel",
+        "South Korea", "Japan", "China", "Argentina", "Mexico",
+    ];
+
+    return countryNames.map((name, i) => {
+        const playerCount = 2 + (i % 12);
+        const seed = i + 100;
+        const unique_caps = Math.floor(Math.abs(Math.sin(seed * 17)) * (TOTAL_MAPS * playerCount * 0.45)) + playerCount * 4;
+        const total_caps = unique_caps + Math.floor(Math.abs(Math.sin(seed * 5)) * 1200);
+        const gold = Math.floor(Math.abs(Math.sin(seed * 3)) * playerCount * 30);
+        const silver = Math.floor(Math.abs(Math.sin(seed * 7)) * playerCount * 70);
+        const bronze = Math.floor(Math.abs(Math.sin(seed * 11)) * playerCount * 120);
+
+        return {
+            id: i + 1,
+            countryname: name,
+            unique_caps,
+            total_caps,
+            maps_created: Math.floor(Math.abs(Math.sin(seed * 13)) * playerCount * 4),
+            hardest: Math.floor(Math.abs(Math.sin(seed * 19)) * 30),
+            gold,
+            silver,
+            bronze,
+            users_count: playerCount,
+        };
+    });
+}
+
+// ── Shared helpers ─────────────────────────────────────────────────────────
 
 type SortKey = "unique_caps" | "hardest" | "gold";
 
@@ -266,8 +406,14 @@ export function mockApiPlugin(): Plugin {
                     const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "20"));
                     const search = (url.searchParams.get("search") ?? "").toLowerCase();
                     const sort = url.searchParams.get("sort") ?? "unique_caps";
+                    const countryIdParam = url.searchParams.get("countryId");
+                    const countryId = countryIdParam ? parseInt(countryIdParam) : null;
 
                     let filtered = mockUsers;
+
+                    if (countryId) {
+                        filtered = filtered.filter((u) => u.country_id === countryId);
+                    }
 
                     if (search) {
                         filtered = filtered.filter((u) =>
@@ -369,6 +515,56 @@ export function mockApiPlugin(): Plugin {
                     const user = mockUsers.find((u) => u.id === id);
                     if (user) return sendJson(res, 200, { data: user });
                     return sendJson(res, 404, { message: "User not found" });
+                }
+
+                // GET /clans
+                if (url.pathname === "/clans" && req.method === "GET") {
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "20"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+                    const sort = url.searchParams.get("sort") ?? "unique_caps";
+
+                    let filtered = mockClans;
+                    if (search) {
+                        filtered = filtered.filter(
+                            (c) =>
+                                c.clanname.toLowerCase().includes(search) ||
+                                (c.tag?.toLowerCase().includes(search) ?? false)
+                        );
+                    }
+
+                    const key = (["unique_caps", "hardest", "gold"].includes(sort) ? sort : "unique_caps") as SortKey;
+                    const sorted = [...filtered].sort((a, b) => b[key] - a[key]);
+
+                    const total = sorted.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = sorted.slice((page - 1) * pageSize, page * pageSize);
+
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /countries
+                if (url.pathname === "/countries" && req.method === "GET") {
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "20"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+                    const sort = url.searchParams.get("sort") ?? "unique_caps";
+
+                    let filtered = mockCountries;
+                    if (search) {
+                        filtered = filtered.filter((c) =>
+                            c.countryname.toLowerCase().includes(search)
+                        );
+                    }
+
+                    const key = (["unique_caps", "hardest", "gold"].includes(sort) ? sort : "unique_caps") as SortKey;
+                    const sorted = [...filtered].sort((a, b) => b[key] - a[key]);
+
+                    const total = sorted.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = sorted.slice((page - 1) * pageSize, page * pageSize);
+
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
                 }
 
                 next();
