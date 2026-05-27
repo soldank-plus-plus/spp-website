@@ -9,7 +9,9 @@ export type Event = {
     id: number;
     type: EventType;
     map_id: number;
+    mapname: string;
     user_id: number;
+    username: string;
     medal: Medal;
     event_date: number;
 };

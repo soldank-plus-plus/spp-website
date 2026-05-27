@@ -4,6 +4,7 @@ import { Event } from "@/types/event";
 export interface GetEventsParams {
     page: number;
     pageSize: number;
+    search?: string;
     signal?: AbortSignal;
 }
 
@@ -20,22 +21,31 @@ export const eventsApi = {
     getEvents: async ({
         page,
         pageSize,
+        search,
         signal,
     }: GetEventsParams): Promise<GetEventsResponse> => {
         return apiClient.get<Event[]>(
             "/events",
-            { page: String(page), pageSize: String(pageSize) },
+            {
+                page: String(page),
+                pageSize: String(pageSize),
+                ...(search && { search }),
+            },
             signal
         );
     },
 
     getUserEvents: async (
         userId: number,
-        { page, pageSize, signal }: GetEventsParams
+        { page, pageSize, search, signal }: GetEventsParams
     ): Promise<GetEventsResponse> => {
         return apiClient.get<Event[]>(
             `/users/${userId}/events`,
-            { page: String(page), pageSize: String(pageSize) },
+            {
+                page: String(page),
+                pageSize: String(pageSize),
+                ...(search && { search }),
+            },
             signal
         );
     },
