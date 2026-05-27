@@ -1,8 +1,99 @@
 import type { Plugin } from "vite";
 import type { IncomingMessage, ServerResponse } from "http";
 
-// Total maps on the server — used to compute "passed" percentage
 const TOTAL_MAPS = 200;
+
+type MockStat = {
+    id: number;
+    position: number;
+    user_id: number;
+    username: string;
+    map_id: number;
+    mapname: string;
+    record_time: number;
+    record_date: number;
+    team: number;
+    status: number;
+};
+
+const MAP_NAMES = [
+    "ctf_Ash", "ctf_B2b", "ctf_Blade", "ctf_Cobra", "ctf_Death",
+    "ctf_Dropdown", "ctf_Equinox", "ctf_Flagstone", "ctf_Ghosttown", "ctf_Hook",
+    "htf_Ash", "htf_Barrack", "htf_Daybreak", "htf_Goldpit", "htf_Neons",
+    "inf_Abel", "inf_Arox", "inf_Baire", "inf_CompleteCamp", "inf_Darkness",
+];
+
+function generateStats(users: { id: number; username: string }[]): MockStat[] {
+    const stats: MockStat[] = [];
+    let id = 1;
+    const now = Date.now();
+
+    for (let mapIdx = 0; mapIdx < MAP_NAMES.length; mapIdx++) {
+        const mapname = MAP_NAMES[mapIdx]!;
+        const mapId = mapIdx + 1;
+        const shuffled = [...users].sort(() => Math.sin(mapIdx * 7 + 1) - 0.5);
+        const count = Math.min(shuffled.length, 10 + (mapIdx % 6));
+
+        for (let pos = 0; pos < count; pos++) {
+            const user = shuffled[pos]!;
+            const baseTime = 8000 + mapIdx * 1200;
+            const recordTime = baseTime + pos * 600 + Math.floor(Math.abs(Math.sin(id * 13)) * 500);
+            const recordDate = now - Math.floor(Math.abs(Math.sin(id * 7)) * 1.2e10) - pos * 3600000;
+
+            stats.push({
+                id: id++,
+                position: pos + 1,
+                user_id: user.id,
+                username: user.username,
+                map_id: mapId,
+                mapname,
+                record_time: recordTime,
+                record_date: recordDate,
+                team: 0,
+                status: 1,
+            });
+        }
+    }
+
+    return stats.sort((a, b) => b.record_date - a.record_date);
+}
+
+type MockEvent = {
+    id: number;
+    type: 1 | 3;
+    map_id: number;
+    mapname: string;
+    user_id: number;
+    username: string;
+    medal: 1 | 2 | 3;
+    event_date: number;
+};
+
+function generateEvents(users: { id: number; username: string }[]): MockEvent[] {
+    const events: MockEvent[] = [];
+    const now = Date.now();
+
+    for (let i = 0; i < 300; i++) {
+        const userIdx = Math.floor(Math.abs(Math.sin(i * 17)) * users.length);
+        const mapIdx = Math.floor(Math.abs(Math.sin(i * 11)) * MAP_NAMES.length);
+        const user = users[userIdx]!;
+        const type: 1 | 3 = i % 3 === 0 ? 3 : 1;
+        const medal = ((Math.floor(Math.abs(Math.sin(i * 5)) * 3)) + 1) as 1 | 2 | 3;
+
+        events.push({
+            id: i + 1,
+            type,
+            map_id: mapIdx + 1,
+            mapname: MAP_NAMES[mapIdx]!,
+            user_id: user.id,
+            username: user.username,
+            medal,
+            event_date: now - Math.floor(Math.abs(Math.sin(i * 3)) * 1.2e10),
+        });
+    }
+
+    return events.sort((a, b) => b.event_date - a.event_date);
+}
 
 type MockUser = {
     id: number;
@@ -76,6 +167,8 @@ function generate(): MockUser[] {
 }
 
 const mockUsers = generate();
+const mockStats = generateStats(mockUsers);
+const mockEvents = generateEvents(mockUsers);
 
 type SortKey = "unique_caps" | "hardest" | "gold";
 
@@ -133,6 +226,40 @@ export function mockApiPlugin(): Plugin {
                 const { URL } = require("url") as typeof import("url");
                 const url = new URL(req.url, "http://localhost");
 
+                // GET /stats
+                if (url.pathname === "/stats" && req.method === "GET") {
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+
+                    const filtered = search
+                        ? mockStats.filter((s) => s.username.toLowerCase().includes(search))
+                        : mockStats;
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /events
+                if (url.pathname === "/events" && req.method === "GET") {
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+
+                    const filtered = search
+                        ? mockEvents.filter((e) => e.username.toLowerCase().includes(search))
+                        : mockEvents;
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
                 // GET /users
                 if (url.pathname === "/users" && req.method === "GET") {
                     const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
@@ -183,6 +310,40 @@ export function mockApiPlugin(): Plugin {
                         },
                     };
                     return sendJson(res, 200, { data });
+                }
+
+                // GET /users/:id/stats
+                const userStatsMatch = url.pathname.match(/^\/users\/(\d+)\/stats$/);
+                if (userStatsMatch && req.method === "GET") {
+                    const id = parseInt(userStatsMatch[1]!);
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+
+                    let filtered = mockStats.filter((s) => s.user_id === id);
+                    if (search) filtered = filtered.filter((s) => s.mapname.toLowerCase().includes(search));
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /users/:id/events
+                const userEventsMatch = url.pathname.match(/^\/users\/(\d+)\/events$/);
+                if (userEventsMatch && req.method === "GET") {
+                    const id = parseInt(userEventsMatch[1]!);
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+
+                    let filtered = mockEvents.filter((e) => e.user_id === id);
+                    if (search) filtered = filtered.filter((e) => e.mapname.toLowerCase().includes(search));
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
                 }
 
                 // GET /users/:id/activity?type=records|golds|silvers|bronzes
