@@ -8,6 +8,7 @@ export interface GetUsersParams {
     pageSize: number;
     search?: string;
     sort?: SortKey;
+    countryId?: number;
     signal?: AbortSignal;
 }
 
@@ -26,6 +27,7 @@ export const usersApi = {
         pageSize,
         search,
         sort,
+        countryId,
         signal,
     }: GetUsersParams): Promise<GetUsersResponse> => {
         return apiClient.get<User[]>(
@@ -35,6 +37,7 @@ export const usersApi = {
                 pageSize: String(pageSize),
                 ...(search && { search }),
                 ...(sort && { sort }),
+                ...(countryId && { countryId: String(countryId) }),
             },
             signal
         );

@@ -99,6 +99,7 @@ type MockUser = {
     id: number;
     rank: number;
     username: string;
+    country_id: number | null;
     clan_id: number | null;
     passed: number;
     unique_caps: number;

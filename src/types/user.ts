@@ -7,6 +7,7 @@ export type User = {
     id: number;
     username: string;
     clan_id: number | null;
+    country_id: number | null;
     gold: number;
     silver: number;
     bronze: number;

@@ -1,26 +1,24 @@
 import { useState, useEffect } from "react";
-import { User } from "@/types/user";
-import { usersApi, SortKey } from "@/api/users";
+import { Country } from "@/types/country";
+import { countriesApi, CountrySortKey } from "@/api/countries";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-export type { SortKey };
+export type { CountrySortKey };
 
-interface UseUsersProps {
+interface UseCountriesProps {
     page: number;
     pageSize: number;
     search?: string;
-    sort?: SortKey;
-    countryId?: number;
+    sort?: CountrySortKey;
 }
 
-export const useUsers = ({
+export const useCountries = ({
     page,
     pageSize,
     search = "",
     sort = "unique_caps",
-    countryId,
-}: UseUsersProps) => {
-    const [users, setUsers] = useState<User[]>([]);
+}: UseCountriesProps) => {
+    const [countries, setCountries] = useState<Country[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -29,37 +27,36 @@ export const useUsers = ({
     useEffect(() => {
         const controller = new AbortController();
 
-        const fetchUsers = async () => {
+        const fetchCountries = async () => {
             setLoading(true);
             setError(null);
 
             try {
-                const res = await usersApi.getUsers({
+                const res = await countriesApi.getCountries({
                     page,
                     pageSize,
                     search: debouncedSearch,
                     sort,
-                    countryId,
                     signal: controller.signal,
                 });
 
-                setUsers(res.data || []);
+                setCountries(res.data || []);
                 setTotalPages(res.meta.totalPages);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
                 const message =
                     err instanceof Error ? err.message : "Unknown error occurred";
                 setError(message);
-                setUsers([]);
+                setCountries([]);
                 setTotalPages(0);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchUsers();
+        fetchCountries();
         return () => controller.abort();
-    }, [page, pageSize, debouncedSearch, sort, countryId]);
+    }, [page, pageSize, debouncedSearch, sort]);
 
-    return { users, totalPages, loading, error };
+    return { countries, totalPages, loading, error };
 };
