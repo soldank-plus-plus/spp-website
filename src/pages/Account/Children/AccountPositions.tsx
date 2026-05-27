@@ -9,7 +9,7 @@ export const AccountPositions: React.FC = () => {
     if (loading || !user) return null;
 
     return (
-        <section className="flex justify-center px-4 pt-8">
+        <section className="flex justify-center px-4">
             <UserPositions userId={user.id} />
         </section>
     );

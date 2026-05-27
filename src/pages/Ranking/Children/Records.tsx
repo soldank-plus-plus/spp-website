@@ -3,7 +3,7 @@ import { RecordsTable } from "@/components/layouts/Ranking/Children/Records/Reco
 
 export const Records: React.FC = () => {
     return (
-        <section className="flex justify-center px-4 pt-8">
+        <section className="flex justify-center px-4">
             <RecordsTable />
         </section>
     );
