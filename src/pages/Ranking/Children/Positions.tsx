@@ -1,11 +1,11 @@
 import React from "react";
 import underconstr from "@/assets/icons/underconstr.png";
-// import { PositionsTable } from "@/components/layouts/Country/CountryTable/CountryTable"; Uncomment when ready
+import { PositionsTable } from "@/components/layouts/Ranking/Children/Positions/PositionsTable";
 
 export const Positions: React.FC = () => {
     return (
-        <section className="flex justify-center items-center min-h-screen px-4">
-            <img src={underconstr} alt="Under construction" />
+        <section className="flex justify-center px-4 pt-8">
+            <PositionsTable />
         </section>
     );
 };
