@@ -42,18 +42,16 @@ export interface AppRoute {
     element: React.ReactNode;
     icon?: React.ReactNode;
     children?: AppRoute[];
-    hidden?: boolean; // check if save to delete
 }
 
 export const appRoutes: AppRoute[] = [
-    { path: "/", element: <Landing />, hidden: true },
-    { path: "*", element: <NotFound />, hidden: true },
+    { path: "/", element: <Landing /> },
+    { path: "*", element: <NotFound /> },
 
-    { path: "/gameplay", element: <Gameplay />, hidden: true },
+    { path: "/gameplay", element: <Gameplay /> },
     {
         path: "/ranking",
         element: <Ranking />,
-        hidden: true,
         children: [
             { index: true, element: <Global /> },
             { path: "global", element: <Global /> },
@@ -68,7 +66,6 @@ export const appRoutes: AppRoute[] = [
     {
         path: "/profile/:username",
         element: <Account />,
-        hidden: true,
         children: [
             { index: true, element: <Overview /> },
             { path: "overview", element: <Overview /> },
@@ -80,16 +77,16 @@ export const appRoutes: AppRoute[] = [
         ],
     },
 
-    { path: "/maps", element: <Maps />, hidden: true },
-    { path: "/gamemodes", element: <Gamemodes />, hidden: true },
-    { path: "/servers", element: <Servers />, hidden: true },
+    { path: "/maps", element: <Maps /> },
+    { path: "/gamemodes", element: <Gamemodes /> },
+    { path: "/servers", element: <Servers /> },
     { path: "/faq", element: <Faq /> },
 
-    { path: "/login", element: <Login />, hidden: true },
-    { path: "/signup", element: <Signup />, hidden: true },
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <Signup /> },
 
-    { path: "/earlyaccess", element: <EarlyAccess />, hidden: true },
-    { path: "/contributing", element: <Contributing />, hidden: true },
-    { path: "/hosting", element: <Hosting />, hidden: true },
-    { path: "/roadmap", element: <Roadmap />, hidden: true },
+    { path: "/earlyaccess", element: <EarlyAccess /> },
+    { path: "/contributing", element: <Contributing /> },
+    { path: "/hosting", element: <Hosting /> },
+    { path: "/roadmap", element: <Roadmap /> },
 ];
