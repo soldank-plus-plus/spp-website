@@ -15,19 +15,19 @@ import Signup from "@/pages/Auth/Signup";
 
 //Account
 import Account from "@/pages/Account/Account";
-import { AccountOverview } from "@/pages/Account/Children/AccountOverview";
-import { AccountClan } from "@/pages/Account/Children/AccountClan";
-import { AccountRecords } from "@/pages/Account/Children/AccountRecords";
-import { AccountPositions } from "@/pages/Account/Children/AccountPositions";
-import { AccountMedals } from "@/pages/Account/Children/AccountMedals";
-import { AccountMaps } from "@/pages/Account/Children/AccountMaps";
+import { Overview } from "@/pages/Account/Children/Overview";
+import { UserClan } from "@/pages/Account/Children/UserClan";
+import { UserRecords } from "@/pages/Account/Children/UserRecords";
+import { UserPositions } from "@/pages/Account/Children/UserPositions";
+import { Medals } from "@/pages/Account/Children/Medals";
+import { UserMaps } from "@/pages/Account/Children/UserMaps";
 
 // Ranking
 import { Global } from "@/pages/Ranking/Children/Global";
 import { Country } from "@/pages/Ranking/Children/Country";
-import { Clan } from "@/pages/Ranking/Children/Clan";
-import { Records } from "@/pages/Ranking/Children/Records";
-import { Positions } from "@/pages/Ranking/Children/Positions";
+import { GlobalClan } from "@/pages/Ranking/Children/GlobalClan";
+import { GlobalRecords } from "@/pages/Ranking/Children/GlobalRecords";
+import { GlobalPositions } from "@/pages/Ranking/Children/GlobalPositions";
 import { More } from "@/pages/Ranking/Children/More";
 
 // Layouts / misc
@@ -58,9 +58,9 @@ export const appRoutes: AppRoute[] = [
             { index: true, element: <Global /> },
             { path: "global", element: <Global /> },
             { path: "country", element: <Country /> },
-            { path: "clan", element: <Clan /> },
-            { path: "records", element: <Records /> },
-            { path: "positions", element: <Positions /> },
+            { path: "clan", element: <GlobalClan /> },
+            { path: "records", element: <GlobalRecords /> },
+            { path: "positions", element: <GlobalPositions /> },
             { path: "more", element: <More /> },
         ],
     },
@@ -70,13 +70,13 @@ export const appRoutes: AppRoute[] = [
         element: <Account />,
         hidden: true,
         children: [
-            { index: true, element: <AccountOverview /> },
-            { path: "overview", element: <AccountOverview /> },
-            { path: "clan", element: <AccountClan /> },
-            { path: "records", element: <AccountRecords /> },
-            { path: "positions", element: <AccountPositions /> },
-            { path: "medals", element: <AccountMedals /> },
-            { path: "maps", element: <AccountMaps /> },
+            { index: true, element: <Overview /> },
+            { path: "overview", element: <Overview /> },
+            { path: "clan", element: <UserClan /> },
+            { path: "records", element: <UserRecords /> },
+            { path: "positions", element: <UserPositions /> },
+            { path: "medals", element: <Medals /> },
+            { path: "maps", element: <UserMaps /> },
         ],
     },
 

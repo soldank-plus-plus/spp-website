@@ -4,7 +4,7 @@ import Performance from "@/components/layouts/Account/Children/Overview/Performa
 import { Activity } from "@/components/layouts/Account/Children/Overview/Activity/Activity";
 import { AccountOutletContext } from "@/pages/Account/Account";
 
-export const AccountOverview: React.FC = () => {
+export const Overview: React.FC = () => {
     const { user, loading, error } = useOutletContext<AccountOutletContext>();
 
     if (loading) return <p className="text-muted-foreground p-4">Loading...</p>;

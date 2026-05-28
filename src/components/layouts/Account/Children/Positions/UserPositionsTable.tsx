@@ -76,7 +76,7 @@ interface Props {
     userId: number;
 }
 
-export const UserPositions: React.FC<Props> = ({ userId }) => {
+export const UserPositionsTable: React.FC<Props> = ({ userId }) => {
     const pageSize = 15;
     const [currentPage, setCurrentPage] = useState(1);
     const [mapSearch, setMapSearch] = useState("");
