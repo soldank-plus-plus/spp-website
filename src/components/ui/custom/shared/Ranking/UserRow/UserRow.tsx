@@ -41,7 +41,7 @@ export const UserRow: React.FC<Props> = ({
                     />
                     <span
                         className="font-medium truncate text-secondary cursor-pointer hover:text-foreground hover:underline"
-                        onClick={() => navigate(`/account/${player.username}`)}
+                        onClick={() => navigate(`/profile/${player.username}`)}
                     >
                         {player.username}
                     </span>

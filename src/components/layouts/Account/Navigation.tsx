@@ -7,12 +7,12 @@ export const Navigation: React.FC = () => {
     const { username } = useParams<{ username: string }>();
 
     const navItems = [
-        { label: "Overview", path: `/account/${username}/overview` },
-        { label: "Clan", path: `/account/${username}/clan` },
-        { label: "Records", path: `/account/${username}/records` },
-        { label: "Positions", path: `/account/${username}/positions` },
-        { label: "Medals", path: `/account/${username}/medals` },
-        { label: "Maps", path: `/account/${username}/maps` },
+        { label: "Overview", path: `/profile/${username}/overview` },
+        { label: "Clan", path: `/profile/${username}/clan` },
+        { label: "Records", path: `/profile/${username}/records` },
+        { label: "Positions", path: `/profile/${username}/positions` },
+        { label: "Medals", path: `/profile/${username}/medals` },
+        { label: "Maps", path: `/profile/${username}/maps` },
     ];
 
     return (

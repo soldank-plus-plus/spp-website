@@ -66,7 +66,7 @@ export const appRoutes: AppRoute[] = [
     },
 
     {
-        path: "/account/:username",
+        path: "/profile/:username",
         element: <Account />,
         hidden: true,
         children: [

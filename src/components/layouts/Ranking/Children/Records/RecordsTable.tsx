@@ -61,7 +61,7 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
             <TableCell className="px-0.5 py-2 text-secondary">
                 <span
                     className="font-medium truncate cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/account/${record.username}`)}
+                    onClick={() => navigate(`/profile/${record.username}`)}
                 >
                     {record.username}
                 </span>
