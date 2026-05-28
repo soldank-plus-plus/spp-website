@@ -212,12 +212,26 @@ function showMapData() {
     // This one requires some changes
     $(document).ready(function() {
         $.get("src/author.php?map=" + map_name + "&time=" + new Date().getTime(), function(data) {
-            document.getElementById("author").innerHTML =
-                `<span class='label'>Author/s:</span> <span class='value'>${data}</span>`;
+            if (typeof data !== "string" || data.trimStart().startsWith("<")) return;
+            var authorLabel = document.createElement("span");
+            authorLabel.className = "label";
+            authorLabel.textContent = "Author/s:";
+            var authorValue = document.createElement("span");
+            authorValue.className = "value";
+            authorValue.textContent = data;
+            var authorEl = document.getElementById("author");
+            authorEl.replaceChildren(authorLabel, document.createTextNode(" "), authorValue);
         });
 
-        document.getElementById("map").innerHTML = `<span class='map-name'>${map_name}</span>`;
-        document.getElementById("desc").innerHTML = `<span class='desc'>${map.name}</span>`;
+        var mapSpan = document.createElement("span");
+        mapSpan.className = "map-name";
+        mapSpan.textContent = map_name;
+        document.getElementById("map").replaceChildren(mapSpan);
+
+        var descSpan = document.createElement("span");
+        descSpan.className = "desc";
+        descSpan.textContent = map.name;
+        document.getElementById("desc").replaceChildren(descSpan);
         document.cookie = "map=" + map_name;
 
         // Need to check if i can delete safely
@@ -254,12 +268,18 @@ function showMapData() {
 
                 txtDwn.href = stat.link;
             } else {
-                el.innerHTML = `<span class='label'>${stat.label}</span> <span class='value'>${stat.value}</span>`;
+                var labelSpan = document.createElement("span");
+                labelSpan.className = "label";
+                labelSpan.textContent = stat.label;
+                var valueSpan = document.createElement("span");
+                valueSpan.className = "value";
+                valueSpan.textContent = stat.value;
+                el.replaceChildren(labelSpan, document.createTextNode(" "), valueSpan);
             }
         });
 
         const dwn = document.getElementById("dwnbutton");
-        dwn.innerHTML = "DOWNLOAD " + map_name;
+        dwn.textContent = "DOWNLOAD " + map_name;
         dwn.classList.add('button3');
         dwn.addEventListener("click", map_download);
     });
