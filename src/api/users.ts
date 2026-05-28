@@ -1,7 +1,7 @@
 import { apiClient, ApiResponse } from "@/api/client";
 import { User, AccountUser, ActivityDay } from "@/types/user";
 
-export type SortKey = "unique_caps" | "hardest" | "gold";
+export type SortKey = "unique_caps" | "hardest" | "gold" | "maps_created";
 
 export interface GetUsersParams {
     page: number;

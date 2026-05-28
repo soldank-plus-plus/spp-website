@@ -11,4 +11,5 @@ export type Map = {
     coop: number;
     m79c: number;
     hardest: number;
+    records_count: number;
 };
