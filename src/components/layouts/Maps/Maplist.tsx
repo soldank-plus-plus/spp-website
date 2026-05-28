@@ -18,7 +18,10 @@ const MapCard: React.FC<MapCardProps> = ({ map, sortMode }) => {
 
     return (
         <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 px-6 py-5">
-            <h3 className="text-foreground font-bold text-lg leading-tight mb-1">
+            <h3
+                className="text-foreground font-bold text-lg leading-tight mb-1 cursor-pointer hover:text-accent hover:underline"
+                onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(map.mapname)}`)}
+            >
                 #{sortMode === "hardest" ? map.hardest : map.id} – {map.mapname}
             </h3>
             <p className="text-secondary text-sm mb-1">
