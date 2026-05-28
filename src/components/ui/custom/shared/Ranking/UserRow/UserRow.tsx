@@ -3,6 +3,7 @@ import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import { useNavigate } from "react-router-dom";
 import { User } from "@/types/user";
 import { SortKey } from "@/api/users";
+import playerAvatar from "@/assets/avatars/avatar.png";
 
 interface Props {
     player: User;
@@ -32,7 +33,12 @@ export const UserRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="px-0.5 py-2 text-secondary">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1.5">
+                    <img
+                        src={playerAvatar}
+                        alt=""
+                        className="w-5 h-5 rounded-full shrink-0"
+                    />
                     <span
                         className="font-medium truncate text-secondary cursor-pointer hover:text-foreground hover:underline"
                         onClick={() => navigate(`/account/${player.username}`)}
