@@ -1,50 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { useMaps } from "@/hooks/maps/useMaps";
-import { useNavigate } from "react-router-dom";
-import { Map } from "@/types/map";
 import { Input } from "@/components/ui/shadcn/input";
 import { Search } from "lucide-react";
-
-type SortMode = "hardest" | "latest";
-
-interface MapCardProps {
-    map: Map;
-    sortMode: SortMode;
-}
-
-const MapCard: React.FC<MapCardProps> = ({ map, sortMode }) => {
-    const navigate = useNavigate();
-
-    return (
-        <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 flex items-center gap-4 overflow-hidden">
-            <div
-                className="w-[160px] shrink-0 self-stretch rounded-l-sm bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: `url('/mapviewer/screenshots/climb_${map.mapname}.png')` }}
-            />
-            <div className="px-4 py-5">
-                <h3
-                    className="text-foreground font-bold text-lg leading-tight mb-1 cursor-pointer hover:underline"
-                    onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(map.mapname)}&creator=${encodeURIComponent(map.user_id)}`)}
-                >
-                    #{sortMode === "hardest" ? map.hardest : map.id} – {map.mapname}
-                </h3>
-                <p className="text-secondary text-sm mb-1">
-                    created by{" "}
-                    <span
-                        className="text-secondary cursor-pointer hover:text-foreground hover:underline"
-                        onClick={() => navigate(`/profile/${map.user_id}`)}
-                    >
-                        {map.user_id}
-                    </span>
-                </p>
-                <p className="text-secondary text-sm">
-                    {map.records_count} records
-                </p>
-            </div>
-        </div>
-    );
-};
+import MapCard, { SortMode } from "@/components/layouts/Maps/Maplist/MapCard";
 
 export const Maplist: React.FC = () => {
     const pageSize = 50;
@@ -71,7 +30,7 @@ export const Maplist: React.FC = () => {
     return (
         <div>
             <div className="flex flex-wrap items-center gap-4 mb-6">
-                <div className="relative w-[170px]">
+                <div className="relative w-[155px]">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none w-4 h-4" />
                     <Input
                         type="text"
@@ -82,7 +41,7 @@ export const Maplist: React.FC = () => {
                     />
                 </div>
 
-                <div className="relative w-[170px]">
+                <div className="relative w-[180px]">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none w-4 h-4" />
                     <Input
                         type="text"
