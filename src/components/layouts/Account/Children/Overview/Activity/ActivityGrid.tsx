@@ -12,9 +12,10 @@ interface Props {
     activityMap: Record<string, number>;
     palette: string[];
     onDayClick?: (day: string, count: number) => void;
+    loading?: boolean;
 }
 
-export const ActivityGrid: React.FC<Props> = ({ weeks, months, activityMap, palette, onDayClick }) => (
+export const ActivityGrid: React.FC<Props> = ({ weeks, months, activityMap, palette, onDayClick, loading }) => (
     <>
         <div className="flex gap-[3px] pl-[2px] justify-center">
             {weeks.map((_, i) => {
@@ -32,6 +33,13 @@ export const ActivityGrid: React.FC<Props> = ({ weeks, months, activityMap, pale
                 {weeks.map((week, i) => (
                     <div key={i} className="flex flex-col gap-[3px]">
                         {week.map((day, j) => {
+                            if (loading) return (
+                                <div
+                                    key={day || j}
+                                    className="w-[12px] h-[12px] rounded-[2px] animate-pulse"
+                                    style={{ backgroundColor: palette[0] }}
+                                />
+                            );
                             const count = day ? activityMap[day] || 0 : 0;
                             const color = getColor(count, palette);
                             return day ? (

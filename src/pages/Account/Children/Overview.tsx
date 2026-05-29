@@ -5,16 +5,12 @@ import { Activity } from "@/components/layouts/Account/Children/Overview/Activit
 import { AccountOutletContext } from "@/pages/Account/Account";
 
 export const Overview: React.FC = () => {
-    const { user, loading, error } = useOutletContext<AccountOutletContext>();
-
-    if (loading) return <p className="text-muted-foreground p-4">Loading...</p>;
-    if (error) return <p className="text-red-500 p-4">{error}</p>;
-    if (!user) return null;
+    const { user, loading } = useOutletContext<AccountOutletContext>();
 
     return (
         <section>
-            <Performance user={user} />
-            <Activity userId={user.id} />
+            <Performance user={user ?? undefined} loading={loading} />
+            {user && <Activity userId={user.id} />}
         </section>
     );
 };

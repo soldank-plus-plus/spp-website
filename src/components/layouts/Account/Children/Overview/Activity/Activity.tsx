@@ -16,12 +16,18 @@ type Props = {
 export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
     const [filter, setFilter] = useState<ActivityFilter>("records");
     const [data, setData] = useState<ActivityDay[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const handleFilterChange = (newFilter: ActivityFilter) => {
+        setFilter(newFilter);
+        setLoading(true);
+    };
 
     useEffect(() => {
         const controller = new AbortController();
         usersApi.getUserActivity(userId, filter, controller.signal)
-            .then((res) => setData(res.data))
-            .catch(() => {});
+            .then((res) => { setData(res.data); setLoading(false); })
+            .catch((err) => { if (err?.name !== "AbortError") setLoading(false); });
         return () => controller.abort();
     }, [userId, filter]);
 
@@ -49,13 +55,14 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
 
             <TooltipProvider>
                 <div className="space-y-3">
-                    <ActivityFilters filter={filter} onFilterChange={setFilter} />
+                    <ActivityFilters filter={filter} onFilterChange={handleFilterChange} />
                     <ActivityGrid
                         weeks={weeks}
                         months={months}
                         activityMap={activityMap}
                         palette={palette}
                         onDayClick={onDayClick}
+                        loading={loading}
                     />
                 </div>
             </TooltipProvider>
