@@ -2,7 +2,7 @@ import React from "react";
 import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 
 import cpp from "@/assets/technologies/cpp.png";
-import dart from "@/assets/technologies/dart.png";
+import electron from "@/assets/technologies/electron.png";
 import dascript from "@/assets/technologies/dascript.png";
 import golang from "@/assets/technologies/golang.png";
 import nestjs from "@/assets/technologies/nestjs.png";
@@ -10,7 +10,7 @@ import rct from "@/assets/technologies/rct.png";
 
 const technologies = [
     { src: cpp, alt: "C++" },
-    { src: dart, alt: "Dart" },
+    { src: electron, alt: "Electron" },
     { src: golang, alt: "Go" },
     { src: dascript, alt: "DaSlang" },
     { src: rct, alt: "React" },

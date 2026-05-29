@@ -18,10 +18,10 @@ export const contributors: Contributor[] = [
             "The core of the game is written in C++, possibility of contributing in networking, game mechanics, improving performance, and implement new functionalities.",
     },
     {
-        role: "Dart Developer",
+        role: "Electron Developer",
         icon: dart,
         description:
-            "The game launcher (GUI) is written in Flutter, so contributions here involve improving the launcher, adding new features, and fixing bugs.",
+            "The game launcher (GUI) is written in Electron, so contributions here involve improving the launcher, adding new features, and fixing bugs.",
     },
     {
         role: "2D Game Artist",
