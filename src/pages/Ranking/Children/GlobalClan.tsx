@@ -1,5 +1,5 @@
 import React from "react";
-import { ClanTable } from "@/components/layouts/Ranking/Children/Clan/ClanTable";
+import { ClanTable } from "@/components/layouts/Ranking/Children/GlobalClan/ClanTable";
 
 export const GlobalClan: React.FC = () => {
     return (
