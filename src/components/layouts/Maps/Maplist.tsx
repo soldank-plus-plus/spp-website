@@ -17,22 +17,31 @@ const MapCard: React.FC<MapCardProps> = ({ map, sortMode }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 px-6 py-5">
-            <h3 className="text-foreground font-bold text-lg leading-tight mb-1">
-                #{sortMode === "hardest" ? map.hardest : map.id} – {map.mapname}
-            </h3>
-            <p className="text-secondary text-sm mb-1">
-                created by{" "}
-                <span
-                    className="text-secondary cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/profile/${map.user_id}`)}
+        <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 flex items-center gap-4 overflow-hidden">
+            <div
+                className="w-[160px] shrink-0 self-stretch rounded-l-sm bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: `url('/mapviewer/screenshots/climb_${map.mapname}.png')` }}
+            />
+            <div className="px-4 py-5">
+                <h3
+                    className="text-foreground font-bold text-lg leading-tight mb-1 cursor-pointer hover:underline"
+                    onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(map.mapname)}&creator=${encodeURIComponent(map.user_id)}`)}
                 >
-                    {map.user_id}
-                </span>
-            </p>
-            <p className="text-secondary text-sm">
-                {map.records_count} records
-            </p>
+                    #{sortMode === "hardest" ? map.hardest : map.id} – {map.mapname}
+                </h3>
+                <p className="text-secondary text-sm mb-1">
+                    created by{" "}
+                    <span
+                        className="text-secondary cursor-pointer hover:text-foreground hover:underline"
+                        onClick={() => navigate(`/profile/${map.user_id}`)}
+                    >
+                        {map.user_id}
+                    </span>
+                </p>
+                <p className="text-secondary text-sm">
+                    {map.records_count} records
+                </p>
+            </div>
         </div>
     );
 };
@@ -77,7 +86,7 @@ export const Maplist: React.FC = () => {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none w-4 h-4" />
                     <Input
                         type="text"
-                        placeholder="Search author..."
+                        placeholder="Search mapper..."
                         value={searchPlayer}
                         onChange={(e) => { setSearchPlayer(e.target.value); setCurrentPage(1); }}
                         className="pl-10 w-full"
@@ -95,7 +104,7 @@ export const Maplist: React.FC = () => {
                                     : "bg-sombre text-secondary"
                             }`}
                         >
-                            {mode === "hardest" ? "Hardest" : "Latest"}
+                            {mode === "hardest" ? "Hardest" : "Latest"}{sortMode === mode ? " ▼" : ""}
                         </button>
                     ))}
                 </div>

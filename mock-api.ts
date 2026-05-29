@@ -17,6 +17,7 @@ type MockStat = {
 };
 
 const MAP_NAMES = [
+    "mc_1octagon", "mc_1cube", "mc_1pentagon", "mc_1ebuc",
     "ctf_Ash", "ctf_B2b", "ctf_Blade", "ctf_Cobra", "ctf_Death",
     "ctf_Dropdown", "ctf_Equinox", "ctf_Flagstone", "ctf_Ghosttown", "ctf_Hook",
     "htf_Ash", "htf_Barrack", "htf_Daybreak", "htf_Goldpit", "htf_Neons",
@@ -170,10 +171,72 @@ function generate(): MockUser[] {
             silver,
             bronze,
             no_medal: Math.max(0, no_medal),
-            maps_created: Math.floor(Math.random() * 8),
+            maps_created: Math.floor(Math.abs(Math.sin(i * 23 + 5)) * 15),
             playtime: Math.floor(Math.random() * 5_000_000) + 50_000,
             created_at: Date.now() - Math.floor(Math.random() * 5e11),
             last_active_at: Date.now() - Math.floor(Math.random() * 5e9),
+        };
+    });
+}
+
+type MockMap = {
+    id: number;
+    mapname: string;
+    user_id: string;
+    date: number;
+    anticoop: number;
+    jets: number;
+    m79: number;
+    nade: number;
+    switch: number;
+    coop: number;
+    m79c: number;
+    hardest: number;
+    records_count: number;
+};
+
+const HARDEST_MAP_NAMES = [
+    "mc_1octagon", "mc_1cube", "mc_1pentagon", "mc_1ebuc",
+    "ctf_Ash", "ctf_B2b", "ctf_Blade", "ctf_Cobra", "ctf_Death",
+    "ctf_Dropdown", "ctf_Equinox", "ctf_Flagstone", "ctf_Ghosttown", "ctf_Hook",
+    "htf_Ash", "htf_Barrack", "htf_Daybreak", "htf_Goldpit", "htf_Neons",
+    "inf_Abel", "inf_Arox", "inf_Baire", "inf_CompleteCamp", "inf_Darkness",
+    "ctf_Kampf", "ctf_Legend", "ctf_Maze", "ctf_Nerve", "ctf_Orbit",
+    "ctf_Peak", "ctf_Quest", "ctf_Rage", "ctf_Storm", "ctf_Titan",
+    "htf_Echo", "htf_Flare", "htf_Grotto", "htf_Haven", "htf_Impact",
+    "inf_Ember", "inf_Forge", "inf_Glacial", "inf_Hollow", "inf_Ironwall",
+    "ctf_Ub3r", "ctf_Venom", "ctf_Wrath", "ctf_Xroads", "ctf_Yavin",
+    "ctf_Zenith", "htf_Jinn", "htf_Krypt", "htf_Lancer", "htf_Midway",
+];
+
+function generateMaps(users: MockUser[]): MockMap[] {
+    const now = Date.now();
+    const threeYears = 3 * 365 * 24 * 3600 * 1000;
+    // IDs spread across realistic range (like real DB: 800–5500), sorted ascending so higher ID = newer
+    const ids = HARDEST_MAP_NAMES.map((_, i) =>
+        300 + i * 103 + Math.floor(Math.abs(Math.sin(i * 7 + 3)) * 80)
+    ).sort((a, b) => a - b);
+
+    return HARDEST_MAP_NAMES.map((mapname, i) => {
+        const id = ids[i]!;
+        const authorIdx = Math.floor(Math.abs(Math.sin(i * 31 + 7)) * users.length);
+        const author = users[authorIdx]!;
+        // higher ID → more recent date
+        const ageFraction = 1 - id / (ids[ids.length - 1]! + 1);
+        return {
+            id,
+            mapname,
+            user_id: author.username,
+            date: now - Math.floor(ageFraction * threeYears),
+            anticoop: Math.round(Math.abs(Math.sin(i * 3))) as 0 | 1,
+            jets: Math.round(Math.abs(Math.sin(i * 5))) as 0 | 1,
+            m79: Math.round(Math.abs(Math.sin(i * 7))) as 0 | 1,
+            nade: Math.round(Math.abs(Math.sin(i * 9))) as 0 | 1,
+            switch: Math.round(Math.abs(Math.sin(i * 11))) as 0 | 1,
+            coop: Math.round(Math.abs(Math.sin(i * 17))) as 0 | 1,
+            m79c: Math.round(Math.abs(Math.sin(i * 19))) as 0 | 1,
+            hardest: i + 1,
+            records_count: 5 + Math.floor(Math.abs(Math.sin(i * 37 + 3)) * 95),
         };
     });
 }
@@ -183,6 +246,7 @@ const mockStats = generateStats(mockUsers);
 const mockEvents = generateEvents(mockUsers);
 const mockClans = generateClans(mockUsers);
 const mockCountries = generateCountries(mockUsers);
+const mockMaps = generateMaps(mockUsers);
 
 type MockClan = {
     id: number;
@@ -311,10 +375,10 @@ function generateCountries(users: { id: number; username: string }[]): MockCount
 
 // ── Shared helpers ─────────────────────────────────────────────────────────
 
-type SortKey = "unique_caps" | "hardest" | "gold";
+type SortKey = "unique_caps" | "hardest" | "gold" | "maps_created";
 
 function sortUsers(users: MockUser[], sort: string): MockUser[] {
-    const key = (["unique_caps", "hardest", "gold"].includes(sort) ? sort : "unique_caps") as SortKey;
+    const key = (["unique_caps", "hardest", "gold", "maps_created"].includes(sort) ? sort : "unique_caps") as SortKey;
     return [...users].sort((a, b) => b[key] - a[key]);
 }
 
@@ -363,6 +427,8 @@ export function mockApiPlugin(): Plugin {
         configureServer(server) {
             server.middlewares.use((req: IncomingMessage, res: ServerResponse, next: () => void) => {
                 if (!req.url) return next();
+                const accept = req.headers["accept"] ?? "";
+                if (accept.includes("text/html")) return next();
 
                 const { URL } = require("url") as typeof import("url");
                 const url = new URL(req.url, "http://localhost");
@@ -540,6 +606,63 @@ export function mockApiPlugin(): Plugin {
                     const total = sorted.length;
                     const totalPages = Math.max(1, Math.ceil(total / pageSize));
                     const data = sorted.slice((page - 1) * pageSize, page * pageSize);
+
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /maps/:id/stats
+                const mapStatsMatch = url.pathname.match(/^\/maps\/(\d+)\/stats$/);
+                if (mapStatsMatch && req.method === "GET") {
+                    const id = parseInt(mapStatsMatch[1]!);
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+
+                    const map = mockMaps.find((m) => m.id === id);
+                    if (!map) return sendJson(res, 404, { message: "Map not found" });
+
+                    const filtered = mockStats
+                        .filter((s) => s.mapname === map.mapname)
+                        .sort((a, b) => a.position - b.position);
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /maps/:id/events
+                const mapEventsMatch = url.pathname.match(/^\/maps\/(\d+)\/events$/);
+                if (mapEventsMatch && req.method === "GET") {
+                    const id = parseInt(mapEventsMatch[1]!);
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+
+                    const map = mockMaps.find((m) => m.id === id);
+                    if (!map) return sendJson(res, 404, { message: "Map not found" });
+
+                    const filtered = mockEvents
+                        .filter((e) => e.map_id === id)
+                        .sort((a, b) => b.event_date - a.event_date);
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /maps
+                if (url.pathname === "/maps" && req.method === "GET") {
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "50"));
+                    const search = (url.searchParams.get("search") ?? "").toLowerCase();
+
+                    const filtered = search
+                        ? mockMaps.filter((m) => m.mapname.toLowerCase().includes(search))
+                        : mockMaps;
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
 
                     return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
                 }

@@ -9,8 +9,8 @@ const Maps = () => {
         <>
             <Header />
             <main>
-                <h1 className="mt-60 mb-6 text-center text-white">Maps</h1>
-                <div className="max-w-[900px] mx-auto px-4 pt-8 pb-40 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6 items-start">
+                <h1 className="mt-60 mb-6 text-center">Maps</h1>
+                <div className="max-w-[900px] mx-auto px-4 pb-40 grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6 items-start">
                     <section>
                         <Maplist />
                     </section>

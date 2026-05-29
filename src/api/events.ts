@@ -35,6 +35,17 @@ export const eventsApi = {
         );
     },
 
+    getMapEvents: async (
+        mapId: number,
+        { page, pageSize, signal }: GetEventsParams
+    ): Promise<GetEventsResponse> => {
+        return apiClient.get<Event[]>(
+            `/maps/${mapId}/events`,
+            { page: String(page), pageSize: String(pageSize) },
+            signal
+        );
+    },
+
     getUserEvents: async (
         userId: number,
         { page, pageSize, search, signal }: GetEventsParams

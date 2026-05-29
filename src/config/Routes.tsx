@@ -5,6 +5,8 @@ import Landing from "@/pages/Landing/Landing";
 import Gameplay from "@/pages/Gameplay/Gameplay";
 import Ranking from "@/pages/Ranking/Ranking";
 import Maps from "@/pages/Maps/Maps";
+import Map from "@/pages/Map/Map";
+import Mapviewer from "@/pages/Map/Children/Mapviewer";
 import Gamemodes from "@/pages/Gamemodes/Gamemodes";
 import Servers from "@/pages/Servers/Servers";
 import Faq from "@/pages/Faq/Faq";
@@ -78,6 +80,8 @@ export const appRoutes: AppRoute[] = [
     },
 
     { path: "/maps", element: <Maps /> },
+    { path: "/maps/:mapId", element: <Map /> },
+    { path: "/mapviewer", element: <Mapviewer /> },
     { path: "/gamemodes", element: <Gamemodes /> },
     { path: "/servers", element: <Servers /> },
     { path: "/faq", element: <Faq /> },
