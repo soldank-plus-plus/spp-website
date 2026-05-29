@@ -362,18 +362,8 @@ export const App: React.FC = () => {
             />
 
             {loading && (
-                <div style={{
-                    position: "fixed", inset: 0, display: "flex",
-                    alignItems: "center", justifyContent: "center", zIndex: 10,
-                }}>
-                    <div style={{
-                        width: 150, height: 150, lineHeight: "150px", textAlign: "center",
-                        color: "#ccc", fontFamily: "sans-serif", fontWeight: "bold",
-                        border: "5px solid #fff", borderRadius: "100px",
-                        boxShadow: "0 0 50px #fff, inset 0 0 50px #fff",
-                    }}>
-                        LOADING
-                    </div>
+                <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10 }}>
+                    <div className="mapviewer-loader">LOADING</div>
                 </div>
             )}
 
