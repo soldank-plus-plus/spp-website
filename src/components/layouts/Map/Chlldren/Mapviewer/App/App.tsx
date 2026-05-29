@@ -48,12 +48,13 @@ export const App: React.FC = () => {
 
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const sidebarOpenRef = useRef(false);
     const [viewCfg, setViewCfg] = useState<RendererConfig>({ ...defaultConfig });
     const [searchText, setSearchText] = useState("");
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [focusedIdx, setFocusedIdx] = useState(-1);
-    const searchRef = useRef<HTMLInputElement>(null);
 
     const draw = useCallback(() => {
         const canvas = canvasRef.current;
@@ -124,11 +125,12 @@ export const App: React.FC = () => {
                             const ys = verts.map((v) => v.y);
                             const xmin = Math.min(...xs), xmax = Math.max(...xs);
                             const ymin = Math.min(...ys), ymax = Math.max(...ys);
-                            const W = window.innerWidth - SIDEBAR_WIDTH;
+                            const sw = sidebarOpenRef.current ? SIDEBAR_WIDTH : 0;
+                            const W = window.innerWidth - sw;
                             const H = window.innerHeight;
 
                             scaleRef.current = 0.9 * Math.min(W / (xmax - xmin), H / (ymax - ymin));
-                            dxRef.current = -(xmin + xmax) / 2 - SIDEBAR_WIDTH / (2 * scaleRef.current);
+                            dxRef.current = -(xmin + xmax) / 2 - sw / (2 * scaleRef.current);
                             dyRef.current = -(ymin + ymax) / 2;
 
                             draw();
@@ -222,7 +224,6 @@ export const App: React.FC = () => {
         };
 
         const onMouseDown = (e: MouseEvent) => {
-            searchRef.current?.blur();
             e.preventDefault();
             let x = e.clientX, y = e.clientY;
 
@@ -341,7 +342,8 @@ export const App: React.FC = () => {
 
     return (
         <SidebarProvider
-            defaultOpen={true}
+            open={sidebarOpen}
+            onOpenChange={(v) => { setSidebarOpen(v); sidebarOpenRef.current = v; draw(); }}
             className="h-svh overflow-hidden"
             style={{
                 "--sidebar-background": "0 0% 0%",
@@ -382,55 +384,16 @@ export const App: React.FC = () => {
                 display: "flex", alignItems: "center", gap: 6,
                 fontFamily: "monospace", fontSize: 12, color: "#fff",
             }}>
-                <SidebarTrigger className="text-white hover:bg-transparent hover:text-white h-6 w-6" />
-
-                <div style={{ position: "relative" }}>
-                    <input
-                        ref={searchRef}
-                        value={searchText}
-                        onChange={(e) => handleSearchChange(e.target.value)}
-                        onKeyDown={handleSearchKeyDown}
-                        onFocus={() => searchText && setShowSuggestions(true)}
-                        onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                        placeholder="Search maps..."
-                        style={{
-                            outline: "none", border: "1px solid #fff",
-                            background: "rgba(0,0,0,0.7)", color: "#fff",
-                            padding: "2px 4px", fontFamily: "monospace", fontSize: 12,
-                            width: 180,
-                        }}
-                    />
-                    {showSuggestions && suggestions.length > 0 && (
-                        <ul style={{
-                            position: "absolute", top: "100%", left: 0,
-                            background: "#000", border: "1px solid #fff", borderTop: 0,
-                            margin: 0, padding: "0 10px", listStyle: "none",
-                            color: "#fff", maxHeight: 200, overflowY: "auto",
-                            opacity: 0.9, zIndex: 20, minWidth: "100%",
-                        }}>
-                            {suggestions.map((s, i) => (
-                                <li
-                                    key={s}
-                                    onMouseDown={() => selectMap(s)}
-                                    style={{
-                                        padding: "2px 0", cursor: "pointer", whiteSpace: "nowrap",
-                                        background: i === focusedIdx ? "#2e4183" : "transparent",
-                                    }}
-                                >
-                                    {s}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+                <SidebarTrigger className="text-white hover:bg-transparent hover:text-white h-5 w-5" style={{ padding: 0, marginTop: 4 }} />
 
                 <button
                     onClick={handleScreenshot}
+                    title="Screenshot"
                     style={{
                         background: "transparent", border: "none", color: "#fff",
                         fontSize: 18, cursor: "pointer", padding: 0, lineHeight: 1,
+                        display: "flex", alignItems: "center",
                     }}
-                    title="Screenshot"
                 >
                     📷
                 </button>
@@ -440,6 +403,49 @@ export const App: React.FC = () => {
 
             <Sidebar side="right" collapsible="offcanvas" className="font-mono text-xs text-white border-l border-white/20">
                 <SidebarContent>
+
+                    <SidebarGroup>
+                        <SidebarGroupContent className="px-3 pt-2 pb-1">
+                            <div style={{ position: "relative" }}>
+                                <input
+                                    value={searchText}
+                                    onChange={(e) => handleSearchChange(e.target.value)}
+                                    onKeyDown={handleSearchKeyDown}
+                                    onFocus={() => searchText && setShowSuggestions(true)}
+                                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                                    placeholder="Search other maps..."
+                                    style={{
+                                        outline: "none", border: "1px solid #fff",
+                                        background: "rgba(0,0,0,0.7)", color: "#fff",
+                                        padding: "2px 6px", fontFamily: "monospace", fontSize: 12,
+                                        width: "100%",
+                                    }}
+                                />
+                                {showSuggestions && suggestions.length > 0 && (
+                                    <ul style={{
+                                        position: "absolute", top: "100%", left: 0, right: 0,
+                                        background: "#000", border: "1px solid #fff", borderTop: 0,
+                                        margin: 0, padding: "0 10px", listStyle: "none",
+                                        color: "#fff", maxHeight: 200, overflowY: "auto",
+                                        opacity: 0.9, zIndex: 20,
+                                    }}>
+                                        {suggestions.map((s, i) => (
+                                            <li
+                                                key={s}
+                                                onMouseDown={() => selectMap(s)}
+                                                style={{
+                                                    padding: "2px 0", cursor: "pointer", whiteSpace: "nowrap",
+                                                    background: i === focusedIdx ? "#2e4183" : "transparent",
+                                                }}
+                                            >
+                                                {s}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
 
                     <SidebarGroup>
                         <SidebarGroupLabel className="text-white/50 text-[10px] uppercase tracking-widest px-3 py-2">
