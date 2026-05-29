@@ -1,9 +1,10 @@
 import React from "react";
-import { SortKey } from "@/api/users";
+
+type SortButtonKey = "unique_caps" | "hardest" | "gold";
 
 interface Props {
-    sortBy: SortKey;
-    onSortChange: (key: SortKey) => void;
+    sortBy: string;
+    onSortChange: (key: SortButtonKey) => void;
 }
 
 export const SortButtons: React.FC<Props> = ({ sortBy, onSortChange }) => {

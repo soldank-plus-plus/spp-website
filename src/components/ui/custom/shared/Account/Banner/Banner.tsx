@@ -6,13 +6,6 @@ interface BannerProps {
     avatarSrc: string;
     username: string;
     highlight?: string;
-
-    memberSince: string;
-    lastSeen: string;
-
-    records: number;
-    completions: number;
-
     socials?: {
         twitch?: string;
         youtube?: string;
