@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
     Table,
     TableHeader,
@@ -8,8 +8,7 @@ import {
     TableCell,
 } from "@/components/ui/shadcn/table";
 import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
-import { useMapRecords } from "@/hooks/stats/useMapRecords";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
 
 function formatTime(ms: number): string {
@@ -51,7 +50,6 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
             <TableCell className="px-0.5 py-2 text-center font-bold text-secondary w-[48px]">
                 {record.position}
             </TableCell>
-
             <TableCell className="px-0.5 py-2 text-secondary">
                 <span
                     className="font-medium truncate cursor-pointer hover:text-foreground hover:underline"
@@ -60,11 +58,9 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
                     {record.username}
                 </span>
             </TableCell>
-
             <TableCell className="px-1 py-2 text-center text-secondary font-mono">
                 {formatTime(record.record_time)}
             </TableCell>
-
             <TableCell className="px-1 py-2 text-center text-secondary">
                 {formatDate(record.record_date)}
             </TableCell>
@@ -72,45 +68,18 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
     );
 };
 
-export const MapRecordsTable: React.FC = () => {
-    const { mapId: mapIdParam } = useParams<{ mapId: string }>();
-    const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
+interface Props {
+    records: Stat[];
+    totalPages: number;
+    loading: boolean;
+    error: string | null;
+    currentPage: number;
+    onPageChange: (page: number) => void;
+}
 
-    const mapId = Number(mapIdParam);
-    const mapname = searchParams.get("name") ?? "";
-
-    if (!mapIdParam || isNaN(mapId)) {
-        navigate("/maps");
-        return null;
-    }
-
-    const openMapviewer = () => {
-        window.open(`/mapviewer${mapname ? `?map=climb/${mapname}` : ""}`, "_blank");
-    };
-    const pageSize = 30;
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const { records, totalPages, loading, error } = useMapRecords({
-        mapId,
-        page: currentPage,
-        pageSize,
-    });
-
+export const MapRecords: React.FC<Props> = ({ records, totalPages, loading, error, currentPage, onPageChange }) => {
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="mt-60 mb-2 text-center text-white">{mapname || "Map Records"}</h1>
-
-            <div className="flex justify-center mb-8">
-                <button
-                    onClick={openMapviewer}
-                    className="rounded px-4 py-2 text-sm font-semibold bg-accent text-white hover:bg-accenthover transition-colors"
-                >
-                    Show in Mapviewer
-                </button>
-            </div>
-
-        <div className="overflow-x-auto px-4">
+        <div className="overflow-x-auto">
             <Table className="min-w-[800px]">
                 <TableHeader>
                     <TableRow>
@@ -128,28 +97,20 @@ export const MapRecordsTable: React.FC = () => {
                         </TableHead>
                     </TableRow>
                 </TableHeader>
-
                 <TableBody>
                     {loading && (
                         <TableRow>
-                            <td className="text-center py-4" colSpan={4}>
-                                Loading...
-                            </td>
+                            <td className="text-center py-4" colSpan={4}>Loading...</td>
                         </TableRow>
                     )}
-
                     {error && (
                         <TableRow>
-                            <td className="text-center py-4 text-red-500" colSpan={4}>
-                                {error}
-                            </td>
+                            <td className="text-center py-4 text-red-500" colSpan={4}>{error}</td>
                         </TableRow>
                     )}
-
-                    {!loading &&
-                        records.map((record) => (
-                            <RecordRow key={record.id} record={record} />
-                        ))}
+                    {!loading && records.filter((r) => r.position > 3).map((record) => (
+                        <RecordRow key={record.id} record={record} />
+                    ))}
                 </TableBody>
             </Table>
 
@@ -157,10 +118,9 @@ export const MapRecordsTable: React.FC = () => {
                 <CustomPagination
                     currentPage={currentPage}
                     totalPages={totalPages}
-                    onPageChange={setCurrentPage}
+                    onPageChange={onPageChange}
                 />
             </div>
-        </div>
         </div>
     );
 };

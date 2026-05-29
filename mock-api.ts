@@ -17,7 +17,7 @@ type MockStat = {
 };
 
 const MAP_NAMES = [
-    "mc_1octagon",
+    "mc_1octagon", "mc_1cube", "mc_1pentagon", "mc_1ebuc",
     "ctf_Ash", "ctf_B2b", "ctf_Blade", "ctf_Cobra", "ctf_Death",
     "ctf_Dropdown", "ctf_Equinox", "ctf_Flagstone", "ctf_Ghosttown", "ctf_Hook",
     "htf_Ash", "htf_Barrack", "htf_Daybreak", "htf_Goldpit", "htf_Neons",
@@ -196,7 +196,7 @@ type MockMap = {
 };
 
 const HARDEST_MAP_NAMES = [
-    "mc_1octagon",
+    "mc_1octagon", "mc_1cube", "mc_1pentagon", "mc_1ebuc",
     "ctf_Ash", "ctf_B2b", "ctf_Blade", "ctf_Cobra", "ctf_Death",
     "ctf_Dropdown", "ctf_Equinox", "ctf_Flagstone", "ctf_Ghosttown", "ctf_Hook",
     "htf_Ash", "htf_Barrack", "htf_Daybreak", "htf_Goldpit", "htf_Neons",
@@ -623,6 +623,26 @@ export function mockApiPlugin(): Plugin {
                     const filtered = mockStats
                         .filter((s) => s.mapname === map.mapname)
                         .sort((a, b) => a.position - b.position);
+
+                    const total = filtered.length;
+                    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                    const data = filtered.slice((page - 1) * pageSize, page * pageSize);
+                    return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /maps/:id/events
+                const mapEventsMatch = url.pathname.match(/^\/maps\/(\d+)\/events$/);
+                if (mapEventsMatch && req.method === "GET") {
+                    const id = parseInt(mapEventsMatch[1]!);
+                    const page = Math.max(1, parseInt(url.searchParams.get("page") ?? "1"));
+                    const pageSize = Math.max(1, parseInt(url.searchParams.get("pageSize") ?? "30"));
+
+                    const map = mockMaps.find((m) => m.id === id);
+                    if (!map) return sendJson(res, 404, { message: "Map not found" });
+
+                    const filtered = mockEvents
+                        .filter((e) => e.map_id === id)
+                        .sort((a, b) => b.event_date - a.event_date);
 
                     const total = filtered.length;
                     const totalPages = Math.max(1, Math.ceil(total / pageSize));
