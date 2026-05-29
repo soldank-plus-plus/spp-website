@@ -1,7 +1,7 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
 import { AccountOutletContext } from "@/pages/Account/Account";
-import { UserRecordsTable } from "@/components/layouts/Account/Children/UserRecords/UserRecordsTable";
+import { UserRecordsTable } from "@/components/layouts/Account/Children/UserRecords/UserRecords";
 
 export const UserRecords: React.FC = () => {
     const { user, loading } = useOutletContext<AccountOutletContext>();
