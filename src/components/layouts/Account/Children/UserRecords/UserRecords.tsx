@@ -7,14 +7,19 @@ import {
     TableBody,
     TableCell,
 } from "@/components/ui/shadcn/table";
-import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
-import { useUserEvents } from "@/hooks/events/useUserEvents";
-import { ArrowUp, ArrowDown } from "lucide-react";
-import { Event } from "@/types/event";
-import goldIcon from "@/assets/icons/medal-gold.png";
-import silverIcon from "@/assets/icons/medal-silver.png";
-import bronzeIcon from "@/assets/icons/medal-bronze.png";
+import { useUserRecords } from "@/hooks/stats/useUserRecords";
+import { Stat } from "@/types/stat";
+
+function formatTime(ms: number): string {
+    const totalCs = Math.floor(ms / 10);
+    const cs = totalCs % 100;
+    const totalSec = Math.floor(totalCs / 100);
+    const sec = totalSec % 60;
+    const min = Math.floor(totalSec / 60);
+    return `${min}:${String(sec).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
+}
 
 function ordinal(n: number): string {
     const s = ["th", "st", "nd", "rd"];
@@ -31,42 +36,35 @@ function formatDate(timestamp: number): string {
     return `${time} on ${day} ${month} ${year}`;
 }
 
-const MEDAL_ICON: Record<number, string> = {
-    1: goldIcon,
-    2: silverIcon,
-    3: bronzeIcon,
+const ROW_BG: Record<number, string> = {
+    1: "bg-gold/30",
+    2: "bg-silver/30",
+    3: "bg-bronze/30",
 };
 
-const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
-    1: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-green-900/20" },
-    2: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-rowdark"      },
-    3: { icon: <ArrowDown className="mx-auto text-red-400"  size={16} />, row: "bg-red-900/20"   },
-};
-
-interface EventRowProps {
-    event: Event;
+interface RecordRowProps {
+    record: Stat;
 }
 
-const EventRow: React.FC<EventRowProps> = ({ event }) => {
-    const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
-    const medalIcon = MEDAL_ICON[event.medal];
+const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
+    const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
 
     return (
-        <TableRow className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}>
-            <TableCell className="px-0.5 py-2 text-center w-[48px]">
-                {style.icon}
+        <TableRow className={`${rowBg} hover:bg-accenthover transition-colors duration-200 border-0`}>
+            <TableCell className="px-0.5 py-2 text-center font-bold text-secondary w-[48px]">
+                {record.position}
             </TableCell>
 
             <TableCell className="px-1 py-2 text-secondary w-[160px]">
-                {event.mapname}
+                {record.mapname}
             </TableCell>
 
-            <TableCell className="px-1 py-2 text-center w-[100px]">
-                {medalIcon && <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />}
+            <TableCell className="px-1 py-2 text-center font-mono text-secondary w-[110px]">
+                {formatTime(record.record_time)}
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary w-[230px]">
-                {formatDate(event.event_date)}
+                {formatDate(record.record_date)}
             </TableCell>
         </TableRow>
     );
@@ -76,12 +74,12 @@ interface Props {
     userId: number;
 }
 
-export const UserPositionsTable: React.FC<Props> = ({ userId }) => {
+export const UserRecordsTable: React.FC<Props> = ({ userId }) => {
     const pageSize = 15;
     const [currentPage, setCurrentPage] = useState(1);
     const [mapSearch, setMapSearch] = useState("");
 
-    const { events, totalPages, loading, error } = useUserEvents({
+    const { records, totalPages, loading, error } = useUserRecords({
         userId,
         page: currentPage,
         pageSize,
@@ -100,12 +98,14 @@ export const UserPositionsTable: React.FC<Props> = ({ userId }) => {
             <Table className="min-w-[800px]">
                 <TableHeader>
                     <TableRow>
-                        <TableHead className="w-[48px]" />
+                        <TableHead className="px-0.5 py-2 text-center text-blue-200 font-semibold w-[48px]">
+                            #
+                        </TableHead>
                         <TableHead className="px-1 py-2 text-left text-blue-200 font-semibold w-[160px]">
                             Map
                         </TableHead>
-                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[100px]">
-                            Medal
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[110px]">
+                            Time
                         </TableHead>
                         <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[230px]">
                             Date
@@ -131,8 +131,8 @@ export const UserPositionsTable: React.FC<Props> = ({ userId }) => {
                     )}
 
                     {!loading &&
-                        events.map((event) => (
-                            <EventRow key={event.id} event={event} />
+                        records.map((record) => (
+                            <RecordRow key={record.id} record={record} />
                         ))}
                 </TableBody>
             </Table>

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { useMaps } from "@/hooks/maps/useMaps";
 import { useNavigate } from "react-router-dom";
 import { Map } from "@/types/map";

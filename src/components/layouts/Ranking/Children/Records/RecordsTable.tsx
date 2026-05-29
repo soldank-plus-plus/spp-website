@@ -7,7 +7,7 @@ import {
     TableBody,
     TableCell,
 } from "@/components/ui/shadcn/table";
-import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
 import { useRecords } from "@/hooks/stats/useRecords";

@@ -7,7 +7,7 @@ import {
     TableBody,
     TableCell,
 } from "@/components/ui/shadcn/table";
-import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { useMapEvents } from "@/hooks/events/useMapEvents";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "lucide-react";

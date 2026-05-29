@@ -6,7 +6,7 @@ import {
     TableHead,
     TableBody,
 } from "@/components/ui/shadcn/table";
-import { CustomPagination } from "@/components/ui/custom/shared/Ranking/Pagination/Pagination";
+import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
 import { useUsers, SortKey } from "@/hooks/users/useUsers";
