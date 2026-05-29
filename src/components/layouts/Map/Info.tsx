@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMapRecords } from "@/hooks/stats/useMapRecords";
+import { useMap } from "@/hooks/maps/useMap";
 import { Description } from "@/components/layouts/Map/Description";
 import { Stat } from "@/types/stat";
 import goldIcon from "@/assets/icons/medal-gold.png";
@@ -36,12 +37,13 @@ function formatDate(timestamp: number): string {
 interface Props {
     mapId: number;
     mapname: string;
-    creator: string;
 }
 
-export const Info: React.FC<Props> = ({ mapId, mapname, creator }) => {
+export const Info: React.FC<Props> = ({ mapId, mapname }) => {
     const navigate = useNavigate();
     const { records } = useMapRecords({ mapId, page: 1, pageSize: 3 });
+    const { map } = useMap(mapId);
+    const creator = map?.user_id ?? "";
 
     const [top3, setTop3] = useState<Stat[]>([]);
     useEffect(() => {

@@ -70,7 +70,12 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-secondary">
-                {event.mapname}
+                <span
+                    className="cursor-pointer hover:text-foreground hover:underline"
+                    onClick={() => navigate(`/maps/${event.map_id}?name=${encodeURIComponent(event.mapname)}`)}
+                >
+                    {event.mapname}
+                </span>
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center">

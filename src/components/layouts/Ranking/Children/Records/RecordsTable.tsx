@@ -68,7 +68,12 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-secondary">
-                {record.mapname}
+                <span
+                    className="cursor-pointer hover:text-foreground hover:underline"
+                    onClick={() => navigate(`/maps/${record.map_id}?name=${encodeURIComponent(record.mapname)}`)}
+                >
+                    {record.mapname}
+                </span>
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary font-mono">

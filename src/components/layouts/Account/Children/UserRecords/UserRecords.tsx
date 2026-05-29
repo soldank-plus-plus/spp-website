@@ -10,6 +10,7 @@ import {
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
 import { useUserRecords } from "@/hooks/stats/useUserRecords";
+import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
 
 function formatTime(ms: number): string {
@@ -47,6 +48,7 @@ interface RecordRowProps {
 }
 
 const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
+    const navigate = useNavigate();
     const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
 
     return (
@@ -56,7 +58,12 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-secondary w-[160px]">
-                {record.mapname}
+                <span
+                    className="cursor-pointer hover:text-foreground hover:underline"
+                    onClick={() => navigate(`/maps/${record.map_id}?name=${encodeURIComponent(record.mapname)}`)}
+                >
+                    {record.mapname}
+                </span>
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center font-mono text-secondary w-[110px]">

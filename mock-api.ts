@@ -24,14 +24,14 @@ const MAP_NAMES = [
     "inf_Abel", "inf_Arox", "inf_Baire", "inf_CompleteCamp", "inf_Darkness",
 ];
 
-function generateStats(users: { id: number; username: string }[]): MockStat[] {
+function generateStats(users: { id: number; username: string }[], mapIdLookup: Map<string, number>): MockStat[] {
     const stats: MockStat[] = [];
     let id = 1;
     const now = Date.now();
 
     for (let mapIdx = 0; mapIdx < MAP_NAMES.length; mapIdx++) {
         const mapname = MAP_NAMES[mapIdx]!;
-        const mapId = mapIdx + 1;
+        const mapId = mapIdLookup.get(mapname) ?? mapIdx + 1;
         const shuffled = [...users].sort(() => Math.sin(mapIdx * 7 + 1) - 0.5);
         const count = Math.min(shuffled.length, 10 + (mapIdx % 6));
 
@@ -70,7 +70,7 @@ type MockEvent = {
     event_date: number;
 };
 
-function generateEvents(users: { id: number; username: string }[]): MockEvent[] {
+function generateEvents(users: { id: number; username: string }[], mapIdLookup: Map<string, number>): MockEvent[] {
     const events: MockEvent[] = [];
     const now = Date.now();
 
@@ -78,14 +78,15 @@ function generateEvents(users: { id: number; username: string }[]): MockEvent[] 
         const userIdx = Math.floor(Math.abs(Math.sin(i * 17)) * users.length);
         const mapIdx = Math.floor(Math.abs(Math.sin(i * 11)) * MAP_NAMES.length);
         const user = users[userIdx]!;
+        const mapname = MAP_NAMES[mapIdx]!;
         const type: 1 | 3 = i % 3 === 0 ? 3 : 1;
         const medal = ((Math.floor(Math.abs(Math.sin(i * 5)) * 3)) + 1) as 1 | 2 | 3;
 
         events.push({
             id: i + 1,
             type,
-            map_id: mapIdx + 1,
-            mapname: MAP_NAMES[mapIdx]!,
+            map_id: mapIdLookup.get(mapname) ?? mapIdx + 1,
+            mapname,
             user_id: user.id,
             username: user.username,
             medal,
@@ -242,11 +243,12 @@ function generateMaps(users: MockUser[]): MockMap[] {
 }
 
 const mockUsers = generate();
-const mockStats = generateStats(mockUsers);
-const mockEvents = generateEvents(mockUsers);
+const mockMaps = generateMaps(mockUsers);
+const mapIdLookup = new Map(mockMaps.map((m) => [m.mapname, m.id]));
+const mockStats = generateStats(mockUsers, mapIdLookup);
+const mockEvents = generateEvents(mockUsers, mapIdLookup);
 const mockClans = generateClans(mockUsers);
 const mockCountries = generateCountries(mockUsers);
-const mockMaps = generateMaps(mockUsers);
 
 type MockClan = {
     id: number;
@@ -372,8 +374,6 @@ function generateCountries(users: { id: number; username: string }[]): MockCount
         };
     });
 }
-
-// ── Shared helpers ─────────────────────────────────────────────────────────
 
 type SortKey = "unique_caps" | "hardest" | "gold" | "maps_created";
 
@@ -648,6 +648,15 @@ export function mockApiPlugin(): Plugin {
                     const totalPages = Math.max(1, Math.ceil(total / pageSize));
                     const data = filtered.slice((page - 1) * pageSize, page * pageSize);
                     return sendJson(res, 200, { data, meta: { total, totalPages, page, pageSize } });
+                }
+
+                // GET /maps/:id
+                const mapByIdMatch = url.pathname.match(/^\/maps\/(\d+)$/);
+                if (mapByIdMatch && req.method === "GET") {
+                    const id = parseInt(mapByIdMatch[1]!);
+                    const map = mockMaps.find((m) => m.id === id);
+                    if (!map) return sendJson(res, 404, { error: "Map not found" });
+                    return sendJson(res, 200, { data: map });
                 }
 
                 // GET /maps

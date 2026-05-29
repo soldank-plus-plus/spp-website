@@ -13,7 +13,6 @@ const Map: React.FC = () => {
 
     const mapId = Number(mapIdParam);
     const mapname = searchParams.get("name") ?? "";
-    const creator = searchParams.get("creator") ?? "";
 
     if (!mapIdParam || isNaN(mapId)) {
         navigate("/maps");
@@ -25,7 +24,7 @@ const Map: React.FC = () => {
             <Header />
             <main>
                 <Preview mapname={mapname} />
-                <Info mapId={mapId} mapname={mapname} creator={creator} />
+                <Info mapId={mapId} mapname={mapname} />
                 <MapTable mapId={mapId} />
             </main>
             <Footer />

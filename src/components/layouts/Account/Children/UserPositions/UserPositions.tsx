@@ -10,6 +10,7 @@ import {
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
 import { useUserEvents } from "@/hooks/events/useUserEvents";
+import { useNavigate } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { Event } from "@/types/event";
 import goldIcon from "@/assets/icons/medal-gold.png";
@@ -48,6 +49,7 @@ interface EventRowProps {
 }
 
 const EventRow: React.FC<EventRowProps> = ({ event }) => {
+    const navigate = useNavigate();
     const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
     const medalIcon = MEDAL_ICON[event.medal];
 
@@ -58,7 +60,12 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-secondary w-[160px]">
-                {event.mapname}
+                <span
+                    className="cursor-pointer hover:text-foreground hover:underline"
+                    onClick={() => navigate(`/maps/${event.map_id}?name=${encodeURIComponent(event.mapname)}`)}
+                >
+                    {event.mapname}
+                </span>
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center w-[100px]">
