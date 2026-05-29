@@ -18,7 +18,7 @@ export const Leaderboard: React.FC = () => {
             <hr className="border-border/30 mb-2" />
 
             {loading && (
-                <p className="text-secondary text-sm text-center py-4">Loading...</p>
+                <p className="text-white/70 text-sm text-center py-4">Loading...</p>
             )}
 
             {error && (

@@ -51,38 +51,50 @@ export const Info: React.FC<Props> = ({ mapId, mapname }) => {
     }, [records]);
 
     return (
-        <div className="w-full mt-20 mb-20">
-            <div className="flex flex-col sm:flex-row justify-center gap-16 max-w-[1100px] mx-auto px-12 py-12">
-                <div className="flex flex-col gap-4 min-w-[180px] pr-12">
-                    <h3 className="text-white font-bold">{mapname || "Map Records"}</h3>
-                    {creator && (
-                        <p className="text-secondary text-sm -mt-2">Created by{" "}
-                            <span
-                                className="cursor-pointer hover:text-foreground hover:underline"
-                                onClick={() => navigate(`/profile/${creator}`)}
-                            >{creator}</span>
-                        </p>
-                    )}
-                    {top3.map((record, i) => (
-                        <div key={record.id} className="flex items-center gap-3">
-                            <img src={MEDAL_ICONS[i]} className="w-6 h-6 shrink-0" alt="" />
-                            <div className="flex flex-col">
-                                <span
-                                    className="font-semibold text-sm cursor-pointer hover:text-foreground hover:underline text-secondary"
-                                    onClick={() => navigate(`/profile/${record.username}`)}
-                                >
-                                    {record.username}
-                                </span>
-                                <span className="text-xs text-secondary font-mono">
-                                    {formatTime(record.record_time)} · {formatDate(record.record_date)}
-                                </span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+        <div className="w-full mt-12 mb-12">
+            <div className="px-4 max-w-[1100px] mx-auto">
+                <div className="flex flex-col sm:flex-row gap-8 items-start justify-center">
 
-                <div className="mt-3">
-                    <Description mapname={mapname} />
+                    <div className="flex flex-col gap-4 p-8 rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 w-full sm:w-auto sm:min-w-[260px]">
+                        <div>
+                            <h3>{mapname || "Map Records"}</h3>
+                            {creator && (
+                                <p className="text-sm mt-1">
+                                    Created by{" "}
+                                    <span
+                                        className="cursor-pointer hover:text-foreground hover:underline"
+                                        onClick={() => navigate(`/profile/${creator}`)}
+                                    >
+                                        {creator}
+                                    </span>
+                                </p>
+                            )}
+                        </div>
+
+                        <div className="flex flex-col gap-3 pt-2 border-t border-white/10">
+                            {top3.map((record, i) => (
+                                <div key={record.id} className="flex items-center gap-3">
+                                    <img src={MEDAL_ICONS[i]} className="w-6 h-6 shrink-0" alt="" />
+                                    <div className="flex flex-col">
+                                        <span
+                                            className="font-semibold text-sm cursor-pointer hover:text-foreground hover:underline text-secondary"
+                                            onClick={() => navigate(`/profile/${record.username}`)}
+                                        >
+                                            {record.username}
+                                        </span>
+                                        <span className="text-xs text-secondary font-mono">
+                                            {formatTime(record.record_time)} · {formatDate(record.record_date)}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="p-8">
+                        <Description mapname={mapname} />
+                    </div>
+
                 </div>
             </div>
         </div>

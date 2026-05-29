@@ -93,7 +93,7 @@ export const Description: React.FC<Props> = ({ mapname, category = "climb" }) =>
                     Download map
                 </Button>
                 <Button
-                    variant="ghostInverted"
+                    variant="secondary"
                     onClick={() => window.open(`/mapviewer?map=${category}/${mapname}`, "_blank")}
                 >
                     Mapviewer
