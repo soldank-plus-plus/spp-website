@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
-import { Preview } from "@/components/layouts/Map/Preview";
+import { Hero } from "@/components/layouts/Map/Hero";
 import { Info } from "@/components/layouts/Map/Info";
 import { MapTable } from "@/components/layouts/Map/MapTable/MapTable";
 import { Footer } from "@/components/ui/custom/core/Footer";
@@ -13,6 +13,7 @@ const Map: React.FC = () => {
 
     const mapId = Number(mapIdParam);
     const mapname = searchParams.get("name") ?? "";
+    const category = searchParams.get("category") ?? "climb";
 
     if (!mapIdParam || isNaN(mapId)) {
         navigate("/maps");
@@ -23,8 +24,8 @@ const Map: React.FC = () => {
         <>
             <Header />
             <main>
-                <Preview mapname={mapname} />
-                <Info mapId={mapId} mapname={mapname} />
+                <Hero mapId={mapId} mapname={mapname} category={category} />
+                <Info mapId={mapId} mapname={mapname} category={category} />
                 <MapTable mapId={mapId} />
             </main>
             <Footer />

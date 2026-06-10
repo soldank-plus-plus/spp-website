@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMapRecords } from "@/hooks/stats/useMapRecords";
-import { useMap } from "@/hooks/maps/useMap";
-import { Description } from "@/components/layouts/Map/Description";
-import { Stat } from "@/types/stat";
+import { Preview } from "@/components/layouts/Map/Preview";
+import { Specs } from "@/components/layouts/Map/Specs";
 import goldIcon from "@/assets/icons/medal-gold.png";
 import silverIcon from "@/assets/icons/medal-silver.png";
 import bronzeIcon from "@/assets/icons/medal-bronze.png";
 
 const MEDAL_ICONS = [goldIcon, silverIcon, bronzeIcon];
+const MEDAL_LABELS = ["Gold", "Silver", "Bronze"];
 
 function formatTime(ms: number): string {
     const totalCs = Math.floor(ms / 10);
@@ -19,80 +19,67 @@ function formatTime(ms: number): string {
     return `${min}:${String(sec).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
 }
 
-function ordinal(n: number): string {
-    const s = ["th", "st", "nd", "rd"];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]!);
-}
-
 function formatDate(timestamp: number): string {
     const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
-    const day = ordinal(d.getDate());
-    const month = d.toLocaleString("en-US", { month: "long" });
-    const year = d.getFullYear();
-    return `${time} on ${day} ${month} ${year}`;
+    return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
 }
 
 interface Props {
     mapId: number;
     mapname: string;
+    category?: string;
 }
 
-export const Info: React.FC<Props> = ({ mapId, mapname }) => {
+export const Info: React.FC<Props> = ({ mapId, mapname, category = "climb" }) => {
     const navigate = useNavigate();
     const { records } = useMapRecords({ mapId, page: 1, pageSize: 3 });
-    const { map } = useMap(mapId);
-    const creator = map?.user_id ?? "";
+    const top3 = records.slice(0, 3);
 
-    const [top3, setTop3] = useState<Stat[]>([]);
-    useEffect(() => {
-        if (records.length > 0) setTop3(records.slice(0, 3));
-    }, [records]);
+    const cardClass = "rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5";
 
     return (
-        <div className="w-full mt-12 mb-12">
+        <div className="w-full py-10">
             <div className="px-4 max-w-[1100px] mx-auto">
-                <div className="flex flex-col sm:flex-row gap-8 items-start justify-center">
+                <div className="flex flex-col sm:flex-row gap-6 items-stretch">
 
-                    <div className="flex flex-col gap-4 p-8 rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 w-full sm:w-auto sm:min-w-[260px]">
-                        <div>
-                            <h3>{mapname || "Map Records"}</h3>
-                            {creator && (
-                                <p className="text-sm mt-1">
-                                    Created by{" "}
-                                    <span
-                                        className="cursor-pointer hover:text-foreground hover:underline"
-                                        onClick={() => navigate(`/profile/${creator}`)}
-                                    >
-                                        {creator}
-                                    </span>
-                                </p>
-                            )}
+                    <div className="flex flex-col gap-4 sm:w-[300px] shrink-0">
+                        <div className={`${cardClass} p-6`}>
+                            <h4 className="mb-4">Top Records</h4>
+                            <div className="flex flex-col gap-3">
+                                {top3.map((record, i) => (
+                                    <div key={record.id} className="flex items-center gap-3">
+                                        <img src={MEDAL_ICONS[i]} className="w-7 h-7 shrink-0" alt={MEDAL_LABELS[i]} />
+                                        <div className="flex flex-col">
+                                            <span
+                                                className="font-semibold text-sm cursor-pointer hover:text-foreground hover:underline text-heading"
+                                                onClick={() => navigate(`/profile/${record.username}`)}
+                                            >
+                                                {record.username}
+                                            </span>
+                                            <span className="text-xs text-secondary font-mono">
+                                                {formatTime(record.record_time)} · {formatDate(record.record_date)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+                                {top3.length === 0 && (
+                                    <p className="text-sm">No records yet</p>
+                                )}
+                            </div>
                         </div>
 
-                        <div className="flex flex-col gap-3 pt-2 border-t border-white/10">
-                            {top3.map((record, i) => (
-                                <div key={record.id} className="flex items-center gap-3">
-                                    <img src={MEDAL_ICONS[i]} className="w-6 h-6 shrink-0" alt="" />
-                                    <div className="flex flex-col">
-                                        <span
-                                            className="font-semibold text-sm cursor-pointer hover:text-foreground hover:underline text-secondary"
-                                            onClick={() => navigate(`/profile/${record.username}`)}
-                                        >
-                                            {record.username}
-                                        </span>
-                                        <span className="text-xs text-secondary font-mono">
-                                            {formatTime(record.record_time)} · {formatDate(record.record_date)}
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className={`${cardClass} p-6`}>
+                            <h4 className="mb-4">Specification</h4>
+                            <Specs mapname={mapname} category={category} />
                         </div>
                     </div>
 
-                    <div className="p-8">
-                        <Description mapname={mapname} />
+                    <div className="flex-1 relative rounded-xl overflow-hidden border border-white/10 min-h-[200px]">
+                        <Preview
+                            mapname={mapname}
+                            category={category}
+                            className="absolute inset-0 w-full h-full object-contain"
+                        />
                     </div>
 
                 </div>
