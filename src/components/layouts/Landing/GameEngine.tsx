@@ -10,6 +10,9 @@ export const GameEngine = () => {
         >
             <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-10 w-full max-w-[1000px]">
                 <div className="flex flex-col justify-center items-start gap-y-4 text-left max-w-sm">
+                    <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200">
+                        · legacy
+                    </span>
                     <h3>Clone of Soldat engine</h3>
                     <p className="text-sm text-white/70">
                         Soldank++ is an open-source clone of the Soldat game

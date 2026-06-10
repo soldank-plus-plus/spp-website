@@ -42,6 +42,9 @@ export const TechShowcase = () => {
                     ))}
                 </div>
                 <div className="flex flex-col justify-center items-start gap-y-4 text-left max-w-sm">
+                    <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200">
+                        · technologies
+                    </span>
                     <h3>Powered by versatile programming languages</h3>
                     <p className="text-sm text-white/70">
                         Developed as a passion project, the game is still in
