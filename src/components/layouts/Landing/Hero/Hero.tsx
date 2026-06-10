@@ -80,7 +80,7 @@ export const Hero = () => {
                             ease: "easeOut",
                         }}
                     >
-                        <Button size="lg" variant="default">
+                        <Button asChild size="lg" variant="default">
                             <Link
                                 to="/contributing"
                                 className="text-inherit no-underline inline-flex items-center"
