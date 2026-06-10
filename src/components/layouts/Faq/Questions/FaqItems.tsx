@@ -56,7 +56,7 @@ export const faqItems = [
                 In early access, several new features and improvements have been
                 introduced compared to the original game. Most of the core
                 mechanics have been rewritten in C++, including a completely
-                overhauled movement system based on a finite state machine —
+                overhauled movement system based on a finite state machine,
                 making it significantly easier to fix bugs and implement future
                 changes. A new in-game map editor has also been added, allowing
                 you to test maps instantly as you build. On top of that, we now
@@ -69,7 +69,7 @@ export const faqItems = [
         question: "What platforms are supported (Windows/Linux/macOS/Web)",
         answer: (
             <>
-                The game will be playable on all major platforms — Windows,
+                The game will be playable on all major platforms: Windows,
                 Linux, macOS, and the Web. The technologies used in the project
                 are cross-platform (macOS should work too but it was not
                 tested).
