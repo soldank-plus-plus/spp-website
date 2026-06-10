@@ -1,4 +1,6 @@
-export const features = {
+type Feature = { name: string; status: "done" | "planned" };
+
+export const features: Record<string, Feature[]> = {
     core: [
         {
             name: "All movement animations (running, jumping, changing weapon, etc..)",

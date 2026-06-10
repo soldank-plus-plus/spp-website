@@ -1,4 +1,3 @@
-import React from "react";
 import {
     Bar,
     BarChart,
@@ -29,8 +28,17 @@ export default function RoadmapChart() {
     } satisfies ChartConfig;
 
     return (
-        <div className="w-full px-4 sm:px-6 md:px-12 lg:px-24 flex justify-center mb-28">
-            <div className="w-full max-w-3xl">
+        <div className="w-full flex flex-col items-center px-4">
+            <div className="max-w-3xl w-full mb-12 text-center">
+                <h1 className="mt-60 mb-6">Roadmap</h1>
+                <p className="mx-auto max-w-3xl text-center">
+                    Explore our development roadmap to see the progress of key
+                    game systems, upcoming features, and improvements. Here you
+                    can track what's completed and what's planned for future
+                    updates.
+                </p>
+            </div>
+            <div className="w-full max-w-3xl mb-8">
                 <ChartContainer
                     config={chartConfig}
                     className="min-h-[200px] w-full"
@@ -43,21 +51,14 @@ export default function RoadmapChart() {
                                 tickLine={false}
                                 axisLine={false}
                                 interval={0}
-                                angle={-23} // Name inclination
+                                angle={-23}
                                 textAnchor="end"
                             />
                             <ChartTooltip content={<ChartTooltipContent />} />
-                            <ChartLegend content={<ChartLegendContent />} />
-                            <Bar
-                                dataKey="done"
-                                fill="var(--color-done)"
-                                radius={4}
-                            />
-                            <Bar
-                                dataKey="planned"
-                                fill="var(--color-planned)"
-                                radius={4}
-                            />
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            <ChartLegend content={(props) => <ChartLegendContent {...props as any} />} />
+                            <Bar dataKey="done" fill="var(--color-done)" radius={4} />
+                            <Bar dataKey="planned" fill="var(--color-planned)" radius={4} />
                         </BarChart>
                     </ResponsiveContainer>
                 </ChartContainer>
