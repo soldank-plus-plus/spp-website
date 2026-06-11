@@ -14,7 +14,7 @@ export const MapTable: React.FC<Props> = ({ mapId }) => {
     const { records, totalPages, loading, error } = useMapRecords({ mapId, page: currentPage, pageSize: 30 });
 
     return (
-        <div className="max-w-[1100px] mx-auto px-4">
+        <div className="max-w-[1100px] mx-auto mt-12 px-4">
             <div className="flex justify-center">
                 <div>
                     <div className="flex gap-2 mb-6">

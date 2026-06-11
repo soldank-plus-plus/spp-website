@@ -42,9 +42,9 @@ export const Info: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
             <div className="px-4 max-w-[1100px] mx-auto">
                 <div className="flex flex-col sm:flex-row gap-6 items-stretch">
 
-                    <div className="flex flex-col gap-4 sm:w-[300px] shrink-0">
+                    <div className="flex flex-col gap-6 sm:w-[300px] shrink-0">
                         <div className={`${cardClass} p-6`}>
-                            <h4 className="mb-4">Top Records</h4>
+                            <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200 mb-4 block">Top Records</span>
                             <div className="flex flex-col gap-3">
                                 {top3.map((record, i) => (
                                     <div key={record.id} className="flex items-center gap-3">
@@ -69,7 +69,7 @@ export const Info: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
                         </div>
 
                         <div className={`${cardClass} p-6`}>
-                            <h4 className="mb-4">Specification</h4>
+                            <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200 mb-4 block">Specification</span>
                             <Specs mapname={mapname} category={category} />
                         </div>
                     </div>

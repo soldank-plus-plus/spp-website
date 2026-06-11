@@ -57,7 +57,7 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
 
     return (
         <div
-            className="relative w-full h-[440px] flex items-end pb-14 bg-background"
+            className="relative w-full h-[390px] flex items-end bg-background mb-3"
             style={{
                 backgroundImage: `url(${screenshotUrl})`,
                 backgroundSize: "cover",
@@ -85,7 +85,7 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
                         disabled={!mapInfo}
                         onClick={handleDownload}
                     >
-                        Download Map
+                        Download
                     </Button>
                     <Button
                         variant="outline"
