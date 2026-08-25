@@ -1,10 +1,22 @@
+import { mockGet } from "./mock";
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+
 export interface ApiResponse<T> {
     data: T;
     meta?: {
+        itemsPerPage?: number;
+        totalItems?: number;
+        currentPage?: number;
         totalPages?: number;
-        total?: number;
-        page?: number;
-        pageSize?: number;
+        sortBy?: [string, string][];
+        search?: string;
+        searchBy?: string[];
+        filter?: Record<string, any>;
+    };
+    links?: {
+        current?: string;
+        [key: string]: string | undefined;
     };
 }
 
@@ -60,6 +72,18 @@ class ApiClient {
         params?: Record<string, any>,
         signal?: AbortSignal
     ): Promise<ApiResponse<T>> {
+        if (USE_MOCK) {
+            const normalized: Record<string, string> = {};
+            if (params) {
+                Object.entries(params).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== "") {
+                        normalized[key] = String(value);
+                    }
+                });
+            }
+            return mockGet(endpoint, normalized) as ApiResponse<T>;
+        }
+
         let url = endpoint;
 
         if (params) {

@@ -9,10 +9,10 @@ export interface GetMapsParams {
 
 export interface GetMapsResponse extends ApiResponse<Map[]> {
     meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
         totalPages: number;
-        total: number;
-        page: number;
-        pageSize: number;
     };
 }
 
@@ -25,7 +25,7 @@ export const mapsApi = {
             "/maps",
             {
                 page: String(page),
-                pageSize: String(pageSize),
+                limit: String(pageSize),
                 ...(search && { search }),
             },
             signal

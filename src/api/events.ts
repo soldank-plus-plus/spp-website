@@ -10,10 +10,10 @@ export interface GetEventsParams {
 
 export interface GetEventsResponse extends ApiResponse<Event[]> {
     meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
         totalPages: number;
-        total: number;
-        page: number;
-        pageSize: number;
     };
 }
 
@@ -28,7 +28,7 @@ export const eventsApi = {
             "/events",
             {
                 page: String(page),
-                pageSize: String(pageSize),
+                limit: String(pageSize),
                 ...(search && { search }),
             },
             signal
@@ -41,7 +41,7 @@ export const eventsApi = {
     ): Promise<GetEventsResponse> => {
         return apiClient.get<Event[]>(
             `/maps/${mapId}/events`,
-            { page: String(page), pageSize: String(pageSize) },
+            { page: String(page), limit: String(pageSize) },
             signal
         );
     },
@@ -54,7 +54,7 @@ export const eventsApi = {
             `/users/${userId}/events`,
             {
                 page: String(page),
-                pageSize: String(pageSize),
+                limit: String(pageSize),
                 ...(search && { search }),
             },
             signal
