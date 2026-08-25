@@ -24,6 +24,8 @@ export const eventsApi = {
         search,
         signal,
     }: GetEventsParams): Promise<GetEventsResponse> => {
+        // nestjs-paginate always includes meta on this endpoint; the base
+        // ApiResponse type keeps it optional to cover non-paginated endpoints.
         return apiClient.get<Event[]>(
             "/events",
             {
@@ -32,7 +34,7 @@ export const eventsApi = {
                 ...(search && { search }),
             },
             signal
-        );
+        ) as Promise<GetEventsResponse>;
     },
 
     getMapEvents: async (
@@ -43,7 +45,7 @@ export const eventsApi = {
             `/maps/${mapId}/events`,
             { page: String(page), limit: String(pageSize) },
             signal
-        );
+        ) as Promise<GetEventsResponse>;
     },
 
     getUserEvents: async (
@@ -58,6 +60,6 @@ export const eventsApi = {
                 ...(search && { search }),
             },
             signal
-        );
+        ) as Promise<GetEventsResponse>;
     },
 };

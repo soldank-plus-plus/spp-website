@@ -21,6 +21,8 @@ export const mapsApi = {
         { page, pageSize, search }: GetMapsParams,
         signal?: AbortSignal
     ): Promise<GetMapsResponse> => {
+        // nestjs-paginate always includes meta on this endpoint; the base
+        // ApiResponse type keeps it optional to cover non-paginated endpoints.
         return apiClient.get<Map[]>(
             "/maps",
             {
@@ -29,7 +31,7 @@ export const mapsApi = {
                 ...(search && { search }),
             },
             signal
-        );
+        ) as Promise<GetMapsResponse>;
     },
 
     getMapById: async (id: number) => {
