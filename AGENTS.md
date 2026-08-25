@@ -1,0 +1,48 @@
+# AGENTS.md
+
+This file provides guidance to AI tools like Claude Code or Codex when working with code in this repository.
+
+## Project
+
+Vite + React + TypeScript frontend for Soldank++ (soldank-plus-plus), a Soldat-inspired game: player/map/clan/country rankings, capture/medal events and time-attack records. Consumes a separate NestJS backend (spp-webstats) over REST. Today the real backend only implements `GET /maps`, `GET /maps/:id` and `GET /events`; the `users`/`clans`/`countries`/`stats` API modules and their pages still talk to endpoints that don't exist on the backend yet.
+
+## Build
+
+Requires Node.js v16+.
+
+```
+npm install
+npm run dev
+```
+
+`npm run build` builds against the real backend (`VITE_API_BASE_URL`, see `.env` / `.env.development`). `npm run build:mock` builds in `mock` mode (`VITE_USE_MOCK=true`, see `.env.mock`), which routes every `apiClient` call through the in-memory mock in `src/api/mock.ts` instead of a real backend. In `development` mode, `vite.config.ts` additionally loads `mockApiPlugin` from `mock-api.ts`, a Vite dev-server plugin serving mock API responses for `npm run dev` without a real backend running. Path alias `@/*` resolves to `src/*`.
+
+## Tests
+
+No test runner is configured; there are no test files.
+
+## Architecture
+
+Feature-oriented split under `src/`:
+- `src/api/`: one file per resource (`maps.ts`, `events.ts`, `users.ts`, `clans.ts`, `countries.ts`, `stats.ts`), each wrapping the shared `apiClient` (`src/api/client.ts`) with typed params and response shapes. `mock.ts` is the `VITE_USE_MOCK` mock implementation `apiClient` falls back to.
+- `src/hooks/`: one folder per resource (`maps/`, `events/`, `users/`, ...); each hook calls the matching `src/api/*` module and exposes `{ data, loading, error, totalPages }`-style state, usually with a debounced search. `src/hooks/core/` holds cross-cutting hooks (`useDebounce`, `UseMobile`, `ScrollToTop`).
+- `src/types/`: one file per data shape returned by the backend (`map.ts`, `event.ts`, `user.ts`, ...).
+- `src/pages/`: one folder per route (`Maps/`, `Map/`, `Account/`, `Ranking/`, `Servers/`, ...), composed from the matching `src/components/layouts/<Area>/` components. `src/config/Routes.tsx` is the route table consumed by `src/main.tsx`.
+- `src/components/layouts/`: page-specific layout components, grouped by area (Ranking, Account, Maps, Servers, Landing, ...).
+- `src/components/ui/shadcn/`: shadcn/ui primitives. `src/components/ui/custom/`: shared custom components (core layout pieces like Header/Footer, and reusable feature components like tables, pagination, search).
+
+Global tag styles (`h1`-`h4`, `p`, `a`) are set once in `index.css`; don't re-add Tailwind classes for them in components. Loading states use the shared `Skeleton` component, never a literal "Loading..." string.
+
+## Code style
+
+Comments should be short and only where they add real value:
+- Delete comments that just restate what the code obviously does.
+- No section-divider comments (e.g. `// --- section ---`).
+- No meta-commentary about the coding process ("Note: I decided to...").
+- Don't reference other files, languages, or implementations that might not exist in this repo. Keep comments self-contained.
+- A single-sentence comment should not end with a trailing period. Only use periods when a comment has multiple distinct sentences.
+- Do keep short explanations of genuinely non-obvious behavior or the root cause of a workaround.
+
+Never use em-dashes (—) or a hyphen as sentence punctuation (word - word), anywhere: code, comments, docs, commit messages. Use a comma, period, colon, or parentheses instead. Hyphens inside compound words and identifiers (`well-known`, `single-sentence`, `spp-webstats`) are fine.
+
+Git commit messages follow Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `style:`), short and in imperative mood. No `Co-Authored-By` trailer.
