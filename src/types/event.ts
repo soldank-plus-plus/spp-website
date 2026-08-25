@@ -8,10 +8,10 @@ export type Medal = 1 | 2 | 3; // 1=gold, 2=silver, 3=bronze
 export type Event = {
     id: number;
     type: EventType;
-    map_id: number;
-    mapname: string;
-    user_id: number;
-    username: string;
+    mapId: number | null;
+    mapname: string | null;
+    userId: number | null;
+    username: string | null;
     medal: Medal;
-    event_date: number;
+    eventDate: number | null;
 };

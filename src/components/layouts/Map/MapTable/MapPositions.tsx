@@ -65,7 +65,7 @@ const EventRow: React.FC<{ event: Event }> = ({ event }) => {
                 {medalIcon && <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />}
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary w-[230px]">
-                {formatDate(event.event_date)}
+                {event.eventDate !== null ? formatDate(event.eventDate) : "—"}
             </TableCell>
         </TableRow>
     );

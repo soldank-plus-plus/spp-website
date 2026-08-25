@@ -72,7 +72,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
             <TableCell className="px-1 py-2 text-secondary">
                 <span
                     className="cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/maps/${event.map_id}?name=${encodeURIComponent(event.mapname)}`)}
+                    onClick={() => navigate(`/maps/${event.mapId}?name=${encodeURIComponent(event.mapname ?? "")}`)}
                 >
                     {event.mapname}
                 </span>
@@ -83,7 +83,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary">
-                {formatDate(event.event_date)}
+                {event.eventDate !== null ? formatDate(event.eventDate) : "—"}
             </TableCell>
         </TableRow>
     );
