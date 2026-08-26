@@ -7,7 +7,11 @@
         "preview": "vite preview",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "generate:api-types": "openapi-typescript http://localhost:3000/api-json -o src/api/schema.d.ts"
+        "lint": "eslint \"src/**/*.{ts,tsx}\"",
+        "type-check": "tsc --noEmit",
+        "generate:api-types": "openapi-typescript http://localhost:3000/api-json -o src/api/schema.d.ts",
+        "prepare": "husky",
+        "pre-push": "npm run lint"
     },
     "dependencies": {
         "@radix-ui/react-accordion": "^1.2.11",
@@ -51,6 +55,8 @@
         "eslint-plugin-prettier": "^5.4.1",
         "eslint-plugin-react": "^7.37.5",
         "globals": "^16.2.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.4.0",
         "openapi-typescript": "^7.13.0",
         "postcss": "^8.4.21",
         "prettier": "^3.5.3",
