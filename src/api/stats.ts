@@ -1,4 +1,4 @@
-import { apiClient, ApiResponse } from "@/api/client";
+import { legacyApiClient, ApiResponse } from "@/api/client";
 import { Stat } from "@/types/stat";
 
 export interface GetStatsParams {
@@ -30,7 +30,7 @@ export const statsApi = {
         search,
         signal,
     }: GetRecentStatsParams): Promise<GetStatsResponse> => {
-        return apiClient.get<Stat[]>(
+        return legacyApiClient.get<Stat[]>(
             "/stats",
             {
                 page: String(page),
@@ -45,7 +45,7 @@ export const statsApi = {
         userId: number,
         { page, pageSize, search, signal }: GetStatsParams & { search?: string }
     ): Promise<GetStatsResponse> => {
-        return apiClient.get<Stat[]>(
+        return legacyApiClient.get<Stat[]>(
             `/users/${userId}/stats`,
             {
                 page: String(page),
@@ -60,7 +60,7 @@ export const statsApi = {
         mapId: number,
         { page, pageSize, signal }: GetStatsParams
     ): Promise<GetStatsResponse> => {
-        return apiClient.get<Stat[]>(
+        return legacyApiClient.get<Stat[]>(
             `/maps/${mapId}/stats`,
             { page: String(page), pageSize: String(pageSize) },
             signal

@@ -1,4 +1,4 @@
-import { apiClient, ApiResponse } from "@/api/client";
+import { legacyApiClient, ApiResponse } from "@/api/client";
 import { Country } from "@/types/country";
 
 export type CountrySortKey = "unique_caps" | "hardest" | "gold";
@@ -28,7 +28,7 @@ export const countriesApi = {
         sort,
         signal,
     }: GetCountriesParams): Promise<GetCountriesResponse> => {
-        return apiClient.get<Country[]>(
+        return legacyApiClient.get<Country[]>(
             "/countries",
             {
                 page: String(page),

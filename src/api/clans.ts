@@ -1,4 +1,4 @@
-import { apiClient, ApiResponse } from "@/api/client";
+import { legacyApiClient, ApiResponse } from "@/api/client";
 import { Clan } from "@/types/clan";
 
 export type ClanSortKey = "unique_caps" | "hardest" | "gold";
@@ -28,7 +28,7 @@ export const clansApi = {
         sort,
         signal,
     }: GetClansParams): Promise<GetClansResponse> => {
-        return apiClient.get<Clan[]>(
+        return legacyApiClient.get<Clan[]>(
             "/clans",
             {
                 page: String(page),

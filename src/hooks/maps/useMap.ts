@@ -10,8 +10,8 @@ export const useMap = (mapId: number) => {
         setLoading(true);
         mapsApi
             .getMapById(mapId)
-            .then((res) => {
-                setMap(res.data);
+            .then((map) => {
+                setMap(map ?? null);
                 setLoading(false);
             })
             .catch(() => setLoading(false));

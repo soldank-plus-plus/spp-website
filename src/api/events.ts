@@ -1,4 +1,4 @@
-import { apiClient, ApiResponse } from "@/api/client";
+import { apiClient, legacyApiClient } from "@/api/client";
 import { Event } from "@/types/event";
 
 export interface GetEventsParams {
@@ -8,46 +8,36 @@ export interface GetEventsParams {
     signal?: AbortSignal;
 }
 
-export interface GetEventsResponse extends ApiResponse<Event[]> {
-    meta: NonNullable<ApiResponse<Event[]>["meta"]>;
-}
-
 export const eventsApi = {
-    getEvents: async ({
-        page,
-        pageSize,
-        search,
-        signal,
-    }: GetEventsParams): Promise<GetEventsResponse> => {
-        // nestjs-paginate always includes meta on this endpoint; the base
-        // ApiResponse type keeps it optional to cover non-paginated endpoints
-        return apiClient.get<Event[]>(
-            "/events",
-            {
-                page: String(page),
-                limit: String(pageSize),
-                ...(search && { search }),
-            },
-            signal
-        ) as Promise<GetEventsResponse>;
+    getEvents: async ({ page, pageSize, signal }: GetEventsParams) => {
+        // The backend doesn't support searching /events yet, so `search` is
+        // accepted here (hooks pass it) but not forwarded to the request.
+        const { data, error } = await apiClient.GET("/events", {
+            params: { query: { page, limit: pageSize } },
+            signal,
+        });
+        if (error) throw new Error("Failed to fetch events");
+        return { ...data, data: data.data as Event[] };
     },
 
+    // Not real backend endpoints yet; kept on the legacy client until the
+    // backend documents them.
     getMapEvents: async (
         mapId: number,
         { page, pageSize, signal }: GetEventsParams
-    ): Promise<GetEventsResponse> => {
-        return apiClient.get<Event[]>(
+    ) => {
+        return legacyApiClient.get<Event[]>(
             `/maps/${mapId}/events`,
             { page: String(page), limit: String(pageSize) },
             signal
-        ) as Promise<GetEventsResponse>;
+        );
     },
 
     getUserEvents: async (
         userId: number,
         { page, pageSize, search, signal }: GetEventsParams
-    ): Promise<GetEventsResponse> => {
-        return apiClient.get<Event[]>(
+    ) => {
+        return legacyApiClient.get<Event[]>(
             `/users/${userId}/events`,
             {
                 page: String(page),
@@ -55,6 +45,6 @@ export const eventsApi = {
                 ...(search && { search }),
             },
             signal
-        ) as Promise<GetEventsResponse>;
+        );
     },
 };
