@@ -1,23 +1,12 @@
 import { mockGet } from "./mock";
+import type { components } from "./schema";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 export interface ApiResponse<T> {
     data: T;
-    meta?: {
-        itemsPerPage?: number;
-        totalItems?: number;
-        currentPage?: number;
-        totalPages?: number;
-        sortBy?: [string, string][];
-        search?: string;
-        searchBy?: string[];
-        filter?: Record<string, any>;
-    };
-    links?: {
-        current?: string;
-        [key: string]: string | undefined;
-    };
+    meta?: components["schemas"]["PaginatedMetaDocumented"];
+    links?: components["schemas"]["PaginatedLinksDocumented"];
 }
 
 export interface ApiError {

@@ -11,22 +11,23 @@ interface Props {
 
 const MapCard: React.FC<Props> = ({ map, sortMode }) => {
     const navigate = useNavigate();
+    const mapname = map.mapname ?? "";
 
     return (
         <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 flex items-center gap-4 overflow-hidden">
             <div className="w-[120px] aspect-square shrink-0 rounded-l-sm overflow-hidden">
                 <img
-                    src={`/mapviewer/screenshots/climb_${map.mapname}.png`}
-                    alt={map.mapname}
+                    src={`/mapviewer/screenshots/climb_${mapname}.png`}
+                    alt={mapname}
                     className="w-full h-full object-cover"
                 />
             </div>
             <div className="px-4 py-5">
                 <h3
                     className="text-lg cursor-pointer hover:underline"
-                    onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(map.mapname)}`)}
+                    onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(mapname)}`)}
                 >
-                    #{sortMode === "hardest" ? map.hardest : map.id} – {map.mapname}
+                    #{sortMode === "hardest" ? map.hardest ?? "?" : map.id} – {mapname}
                 </h3>
                 <p className="text-white/70 text-sm mb-1">
                     created by{" "}

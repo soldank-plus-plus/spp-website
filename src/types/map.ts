@@ -1,20 +1,4 @@
-export type MapCreator = {
-    id: number;
-    username: string;
-};
+import type { components } from "@/api/schema";
 
-export type Map = {
-    id: number;
-    mapname: string;
-    date: number;
-    anticoop: number;
-    jets: number;
-    m79: number;
-    nade: number;
-    switch: number;
-    coop: number;
-    m79c: number;
-    hardest: number;
-    creators: MapCreator[];
-    recordsCount: number;
-};
+export type MapCreator = components["schemas"]["MapCreatorDto"];
+export type Map = components["schemas"]["FindAllMapsDto"];

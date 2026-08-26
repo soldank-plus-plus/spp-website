@@ -9,12 +9,7 @@ export interface GetEventsParams {
 }
 
 export interface GetEventsResponse extends ApiResponse<Event[]> {
-    meta: {
-        itemsPerPage: number;
-        totalItems: number;
-        currentPage: number;
-        totalPages: number;
-    };
+    meta: NonNullable<ApiResponse<Event[]>["meta"]>;
 }
 
 export const eventsApi = {
@@ -25,7 +20,7 @@ export const eventsApi = {
         signal,
     }: GetEventsParams): Promise<GetEventsResponse> => {
         // nestjs-paginate always includes meta on this endpoint; the base
-        // ApiResponse type keeps it optional to cover non-paginated endpoints.
+        // ApiResponse type keeps it optional to cover non-paginated endpoints
         return apiClient.get<Event[]>(
             "/events",
             {

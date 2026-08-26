@@ -46,7 +46,7 @@ const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
 const EventRow: React.FC<{ event: Event }> = ({ event }) => {
     const navigate = useNavigate();
     const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
-    const medalIcon = MEDAL_ICON[event.medal];
+    const medalIcon = event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
 
     return (
         <TableRow className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}>

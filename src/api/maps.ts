@@ -8,12 +8,7 @@ export interface GetMapsParams {
 }
 
 export interface GetMapsResponse extends ApiResponse<Map[]> {
-    meta: {
-        itemsPerPage: number;
-        totalItems: number;
-        currentPage: number;
-        totalPages: number;
-    };
+    meta: NonNullable<ApiResponse<Map[]>["meta"]>;
 }
 
 export const mapsApi = {
@@ -22,7 +17,7 @@ export const mapsApi = {
         signal?: AbortSignal
     ): Promise<GetMapsResponse> => {
         // nestjs-paginate always includes meta on this endpoint; the base
-        // ApiResponse type keeps it optional to cover non-paginated endpoints.
+        // ApiResponse type keeps it optional to cover non-paginated endpoints
         return apiClient.get<Map[]>(
             "/maps",
             {

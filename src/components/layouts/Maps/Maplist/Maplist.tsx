@@ -18,14 +18,14 @@ export const Maplist: React.FC = () => {
         const q = searchMap.toLowerCase();
         const p = searchPlayer.toLowerCase();
         const base = maps.filter((m) => {
-            const matchMap = q ? m.mapname.toLowerCase().includes(q) : true;
+            const matchMap = q ? (m.mapname ?? "").toLowerCase().includes(q) : true;
             const matchPlayer = p
                 ? m.creators.some((creator) => creator.username.toLowerCase().includes(p))
                 : true;
             return matchMap && matchPlayer;
         });
         return [...base].sort((a, b) =>
-            sortMode === "hardest" ? a.hardest - b.hardest : b.date - a.date
+            sortMode === "hardest" ? (a.hardest ?? 0) - (b.hardest ?? 0) : (b.date ?? 0) - (a.date ?? 0)
         );
     }, [maps, searchMap, searchPlayer, sortMode]);
 
