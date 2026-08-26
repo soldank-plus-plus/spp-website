@@ -49,4 +49,4 @@ Comments should be short and only where they add real value:
 
 Never use em-dashes (—) or a hyphen as sentence punctuation (word - word), anywhere: code, comments, docs, commit messages. Use a comma, period, colon, or parentheses instead. Hyphens inside compound words and identifiers (`well-known`, `single-sentence`, `spp-webstats`) are fine.
 
-Git commit messages follow Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `style:`), short and in imperative mood. No `Co-Authored-By` trailer.
+Git commit messages are short and in imperative mood, no type prefix (no Conventional Commits `feat:`/`fix:`/etc.). No `Co-Authored-By` trailer.
