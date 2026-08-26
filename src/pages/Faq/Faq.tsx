@@ -1,4 +1,3 @@
-import React from "react";
 import { Header } from "@/components/ui/custom/core/Header";
 import { InfoContainer } from "@/components/layouts/Faq/InfoContainer";
 import { Questions } from "@/components/layouts/Faq/Questions/Questions";

@@ -4,7 +4,6 @@ import {
     VertexBuffer,
     IndexBuffer,
     mat3,
-    mat3mul,
     mat3mulx,
     mat3muly,
     mat3identity,

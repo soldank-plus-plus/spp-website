@@ -1,4 +1,3 @@
-import React from "react";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Hero } from "@/components/layouts/Landing/Hero/Hero";
 import { Frame } from "@/components/layouts/Landing/Frame";

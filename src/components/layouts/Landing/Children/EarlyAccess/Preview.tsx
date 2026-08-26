@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/components/ui/shadcn/button";
 import { ArrowDownCircle, XCircle } from "lucide-react";
 import windowsicon from "@/assets/icons/windowsicon.png";

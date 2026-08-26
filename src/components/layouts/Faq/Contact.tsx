@@ -1,4 +1,3 @@
-import React from "react";
 import discord from "@/assets/icons/discord.png";
 
 export const Contact = () => {
@@ -10,7 +9,7 @@ export const Contact = () => {
                         <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200">
                             · contact
                         </span>
-                        <h2>You didn't find your question?</h2>
+                        <h2>You didn&apos;t find your question?</h2>
                         <p className="text-sm text-white/70 [&_a]:underline [&_a:hover]:underline">
                             For additional questions, the easiest and fastest
                             way is to contact us at:{" "}

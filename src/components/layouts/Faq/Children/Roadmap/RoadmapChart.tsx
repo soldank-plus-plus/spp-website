@@ -34,8 +34,8 @@ export default function RoadmapChart() {
                 <p className="mx-auto max-w-3xl text-center">
                     Explore our development roadmap to see the progress of key
                     game systems, upcoming features, and improvements. Here you
-                    can track what's completed and what's planned for future
-                    updates.
+                    can track what&apos;s completed and what&apos;s planned for
+                    future updates.
                 </p>
             </div>
             <div className="w-full max-w-3xl mb-8">
@@ -55,9 +55,9 @@ export default function RoadmapChart() {
                                 textAnchor="end"
                             />
                             <ChartTooltip content={<ChartTooltipContent />} />
-                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             <ChartLegend
                                 content={(props) => (
+                                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                                     <ChartLegendContent {...(props as any)} />
                                 )}
                             />

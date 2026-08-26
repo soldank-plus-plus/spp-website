@@ -57,7 +57,7 @@ class ApiClient {
 
     async get<T>(
         endpoint: string,
-        params?: Record<string, any>,
+        params?: Record<string, unknown>,
         signal?: AbortSignal
     ): Promise<ApiResponse<T>> {
         let url = endpoint;
@@ -76,14 +76,14 @@ class ApiClient {
         return this.request<T>(url, { signal });
     }
 
-    async post<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
+    async post<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "POST",
             body: data ? JSON.stringify(data) : undefined,
         });
     }
 
-    async put<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
+    async put<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "PUT",
             body: data ? JSON.stringify(data) : undefined,
@@ -94,7 +94,7 @@ class ApiClient {
         return this.request<T>(endpoint, { method: "DELETE" });
     }
 
-    async patch<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
+    async patch<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
         return this.request<T>(endpoint, {
             method: "PATCH",
             body: data ? JSON.stringify(data) : undefined,

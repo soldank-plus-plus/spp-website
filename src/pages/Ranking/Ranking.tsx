@@ -1,4 +1,3 @@
-import React from "react";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Navigation } from "@/components/layouts/Ranking/Navigation";
 import { Outlet } from "react-router-dom";

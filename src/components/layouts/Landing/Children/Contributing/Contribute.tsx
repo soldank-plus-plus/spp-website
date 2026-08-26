@@ -15,8 +15,8 @@ const Contribute: React.FC = () => {
                 <p className="mx-auto max-w-3xl text-center px-4">
                     Download the game to test it, or contribute directly by
                     forking the repository and submitting a pull request. Share
-                    your improvements, fixes, or suggestions, and we'll review
-                    them together in #dev_chat on Discord. This is an
+                    your improvements, fixes, or suggestions, and we&apos;ll
+                    review them together in #dev_chat on Discord. This is an
                     open-source community project, nothing is set in stone, and
                     plans can evolve based on contributions, giving everyone the
                     freedom to participate.

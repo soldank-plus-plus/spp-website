@@ -152,9 +152,9 @@ export const List: React.FC = () => {
 
             <p className="mx-auto max-w-3xl text-center">
                 Alternatively, take a break from climbing the maps to exciting
-                multiplayer experiences. Whether it's a tense game of chase &
-                run, a fast-paced shooting match, prop hunt, or surviving waves
-                of zombies!
+                multiplayer experiences. Whether it&apos;s a tense game of chase
+                & run, a fast-paced shooting match, prop hunt, or surviving
+                waves of zombies!
             </p>
 
             <div className="flex justify-center items-center min-h-screen px-4 my-20">

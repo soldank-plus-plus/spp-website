@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/shadcn/button";
 import { ListTodo } from "lucide-react";
@@ -30,10 +29,10 @@ export const InfoContainer = () => {
                 >
                     <p className="text-left">
                         Find answers to the most common questions about
-                        gameplay, modes, and features. If you're new or curious,
-                        this is a great place to start. If you’d like to see
-                        what’s coming in the future, tap Roadmap to view our
-                        plan.
+                        gameplay, modes, and features. If you&apos;re new or
+                        curious, this is a great place to start. If you’d like
+                        to see what’s coming in the future, tap Roadmap to view
+                        our plan.
                     </p>
 
                     <motion.div

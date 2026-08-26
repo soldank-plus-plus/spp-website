@@ -1,4 +1,3 @@
-import React from "react";
 import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 
 import cpp from "@/assets/technologies/cpp.png";

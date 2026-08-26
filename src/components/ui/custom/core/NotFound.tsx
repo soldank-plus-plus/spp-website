@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Footer } from "@/components/ui/custom/core/Footer";
@@ -15,7 +14,7 @@ export default function NotFound() {
                     alt="404 Not Found"
                     className="max-w-xs sm:max-w-sm md:max-w-md mb-8"
                 />
-                <h2 className="mb-4">This page isn't available</h2>
+                <h2 className="mb-4">This page isn&apos;t available</h2>
 
                 <p>
                     The link you followed may be broken, or the page may have

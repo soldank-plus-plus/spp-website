@@ -1,4 +1,3 @@
-import React from "react";
 import soldatgame from "@/assets/backgrounds/soldatgame.jpg";
 import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection";
 

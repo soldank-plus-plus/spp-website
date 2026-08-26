@@ -1,4 +1,3 @@
-import React from "react";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Leaderboard } from "@/components/layouts/Maps/Leaderboard";
 import { Maplist } from "@/components/layouts/Maps/Maplist/Maplist";
