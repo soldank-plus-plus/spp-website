@@ -44,7 +44,13 @@ const Contribute: React.FC = () => {
                                         : "md:flex-[0.5] bg-nocturne",
                                 ].join(" ")}
                             >
-                                <div className={isActive ? "flex flex-col h-full p-6" : "flex md:hidden flex-col h-full p-6"}>
+                                <div
+                                    className={
+                                        isActive
+                                            ? "flex flex-col h-full p-6"
+                                            : "flex md:hidden flex-col h-full p-6"
+                                    }
+                                >
                                     <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200 mb-5">
                                         {String(idx + 1).padStart(2, "0")}
                                         &nbsp;·&nbsp;{c.tag}
@@ -58,11 +64,19 @@ const Contribute: React.FC = () => {
                                     </div>
                                     <div>
                                         <h3 className="mb-2">{c.role}</h3>
-                                        <p className="text-sm">{c.description}</p>
+                                        <p className="text-sm">
+                                            {c.description}
+                                        </p>
                                     </div>
                                 </div>
 
-                                <div className={isActive ? "hidden" : "hidden md:flex flex-col h-full items-center justify-between py-5 px-2"}>
+                                <div
+                                    className={
+                                        isActive
+                                            ? "hidden"
+                                            : "hidden md:flex flex-col h-full items-center justify-between py-5 px-2"
+                                    }
+                                >
                                     <span className="font-tomorrow text-[10px] text-secondary">
                                         {String(idx + 1).padStart(2, "0")}
                                     </span>

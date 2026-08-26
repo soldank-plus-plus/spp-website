@@ -48,7 +48,9 @@ export const useUsers = ({
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
                 const message =
-                    err instanceof Error ? err.message : "Unknown error occurred";
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setUsers([]);
                 setTotalPages(0);

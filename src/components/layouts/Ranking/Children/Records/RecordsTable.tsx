@@ -31,7 +31,12 @@ function ordinal(n: number): string {
 
 function formatDate(timestamp: number): string {
     const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+    const time = d.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+    });
     const day = ordinal(d.getDate());
     const month = d.toLocaleString("en-US", { month: "long" });
     const year = d.getFullYear();
@@ -53,7 +58,9 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
     const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
 
     return (
-        <TableRow className={`${rowBg} hover:bg-accenthover transition-colors duration-200 border-0`}>
+        <TableRow
+            className={`${rowBg} hover:bg-accenthover transition-colors duration-200 border-0`}
+        >
             <TableCell className="px-0.5 py-2 text-center font-bold text-secondary w-[48px]">
                 {record.position}
             </TableCell>
@@ -70,7 +77,11 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
             <TableCell className="px-1 py-2 text-secondary">
                 <span
                     className="cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/maps/${record.map_id}?name=${encodeURIComponent(record.mapname)}`)}
+                    onClick={() =>
+                        navigate(
+                            `/maps/${record.map_id}?name=${encodeURIComponent(record.mapname)}`
+                        )
+                    }
                 >
                     {record.mapname}
                 </span>
@@ -107,8 +118,17 @@ export const RecordsTable: React.FC = () => {
     return (
         <div className="overflow-x-auto px-4 max-w-[1100px] mx-auto">
             <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-x-4">
-                <SearchUser searchTerm={searchTerm} setSearchTerm={handleSearch} />
-                <SearchMap searchTerm={mapSearch} setSearchTerm={(val) => { setMapSearch(val); setCurrentPage(1); }} />
+                <SearchUser
+                    searchTerm={searchTerm}
+                    setSearchTerm={handleSearch}
+                />
+                <SearchMap
+                    searchTerm={mapSearch}
+                    setSearchTerm={(val) => {
+                        setMapSearch(val);
+                        setCurrentPage(1);
+                    }}
+                />
             </div>
 
             <Table className="min-w-[800px]">
@@ -143,7 +163,10 @@ export const RecordsTable: React.FC = () => {
 
                     {error && (
                         <TableRow>
-                            <td className="text-center py-4 text-red-500" colSpan={5}>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={5}
+                            >
                                 {error}
                             </td>
                         </TableRow>

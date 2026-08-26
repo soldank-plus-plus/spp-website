@@ -56,9 +56,21 @@ export default function RoadmapChart() {
                             />
                             <ChartTooltip content={<ChartTooltipContent />} />
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                            <ChartLegend content={(props) => <ChartLegendContent {...props as any} />} />
-                            <Bar dataKey="done" fill="var(--color-done)" radius={4} />
-                            <Bar dataKey="planned" fill="var(--color-planned)" radius={4} />
+                            <ChartLegend
+                                content={(props) => (
+                                    <ChartLegendContent {...(props as any)} />
+                                )}
+                            />
+                            <Bar
+                                dataKey="done"
+                                fill="var(--color-done)"
+                                radius={4}
+                            />
+                            <Bar
+                                dataKey="planned"
+                                fill="var(--color-planned)"
+                                radius={4}
+                            />
                         </BarChart>
                     </ResponsiveContainer>
                 </ChartContainer>

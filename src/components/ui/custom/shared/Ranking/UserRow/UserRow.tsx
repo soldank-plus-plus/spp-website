@@ -54,7 +54,9 @@ export const UserRow: React.FC<Props> = ({
 
             <TableCell
                 className={`text-center px-0.5 py-2 ${
-                    sortBy === "unique_caps" ? "text-foreground" : "text-secondary"
+                    sortBy === "unique_caps"
+                        ? "text-foreground"
+                        : "text-secondary"
                 }`}
             >
                 {player.unique_caps}

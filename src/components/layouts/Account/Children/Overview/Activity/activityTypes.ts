@@ -7,9 +7,12 @@ export const FILTERS: { key: ActivityFilter; label: string }[] = [
     { key: "bronzes", label: "Bronzes" },
 ];
 
-export const PALETTE: Record<ActivityFilter, [string, string, string, string, string]> = {
+export const PALETTE: Record<
+    ActivityFilter,
+    [string, string, string, string, string]
+> = {
     records: ["#2a2a2a", "#14532d", "#15803d", "#16a34a", "#4ade80"],
-    golds:   ["#2a2a2a", "#FFD700", "#FFD700", "#FFD700", "#FFD700"],
+    golds: ["#2a2a2a", "#FFD700", "#FFD700", "#FFD700", "#FFD700"],
     silvers: ["#2a2a2a", "#C0C0C0", "#C0C0C0", "#C0C0C0", "#C0C0C0"],
     bronzes: ["#2a2a2a", "#CD7F32", "#CD7F32", "#CD7F32", "#CD7F32"],
 };
@@ -38,12 +41,17 @@ export function getColor(count: number, palette: string[]): string {
     return palette[4];
 }
 
-export function getMonthLabels(days: string[]): { index: number; label: string }[] {
+export function getMonthLabels(
+    days: string[]
+): { index: number; label: string }[] {
     const labels: { index: number; label: string }[] = [];
     days.forEach((day, i) => {
         const date = new Date(day);
         if (date.getDate() === 1) {
-            labels.push({ index: i, label: date.toLocaleString("default", { month: "short" }) });
+            labels.push({
+                index: i,
+                label: date.toLocaleString("default", { month: "short" }),
+            });
         }
     });
     return labels;

@@ -4,7 +4,13 @@ import { GfxContext, mat3, mat3ortho } from "../gfx";
 import { parseMap } from "../map";
 import { MapRenderer, RendererConfig } from "../render";
 import { FuzzySearch } from "../fuzzy";
-import { SPAWN_LABELS, HIGHLIGHT_LABELS, SIDEBAR_WIDTH, defaultConfig, escapeUrl } from "./appTypes";
+import {
+    SPAWN_LABELS,
+    HIGHLIGHT_LABELS,
+    SIDEBAR_WIDTH,
+    defaultConfig,
+    escapeUrl,
+} from "./appTypes";
 import {
     Sidebar,
     SidebarContent,
@@ -50,7 +56,9 @@ export const App: React.FC = () => {
     const [loadError, setLoadError] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const sidebarOpenRef = useRef(false);
-    const [viewCfg, setViewCfg] = useState<RendererConfig>({ ...defaultConfig });
+    const [viewCfg, setViewCfg] = useState<RendererConfig>({
+        ...defaultConfig,
+    });
     const [searchText, setSearchText] = useState("");
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -67,13 +75,18 @@ export const App: React.FC = () => {
 
         gfx.viewport(0, 0, w, h);
         gfx.projection(mat3ortho(0, w, 0, h, mat3()));
-        gfx.blend(gfx.SrcAlpha, gfx.OneMinusSrcAlpha, gfx.SrcAlpha, gfx.OneMinusSrcAlpha);
+        gfx.blend(
+            gfx.SrcAlpha,
+            gfx.OneMinusSrcAlpha,
+            gfx.SrcAlpha,
+            gfx.OneMinusSrcAlpha
+        );
         gfx.clear_color(0, 0, 0, 1);
         gfx.clear();
         renderer.draw(
             (1 / scaleRef.current) * (w / 2) + dxRef.current,
             (1 / scaleRef.current) * (h / 2) + dyRef.current,
-            scaleRef.current,
+            scaleRef.current
         );
     }, []);
 
@@ -113,29 +126,54 @@ export const App: React.FC = () => {
                             setLoading(false);
 
                             if (prevCfg) {
-                                (Object.keys(prevCfg) as Array<keyof RendererConfig>).forEach((k) => {
-                                    renderer.config(k, (prevCfg as unknown as Record<string, unknown>)[k] as never);
+                                (
+                                    Object.keys(prevCfg) as Array<
+                                        keyof RendererConfig
+                                    >
+                                ).forEach((k) => {
+                                    renderer.config(
+                                        k,
+                                        (
+                                            prevCfg as unknown as Record<
+                                                string,
+                                                unknown
+                                            >
+                                        )[k] as never
+                                    );
                                 });
                             }
 
-                            const verts = map.polygons.flatMap((p) => p.vertices);
-                            if (verts.length === 0) { draw(); return; }
+                            const verts = map.polygons.flatMap(
+                                (p) => p.vertices
+                            );
+                            if (verts.length === 0) {
+                                draw();
+                                return;
+                            }
 
                             const xs = verts.map((v) => v.x);
                             const ys = verts.map((v) => v.y);
-                            const xmin = Math.min(...xs), xmax = Math.max(...xs);
-                            const ymin = Math.min(...ys), ymax = Math.max(...ys);
-                            const sw = sidebarOpenRef.current ? SIDEBAR_WIDTH : 0;
+                            const xmin = Math.min(...xs),
+                                xmax = Math.max(...xs);
+                            const ymin = Math.min(...ys),
+                                ymax = Math.max(...ys);
+                            const sw = sidebarOpenRef.current
+                                ? SIDEBAR_WIDTH
+                                : 0;
                             const W = window.innerWidth - sw;
                             const H = window.innerHeight;
 
-                            scaleRef.current = 0.9 * Math.min(W / (xmax - xmin), H / (ymax - ymin));
-                            dxRef.current = -(xmin + xmax) / 2 - sw / (2 * scaleRef.current);
+                            scaleRef.current =
+                                0.9 *
+                                Math.min(W / (xmax - xmin), H / (ymax - ymin));
+                            dxRef.current =
+                                -(xmin + xmax) / 2 -
+                                sw / (2 * scaleRef.current);
                             dyRef.current = -(ymin + ymax) / 2;
 
                             draw();
                         },
-                        () => draw(),
+                        () => draw()
                     );
                 })
                 .catch((err) => {
@@ -144,7 +182,7 @@ export const App: React.FC = () => {
                     setLoadError(true);
                 });
         },
-        [draw],
+        [draw]
     );
 
     useEffect(() => {
@@ -161,7 +199,11 @@ export const App: React.FC = () => {
                     .filter((p) => p.split(".").pop() === "pms")
                     .map((p) => {
                         const parts = p.split("/");
-                        return parts[0]! + "/" + parts[parts.length - 1]!.slice(0, -4);
+                        return (
+                            parts[0]! +
+                            "/" +
+                            parts[parts.length - 1]!.slice(0, -4)
+                        );
                     });
 
                 fuzzyRef.current = new FuzzySearch(maplist);
@@ -225,7 +267,8 @@ export const App: React.FC = () => {
 
         const onMouseDown = (e: MouseEvent) => {
             e.preventDefault();
-            let x = e.clientX, y = e.clientY;
+            let x = e.clientX,
+                y = e.clientY;
 
             const onMove = (ev: MouseEvent) => {
                 dxRef.current += (ev.clientX - x) / scaleRef.current;
@@ -286,7 +329,8 @@ export const App: React.FC = () => {
             setFocusedIdx((i) => Math.max(i - 1, 0));
         } else if (e.key === "Enter") {
             e.preventDefault();
-            const target = focusedIdx >= 0 ? suggestions[focusedIdx] : suggestions[0];
+            const target =
+                focusedIdx >= 0 ? suggestions[focusedIdx] : suggestions[0];
             if (target) selectMap(target);
         } else if (e.key === "Escape") {
             setShowSuggestions(false);
@@ -327,9 +371,17 @@ export const App: React.FC = () => {
                 : viewCfg.highlight_list.filter((i) => i !== idx);
             applyCfgChange("highlight_list", newList);
             applyCfgChange("highlight", newList.length > 0);
-        } else if (name === "scenery_back" || name === "scenery_middle" || name === "scenery_front") {
+        } else if (
+            name === "scenery_back" ||
+            name === "scenery_middle" ||
+            name === "scenery_front"
+        ) {
             applyCfgChange(name, checked);
-            if (checked) applyCfgChange("scenery_back", viewCfg.scenery_back || name === "scenery_back");
+            if (checked)
+                applyCfgChange(
+                    "scenery_back",
+                    viewCfg.scenery_back || name === "scenery_back"
+                );
         } else {
             applyCfgChange(name, checked);
         }
@@ -343,56 +395,102 @@ export const App: React.FC = () => {
     return (
         <SidebarProvider
             open={sidebarOpen}
-            onOpenChange={(v) => { setSidebarOpen(v); sidebarOpenRef.current = v; draw(); }}
+            onOpenChange={(v) => {
+                setSidebarOpen(v);
+                sidebarOpenRef.current = v;
+                draw();
+            }}
             className="h-svh overflow-hidden"
-            style={{
-                "--sidebar-background": "0 0% 0%",
-                "--sidebar-foreground": "0 0% 100%",
-                "--sidebar-border": "0 0% 15%",
-                "--sidebar-accent": "0 0% 10%",
-                "--sidebar-accent-foreground": "0 0% 100%",
-            } as React.CSSProperties}
+            style={
+                {
+                    "--sidebar-background": "0 0% 0%",
+                    "--sidebar-foreground": "0 0% 100%",
+                    "--sidebar-border": "0 0% 15%",
+                    "--sidebar-accent": "0 0% 10%",
+                    "--sidebar-accent-foreground": "0 0% 100%",
+                } as React.CSSProperties
+            }
         >
             <canvas
                 ref={canvasRef}
                 style={{
-                    position: "fixed", top: 0, left: 0,
-                    width: "100vw", height: "100vh", zIndex: 0,
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    zIndex: 0,
                     display: loading || loadError ? "none" : "block",
                     background: "#000",
                 }}
             />
 
             {loading && (
-                <div style={{ position: "fixed", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10 }}>
+                <div
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 10,
+                    }}
+                >
                     <div className="mapviewer-loader">LOADING</div>
                 </div>
             )}
 
             {loadError && !loading && (
-                <div style={{
-                    position: "fixed", inset: 0, display: "flex",
-                    alignItems: "center", justifyContent: "center", zIndex: 10,
-                    color: "#ccc", fontFamily: "sans-serif", fontWeight: "bold", fontSize: 14,
-                }}>
+                <div
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        zIndex: 10,
+                        color: "#ccc",
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        fontSize: 14,
+                    }}
+                >
                     MAP NOT FOUND
                 </div>
             )}
 
-            <div style={{
-                position: "fixed", top: 16, left: 16, zIndex: 5,
-                display: "flex", alignItems: "center", gap: 6,
-                fontFamily: "monospace", fontSize: 12, color: "#fff",
-            }}>
-                <SidebarTrigger className="text-white hover:bg-transparent hover:text-white h-5 w-5" style={{ padding: 0, marginTop: 4 }} />
+            <div
+                style={{
+                    position: "fixed",
+                    top: 16,
+                    left: 16,
+                    zIndex: 5,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontFamily: "monospace",
+                    fontSize: 12,
+                    color: "#fff",
+                }}
+            >
+                <SidebarTrigger
+                    className="text-white hover:bg-transparent hover:text-white h-5 w-5"
+                    style={{ padding: 0, marginTop: 4 }}
+                />
 
                 <button
                     onClick={handleScreenshot}
                     title="Screenshot"
                     style={{
-                        background: "transparent", border: "none", color: "#fff",
-                        fontSize: 18, cursor: "pointer", padding: 0, lineHeight: 1,
-                        display: "flex", alignItems: "center",
+                        background: "transparent",
+                        border: "none",
+                        color: "#fff",
+                        fontSize: 18,
+                        cursor: "pointer",
+                        padding: 0,
+                        lineHeight: 1,
+                        display: "flex",
+                        alignItems: "center",
                     }}
                 >
                     📷
@@ -401,41 +499,74 @@ export const App: React.FC = () => {
 
             <div style={{ flex: 1 }} />
 
-            <Sidebar side="right" collapsible="offcanvas" className="font-mono text-xs text-white border-l border-white/20">
+            <Sidebar
+                side="right"
+                collapsible="offcanvas"
+                className="font-mono text-xs text-white border-l border-white/20"
+            >
                 <SidebarContent>
-
                     <SidebarGroup>
                         <SidebarGroupContent className="px-3 pt-2 pb-1">
                             <div style={{ position: "relative" }}>
                                 <input
                                     value={searchText}
-                                    onChange={(e) => handleSearchChange(e.target.value)}
+                                    onChange={(e) =>
+                                        handleSearchChange(e.target.value)
+                                    }
                                     onKeyDown={handleSearchKeyDown}
-                                    onFocus={() => searchText && setShowSuggestions(true)}
-                                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                                    onFocus={() =>
+                                        searchText && setShowSuggestions(true)
+                                    }
+                                    onBlur={() =>
+                                        setTimeout(
+                                            () => setShowSuggestions(false),
+                                            150
+                                        )
+                                    }
                                     placeholder="Search other maps..."
                                     style={{
-                                        outline: "none", border: "1px solid #fff",
-                                        background: "rgba(0,0,0,0.7)", color: "#fff",
-                                        padding: "2px 6px", fontFamily: "monospace", fontSize: 12,
+                                        outline: "none",
+                                        border: "1px solid #fff",
+                                        background: "rgba(0,0,0,0.7)",
+                                        color: "#fff",
+                                        padding: "2px 6px",
+                                        fontFamily: "monospace",
+                                        fontSize: 12,
                                         width: "100%",
                                     }}
                                 />
                                 {showSuggestions && suggestions.length > 0 && (
-                                    <ul style={{
-                                        position: "absolute", top: "100%", left: 0, right: 0,
-                                        background: "#000", border: "1px solid #fff", borderTop: 0,
-                                        margin: 0, padding: "0 10px", listStyle: "none",
-                                        color: "#fff", maxHeight: 200, overflowY: "auto",
-                                        opacity: 0.9, zIndex: 20,
-                                    }}>
+                                    <ul
+                                        style={{
+                                            position: "absolute",
+                                            top: "100%",
+                                            left: 0,
+                                            right: 0,
+                                            background: "#000",
+                                            border: "1px solid #fff",
+                                            borderTop: 0,
+                                            margin: 0,
+                                            padding: "0 10px",
+                                            listStyle: "none",
+                                            color: "#fff",
+                                            maxHeight: 200,
+                                            overflowY: "auto",
+                                            opacity: 0.9,
+                                            zIndex: 20,
+                                        }}
+                                    >
                                         {suggestions.map((s, i) => (
                                             <li
                                                 key={s}
                                                 onMouseDown={() => selectMap(s)}
                                                 style={{
-                                                    padding: "2px 0", cursor: "pointer", whiteSpace: "nowrap",
-                                                    background: i === focusedIdx ? "#2e4183" : "transparent",
+                                                    padding: "2px 0",
+                                                    cursor: "pointer",
+                                                    whiteSpace: "nowrap",
+                                                    background:
+                                                        i === focusedIdx
+                                                            ? "#2e4183"
+                                                            : "transparent",
                                                 }}
                                             >
                                                 {s}
@@ -452,11 +583,36 @@ export const App: React.FC = () => {
                             View
                         </SidebarGroupLabel>
                         <SidebarGroupContent className="px-3 space-y-0.5">
-                            <Checkbox id="background" label="Background" checked={viewCfg.background} onChange={handleViewChange} />
-                            <Checkbox id="polygons"   label="Polygons"   checked={viewCfg.polygons}   onChange={handleViewChange} />
-                            <Checkbox id="texture"    label="Texture"    checked={viewCfg.texture}    onChange={handleViewChange} />
-                            <Checkbox id="wireframe"  label="Wireframe"  checked={viewCfg.wireframe}  onChange={handleViewChange} />
-                            <Checkbox id="colliders"  label="Colliders"  checked={viewCfg.colliders}  onChange={handleViewChange} />
+                            <Checkbox
+                                id="background"
+                                label="Background"
+                                checked={viewCfg.background}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="polygons"
+                                label="Polygons"
+                                checked={viewCfg.polygons}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="texture"
+                                label="Texture"
+                                checked={viewCfg.texture}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="wireframe"
+                                label="Wireframe"
+                                checked={viewCfg.wireframe}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="colliders"
+                                label="Colliders"
+                                checked={viewCfg.colliders}
+                                onChange={handleViewChange}
+                            />
                         </SidebarGroupContent>
                     </SidebarGroup>
 
@@ -465,9 +621,24 @@ export const App: React.FC = () => {
                             Scenery
                         </SidebarGroupLabel>
                         <SidebarGroupContent className="px-3 space-y-0.5">
-                            <Checkbox id="scenery_back"   label="Back"   checked={viewCfg.scenery_back}   onChange={handleViewChange} />
-                            <Checkbox id="scenery_middle" label="Middle" checked={viewCfg.scenery_middle} onChange={handleViewChange} />
-                            <Checkbox id="scenery_front"  label="Front"  checked={viewCfg.scenery_front}  onChange={handleViewChange} />
+                            <Checkbox
+                                id="scenery_back"
+                                label="Back"
+                                checked={viewCfg.scenery_back}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="scenery_middle"
+                                label="Middle"
+                                checked={viewCfg.scenery_middle}
+                                onChange={handleViewChange}
+                            />
+                            <Checkbox
+                                id="scenery_front"
+                                label="Front"
+                                checked={viewCfg.scenery_front}
+                                onChange={handleViewChange}
+                            />
                         </SidebarGroupContent>
                     </SidebarGroup>
 
@@ -476,9 +647,23 @@ export const App: React.FC = () => {
                             Spawns
                         </SidebarGroupLabel>
                         <SidebarGroupContent className="px-3 space-y-0.5">
-                            <Checkbox id="objects" label="All" checked={viewCfg.objects_list.length === SPAWN_LABELS.length} onChange={handleViewChange} />
+                            <Checkbox
+                                id="objects"
+                                label="All"
+                                checked={
+                                    viewCfg.objects_list.length ===
+                                    SPAWN_LABELS.length
+                                }
+                                onChange={handleViewChange}
+                            />
                             {SPAWN_LABELS.map((label, i) => (
-                                <Checkbox key={i} id={`objects_idx_${i}`} label={label} checked={viewCfg.objects_list.includes(i)} onChange={handleViewChange} />
+                                <Checkbox
+                                    key={i}
+                                    id={`objects_idx_${i}`}
+                                    label={label}
+                                    checked={viewCfg.objects_list.includes(i)}
+                                    onChange={handleViewChange}
+                                />
                             ))}
                         </SidebarGroupContent>
                     </SidebarGroup>
@@ -488,13 +673,26 @@ export const App: React.FC = () => {
                             Highlight polygons
                         </SidebarGroupLabel>
                         <SidebarGroupContent className="px-3 space-y-0.5">
-                            <Checkbox id="highlight" label="All" checked={viewCfg.highlight_list.length === HIGHLIGHT_LABELS.length} onChange={handleViewChange} />
+                            <Checkbox
+                                id="highlight"
+                                label="All"
+                                checked={
+                                    viewCfg.highlight_list.length ===
+                                    HIGHLIGHT_LABELS.length
+                                }
+                                onChange={handleViewChange}
+                            />
                             {HIGHLIGHT_LABELS.map((label, i) => (
-                                <Checkbox key={i} id={`highlight_idx_${i}`} label={label} checked={viewCfg.highlight_list.includes(i)} onChange={handleViewChange} />
+                                <Checkbox
+                                    key={i}
+                                    id={`highlight_idx_${i}`}
+                                    label={label}
+                                    checked={viewCfg.highlight_list.includes(i)}
+                                    onChange={handleViewChange}
+                                />
                             ))}
                         </SidebarGroupContent>
                     </SidebarGroup>
-
                 </SidebarContent>
             </Sidebar>
         </SidebarProvider>

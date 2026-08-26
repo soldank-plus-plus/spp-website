@@ -6,11 +6,15 @@ function strChars(s: string): string[] {
 
 function intersection(a: number[], b: number[]): number[] {
     const result: number[] = [];
-    let ai = 0, bi = 0;
+    let ai = 0,
+        bi = 0;
     while (ai < a.length && bi < b.length) {
         if (a[ai]! < b[bi]!) ai++;
         else if (a[ai]! > b[bi]!) bi++;
-        else { result.push(a[ai++]!); bi++; }
+        else {
+            result.push(a[ai++]!);
+            bi++;
+        }
     }
     return result;
 }
@@ -46,7 +50,9 @@ export class FuzzySearch {
         const chars = strChars(lower);
         let empty = false;
 
-        const dicts = chars.map((ch) => this.dictionaries[ch] || ((empty = true), [] as number[]));
+        const dicts = chars.map(
+            (ch) => this.dictionaries[ch] || ((empty = true), [] as number[])
+        );
         if (empty || dicts.length === 0) return [];
 
         const strings = this.strings;
@@ -67,7 +73,10 @@ export class FuzzySearch {
             const sb = stringsLc[b]!;
             const aa = +(sa.indexOf(lower) !== -1);
             const bb = +(sb.indexOf(lower) !== -1);
-            return bb - aa || (strings[a]! < strings[b]! ? -1 : +(strings[a]! > strings[b]!));
+            return (
+                bb - aa ||
+                (strings[a]! < strings[b]! ? -1 : +(strings[a]! > strings[b]!))
+            );
         });
 
         return numMatches.map((i) => strings[i]!);

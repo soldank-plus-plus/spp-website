@@ -100,4 +100,4 @@ export const CustomPagination: React.FC<PaginationProps> = ({
             </PaginationContent>
         </Pagination>
     );
-}
+};

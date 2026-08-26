@@ -8,8 +8,12 @@ export const useMap = (mapId: number) => {
 
     useEffect(() => {
         setLoading(true);
-        mapsApi.getMapById(mapId)
-            .then((res) => { setMap(res.data); setLoading(false); })
+        mapsApi
+            .getMapById(mapId)
+            .then((res) => {
+                setMap(res.data);
+                setLoading(false);
+            })
             .catch(() => setLoading(false));
     }, [mapId]);
 

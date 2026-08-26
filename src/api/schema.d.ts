@@ -328,7 +328,16 @@ export interface operations {
                  *
                  *     - eventDate
                  */
-                sortBy?: ("id:ASC" | "id:DESC" | "type:ASC" | "type:DESC" | "medal:ASC" | "medal:DESC" | "eventDate:ASC" | "eventDate:DESC")[];
+                sortBy?: (
+                    | "id:ASC"
+                    | "id:DESC"
+                    | "type:ASC"
+                    | "type:DESC"
+                    | "medal:ASC"
+                    | "medal:DESC"
+                    | "eventDate:ASC"
+                    | "eventDate:DESC"
+                )[];
             };
             header?: never;
             path?: never;
@@ -485,7 +494,16 @@ export interface operations {
                  *
                  *     - hardest
                  */
-                sortBy?: ("id:ASC" | "id:DESC" | "mapname:ASC" | "mapname:DESC" | "date:ASC" | "date:DESC" | "hardest:ASC" | "hardest:DESC")[];
+                sortBy?: (
+                    | "id:ASC"
+                    | "id:DESC"
+                    | "mapname:ASC"
+                    | "mapname:DESC"
+                    | "date:ASC"
+                    | "date:DESC"
+                    | "hardest:ASC"
+                    | "hardest:DESC"
+                )[];
                 /**
                  * @description Search term to filter result values
                  *

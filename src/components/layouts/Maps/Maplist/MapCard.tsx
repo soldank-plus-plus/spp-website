@@ -25,9 +25,14 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
             <div className="px-4 py-5">
                 <h3
                     className="text-lg cursor-pointer hover:underline"
-                    onClick={() => navigate(`/maps/${map.id}?name=${encodeURIComponent(mapname)}`)}
+                    onClick={() =>
+                        navigate(
+                            `/maps/${map.id}?name=${encodeURIComponent(mapname)}`
+                        )
+                    }
                 >
-                    #{sortMode === "hardest" ? map.hardest ?? "?" : map.id} – {mapname}
+                    #{sortMode === "hardest" ? (map.hardest ?? "?") : map.id} –{" "}
+                    {mapname}
                 </h3>
                 <p className="text-white/70 text-sm mb-1">
                     created by{" "}
@@ -37,7 +42,11 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
                                   {i > 0 && ", "}
                                   <span
                                       className="cursor-pointer hover:text-foreground hover:underline"
-                                      onClick={() => navigate(`/profile/${creator.username}`)}
+                                      onClick={() =>
+                                          navigate(
+                                              `/profile/${creator.username}`
+                                          )
+                                      }
                                   >
                                       {creator.username}
                                   </span>
@@ -45,7 +54,9 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
                           ))
                         : "unknown"}
                 </p>
-                <p className="text-white/70 text-sm">{map.recordsCount} records</p>
+                <p className="text-white/70 text-sm">
+                    {map.recordsCount} records
+                </p>
             </div>
         </div>
     );

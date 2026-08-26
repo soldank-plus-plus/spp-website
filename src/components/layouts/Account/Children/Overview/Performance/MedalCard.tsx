@@ -27,7 +27,9 @@ const MedalCard: React.FC<MedalCardProps> = ({ medals }) => {
             {medalData.map((m, index) => (
                 <div key={index} className="flex items-center gap-3">
                     <img src={m.icon} className="w-6 h-6" alt="Medal icon" />
-                    <span className="font-semibold text-sm tabular-nums">{m.count}</span>
+                    <span className="font-semibold text-sm tabular-nums">
+                        {m.count}
+                    </span>
                 </div>
             ))}
         </div>

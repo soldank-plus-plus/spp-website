@@ -8,7 +8,11 @@ interface UseMapRecordsProps {
     pageSize: number;
 }
 
-export const useMapRecords = ({ mapId, page, pageSize }: UseMapRecordsProps) => {
+export const useMapRecords = ({
+    mapId,
+    page,
+    pageSize,
+}: UseMapRecordsProps) => {
     const [records, setRecords] = useState<Stat[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -32,7 +36,10 @@ export const useMapRecords = ({ mapId, page, pageSize }: UseMapRecordsProps) => 
                 setTotalPages(res.meta?.totalPages ?? 1);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setRecords([]);
                 setTotalPages(0);

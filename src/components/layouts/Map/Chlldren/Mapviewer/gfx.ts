@@ -7,39 +7,69 @@ export const VERTEX_SIZE = 4 * F32_SIZE + 4;
 const vertexRef = { x: 0, y: 0, u: 0, v: 0, rgba: [0, 0, 0, 0] as number[] };
 
 // Helper: read from Float32Array without undefined
-function f(m: Float32Array, i: number): number { return m[i] as number; }
-
-// Matrix functions
-export function mat3(): Mat3 { return new Float32Array(9); }
-export function mat3mulx(m: Mat3, x: number, y: number): number { return f(m,0)*x + f(m,3)*y + f(m,6); }
-export function mat3muly(m: Mat3, x: number, y: number): number { return f(m,1)*x + f(m,4)*y + f(m,7); }
-export function mat3copy(src: Mat3, dest: Mat3): Mat3 { dest.set(src); return dest; }
-
-export function mat3identity(out: Mat3): Mat3 {
-    out[0] = 1; out[3] = 0; out[6] = 0;
-    out[1] = 0; out[4] = 1; out[7] = 0;
-    out[2] = 0; out[5] = 0; out[8] = 1;
-    return out;
+function f(m: Float32Array, i: number): number {
+    return m[i] as number;
 }
 
-export function mat3mul(a: Mat3, b: Mat3, out: Mat3): Mat3 {
-    out[0] = f(a,0)*f(b,0) + f(a,3)*f(b,1);
-    out[1] = f(a,1)*f(b,0) + f(a,4)*f(b,1);
+// Matrix functions
+export function mat3(): Mat3 {
+    return new Float32Array(9);
+}
+export function mat3mulx(m: Mat3, x: number, y: number): number {
+    return f(m, 0) * x + f(m, 3) * y + f(m, 6);
+}
+export function mat3muly(m: Mat3, x: number, y: number): number {
+    return f(m, 1) * x + f(m, 4) * y + f(m, 7);
+}
+export function mat3copy(src: Mat3, dest: Mat3): Mat3 {
+    dest.set(src);
+    return dest;
+}
+
+export function mat3identity(out: Mat3): Mat3 {
+    out[0] = 1;
+    out[3] = 0;
+    out[6] = 0;
+    out[1] = 0;
+    out[4] = 1;
+    out[7] = 0;
     out[2] = 0;
-    out[3] = f(a,0)*f(b,3) + f(a,3)*f(b,4);
-    out[4] = f(a,1)*f(b,3) + f(a,4)*f(b,4);
     out[5] = 0;
-    out[6] = f(a,0)*f(b,6) + f(a,3)*f(b,7) + f(a,6);
-    out[7] = f(a,1)*f(b,6) + f(a,4)*f(b,7) + f(a,7);
     out[8] = 1;
     return out;
 }
 
-export function mat3ortho(left: number, right: number, bottom: number, top: number, out: Mat3): Mat3 {
-    const w = right - left, h = top - bottom;
-    out[0] = 2/w; out[3] = 0;   out[6] = -(right+left)/w;
-    out[1] = 0;   out[4] = 2/h; out[7] = -(top+bottom)/h;
-    out[2] = 0;   out[5] = 0;   out[8] = 1;
+export function mat3mul(a: Mat3, b: Mat3, out: Mat3): Mat3 {
+    out[0] = f(a, 0) * f(b, 0) + f(a, 3) * f(b, 1);
+    out[1] = f(a, 1) * f(b, 0) + f(a, 4) * f(b, 1);
+    out[2] = 0;
+    out[3] = f(a, 0) * f(b, 3) + f(a, 3) * f(b, 4);
+    out[4] = f(a, 1) * f(b, 3) + f(a, 4) * f(b, 4);
+    out[5] = 0;
+    out[6] = f(a, 0) * f(b, 6) + f(a, 3) * f(b, 7) + f(a, 6);
+    out[7] = f(a, 1) * f(b, 6) + f(a, 4) * f(b, 7) + f(a, 7);
+    out[8] = 1;
+    return out;
+}
+
+export function mat3ortho(
+    left: number,
+    right: number,
+    bottom: number,
+    top: number,
+    out: Mat3
+): Mat3 {
+    const w = right - left,
+        h = top - bottom;
+    out[0] = 2 / w;
+    out[3] = 0;
+    out[6] = -(right + left) / w;
+    out[1] = 0;
+    out[4] = 2 / h;
+    out[7] = -(top + bottom) / h;
+    out[2] = 0;
+    out[5] = 0;
+    out[8] = 1;
     return out;
 }
 
@@ -69,7 +99,11 @@ const FS_SRC = [
     "}",
 ].join("\n");
 
-function compileShader(gl: WebGLRenderingContext, source: string, type: number): WebGLShader {
+function compileShader(
+    gl: WebGLRenderingContext,
+    source: string,
+    type: number
+): WebGLShader {
     const shader = gl.createShader(type)!;
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
@@ -108,17 +142,30 @@ export class Texture {
         this.width = image.width;
         this.height = image.height;
         gl.bindTexture(gl.TEXTURE_2D, this.id);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            gl.RGBA,
+            gl.RGBA,
+            gl.UNSIGNED_BYTE,
+            image
+        );
     }
 
-    create(w: number, h: number, format: number, func?: (x: number, y: number, rgba: number[]) => void): void {
+    create(
+        w: number,
+        h: number,
+        format: number,
+        func?: (x: number, y: number, rgba: number[]) => void
+    ): void {
         const gl = this.gl;
         this.width = w;
         this.height = h;
         let data: Uint8Array | null = null;
 
         if (func) {
-            const channels = format === gl.ALPHA ? 1 : format === gl.RGB ? 3 : 4;
+            const channels =
+                format === gl.ALPHA ? 1 : format === gl.RGB ? 3 : 4;
             const rgba = [0, 0, 0, 0];
             data = new Uint8Array(w * h * channels);
             for (let y = 0, i = 0; y < h; y++) {
@@ -132,7 +179,8 @@ export class Texture {
                         data[i++] = (rgba[0] as number) * 255;
                         data[i++] = (rgba[1] as number) * 255;
                         data[i++] = (rgba[2] as number) * 255;
-                        if (channels === 4) data[i++] = (rgba[3] as number) * 255;
+                        if (channels === 4)
+                            data[i++] = (rgba[3] as number) * 255;
                     } else {
                         data[i++] = (rgba[3] as number) * 255;
                     }
@@ -140,7 +188,17 @@ export class Texture {
             }
         }
         gl.bindTexture(gl.TEXTURE_2D, this.id);
-        gl.texImage2D(gl.TEXTURE_2D, 0, format, w, h, 0, format, gl.UNSIGNED_BYTE, data);
+        gl.texImage2D(
+            gl.TEXTURE_2D,
+            0,
+            format,
+            w,
+            h,
+            0,
+            format,
+            gl.UNSIGNED_BYTE,
+            data
+        );
     }
 
     generateMipmap(): void {
@@ -174,7 +232,11 @@ export class VertexBuffer {
     f32!: Float32Array;
     u8!: Uint8Array;
 
-    constructor(private gl: WebGLRenderingContext, capacity: number, usage: number) {
+    constructor(
+        private gl: WebGLRenderingContext,
+        capacity: number,
+        usage: number
+    ) {
         this.id = gl.createBuffer()!;
         this.usage = usage;
         this.realloc(capacity, usage);
@@ -185,7 +247,11 @@ export class VertexBuffer {
         this.capacity = capacity;
         this.size = 0;
         this.buffer = new ArrayBuffer(capacity * VERTEX_SIZE);
-        this.f32 = new Float32Array(this.buffer, 0, this.buffer.byteLength / F32_SIZE);
+        this.f32 = new Float32Array(
+            this.buffer,
+            0,
+            this.buffer.byteLength / F32_SIZE
+        );
         this.u8 = new Uint8Array(this.buffer, 0, this.buffer.byteLength);
         const gl = this.gl;
         gl.bindBuffer(gl.ARRAY_BUFFER, this.id);
@@ -202,7 +268,14 @@ export class VertexBuffer {
         }
     }
 
-    set(index: number, x: number, y: number, u: number, v: number, rgba: readonly number[]): void {
+    set(
+        index: number,
+        x: number,
+        y: number,
+        u: number,
+        v: number,
+        rgba: readonly number[]
+    ): void {
         const base = index * VERTEX_SIZE;
         let i = base / F32_SIZE;
         this.f32[i++] = x;
@@ -227,17 +300,25 @@ export class VertexBuffer {
         return vertexRef;
     }
 
-    push(x: number, y: number, u: number, v: number, rgba: readonly number[]): number {
+    push(
+        x: number,
+        y: number,
+        u: number,
+        v: number,
+        rgba: readonly number[]
+    ): number {
         this.set(this.size, x, y, u, v, rgba);
         return this.size++;
     }
 
-    clear(): void { this.size = 0; }
+    clear(): void {
+        this.size = 0;
+    }
 
     upload(offset = 0, count?: number): void {
         const gl = this.gl;
         const beg = VERTEX_SIZE * offset;
-        const end = beg + VERTEX_SIZE * (count ?? (this.size - offset));
+        const end = beg + VERTEX_SIZE * (count ?? this.size - offset);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.id);
         gl.bufferSubData(gl.ARRAY_BUFFER, beg, this.u8.subarray(beg, end));
     }
@@ -250,7 +331,11 @@ export class IndexBuffer {
     private usage: number;
     buffer!: Uint16Array;
 
-    constructor(private gl: WebGLRenderingContext, capacity: number, usage: number) {
+    constructor(
+        private gl: WebGLRenderingContext,
+        capacity: number,
+        usage: number
+    ) {
         this.id = gl.createBuffer()!;
         this.usage = usage;
         this.realloc(capacity, usage);
@@ -276,21 +361,31 @@ export class IndexBuffer {
         }
     }
 
-    set(index: number, value: number): void { this.buffer[index] = value; }
-    get(index: number): number { return this.buffer[index] as number; }
+    set(index: number, value: number): void {
+        this.buffer[index] = value;
+    }
+    get(index: number): number {
+        return this.buffer[index] as number;
+    }
 
     push(...values: number[]): void {
         for (const v of values) this.buffer[this.size++] = v;
     }
 
-    clear(): void { this.size = 0; }
+    clear(): void {
+        this.size = 0;
+    }
 
     upload(offset = 0, count?: number): void {
         const gl = this.gl;
         const beg = offset;
-        const end = beg + (count ?? (this.size - beg));
+        const end = beg + (count ?? this.size - beg);
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.id);
-        gl.bufferSubData(gl.ELEMENT_ARRAY_BUFFER, beg * U16_SIZE, this.buffer.subarray(beg, end));
+        gl.bufferSubData(
+            gl.ELEMENT_ARRAY_BUFFER,
+            beg * U16_SIZE,
+            this.buffer.subarray(beg, end)
+        );
     }
 }
 
@@ -329,14 +424,24 @@ export class GfxContext {
     private locTex: number;
     private locClr: number;
 
-    constructor(canvas: HTMLCanvasElement, params: WebGLContextAttributes = {}) {
+    constructor(
+        canvas: HTMLCanvasElement,
+        params: WebGLContextAttributes = {}
+    ) {
         this.canvas = canvas;
         const gl = (canvas.getContext("webgl", params) ??
-            canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext;
+            canvas.getContext(
+                "experimental-webgl",
+                params
+            )) as WebGLRenderingContext;
         this.gl = gl;
 
-        this.mvp = mat3(); this.proj = mat3(); this.view = mat3();
-        mat3identity(this.mvp); mat3identity(this.proj); mat3identity(this.view);
+        this.mvp = mat3();
+        this.proj = mat3();
+        this.view = mat3();
+        mat3identity(this.mvp);
+        mat3identity(this.proj);
+        mat3identity(this.view);
 
         this.framebuffer = gl.createFramebuffer()!;
         const program = createProgram(gl);
@@ -376,12 +481,24 @@ export class GfxContext {
         this.OneMinusSrcAlpha = gl.ONE_MINUS_SRC_ALPHA;
     }
 
-    clear(): void { this.gl.clear(this.gl.COLOR_BUFFER_BIT); }
-    clear_color(r: number, g: number, b: number, a: number): void { this.gl.clearColor(r, g, b, a); }
-    viewport(x: number, y: number, w: number, h: number): void { this.gl.viewport(x, y, w, h); }
+    clear(): void {
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT);
+    }
+    clear_color(r: number, g: number, b: number, a: number): void {
+        this.gl.clearColor(r, g, b, a);
+    }
+    viewport(x: number, y: number, w: number, h: number): void {
+        this.gl.viewport(x, y, w, h);
+    }
 
-    projection(matrix: Mat3): void { this.mvpDirty = true; mat3copy(matrix, this.proj); }
-    transform(matrix: Mat3): void { this.mvpDirty = true; mat3copy(matrix, this.view); }
+    projection(matrix: Mat3): void {
+        this.mvpDirty = true;
+        mat3copy(matrix, this.proj);
+    }
+    transform(matrix: Mat3): void {
+        this.mvpDirty = true;
+        mat3copy(matrix, this.view);
+    }
 
     blend(src: number, dst: number, srcA: number, dstA: number): void {
         this.gl.blendFuncSeparate(src, dst, srcA, dstA);
@@ -397,11 +514,23 @@ export class GfxContext {
             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         } else {
             gl.bindFramebuffer(gl.FRAMEBUFFER, this.framebuffer);
-            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture.id, 0);
+            gl.framebufferTexture2D(
+                gl.FRAMEBUFFER,
+                gl.COLOR_ATTACHMENT0,
+                gl.TEXTURE_2D,
+                texture.id,
+                0
+            );
         }
     }
 
-    draw(mode: number, vbo: VertexBuffer, ibo: IndexBuffer | null, offset: number, count: number): void {
+    draw(
+        mode: number,
+        vbo: VertexBuffer,
+        ibo: IndexBuffer | null,
+        offset: number,
+        count: number
+    ): void {
         const gl = this.gl;
         if (this.mvpDirty) {
             mat3mul(this.proj, this.view, this.mvp);
@@ -411,9 +540,30 @@ export class GfxContext {
         if (vbo !== this.boundVbo) {
             this.boundVbo = vbo;
             gl.bindBuffer(gl.ARRAY_BUFFER, vbo.id);
-            gl.vertexAttribPointer(this.locPos, 2, gl.FLOAT, false, VERTEX_SIZE, 0);
-            gl.vertexAttribPointer(this.locTex, 2, gl.FLOAT, false, VERTEX_SIZE, 2 * F32_SIZE);
-            gl.vertexAttribPointer(this.locClr, 4, gl.UNSIGNED_BYTE, true, VERTEX_SIZE, 4 * F32_SIZE);
+            gl.vertexAttribPointer(
+                this.locPos,
+                2,
+                gl.FLOAT,
+                false,
+                VERTEX_SIZE,
+                0
+            );
+            gl.vertexAttribPointer(
+                this.locTex,
+                2,
+                gl.FLOAT,
+                false,
+                VERTEX_SIZE,
+                2 * F32_SIZE
+            );
+            gl.vertexAttribPointer(
+                this.locClr,
+                4,
+                gl.UNSIGNED_BYTE,
+                true,
+                VERTEX_SIZE,
+                4 * F32_SIZE
+            );
         }
         if (ibo !== null) {
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo.id);
@@ -435,7 +585,7 @@ export class GfxContext {
         imageOrW: HTMLImageElement | HTMLCanvasElement | number,
         h?: number,
         format?: number,
-        func?: (x: number, y: number, rgba: number[]) => void,
+        func?: (x: number, y: number, rgba: number[]) => void
     ): Texture {
         const texture = new Texture(this.gl);
         if (typeof imageOrW === "number") {

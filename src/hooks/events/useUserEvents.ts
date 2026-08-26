@@ -10,7 +10,12 @@ interface UseUserEventsProps {
     search?: string;
 }
 
-export const useUserEvents = ({ userId, page, pageSize, search = "" }: UseUserEventsProps) => {
+export const useUserEvents = ({
+    userId,
+    page,
+    pageSize,
+    search = "",
+}: UseUserEventsProps) => {
     const [events, setEvents] = useState<Event[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -36,7 +41,10 @@ export const useUserEvents = ({ userId, page, pageSize, search = "" }: UseUserEv
                 setTotalPages(res.meta?.totalPages ?? 1);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setEvents([]);
                 setTotalPages(0);

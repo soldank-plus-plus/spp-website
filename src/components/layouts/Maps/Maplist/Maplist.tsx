@@ -12,20 +12,29 @@ export const Maplist: React.FC = () => {
     const [searchPlayer, setSearchPlayer] = useState("");
     const [sortMode, setSortMode] = useState<SortMode>("hardest");
 
-    const { maps, totalPages, loading, error } = useMaps({ page: currentPage, pageSize });
+    const { maps, totalPages, loading, error } = useMaps({
+        page: currentPage,
+        pageSize,
+    });
 
     const filtered = useMemo(() => {
         const q = searchMap.toLowerCase();
         const p = searchPlayer.toLowerCase();
         const base = maps.filter((m) => {
-            const matchMap = q ? (m.mapname ?? "").toLowerCase().includes(q) : true;
+            const matchMap = q
+                ? (m.mapname ?? "").toLowerCase().includes(q)
+                : true;
             const matchPlayer = p
-                ? m.creators.some((creator) => creator.username.toLowerCase().includes(p))
+                ? m.creators.some((creator) =>
+                      creator.username.toLowerCase().includes(p)
+                  )
                 : true;
             return matchMap && matchPlayer;
         });
         return [...base].sort((a, b) =>
-            sortMode === "hardest" ? (a.hardest ?? 0) - (b.hardest ?? 0) : (b.date ?? 0) - (a.date ?? 0)
+            sortMode === "hardest"
+                ? (a.hardest ?? 0) - (b.hardest ?? 0)
+                : (b.date ?? 0) - (a.date ?? 0)
         );
     }, [maps, searchMap, searchPlayer, sortMode]);
 
@@ -38,7 +47,10 @@ export const Maplist: React.FC = () => {
                         type="text"
                         placeholder="Search map..."
                         value={searchMap}
-                        onChange={(e) => { setSearchMap(e.target.value); setCurrentPage(1); }}
+                        onChange={(e) => {
+                            setSearchMap(e.target.value);
+                            setCurrentPage(1);
+                        }}
                         className="pl-10 w-full"
                     />
                 </div>
@@ -49,7 +61,10 @@ export const Maplist: React.FC = () => {
                         type="text"
                         placeholder="Search mapper..."
                         value={searchPlayer}
-                        onChange={(e) => { setSearchPlayer(e.target.value); setCurrentPage(1); }}
+                        onChange={(e) => {
+                            setSearchPlayer(e.target.value);
+                            setCurrentPage(1);
+                        }}
                         className="pl-10 w-full"
                     />
                 </div>
@@ -65,14 +80,17 @@ export const Maplist: React.FC = () => {
                                     : "bg-sombre text-secondary"
                             }`}
                         >
-                            {mode === "hardest" ? "Hardest" : "Latest"}{sortMode === mode ? " ▼" : ""}
+                            {mode === "hardest" ? "Hardest" : "Latest"}
+                            {sortMode === mode ? " ▼" : ""}
                         </button>
                     ))}
                 </div>
             </div>
 
             {loading && (
-                <p className="text-secondary text-sm text-center py-8">Loading...</p>
+                <p className="text-secondary text-sm text-center py-8">
+                    Loading...
+                </p>
             )}
 
             {error && (

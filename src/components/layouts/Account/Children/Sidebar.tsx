@@ -36,10 +36,14 @@ const Sidebar = ({ user, loading }: Props) => {
 
     return (
         <div className="w-full lg:w-80 shrink-0 space-y-6">
-            {loading
-                ? <Skeleton className="w-full h-48 rounded-xl" />
-                : <Banner avatarSrc={playerAvatar} username={user?.username ?? ""} />
-            }
+            {loading ? (
+                <Skeleton className="w-full h-48 rounded-xl" />
+            ) : (
+                <Banner
+                    avatarSrc={playerAvatar}
+                    username={user?.username ?? ""}
+                />
+            )}
 
             {loading && (
                 <div className="space-y-3 px-1">
@@ -54,7 +58,10 @@ const Sidebar = ({ user, loading }: Props) => {
                     <Skeleton className="h-4 w-24" />
                     <div className="flex gap-3 pt-1">
                         {Array.from({ length: 4 }).map((_, i) => (
-                            <Skeleton key={i} className="w-5 h-5 rounded-full" />
+                            <Skeleton
+                                key={i}
+                                className="w-5 h-5 rounded-full"
+                            />
                         ))}
                     </div>
                 </div>
@@ -75,16 +82,28 @@ const Sidebar = ({ user, loading }: Props) => {
                     </p>
 
                     <div className="flex gap-3 pt-1">
-                        <a href="#" className="hover:text-foreground transition-colors">
+                        <a
+                            href="#"
+                            className="hover:text-foreground transition-colors"
+                        >
                             <FaYoutube className="w-5 h-5" />
                         </a>
-                        <a href="#" className="hover:text-foreground transition-colors">
+                        <a
+                            href="#"
+                            className="hover:text-foreground transition-colors"
+                        >
                             <FaTwitch className="w-5 h-5" />
                         </a>
-                        <a href="#" className="hover:text-foreground transition-colors">
+                        <a
+                            href="#"
+                            className="hover:text-foreground transition-colors"
+                        >
                             <FaGithub className="w-5 h-5" />
                         </a>
-                        <a href="#" className="hover:text-foreground transition-colors">
+                        <a
+                            href="#"
+                            className="hover:text-foreground transition-colors"
+                        >
                             <FaDiscord className="w-5 h-5" />
                         </a>
                     </div>

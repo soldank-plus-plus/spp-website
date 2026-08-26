@@ -24,7 +24,13 @@ const Account: React.FC = () => {
                 <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[320px_3fr] gap-8 px-4 mb-20">
                     <Sidebar user={user} loading={loading} />
                     {error && <p className="text-red-500 p-4">{error}</p>}
-                    {!error && <Outlet context={{ user, loading } satisfies AccountOutletContext} />}
+                    {!error && (
+                        <Outlet
+                            context={
+                                { user, loading } satisfies AccountOutletContext
+                            }
+                        />
+                    )}
                 </div>
             </main>
             <Footer />

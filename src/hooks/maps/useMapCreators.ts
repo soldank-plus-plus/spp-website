@@ -24,7 +24,10 @@ export const useMapCreators = (pageSize = 20) => {
                 setUsers(res.data || []);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setUsers([]);
             } finally {

@@ -48,7 +48,9 @@ export const usersApi = {
     },
 
     getUserByUsername: async (username: string) => {
-        return apiClient.get<AccountUser>(`/users/by-username/${encodeURIComponent(username)}`);
+        return apiClient.get<AccountUser>(
+            `/users/by-username/${encodeURIComponent(username)}`
+        );
     },
 
     updateUser: async (id: number, data: Partial<User>) => {
@@ -59,7 +61,15 @@ export const usersApi = {
         return apiClient.delete<void>(`/users/${id}`);
     },
 
-    getUserActivity: async (id: number, type: "records" | "golds" | "silvers" | "bronzes", signal?: AbortSignal): Promise<ApiResponse<ActivityDay[]>> => {
-        return apiClient.get<ActivityDay[]>(`/users/${id}/activity`, { type }, signal);
+    getUserActivity: async (
+        id: number,
+        type: "records" | "golds" | "silvers" | "bronzes",
+        signal?: AbortSignal
+    ): Promise<ApiResponse<ActivityDay[]>> => {
+        return apiClient.get<ActivityDay[]>(
+            `/users/${id}/activity`,
+            { type },
+            signal
+        );
     },
 };

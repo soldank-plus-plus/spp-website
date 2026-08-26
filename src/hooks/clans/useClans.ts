@@ -45,7 +45,9 @@ export const useClans = ({
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
                 const message =
-                    err instanceof Error ? err.message : "Unknown error occurred";
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setClans([]);
                 setTotalPages(0);

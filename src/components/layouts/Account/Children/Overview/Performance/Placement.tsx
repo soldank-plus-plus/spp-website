@@ -17,21 +17,27 @@ const Placement: React.FC<PlacementProps> = ({ ranking }) => {
                 <span className="text-2xl sm:text-3xl font-bold text-foreground">
                     #{ranking.records}
                 </span>
-                <span className="text-xs text-muted-foreground tracking-wider">RECORDS</span>
+                <span className="text-xs text-muted-foreground tracking-wider">
+                    RECORDS
+                </span>
             </div>
 
             <div className="flex flex-col items-center gap-1 py-4 px-3">
                 <span className="text-2xl sm:text-3xl font-bold text-foreground">
                     #{ranking.hardest}
                 </span>
-                <span className="text-xs text-muted-foreground tracking-wider">HARDEST</span>
+                <span className="text-xs text-muted-foreground tracking-wider">
+                    HARDEST
+                </span>
             </div>
 
             <div className="flex flex-col items-center gap-1 py-4 px-3">
                 <span className="text-2xl sm:text-3xl font-bold text-foreground">
                     #{ranking.golds}
                 </span>
-                <span className="text-xs text-muted-foreground tracking-wider">GOLDS</span>
+                <span className="text-xs text-muted-foreground tracking-wider">
+                    GOLDS
+                </span>
             </div>
         </div>
     );

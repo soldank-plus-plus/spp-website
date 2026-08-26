@@ -28,7 +28,12 @@ function ordinal(n: number): string {
 
 function formatDate(timestamp: number): string {
     const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+    const time = d.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+    });
     const day = ordinal(d.getDate());
     const month = d.toLocaleString("en-US", { month: "long" });
     const year = d.getFullYear();
@@ -46,7 +51,9 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
     const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
 
     return (
-        <TableRow className={`${rowBg} hover:bg-accenthover transition-colors duration-200 border-0`}>
+        <TableRow
+            className={`${rowBg} hover:bg-accenthover transition-colors duration-200 border-0`}
+        >
             <TableCell className="px-0.5 py-2 text-center font-bold text-secondary w-[48px]">
                 {record.position}
             </TableCell>
@@ -77,7 +84,14 @@ interface Props {
     onPageChange: (page: number) => void;
 }
 
-export const MapRecords: React.FC<Props> = ({ records, totalPages, loading, error, currentPage, onPageChange }) => {
+export const MapRecords: React.FC<Props> = ({
+    records,
+    totalPages,
+    loading,
+    error,
+    currentPage,
+    onPageChange,
+}) => {
     return (
         <div className="overflow-x-auto">
             <Table className="min-w-[800px]">
@@ -100,17 +114,27 @@ export const MapRecords: React.FC<Props> = ({ records, totalPages, loading, erro
                 <TableBody>
                     {loading && (
                         <TableRow>
-                            <td className="text-center py-4" colSpan={4}>Loading...</td>
+                            <td className="text-center py-4" colSpan={4}>
+                                Loading...
+                            </td>
                         </TableRow>
                     )}
                     {error && (
                         <TableRow>
-                            <td className="text-center py-4 text-red-500" colSpan={4}>{error}</td>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={4}
+                            >
+                                {error}
+                            </td>
                         </TableRow>
                     )}
-                    {!loading && records.filter((r) => r.position > 3).map((record) => (
-                        <RecordRow key={record.id} record={record} />
-                    ))}
+                    {!loading &&
+                        records
+                            .filter((r) => r.position > 3)
+                            .map((record) => (
+                                <RecordRow key={record.id} record={record} />
+                            ))}
                 </TableBody>
             </Table>
 

@@ -20,7 +20,9 @@ export const CountryTable: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sortBy, setSortBy] = useState<CountrySortKey>("unique_caps");
     const [searchTerm, setSearchTerm] = useState("");
-    const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+    const [selectedCountry, setSelectedCountry] = useState<Country | null>(
+        null
+    );
 
     const { countries, totalPages, loading, error } = useCountries({
         page: currentPage,

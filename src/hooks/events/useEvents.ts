@@ -35,7 +35,10 @@ export const useEvents = ({ page, pageSize, search = "" }: UseEventsProps) => {
                 setTotalPages(res.meta?.totalPages ?? 1);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setEvents([]);
                 setTotalPages(0);

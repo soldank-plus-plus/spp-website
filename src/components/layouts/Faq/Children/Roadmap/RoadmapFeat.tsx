@@ -48,7 +48,7 @@ export default function RoadmapFeat() {
                             id={category}
                             className="hidden"
                         />
-                                        <Label htmlFor={category}>{category}</Label>
+                        <Label htmlFor={category}>{category}</Label>
                     </div>
                 ))}
             </RadioGroup>

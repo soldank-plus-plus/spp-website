@@ -10,7 +10,12 @@ interface UseUserRecordsProps {
     search?: string;
 }
 
-export const useUserRecords = ({ userId, page, pageSize, search = "" }: UseUserRecordsProps) => {
+export const useUserRecords = ({
+    userId,
+    page,
+    pageSize,
+    search = "",
+}: UseUserRecordsProps) => {
     const [records, setRecords] = useState<Stat[]>([]);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -36,7 +41,10 @@ export const useUserRecords = ({ userId, page, pageSize, search = "" }: UseUserR
                 setTotalPages(res.meta?.totalPages ?? 1);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setRecords([]);
                 setTotalPages(0);

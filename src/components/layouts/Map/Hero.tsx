@@ -11,7 +11,11 @@ interface Props {
     category?: string;
 }
 
-export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) => {
+export const Hero: React.FC<Props> = ({
+    mapId,
+    mapname,
+    category = "climb",
+}) => {
     const navigate = useNavigate();
     const { map } = useMap(mapId);
     const { mapInfo, edgeslist } = useMapData(mapname, category);
@@ -25,10 +29,14 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
         const urls: string[] = [];
 
         for (let i = 0; i < mapInfo.images.length; i++) {
-            if (mapInfo.scenery_counts[i] !== 0) urls.push(`scenery-gfx/${mapInfo.images[i]}`);
+            if (mapInfo.scenery_counts[i] !== 0)
+                urls.push(`scenery-gfx/${mapInfo.images[i]}`);
         }
         for (const edge of edgeslist) {
-            if (mapInfo.texture.slice(0, -4).toLowerCase() === edge.slice(0, -4).toLowerCase())
+            if (
+                mapInfo.texture.slice(0, -4).toLowerCase() ===
+                edge.slice(0, -4).toLowerCase()
+            )
                 urls.push(`textures/edges/${edge}`);
         }
         urls.push(`maps/${mapname}.pms`, `textures/${mapInfo.texture}`);
@@ -36,13 +44,15 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
         await Promise.all(
             urls.map(async (url) => {
                 try {
-                    const res = await fetch(`/mapviewer/data/${category}/${escapeUrl(url)}`);
+                    const res = await fetch(
+                        `/mapviewer/data/${category}/${escapeUrl(url)}`
+                    );
                     if (res.ok) zip.file(url, await res.arrayBuffer());
                     else window.alert(`Warning: ${url} not found`);
                 } catch {
                     window.alert(`Warning: ${url} could not be fetched`);
                 }
-            }),
+            })
         );
 
         const blob = await zip.generateAsync({ type: "blob" });
@@ -75,7 +85,9 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
                                 {i > 0 && ", "}
                                 <span
                                     className="cursor-pointer hover:text-heading underline underline-offset-2"
-                                    onClick={() => navigate(`/profile/${creator.username}`)}
+                                    onClick={() =>
+                                        navigate(`/profile/${creator.username}`)
+                                    }
                                 >
                                     {creator.username}
                                 </span>
@@ -95,7 +107,12 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
                     <Button
                         variant="outline"
                         className="w-auto"
-                        onClick={() => window.open(`/mapviewer?map=${category}/${mapname}`, "_blank")}
+                        onClick={() =>
+                            window.open(
+                                `/mapviewer?map=${category}/${mapname}`,
+                                "_blank"
+                            )
+                        }
                     >
                         Mapviewer
                     </Button>

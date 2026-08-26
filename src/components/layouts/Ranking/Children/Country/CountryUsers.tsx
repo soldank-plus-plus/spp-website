@@ -118,7 +118,10 @@ export const CountryUsers: React.FC<Props> = ({
 
                     {error && (
                         <TableRow>
-                            <td className="text-center py-4 text-red-500" colSpan={8}>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={8}
+                            >
                                 {error}
                             </td>
                         </TableRow>
@@ -126,7 +129,10 @@ export const CountryUsers: React.FC<Props> = ({
 
                     {!loading && !error && users.length === 0 && (
                         <TableRow>
-                            <td className="text-center py-4 text-secondary" colSpan={8}>
+                            <td
+                                className="text-center py-4 text-secondary"
+                                colSpan={8}
+                            >
                                 No players found.
                             </td>
                         </TableRow>

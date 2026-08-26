@@ -4,7 +4,12 @@ import React, { useState, useEffect } from "react";
 import { TooltipProvider } from "@/components/ui/shadcn/tooltip";
 import { usersApi } from "@/api/users";
 import { ActivityDay } from "@/types/user";
-import { ActivityFilter, PALETTE, generateCalendar, getMonthLabels } from "./activityTypes";
+import {
+    ActivityFilter,
+    PALETTE,
+    generateCalendar,
+    getMonthLabels,
+} from "./activityTypes";
 import { ActivityFilters } from "./ActivityFilters";
 import { ActivityGrid } from "./ActivityGrid";
 
@@ -25,9 +30,15 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
 
     useEffect(() => {
         const controller = new AbortController();
-        usersApi.getUserActivity(userId, filter, controller.signal)
-            .then((res) => { setData(res.data); setLoading(false); })
-            .catch((err) => { if (err?.name !== "AbortError") setLoading(false); });
+        usersApi
+            .getUserActivity(userId, filter, controller.signal)
+            .then((res) => {
+                setData(res.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                if (err?.name !== "AbortError") setLoading(false);
+            });
         return () => controller.abort();
     }, [userId, filter]);
 
@@ -55,7 +66,10 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
 
             <TooltipProvider>
                 <div className="space-y-3">
-                    <ActivityFilters filter={filter} onFilterChange={handleFilterChange} />
+                    <ActivityFilters
+                        filter={filter}
+                        onFilterChange={handleFilterChange}
+                    />
                     <ActivityGrid
                         weeks={weeks}
                         months={months}

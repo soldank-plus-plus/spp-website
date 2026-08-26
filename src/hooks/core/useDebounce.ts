@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export const useDebounce = <T>(value: T, delay: number = 500): T => {
-
     // Slows down requests for backend by 500ms when searching
     const [debouncedValue, setDebouncedValue] = useState(value);
 

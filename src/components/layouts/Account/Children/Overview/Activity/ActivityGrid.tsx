@@ -15,13 +15,23 @@ interface Props {
     loading?: boolean;
 }
 
-export const ActivityGrid: React.FC<Props> = ({ weeks, months, activityMap, palette, onDayClick, loading }) => (
+export const ActivityGrid: React.FC<Props> = ({
+    weeks,
+    months,
+    activityMap,
+    palette,
+    onDayClick,
+    loading,
+}) => (
     <>
         <div className="flex gap-[3px] pl-[2px] justify-center">
             {weeks.map((_, i) => {
                 const label = months.find((m) => Math.floor(m.index / 7) === i);
                 return (
-                    <div key={i} className="w-[12px] text-[10px] text-muted-foreground">
+                    <div
+                        key={i}
+                        className="w-[12px] text-[10px] text-muted-foreground"
+                    >
                         {label ? label.label : ""}
                     </div>
                 );
@@ -33,27 +43,31 @@ export const ActivityGrid: React.FC<Props> = ({ weeks, months, activityMap, pale
                 {weeks.map((week, i) => (
                     <div key={i} className="flex flex-col gap-[3px]">
                         {week.map((day, j) => {
-                            if (loading) return (
-                                <div
-                                    key={day || j}
-                                    className="w-[12px] h-[12px] rounded-[2px] animate-pulse"
-                                    style={{ backgroundColor: palette[0] }}
-                                />
-                            );
+                            if (loading)
+                                return (
+                                    <div
+                                        key={day || j}
+                                        className="w-[12px] h-[12px] rounded-[2px] animate-pulse"
+                                        style={{ backgroundColor: palette[0] }}
+                                    />
+                                );
                             const count = day ? activityMap[day] || 0 : 0;
                             const color = getColor(count, palette);
                             return day ? (
                                 <Tooltip key={day}>
                                     <TooltipTrigger asChild>
                                         <div
-                                            onClick={() => onDayClick?.(day, count)}
+                                            onClick={() =>
+                                                onDayClick?.(day, count)
+                                            }
                                             className="w-[12px] h-[12px] rounded-[2px] border border-[#00000033] transition-all hover:scale-125 cursor-pointer"
                                             style={{ backgroundColor: color }}
                                         />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         <p className="text-xs">
-                                            {count} route{count !== 1 ? "s" : ""} on {day}
+                                            {count} route
+                                            {count !== 1 ? "s" : ""} on {day}
                                         </p>
                                     </TooltipContent>
                                 </Tooltip>

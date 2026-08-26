@@ -32,7 +32,10 @@ export const useMaps = ({ page, pageSize, search = "" }: UseMapsProps) => {
                 setTotalPages(res.meta.totalPages);
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
-                const message = err instanceof Error ? err.message : "Unknown error occurred";
+                const message =
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setMaps([]);
                 setTotalPages(0);

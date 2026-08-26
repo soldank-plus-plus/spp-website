@@ -45,7 +45,9 @@ export const useCountries = ({
             } catch (err) {
                 if (err instanceof Error && err.name === "AbortError") return;
                 const message =
-                    err instanceof Error ? err.message : "Unknown error occurred";
+                    err instanceof Error
+                        ? err.message
+                        : "Unknown error occurred";
                 setError(message);
                 setCountries([]);
                 setTotalPages(0);

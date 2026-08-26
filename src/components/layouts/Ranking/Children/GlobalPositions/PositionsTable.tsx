@@ -26,7 +26,12 @@ function ordinal(n: number): string {
 
 function formatDate(timestamp: number): string {
     const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+    const time = d.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+    });
     const day = ordinal(d.getDate());
     const month = d.toLocaleString("en-US", { month: "long" });
     const year = d.getFullYear();
@@ -40,9 +45,18 @@ const MEDAL_ICON: Record<number, string> = {
 };
 
 const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
-    1: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-green-900/20" },
-    2: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-rowdark"      },
-    3: { icon: <ArrowDown className="mx-auto text-red-400"  size={16} />, row: "bg-red-900/20"   },
+    1: {
+        icon: <ArrowUp className="mx-auto text-green-400" size={16} />,
+        row: "bg-green-900/20",
+    },
+    2: {
+        icon: <ArrowUp className="mx-auto text-green-400" size={16} />,
+        row: "bg-rowdark",
+    },
+    3: {
+        icon: <ArrowDown className="mx-auto text-red-400" size={16} />,
+        row: "bg-red-900/20",
+    },
 };
 
 interface EventRowProps {
@@ -52,10 +66,13 @@ interface EventRowProps {
 const EventRow: React.FC<EventRowProps> = ({ event }) => {
     const navigate = useNavigate();
     const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
-    const medalIcon = event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
+    const medalIcon =
+        event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
 
     return (
-        <TableRow className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}>
+        <TableRow
+            className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}
+        >
             <TableCell className="px-0.5 py-2 text-center w-[48px]">
                 {style.icon}
             </TableCell>
@@ -72,14 +89,20 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
             <TableCell className="px-1 py-2 text-secondary">
                 <span
                     className="cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/maps/${event.mapId}?name=${encodeURIComponent(event.mapname ?? "")}`)}
+                    onClick={() =>
+                        navigate(
+                            `/maps/${event.mapId}?name=${encodeURIComponent(event.mapname ?? "")}`
+                        )
+                    }
                 >
                     {event.mapname}
                 </span>
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center">
-                {medalIcon && <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />}
+                {medalIcon && (
+                    <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />
+                )}
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary">
@@ -109,8 +132,17 @@ export const PositionsTable: React.FC = () => {
     return (
         <div className="overflow-x-auto px-4 max-w-[1100px] mx-auto">
             <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-x-4">
-                <SearchUser searchTerm={searchTerm} setSearchTerm={handleSearch} />
-                <SearchMap searchTerm={mapSearch} setSearchTerm={(val) => { setMapSearch(val); setCurrentPage(1); }} />
+                <SearchUser
+                    searchTerm={searchTerm}
+                    setSearchTerm={handleSearch}
+                />
+                <SearchMap
+                    searchTerm={mapSearch}
+                    setSearchTerm={(val) => {
+                        setMapSearch(val);
+                        setCurrentPage(1);
+                    }}
+                />
             </div>
 
             <Table className="min-w-[800px]">
@@ -143,7 +175,10 @@ export const PositionsTable: React.FC = () => {
 
                     {error && (
                         <TableRow>
-                            <td className="text-center py-4 text-red-500" colSpan={5}>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={5}
+                            >
                                 {error}
                             </td>
                         </TableRow>

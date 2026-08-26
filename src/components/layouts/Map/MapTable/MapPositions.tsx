@@ -24,7 +24,12 @@ function ordinal(n: number): string {
 
 function formatDate(timestamp: number): string {
     const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+    const time = d.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+    });
     const day = ordinal(d.getDate());
     const month = d.toLocaleString("en-US", { month: "long" });
     const year = d.getFullYear();
@@ -38,18 +43,30 @@ const MEDAL_ICON: Record<number, string> = {
 };
 
 const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
-    1: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-green-900/20" },
-    2: { icon: <ArrowUp className="mx-auto text-green-400" size={16} />,  row: "bg-rowdark"      },
-    3: { icon: <ArrowDown className="mx-auto text-red-400"  size={16} />, row: "bg-red-900/20"   },
+    1: {
+        icon: <ArrowUp className="mx-auto text-green-400" size={16} />,
+        row: "bg-green-900/20",
+    },
+    2: {
+        icon: <ArrowUp className="mx-auto text-green-400" size={16} />,
+        row: "bg-rowdark",
+    },
+    3: {
+        icon: <ArrowDown className="mx-auto text-red-400" size={16} />,
+        row: "bg-red-900/20",
+    },
 };
 
 const EventRow: React.FC<{ event: Event }> = ({ event }) => {
     const navigate = useNavigate();
     const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
-    const medalIcon = event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
+    const medalIcon =
+        event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
 
     return (
-        <TableRow className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}>
+        <TableRow
+            className={`${style.row} hover:bg-accenthover transition-colors duration-200 border-0`}
+        >
             <TableCell className="px-0.5 py-2 text-center w-[48px]">
                 {style.icon}
             </TableCell>
@@ -62,7 +79,9 @@ const EventRow: React.FC<{ event: Event }> = ({ event }) => {
                 </span>
             </TableCell>
             <TableCell className="px-1 py-2 text-center w-[80px]">
-                {medalIcon && <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />}
+                {medalIcon && (
+                    <img src={medalIcon} alt="" className="h-5 w-5 mx-auto" />
+                )}
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary w-[230px]">
                 {event.eventDate !== null ? formatDate(event.eventDate) : "—"}
@@ -107,17 +126,25 @@ export const MapPositions: React.FC<Props> = ({ mapId }) => {
                     <TableBody>
                         {loading && (
                             <TableRow>
-                                <td className="text-center py-4" colSpan={4}>Loading...</td>
+                                <td className="text-center py-4" colSpan={4}>
+                                    Loading...
+                                </td>
                             </TableRow>
                         )}
                         {error && (
                             <TableRow>
-                                <td className="text-center py-4 text-red-500" colSpan={4}>{error}</td>
+                                <td
+                                    className="text-center py-4 text-red-500"
+                                    colSpan={4}
+                                >
+                                    {error}
+                                </td>
                             </TableRow>
                         )}
-                        {!loading && events.map((event) => (
-                            <EventRow key={event.id} event={event} />
-                        ))}
+                        {!loading &&
+                            events.map((event) => (
+                                <EventRow key={event.id} event={event} />
+                            ))}
                     </TableBody>
                 </Table>
 
