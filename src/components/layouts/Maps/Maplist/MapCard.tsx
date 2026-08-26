@@ -30,14 +30,21 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
                 </h3>
                 <p className="text-white/70 text-sm mb-1">
                     created by{" "}
-                    <span
-                        className="cursor-pointer hover:text-foreground hover:underline"
-                        onClick={() => navigate(`/profile/${map.user_id}`)}
-                    >
-                        {map.user_id}
-                    </span>
+                    {map.creators.length > 0
+                        ? map.creators.map((creator, i) => (
+                              <React.Fragment key={creator.id}>
+                                  {i > 0 && ", "}
+                                  <span
+                                      className="cursor-pointer hover:text-foreground hover:underline"
+                                      onClick={() => navigate(`/profile/${creator.username}`)}
+                                  >
+                                      {creator.username}
+                                  </span>
+                              </React.Fragment>
+                          ))
+                        : "unknown"}
                 </p>
-                <p className="text-white/70 text-sm">{map.records_count} records</p>
+                <p className="text-white/70 text-sm">{map.recordsCount} records</p>
             </div>
         </div>
     );

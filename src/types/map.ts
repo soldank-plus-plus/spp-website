@@ -1,7 +1,11 @@
+export type MapCreator = {
+    id: number;
+    username: string;
+};
+
 export type Map = {
     id: number;
     mapname: string;
-    user_id: string;
     date: number;
     anticoop: number;
     jets: number;
@@ -11,5 +15,6 @@ export type Map = {
     coop: number;
     m79c: number;
     hardest: number;
-    records_count: number;
+    creators: MapCreator[];
+    recordsCount: number;
 };

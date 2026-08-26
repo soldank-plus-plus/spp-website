@@ -15,7 +15,7 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
     const navigate = useNavigate();
     const { map } = useMap(mapId);
     const { mapInfo, edgeslist } = useMapData(mapname, category);
-    const creator = map?.user_id ?? "";
+    const creators = map?.creators ?? [];
     const screenshotUrl = `/mapviewer/screenshots/${category}_${mapname}.png`;
 
     const handleDownload = async () => {
@@ -67,15 +67,20 @@ export const Hero: React.FC<Props> = ({ mapId, mapname, category = "climb" }) =>
             <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/90" />
             <div className="relative z-10 w-full text-center px-4">
                 <h1>{mapname}</h1>
-                {creator && (
+                {creators.length > 0 && (
                     <p className="mt-1">
                         Created by{" "}
-                        <span
-                            className="cursor-pointer hover:text-heading underline underline-offset-2"
-                            onClick={() => navigate(`/profile/${creator}`)}
-                        >
-                            {creator}
-                        </span>
+                        {creators.map((creator, i) => (
+                            <React.Fragment key={creator.id}>
+                                {i > 0 && ", "}
+                                <span
+                                    className="cursor-pointer hover:text-heading underline underline-offset-2"
+                                    onClick={() => navigate(`/profile/${creator.username}`)}
+                                >
+                                    {creator.username}
+                                </span>
+                            </React.Fragment>
+                        ))}
                     </p>
                 )}
                 <div className="flex justify-center gap-3 mt-5">

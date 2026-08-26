@@ -19,7 +19,9 @@ export const Maplist: React.FC = () => {
         const p = searchPlayer.toLowerCase();
         const base = maps.filter((m) => {
             const matchMap = q ? m.mapname.toLowerCase().includes(q) : true;
-            const matchPlayer = p ? m.user_id.toLowerCase().includes(p) : true;
+            const matchPlayer = p
+                ? m.creators.some((creator) => creator.username.toLowerCase().includes(p))
+                : true;
             return matchMap && matchPlayer;
         });
         return [...base].sort((a, b) =>
