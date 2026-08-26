@@ -1,7 +1,4 @@
-import { mockGet } from "./mock";
 import type { components } from "./schema";
-
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 export interface ApiResponse<T> {
     data: T;
@@ -61,18 +58,6 @@ class ApiClient {
         params?: Record<string, any>,
         signal?: AbortSignal
     ): Promise<ApiResponse<T>> {
-        if (USE_MOCK) {
-            const normalized: Record<string, string> = {};
-            if (params) {
-                Object.entries(params).forEach(([key, value]) => {
-                    if (value !== undefined && value !== null && value !== "") {
-                        normalized[key] = String(value);
-                    }
-                });
-            }
-            return mockGet(endpoint, normalized) as ApiResponse<T>;
-        }
-
         let url = endpoint;
 
         if (params) {
