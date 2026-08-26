@@ -1,22 +1,23 @@
+import { readFileSync } from "fs";
 import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import pluginReact from "eslint-plugin-react";
 import jsonc from "eslint-plugin-jsonc";
+import jsoncParser from "jsonc-eslint-parser";
 import pluginPrettier from "eslint-plugin-prettier";
-import prettierConfig from ".prettierrc.js";
+import eslintConfigPrettier from "eslint-config-prettier";
 import { defineConfig } from "eslint/config";
+
+const prettierConfig = JSON.parse(
+    readFileSync(new URL("./.prettierrc", import.meta.url))
+);
 
 export default defineConfig([
     {
         files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
         plugins: { js, prettier: pluginPrettier },
-        extends: [
-            "js/recommended",
-            "plugin:react/recommended",
-            "plugin:@typescript-eslint/recommended",
-            "prettier", // Disables eslint rules conflicting with prettier
-        ],
+        extends: ["js/recommended"],
         rules: {
             "prettier/prettier": ["error", prettierConfig], // Runs prettier as eslint rule
         },
@@ -25,12 +26,20 @@ export default defineConfig([
 
     tseslint.configs.recommended,
     pluginReact.configs.flat.recommended,
+    pluginReact.configs.flat["jsx-runtime"], // No need to import React for JSX (automatic runtime)
+    {
+        settings: { react: { version: "detect" } },
+        rules: {
+            "react/prop-types": "off", // TypeScript already checks prop types
+        },
+    },
+    eslintConfigPrettier, // Disables eslint rules conflicting with prettier
 
     {
         files: ["**/*.{json,jsonc}"],
         plugins: { jsonc },
         languageOptions: {
-            parser: jsonc.parsers.jsonc,
+            parser: jsoncParser,
         },
         rules: {
             "jsonc/no-comments": "off",
