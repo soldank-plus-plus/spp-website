@@ -3,14 +3,14 @@ import { SlideInSection } from "@/components/layouts/Landing/Hero/SlideInSection
 import cpp from "@/assets/technologies/cpp.png";
 import electron from "@/assets/technologies/electron.png";
 import dascript from "@/assets/technologies/dascript.png";
-import golang from "@/assets/technologies/golang.png";
+import python from "@/assets/technologies/python.png";
 import nestjs from "@/assets/technologies/nestjs.png";
 import rct from "@/assets/technologies/rct.png";
 
 const technologies = [
     { src: cpp, alt: "C++" },
     { src: electron, alt: "Electron" },
-    { src: golang, alt: "Go" },
+    { src: python, alt: "Python" },
     { src: dascript, alt: "DaSlang" },
     { src: rct, alt: "React" },
     { src: nestjs, alt: "NestJS" },
