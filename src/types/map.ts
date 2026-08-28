@@ -1,4 +1,4 @@
-import type { components } from "@/api/schema";
+import type { FindAllMapsDto, MapCreatorDto } from "@/api/generated/sppSchemas";
 
-export type MapCreator = components["schemas"]["MapCreatorDto"];
-export type Map = components["schemas"]["FindAllMapsDto"];
+export type MapCreator = MapCreatorDto;
+export type Map = FindAllMapsDto;

@@ -1,4 +1,4 @@
-import type { components } from "@/api/schema";
+import type { FindAllEventsDto } from "@/api/generated/sppSchemas";
 
 export type EventType =
     | 1 // gained — took a medal position from another user or first cap
@@ -7,10 +7,7 @@ export type EventType =
 
 export type Medal = 1 | 2 | 3; // 1=gold, 2=silver, 3=bronze
 
-export type Event = Omit<
-    components["schemas"]["FindAllEventsDto"],
-    "type" | "medal"
-> & {
+export type Event = Omit<FindAllEventsDto, "type" | "medal"> & {
     type: EventType;
     medal: Medal | null;
 };

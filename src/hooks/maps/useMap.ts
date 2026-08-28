@@ -1,21 +1,9 @@
-import { useState, useEffect } from "react";
-import { Map } from "@/types/map";
-import { mapsApi } from "@/api/maps";
+import { useMapsControllerFindOne } from "@/api/generated/sppComponents";
 
 export const useMap = (mapId: number) => {
-    const [map, setMap] = useState<Map | null>(null);
-    const [loading, setLoading] = useState(true);
+    const { data, isPending } = useMapsControllerFindOne({
+        pathParams: { id: mapId },
+    });
 
-    useEffect(() => {
-        setLoading(true);
-        mapsApi
-            .getMapById(mapId)
-            .then((map) => {
-                setMap(map ?? null);
-                setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, [mapId]);
-
-    return { map, loading };
+    return { map: data ?? null, loading: isPending };
 };

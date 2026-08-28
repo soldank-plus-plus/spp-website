@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "@/hooks/core/ScrollToTop";
 import "./index.css";
 
 import { appRoutes, AppRoute } from "@/config/Routes";
+
+const queryClient = new QueryClient();
 
 function renderRoutes(routes: AppRoute[]) {
     return routes.map(({ path, element, children }, idx) => (
@@ -24,9 +27,11 @@ function renderRoutes(routes: AppRoute[]) {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <BrowserRouter>
-            <ScrollToTop />
-            <Routes>{renderRoutes(appRoutes)}</Routes>
-        </BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+                <ScrollToTop />
+                <Routes>{renderRoutes(appRoutes)}</Routes>
+            </BrowserRouter>
+        </QueryClientProvider>
     </React.StrictMode>
 );

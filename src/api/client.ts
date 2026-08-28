@@ -1,17 +1,12 @@
-import createClient from "openapi-fetch";
-import type { components, paths } from "./schema";
-
-// Fully-typed client generated from the backend's OpenAPI schema (`schema.d.ts`).
-// Use this for any endpoint the backend documents (currently `/maps`,
-// `/maps/{id}`, `/events`).
-export const apiClient = createClient<paths>({
-    baseUrl: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:3000",
-});
+import type {
+    PaginatedLinksDocumented,
+    PaginatedMetaDocumented,
+} from "./generated/sppSchemas";
 
 export interface ApiResponse<T> {
     data: T;
-    meta?: components["schemas"]["PaginatedMetaDocumented"];
-    links?: components["schemas"]["PaginatedLinksDocumented"];
+    meta?: PaginatedMetaDocumented;
+    links?: PaginatedLinksDocumented;
 }
 
 export interface ApiError {
@@ -22,8 +17,8 @@ export interface ApiError {
 
 // Loosely-typed fallback for endpoints the backend doesn't implement/document
 // yet (users, clans, countries, stats, and a few events sub-resources).
-// Migrate their callers to `apiClient` above once the backend adds them to
-// its OpenAPI schema, then delete this.
+// Migrate their callers to the generated hooks in `src/api/generated/` once
+// the backend adds them to its OpenAPI schema, then delete this.
 class LegacyApiClient {
     private baseURL: string;
 
