@@ -55,7 +55,7 @@ interface RecordRowProps {
 
 const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
     const navigate = useNavigate();
-    const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
+    const rowBg = ROW_BG[record.position ?? 0] ?? "bg-rowdark";
 
     return (
         <TableRow
@@ -79,7 +79,7 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
                     className="cursor-pointer hover:text-foreground hover:underline"
                     onClick={() =>
                         navigate(
-                            `/maps/${record.map_id}?name=${encodeURIComponent(record.mapname)}`
+                            `/maps/${record.mapId}?name=${encodeURIComponent(record.mapname ?? "")}`
                         )
                     }
                 >
@@ -88,11 +88,15 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary font-mono">
-                {formatTime(record.record_time)}
+                {record.recordTime !== null
+                    ? formatTime(record.recordTime)
+                    : "—"}
             </TableCell>
 
             <TableCell className="px-1 py-2 text-center text-secondary">
-                {formatDate(record.record_date)}
+                {record.recordDate !== null
+                    ? formatDate(record.recordDate)
+                    : "—"}
             </TableCell>
         </TableRow>
     );

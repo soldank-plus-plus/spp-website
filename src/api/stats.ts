@@ -7,13 +7,6 @@ export interface GetStatsParams {
     signal?: AbortSignal;
 }
 
-export interface GetRecentStatsParams {
-    page: number;
-    pageSize: number;
-    search?: string;
-    signal?: AbortSignal;
-}
-
 export interface GetStatsResponse extends ApiResponse<Stat[]> {
     meta: {
         totalPages: number;
@@ -24,23 +17,6 @@ export interface GetStatsResponse extends ApiResponse<Stat[]> {
 }
 
 export const statsApi = {
-    getRecentStats: async ({
-        page,
-        pageSize,
-        search,
-        signal,
-    }: GetRecentStatsParams): Promise<GetStatsResponse> => {
-        return legacyApiClient.get<Stat[]>(
-            "/stats",
-            {
-                page: String(page),
-                pageSize: String(pageSize),
-                ...(search && { search }),
-            },
-            signal
-        );
-    },
-
     getUserStats: async (
         userId: number,
         { page, pageSize, search, signal }: GetStatsParams & { search?: string }

@@ -74,9 +74,17 @@ export const Info: React.FC<Props> = ({
                                                 {record.username}
                                             </span>
                                             <span className="text-xs text-secondary font-mono">
-                                                {formatTime(record.record_time)}{" "}
+                                                {record.recordTime !== null
+                                                    ? formatTime(
+                                                          record.recordTime
+                                                      )
+                                                    : "—"}{" "}
                                                 ·{" "}
-                                                {formatDate(record.record_date)}
+                                                {record.recordDate !== null
+                                                    ? formatDate(
+                                                          record.recordDate
+                                                      )
+                                                    : "—"}
                                             </span>
                                         </div>
                                     </div>

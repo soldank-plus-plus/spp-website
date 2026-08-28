@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { Stat } from "@/types/stat";
-import { statsApi } from "@/api/stats";
+import { useStatsControllerFindAll } from "@/api/generated/sppComponents";
+import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
 interface UseRecordsProps {
@@ -14,46 +13,20 @@ export const useRecords = ({
     pageSize,
     search = "",
 }: UseRecordsProps) => {
-    const [records, setRecords] = useState<Stat[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const debouncedSearch = useDebounce(search, 500);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    const { data, isPending, error } = useStatsControllerFindAll({
+        queryParams: {
+            page,
+            limit: pageSize,
+            ...(debouncedSearch && { search: debouncedSearch }),
+        },
+    });
 
-        const fetchRecords = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const res = await statsApi.getRecentStats({
-                    page,
-                    pageSize,
-                    search: debouncedSearch,
-                    signal: controller.signal,
-                });
-
-                setRecords(res.data || []);
-                setTotalPages(res.meta?.totalPages ?? 1);
-            } catch (err) {
-                if (err instanceof Error && err.name === "AbortError") return;
-                const message =
-                    err instanceof Error
-                        ? err.message
-                        : "Unknown error occurred";
-                setError(message);
-                setRecords([]);
-                setTotalPages(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRecords();
-        return () => controller.abort();
-    }, [page, pageSize, debouncedSearch]);
-
-    return { records, totalPages, loading, error };
+    return {
+        records: data?.data ?? [],
+        totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
+        loading: isPending,
+        error: error ? getErrorMessage(error, "Failed to fetch records") : null,
+    };
 };

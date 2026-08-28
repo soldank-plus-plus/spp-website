@@ -48,7 +48,7 @@ const ROW_BG: Record<number, string> = {
 
 const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
     const navigate = useNavigate();
-    const rowBg = ROW_BG[record.position] ?? "bg-rowdark";
+    const rowBg = ROW_BG[record.position ?? 0] ?? "bg-rowdark";
 
     return (
         <TableRow
@@ -66,10 +66,14 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
                 </span>
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary font-mono">
-                {formatTime(record.record_time)}
+                {record.recordTime !== null
+                    ? formatTime(record.recordTime)
+                    : "—"}
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary">
-                {formatDate(record.record_date)}
+                {record.recordDate !== null
+                    ? formatDate(record.recordDate)
+                    : "—"}
             </TableCell>
         </TableRow>
     );
@@ -131,7 +135,7 @@ export const MapRecords: React.FC<Props> = ({
                     )}
                     {!loading &&
                         records
-                            .filter((r) => r.position > 3)
+                            .filter((r) => (r.position ?? 0) > 3)
                             .map((record) => (
                                 <RecordRow key={record.id} record={record} />
                             ))}
