@@ -190,6 +190,29 @@ export type EventsControllerFindAllQueryParams = {
         | "eventDate:ASC"
         | "eventDate:DESC"
     )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
 };
 
 export type EventsControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
@@ -715,6 +738,1115 @@ export const useMapsControllerFindOne = <TData = Schemas.FindAllMapsDto>(
     });
 };
 
+export type MapsControllerFindByUserPathParams = {
+    userId: number;
+};
+
+export type MapsControllerFindByUserError = Fetcher.ErrorWrapper<undefined>;
+
+export type MapsControllerFindByUserVariables = {
+    pathParams: MapsControllerFindByUserPathParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchMapsControllerFindByUser = (
+    variables: MapsControllerFindByUserVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserError,
+        undefined,
+        {},
+        {},
+        MapsControllerFindByUserPathParams
+    >({ url: "/maps/by-user/{userId}", method: "get", ...variables, signal });
+
+export function mapsControllerFindByUserQuery(
+    variables: MapsControllerFindByUserVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>;
+};
+
+export function mapsControllerFindByUserQuery(
+    variables: MapsControllerFindByUserVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>)
+        | reactQuery.SkipToken;
+};
+
+export function mapsControllerFindByUserQuery(
+    variables: MapsControllerFindByUserVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/maps/by-user/{userId}",
+            operationId: "mapsControllerFindByUser",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchMapsControllerFindByUser(variables, signal),
+    };
+}
+
+export const useSuspenseMapsControllerFindByUser = <
+    TData = Schemas.FindAllMapsDto,
+>(
+    variables: MapsControllerFindByUserVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllMapsDto,
+            MapsControllerFindByUserError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserError,
+        TData
+    >({
+        ...mapsControllerFindByUserQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useMapsControllerFindByUser = <TData = Schemas.FindAllMapsDto>(
+    variables: MapsControllerFindByUserVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllMapsDto,
+            MapsControllerFindByUserError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserError,
+        TData
+    >({
+        ...mapsControllerFindByUserQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type MapsControllerFindEventsPathParams = {
+    mapId: number;
+};
+
+export type MapsControllerFindEventsQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by type query param.
+     *
+     * **Format:** filter.type={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.type=$btw:John Doe&filter.type=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.type"]?: string[];
+    /**
+     * Filter by medal query param.
+     *
+     * **Format:** filter.medal={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.medal=$btw:John Doe&filter.medal=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.medal"]?: string[];
+    /**
+     * Filter by eventDate query param.
+     *
+     * **Format:** filter.eventDate={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.eventDate=$btw:John Doe&filter.eventDate=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.eventDate"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=type:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - type
+     *
+     * - medal
+     *
+     * - eventDate
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "type:ASC"
+        | "type:DESC"
+        | "medal:ASC"
+        | "medal:DESC"
+        | "eventDate:ASC"
+        | "eventDate:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
+};
+
+export type MapsControllerFindEventsError = Fetcher.ErrorWrapper<undefined>;
+
+export type MapsControllerFindEventsResponse = {
+    data: Schemas.FindAllEventsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            type?: string | string[];
+            medal?: string | string[];
+            eventDate?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type MapsControllerFindEventsVariables = {
+    pathParams: MapsControllerFindEventsPathParams;
+    queryParams?: MapsControllerFindEventsQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchMapsControllerFindEvents = (
+    variables: MapsControllerFindEventsVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        MapsControllerFindEventsResponse,
+        MapsControllerFindEventsError,
+        undefined,
+        {},
+        MapsControllerFindEventsQueryParams,
+        MapsControllerFindEventsPathParams
+    >({ url: "/maps/{mapId}/events", method: "get", ...variables, signal });
+
+export function mapsControllerFindEventsQuery(
+    variables: MapsControllerFindEventsVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<MapsControllerFindEventsResponse>;
+};
+
+export function mapsControllerFindEventsQuery(
+    variables: MapsControllerFindEventsVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<MapsControllerFindEventsResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function mapsControllerFindEventsQuery(
+    variables: MapsControllerFindEventsVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/maps/{mapId}/events",
+            operationId: "mapsControllerFindEvents",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchMapsControllerFindEvents(variables, signal),
+    };
+}
+
+export const useSuspenseMapsControllerFindEvents = <
+    TData = MapsControllerFindEventsResponse,
+>(
+    variables: MapsControllerFindEventsVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            MapsControllerFindEventsResponse,
+            MapsControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        MapsControllerFindEventsResponse,
+        MapsControllerFindEventsError,
+        TData
+    >({
+        ...mapsControllerFindEventsQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useMapsControllerFindEvents = <
+    TData = MapsControllerFindEventsResponse,
+>(
+    variables: MapsControllerFindEventsVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            MapsControllerFindEventsResponse,
+            MapsControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        MapsControllerFindEventsResponse,
+        MapsControllerFindEventsError,
+        TData
+    >({
+        ...mapsControllerFindEventsQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindEventsPathParams = {
+    userId: number;
+};
+
+export type UsersControllerFindEventsQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by type query param.
+     *
+     * **Format:** filter.type={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.type=$btw:John Doe&filter.type=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.type"]?: string[];
+    /**
+     * Filter by medal query param.
+     *
+     * **Format:** filter.medal={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.medal=$btw:John Doe&filter.medal=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.medal"]?: string[];
+    /**
+     * Filter by eventDate query param.
+     *
+     * **Format:** filter.eventDate={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.eventDate=$btw:John Doe&filter.eventDate=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.eventDate"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=type:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - type
+     *
+     * - medal
+     *
+     * - eventDate
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "type:ASC"
+        | "type:DESC"
+        | "medal:ASC"
+        | "medal:DESC"
+        | "eventDate:ASC"
+        | "eventDate:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
+};
+
+export type UsersControllerFindEventsError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindEventsResponse = {
+    data: Schemas.FindAllEventsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            type?: string | string[];
+            medal?: string | string[];
+            eventDate?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type UsersControllerFindEventsVariables = {
+    pathParams: UsersControllerFindEventsPathParams;
+    queryParams?: UsersControllerFindEventsQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindEvents = (
+    variables: UsersControllerFindEventsVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        undefined,
+        {},
+        UsersControllerFindEventsQueryParams,
+        UsersControllerFindEventsPathParams
+    >({ url: "/users/{userId}/events", method: "get", ...variables, signal });
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindEventsResponse>;
+};
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<UsersControllerFindEventsResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/{userId}/events",
+            operationId: "usersControllerFindEvents",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindEvents(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindEvents = <
+    TData = UsersControllerFindEventsResponse,
+>(
+    variables: UsersControllerFindEventsVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindEventsResponse,
+            UsersControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        TData
+    >({
+        ...usersControllerFindEventsQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindEvents = <
+    TData = UsersControllerFindEventsResponse,
+>(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindEventsResponse,
+            UsersControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        TData
+    >({
+        ...usersControllerFindEventsQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type StatsControllerFindAllQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by mapId query param.
+     *
+     * **Format:** filter.mapId={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.mapId=$btw:John Doe&filter.mapId=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.mapId"]?: string[];
+    /**
+     * Filter by userId query param.
+     *
+     * **Format:** filter.userId={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.userId=$btw:John Doe&filter.userId=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.userId"]?: string[];
+    /**
+     * Filter by status query param.
+     *
+     * **Format:** filter.status={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.status=$btw:John Doe&filter.status=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.status"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=position:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - position
+     *
+     * - recordTime
+     *
+     * - recordDate
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "position:ASC"
+        | "position:DESC"
+        | "recordTime:ASC"
+        | "recordTime:DESC"
+        | "recordDate:ASC"
+        | "recordDate:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
+};
+
+export type StatsControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
+
+export type StatsControllerFindAllResponse = {
+    data: Schemas.FindAllStatsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            mapId?: string | string[];
+            userId?: string | string[];
+            status?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type StatsControllerFindAllVariables = {
+    queryParams?: StatsControllerFindAllQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchStatsControllerFindAll = (
+    variables: StatsControllerFindAllVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        StatsControllerFindAllResponse,
+        StatsControllerFindAllError,
+        undefined,
+        {},
+        StatsControllerFindAllQueryParams,
+        {}
+    >({ url: "/stats", method: "get", ...variables, signal });
+
+export function statsControllerFindAllQuery(
+    variables: StatsControllerFindAllVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<StatsControllerFindAllResponse>;
+};
+
+export function statsControllerFindAllQuery(
+    variables: StatsControllerFindAllVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<StatsControllerFindAllResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function statsControllerFindAllQuery(
+    variables: StatsControllerFindAllVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/stats",
+            operationId: "statsControllerFindAll",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchStatsControllerFindAll(variables, signal),
+    };
+}
+
+export const useSuspenseStatsControllerFindAll = <
+    TData = StatsControllerFindAllResponse,
+>(
+    variables: StatsControllerFindAllVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            StatsControllerFindAllResponse,
+            StatsControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        StatsControllerFindAllResponse,
+        StatsControllerFindAllError,
+        TData
+    >({
+        ...statsControllerFindAllQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useStatsControllerFindAll = <
+    TData = StatsControllerFindAllResponse,
+>(
+    variables: StatsControllerFindAllVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            StatsControllerFindAllResponse,
+            StatsControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        StatsControllerFindAllResponse,
+        StatsControllerFindAllError,
+        TData
+    >({
+        ...statsControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
 export type QueryOperation =
     | {
           path: "/events";
@@ -730,4 +1862,24 @@ export type QueryOperation =
           path: "/maps/{id}";
           operationId: "mapsControllerFindOne";
           variables: MapsControllerFindOneVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/maps/by-user/{userId}";
+          operationId: "mapsControllerFindByUser";
+          variables: MapsControllerFindByUserVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/maps/{mapId}/events";
+          operationId: "mapsControllerFindEvents";
+          variables: MapsControllerFindEventsVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/{userId}/events";
+          operationId: "usersControllerFindEvents";
+          variables: UsersControllerFindEventsVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/stats";
+          operationId: "statsControllerFindAll";
+          variables: StatsControllerFindAllVariables | reactQuery.SkipToken;
       };

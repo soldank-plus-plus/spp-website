@@ -129,3 +129,46 @@ export type FindAllMapsDto = {
      */
     recordsCount: number;
 };
+
+export type FindAllStatsDto = {
+    /**
+     * Stat ID
+     */
+    id: number;
+    /**
+     * Position on the map leaderboard
+     */
+    position: number | null;
+    /**
+     * User ID
+     */
+    userId: number;
+    /**
+     * Username
+     */
+    username: string | null;
+    /**
+     * Map ID
+     */
+    mapId: number | null;
+    /**
+     * Map name
+     */
+    mapname: string | null;
+    /**
+     * Record time
+     */
+    recordTime: number | null;
+    /**
+     * Record date as a unix timestamp in milliseconds
+     */
+    recordDate: number | null;
+    /**
+     * Team
+     */
+    team: number | null;
+    /**
+     * Status
+     */
+    status: number | null;
+};
