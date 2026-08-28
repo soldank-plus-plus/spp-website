@@ -53,14 +53,6 @@ export const usersApi = {
         );
     },
 
-    updateUser: async (id: number, data: Partial<User>) => {
-        return legacyApiClient.put<User>(`/users/${id}`, data);
-    },
-
-    deleteUser: async (id: number) => {
-        return legacyApiClient.delete<void>(`/users/${id}`);
-    },
-
     getUserActivity: async (
         id: number,
         type: "records" | "golds" | "silvers" | "bronzes",
