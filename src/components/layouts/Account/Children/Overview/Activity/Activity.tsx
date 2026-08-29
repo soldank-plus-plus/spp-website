@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { TooltipProvider } from "@/components/ui/shadcn/tooltip";
 import { useUsersControllerFindActivity } from "@/api/generated/sppComponents";
-import { ActivityDay } from "@/types/user";
 import {
     ActivityFilter,
     PALETTE,
@@ -30,11 +29,7 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
             pathParams: { id: userId },
             queryParams: { type: filter },
         });
-    // The backend actually returns { data: ActivityDayDto[] }, but the
-    // generated type only reflects a single ActivityDayDto since
-    // @Serialize doesn't declare isArray on this endpoint.
-    const envelope = response as unknown as { data: ActivityDay[] } | undefined;
-    const data = envelope?.data ?? [];
+    const data = response?.data ?? [];
 
     const palette = PALETTE[filter];
     const days = generateCalendar();

@@ -636,6 +636,10 @@ export type MapsControllerFindOnePathParams = {
 
 export type MapsControllerFindOneError = Fetcher.ErrorWrapper<undefined>;
 
+export type MapsControllerFindOneResponse = {
+    data?: Schemas.FindAllMapsDto;
+};
+
 export type MapsControllerFindOneVariables = {
     pathParams: MapsControllerFindOnePathParams;
 } & SppContext["fetcherOptions"];
@@ -645,7 +649,7 @@ export const fetchMapsControllerFindOne = (
     signal?: AbortSignal
 ) =>
     sppFetch<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindOneResponse,
         MapsControllerFindOneError,
         undefined,
         {},
@@ -657,7 +661,9 @@ export function mapsControllerFindOneQuery(
     variables: MapsControllerFindOneVariables
 ): {
     queryKey: reactQuery.QueryKey;
-    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<MapsControllerFindOneResponse>;
 };
 
 export function mapsControllerFindOneQuery(
@@ -665,7 +671,7 @@ export function mapsControllerFindOneQuery(
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
-        | ((options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>)
+        | ((options: QueryFnOptions) => Promise<MapsControllerFindOneResponse>)
         | reactQuery.SkipToken;
 };
 
@@ -687,12 +693,12 @@ export function mapsControllerFindOneQuery(
 }
 
 export const useSuspenseMapsControllerFindOne = <
-    TData = Schemas.FindAllMapsDto,
+    TData = MapsControllerFindOneResponse,
 >(
     variables: MapsControllerFindOneVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllMapsDto,
+            MapsControllerFindOneResponse,
             MapsControllerFindOneError,
             TData
         >,
@@ -701,7 +707,7 @@ export const useSuspenseMapsControllerFindOne = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindOneResponse,
         MapsControllerFindOneError,
         TData
     >({
@@ -711,11 +717,11 @@ export const useSuspenseMapsControllerFindOne = <
     });
 };
 
-export const useMapsControllerFindOne = <TData = Schemas.FindAllMapsDto>(
+export const useMapsControllerFindOne = <TData = MapsControllerFindOneResponse>(
     variables: MapsControllerFindOneVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllMapsDto,
+            MapsControllerFindOneResponse,
             MapsControllerFindOneError,
             TData
         >,
@@ -724,7 +730,7 @@ export const useMapsControllerFindOne = <TData = Schemas.FindAllMapsDto>(
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindOneResponse,
         MapsControllerFindOneError,
         TData
     >({
@@ -744,6 +750,10 @@ export type MapsControllerFindByUserPathParams = {
 
 export type MapsControllerFindByUserError = Fetcher.ErrorWrapper<undefined>;
 
+export type MapsControllerFindByUserResponse = {
+    data?: Schemas.FindAllMapsDto[];
+};
+
 export type MapsControllerFindByUserVariables = {
     pathParams: MapsControllerFindByUserPathParams;
 } & SppContext["fetcherOptions"];
@@ -753,7 +763,7 @@ export const fetchMapsControllerFindByUser = (
     signal?: AbortSignal
 ) =>
     sppFetch<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserResponse,
         MapsControllerFindByUserError,
         undefined,
         {},
@@ -765,7 +775,9 @@ export function mapsControllerFindByUserQuery(
     variables: MapsControllerFindByUserVariables
 ): {
     queryKey: reactQuery.QueryKey;
-    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<MapsControllerFindByUserResponse>;
 };
 
 export function mapsControllerFindByUserQuery(
@@ -773,7 +785,9 @@ export function mapsControllerFindByUserQuery(
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
-        | ((options: QueryFnOptions) => Promise<Schemas.FindAllMapsDto>)
+        | ((
+              options: QueryFnOptions
+          ) => Promise<MapsControllerFindByUserResponse>)
         | reactQuery.SkipToken;
 };
 
@@ -795,12 +809,12 @@ export function mapsControllerFindByUserQuery(
 }
 
 export const useSuspenseMapsControllerFindByUser = <
-    TData = Schemas.FindAllMapsDto,
+    TData = MapsControllerFindByUserResponse,
 >(
     variables: MapsControllerFindByUserVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllMapsDto,
+            MapsControllerFindByUserResponse,
             MapsControllerFindByUserError,
             TData
         >,
@@ -809,7 +823,7 @@ export const useSuspenseMapsControllerFindByUser = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserResponse,
         MapsControllerFindByUserError,
         TData
     >({
@@ -819,11 +833,13 @@ export const useSuspenseMapsControllerFindByUser = <
     });
 };
 
-export const useMapsControllerFindByUser = <TData = Schemas.FindAllMapsDto>(
+export const useMapsControllerFindByUser = <
+    TData = MapsControllerFindByUserResponse,
+>(
     variables: MapsControllerFindByUserVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllMapsDto,
+            MapsControllerFindByUserResponse,
             MapsControllerFindByUserError,
             TData
         >,
@@ -832,7 +848,7 @@ export const useMapsControllerFindByUser = <TData = Schemas.FindAllMapsDto>(
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        Schemas.FindAllMapsDto,
+        MapsControllerFindByUserResponse,
         MapsControllerFindByUserError,
         TData
     >({
@@ -2068,6 +2084,10 @@ export type UsersControllerFindOneByUsernamePathParams = {
 export type UsersControllerFindOneByUsernameError =
     Fetcher.ErrorWrapper<undefined>;
 
+export type UsersControllerFindOneByUsernameResponse = {
+    data?: Schemas.FindAllUsersDto;
+};
+
 export type UsersControllerFindOneByUsernameVariables = {
     pathParams: UsersControllerFindOneByUsernamePathParams;
 } & SppContext["fetcherOptions"];
@@ -2077,7 +2097,7 @@ export const fetchUsersControllerFindOneByUsername = (
     signal?: AbortSignal
 ) =>
     sppFetch<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameResponse,
         UsersControllerFindOneByUsernameError,
         undefined,
         {},
@@ -2094,7 +2114,9 @@ export function usersControllerFindOneByUsernameQuery(
     variables: UsersControllerFindOneByUsernameVariables
 ): {
     queryKey: reactQuery.QueryKey;
-    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindOneByUsernameResponse>;
 };
 
 export function usersControllerFindOneByUsernameQuery(
@@ -2102,7 +2124,9 @@ export function usersControllerFindOneByUsernameQuery(
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
-        | ((options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>)
+        | ((
+              options: QueryFnOptions
+          ) => Promise<UsersControllerFindOneByUsernameResponse>)
         | reactQuery.SkipToken;
 };
 
@@ -2124,12 +2148,12 @@ export function usersControllerFindOneByUsernameQuery(
 }
 
 export const useSuspenseUsersControllerFindOneByUsername = <
-    TData = Schemas.FindAllUsersDto,
+    TData = UsersControllerFindOneByUsernameResponse,
 >(
     variables: UsersControllerFindOneByUsernameVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllUsersDto,
+            UsersControllerFindOneByUsernameResponse,
             UsersControllerFindOneByUsernameError,
             TData
         >,
@@ -2138,7 +2162,7 @@ export const useSuspenseUsersControllerFindOneByUsername = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameResponse,
         UsersControllerFindOneByUsernameError,
         TData
     >({
@@ -2151,12 +2175,12 @@ export const useSuspenseUsersControllerFindOneByUsername = <
 };
 
 export const useUsersControllerFindOneByUsername = <
-    TData = Schemas.FindAllUsersDto,
+    TData = UsersControllerFindOneByUsernameResponse,
 >(
     variables: UsersControllerFindOneByUsernameVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllUsersDto,
+            UsersControllerFindOneByUsernameResponse,
             UsersControllerFindOneByUsernameError,
             TData
         >,
@@ -2165,7 +2189,7 @@ export const useUsersControllerFindOneByUsername = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameResponse,
         UsersControllerFindOneByUsernameError,
         TData
     >({
@@ -2185,6 +2209,10 @@ export type UsersControllerFindOnePathParams = {
 
 export type UsersControllerFindOneError = Fetcher.ErrorWrapper<undefined>;
 
+export type UsersControllerFindOneResponse = {
+    data?: Schemas.FindAllUsersDto;
+};
+
 export type UsersControllerFindOneVariables = {
     pathParams: UsersControllerFindOnePathParams;
 } & SppContext["fetcherOptions"];
@@ -2194,7 +2222,7 @@ export const fetchUsersControllerFindOne = (
     signal?: AbortSignal
 ) =>
     sppFetch<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneResponse,
         UsersControllerFindOneError,
         undefined,
         {},
@@ -2206,7 +2234,9 @@ export function usersControllerFindOneQuery(
     variables: UsersControllerFindOneVariables
 ): {
     queryKey: reactQuery.QueryKey;
-    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindOneResponse>;
 };
 
 export function usersControllerFindOneQuery(
@@ -2214,7 +2244,7 @@ export function usersControllerFindOneQuery(
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
-        | ((options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>)
+        | ((options: QueryFnOptions) => Promise<UsersControllerFindOneResponse>)
         | reactQuery.SkipToken;
 };
 
@@ -2236,12 +2266,12 @@ export function usersControllerFindOneQuery(
 }
 
 export const useSuspenseUsersControllerFindOne = <
-    TData = Schemas.FindAllUsersDto,
+    TData = UsersControllerFindOneResponse,
 >(
     variables: UsersControllerFindOneVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllUsersDto,
+            UsersControllerFindOneResponse,
             UsersControllerFindOneError,
             TData
         >,
@@ -2250,7 +2280,7 @@ export const useSuspenseUsersControllerFindOne = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneResponse,
         UsersControllerFindOneError,
         TData
     >({
@@ -2260,11 +2290,13 @@ export const useSuspenseUsersControllerFindOne = <
     });
 };
 
-export const useUsersControllerFindOne = <TData = Schemas.FindAllUsersDto>(
+export const useUsersControllerFindOne = <
+    TData = UsersControllerFindOneResponse,
+>(
     variables: UsersControllerFindOneVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.FindAllUsersDto,
+            UsersControllerFindOneResponse,
             UsersControllerFindOneError,
             TData
         >,
@@ -2273,7 +2305,7 @@ export const useUsersControllerFindOne = <TData = Schemas.FindAllUsersDto>(
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        Schemas.FindAllUsersDto,
+        UsersControllerFindOneResponse,
         UsersControllerFindOneError,
         TData
     >({
@@ -2969,6 +3001,10 @@ export type UsersControllerFindActivityQueryParams = {
 
 export type UsersControllerFindActivityError = Fetcher.ErrorWrapper<undefined>;
 
+export type UsersControllerFindActivityResponse = {
+    data?: Schemas.ActivityDayDto[];
+};
+
 export type UsersControllerFindActivityVariables = {
     pathParams: UsersControllerFindActivityPathParams;
     queryParams: UsersControllerFindActivityQueryParams;
@@ -2979,7 +3015,7 @@ export const fetchUsersControllerFindActivity = (
     signal?: AbortSignal
 ) =>
     sppFetch<
-        Schemas.ActivityDayDto,
+        UsersControllerFindActivityResponse,
         UsersControllerFindActivityError,
         undefined,
         {},
@@ -2991,7 +3027,9 @@ export function usersControllerFindActivityQuery(
     variables: UsersControllerFindActivityVariables
 ): {
     queryKey: reactQuery.QueryKey;
-    queryFn: (options: QueryFnOptions) => Promise<Schemas.ActivityDayDto>;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindActivityResponse>;
 };
 
 export function usersControllerFindActivityQuery(
@@ -2999,7 +3037,9 @@ export function usersControllerFindActivityQuery(
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
-        | ((options: QueryFnOptions) => Promise<Schemas.ActivityDayDto>)
+        | ((
+              options: QueryFnOptions
+          ) => Promise<UsersControllerFindActivityResponse>)
         | reactQuery.SkipToken;
 };
 
@@ -3021,12 +3061,12 @@ export function usersControllerFindActivityQuery(
 }
 
 export const useSuspenseUsersControllerFindActivity = <
-    TData = Schemas.ActivityDayDto,
+    TData = UsersControllerFindActivityResponse,
 >(
     variables: UsersControllerFindActivityVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.ActivityDayDto,
+            UsersControllerFindActivityResponse,
             UsersControllerFindActivityError,
             TData
         >,
@@ -3035,7 +3075,7 @@ export const useSuspenseUsersControllerFindActivity = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        Schemas.ActivityDayDto,
+        UsersControllerFindActivityResponse,
         UsersControllerFindActivityError,
         TData
     >({
@@ -3047,11 +3087,13 @@ export const useSuspenseUsersControllerFindActivity = <
     });
 };
 
-export const useUsersControllerFindActivity = <TData = Schemas.ActivityDayDto>(
+export const useUsersControllerFindActivity = <
+    TData = UsersControllerFindActivityResponse,
+>(
     variables: UsersControllerFindActivityVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            Schemas.ActivityDayDto,
+            UsersControllerFindActivityResponse,
             UsersControllerFindActivityError,
             TData
         >,
@@ -3060,7 +3102,7 @@ export const useUsersControllerFindActivity = <TData = Schemas.ActivityDayDto>(
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        Schemas.ActivityDayDto,
+        UsersControllerFindActivityResponse,
         UsersControllerFindActivityError,
         TData
     >({
