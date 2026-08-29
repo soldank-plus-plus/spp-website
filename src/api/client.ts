@@ -16,9 +16,9 @@ export interface ApiError {
 }
 
 // Loosely-typed fallback for endpoints the backend doesn't implement/document
-// yet (users, clans, countries, stats, and a few events sub-resources).
-// Migrate their callers to the generated hooks in `src/api/generated/` once
-// the backend adds them to its OpenAPI schema, then delete this.
+// yet (clans, countries — no backend model for either at all). Migrate their
+// callers to the generated hooks in `src/api/generated/` once the backend
+// adds them to its OpenAPI schema, then delete this.
 class LegacyApiClient {
     private baseURL: string;
 

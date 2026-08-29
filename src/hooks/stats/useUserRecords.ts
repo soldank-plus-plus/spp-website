@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useUsersControllerFindStats } from "@/api/generated/sppComponents";
+import { getErrorMessage } from "@/api/generated/sppErrors";
 import { Stat } from "@/types/stat";
-import { statsApi } from "@/api/stats";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
 interface UseUserRecordsProps {
@@ -16,46 +16,21 @@ export const useUserRecords = ({
     pageSize,
     search = "",
 }: UseUserRecordsProps) => {
-    const [records, setRecords] = useState<Stat[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const debouncedSearch = useDebounce(search, 500);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    const { data, isPending, error } = useUsersControllerFindStats({
+        pathParams: { userId },
+        queryParams: {
+            page,
+            limit: pageSize,
+            ...(debouncedSearch && { search: debouncedSearch }),
+        },
+    });
 
-        const fetchRecords = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const res = await statsApi.getUserStats(userId, {
-                    page,
-                    pageSize,
-                    search: debouncedSearch,
-                    signal: controller.signal,
-                });
-
-                setRecords(res.data || []);
-                setTotalPages(res.meta?.totalPages ?? 1);
-            } catch (err) {
-                if (err instanceof Error && err.name === "AbortError") return;
-                const message =
-                    err instanceof Error
-                        ? err.message
-                        : "Unknown error occurred";
-                setError(message);
-                setRecords([]);
-                setTotalPages(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchRecords();
-        return () => controller.abort();
-    }, [userId, page, pageSize, debouncedSearch]);
-
-    return { records, totalPages, loading, error };
+    return {
+        records: (data?.data as Stat[] | undefined) ?? [],
+        totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
+        loading: isPending,
+        error: error ? getErrorMessage(error, "Failed to fetch records") : null,
+    };
 };

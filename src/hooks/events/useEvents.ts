@@ -1,18 +1,23 @@
 import { useEventsControllerFindAll } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 import { Event } from "@/types/event";
+import { useDebounce } from "@/hooks/core/useDebounce";
 
 interface UseEventsProps {
     page: number;
     pageSize: number;
-    // Accepted for API compatibility with callers; the backend doesn't
-    // support searching /events yet, so this is currently a no-op.
     search?: string;
 }
 
-export const useEvents = ({ page, pageSize }: UseEventsProps) => {
+export const useEvents = ({ page, pageSize, search = "" }: UseEventsProps) => {
+    const debouncedSearch = useDebounce(search, 500);
+
     const { data, isPending, error } = useEventsControllerFindAll({
-        queryParams: { page, limit: pageSize },
+        queryParams: {
+            page,
+            limit: pageSize,
+            ...(debouncedSearch && { search: debouncedSearch }),
+        },
     });
 
     return {
