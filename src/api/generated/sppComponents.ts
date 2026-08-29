@@ -1182,11 +1182,11 @@ export const useMapsControllerFindEvents = <
     });
 };
 
-export type UsersControllerFindEventsPathParams = {
-    userId: number;
+export type MapsControllerFindStatsPathParams = {
+    mapId: number;
 };
 
-export type UsersControllerFindEventsQueryParams = {
+export type MapsControllerFindStatsQueryParams = {
     /**
      * Page number to retrieve. If you provide invalid value the default page number will applied
      *
@@ -1215,13 +1215,13 @@ export type UsersControllerFindEventsQueryParams = {
      */
     limit?: number;
     /**
-     * Filter by type query param.
+     * Filter by mapId query param.
      *
-     * **Format:** filter.type={$not}:OPERATION:VALUE
+     * **Format:** filter.mapId={$not}:OPERATION:VALUE
      *
      *
      *
-     * **Example:** filter.type=$btw:John Doe&filter.type=$contains:John Doe
+     * **Example:** filter.mapId=$btw:John Doe&filter.mapId=$contains:John Doe
      *
      * **Available Operations**
      * - $eq
@@ -1252,15 +1252,15 @@ export type UsersControllerFindEventsQueryParams = {
      *
      * - $or
      */
-    ["filter.type"]?: string[];
+    ["filter.mapId"]?: string[];
     /**
-     * Filter by medal query param.
+     * Filter by userId query param.
      *
-     * **Format:** filter.medal={$not}:OPERATION:VALUE
+     * **Format:** filter.userId={$not}:OPERATION:VALUE
      *
      *
      *
-     * **Example:** filter.medal=$btw:John Doe&filter.medal=$contains:John Doe
+     * **Example:** filter.userId=$btw:John Doe&filter.userId=$contains:John Doe
      *
      * **Available Operations**
      * - $eq
@@ -1291,15 +1291,15 @@ export type UsersControllerFindEventsQueryParams = {
      *
      * - $or
      */
-    ["filter.medal"]?: string[];
+    ["filter.userId"]?: string[];
     /**
-     * Filter by eventDate query param.
+     * Filter by status query param.
      *
-     * **Format:** filter.eventDate={$not}:OPERATION:VALUE
+     * **Format:** filter.status={$not}:OPERATION:VALUE
      *
      *
      *
-     * **Example:** filter.eventDate=$btw:John Doe&filter.eventDate=$contains:John Doe
+     * **Example:** filter.status=$btw:John Doe&filter.status=$contains:John Doe
      *
      * **Available Operations**
      * - $eq
@@ -1330,7 +1330,7 @@ export type UsersControllerFindEventsQueryParams = {
      *
      * - $or
      */
-    ["filter.eventDate"]?: string[];
+    ["filter.status"]?: string[];
     /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
@@ -1338,7 +1338,7 @@ export type UsersControllerFindEventsQueryParams = {
      * **Format:** {fieldName}:{DIRECTION}
      *
      *
-     * **Example:** sortBy=id:DESC&sortBy=type:DESC
+     * **Example:** sortBy=id:DESC&sortBy=position:DESC
      *
      *
      * **Default Value:** id:ASC
@@ -1346,21 +1346,21 @@ export type UsersControllerFindEventsQueryParams = {
      * **Available Fields**
      * - id
      *
-     * - type
+     * - position
      *
-     * - medal
+     * - recordTime
      *
-     * - eventDate
+     * - recordDate
      */
     sortBy?: (
         | "id:ASC"
         | "id:DESC"
-        | "type:ASC"
-        | "type:DESC"
-        | "medal:ASC"
-        | "medal:DESC"
-        | "eventDate:ASC"
-        | "eventDate:DESC"
+        | "position:ASC"
+        | "position:DESC"
+        | "recordTime:ASC"
+        | "recordTime:DESC"
+        | "recordDate:ASC"
+        | "recordDate:DESC"
     )[];
     /**
      * Search term to filter result values
@@ -1387,10 +1387,10 @@ export type UsersControllerFindEventsQueryParams = {
     searchBy?: string[];
 };
 
-export type UsersControllerFindEventsError = Fetcher.ErrorWrapper<undefined>;
+export type MapsControllerFindStatsError = Fetcher.ErrorWrapper<undefined>;
 
-export type UsersControllerFindEventsResponse = {
-    data: Schemas.FindAllEventsDto[];
+export type MapsControllerFindStatsResponse = {
+    data: Schemas.FindAllStatsDto[];
     meta: {
         itemsPerPage: number;
         totalItems: number;
@@ -1401,77 +1401,77 @@ export type UsersControllerFindEventsResponse = {
         search?: string;
         select?: string[];
         filter?: {
-            type?: string | string[];
-            medal?: string | string[];
-            eventDate?: string | string[];
+            mapId?: string | string[];
+            userId?: string | string[];
+            status?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
 };
 
-export type UsersControllerFindEventsVariables = {
-    pathParams: UsersControllerFindEventsPathParams;
-    queryParams?: UsersControllerFindEventsQueryParams;
+export type MapsControllerFindStatsVariables = {
+    pathParams: MapsControllerFindStatsPathParams;
+    queryParams?: MapsControllerFindStatsQueryParams;
 } & SppContext["fetcherOptions"];
 
-export const fetchUsersControllerFindEvents = (
-    variables: UsersControllerFindEventsVariables,
+export const fetchMapsControllerFindStats = (
+    variables: MapsControllerFindStatsVariables,
     signal?: AbortSignal
 ) =>
     sppFetch<
-        UsersControllerFindEventsResponse,
-        UsersControllerFindEventsError,
+        MapsControllerFindStatsResponse,
+        MapsControllerFindStatsError,
         undefined,
         {},
-        UsersControllerFindEventsQueryParams,
-        UsersControllerFindEventsPathParams
-    >({ url: "/users/{userId}/events", method: "get", ...variables, signal });
+        MapsControllerFindStatsQueryParams,
+        MapsControllerFindStatsPathParams
+    >({ url: "/maps/{mapId}/stats", method: "get", ...variables, signal });
 
-export function usersControllerFindEventsQuery(
-    variables: UsersControllerFindEventsVariables
+export function mapsControllerFindStatsQuery(
+    variables: MapsControllerFindStatsVariables
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn: (
         options: QueryFnOptions
-    ) => Promise<UsersControllerFindEventsResponse>;
+    ) => Promise<MapsControllerFindStatsResponse>;
 };
 
-export function usersControllerFindEventsQuery(
-    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+export function mapsControllerFindStatsQuery(
+    variables: MapsControllerFindStatsVariables | reactQuery.SkipToken
 ): {
     queryKey: reactQuery.QueryKey;
     queryFn:
         | ((
               options: QueryFnOptions
-          ) => Promise<UsersControllerFindEventsResponse>)
+          ) => Promise<MapsControllerFindStatsResponse>)
         | reactQuery.SkipToken;
 };
 
-export function usersControllerFindEventsQuery(
-    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+export function mapsControllerFindStatsQuery(
+    variables: MapsControllerFindStatsVariables | reactQuery.SkipToken
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/{userId}/events",
-            operationId: "usersControllerFindEvents",
+            path: "/maps/{mapId}/stats",
+            operationId: "mapsControllerFindStats",
             variables,
         }),
         queryFn:
             variables === reactQuery.skipToken
                 ? reactQuery.skipToken
                 : ({ signal }: QueryFnOptions) =>
-                      fetchUsersControllerFindEvents(variables, signal),
+                      fetchMapsControllerFindStats(variables, signal),
     };
 }
 
-export const useSuspenseUsersControllerFindEvents = <
-    TData = UsersControllerFindEventsResponse,
+export const useSuspenseMapsControllerFindStats = <
+    TData = MapsControllerFindStatsResponse,
 >(
-    variables: UsersControllerFindEventsVariables,
+    variables: MapsControllerFindStatsVariables,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            UsersControllerFindEventsResponse,
-            UsersControllerFindEventsError,
+            MapsControllerFindStatsResponse,
+            MapsControllerFindStatsError,
             TData
         >,
         "queryKey" | "queryFn" | "initialData"
@@ -1479,24 +1479,24 @@ export const useSuspenseUsersControllerFindEvents = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useSuspenseQuery<
-        UsersControllerFindEventsResponse,
-        UsersControllerFindEventsError,
+        MapsControllerFindStatsResponse,
+        MapsControllerFindStatsError,
         TData
     >({
-        ...usersControllerFindEventsQuery(deepMerge(fetcherOptions, variables)),
+        ...mapsControllerFindStatsQuery(deepMerge(fetcherOptions, variables)),
         ...options,
         ...queryOptions,
     });
 };
 
-export const useUsersControllerFindEvents = <
-    TData = UsersControllerFindEventsResponse,
+export const useMapsControllerFindStats = <
+    TData = MapsControllerFindStatsResponse,
 >(
-    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken,
+    variables: MapsControllerFindStatsVariables | reactQuery.SkipToken,
     options?: Omit<
         reactQuery.UseQueryOptions<
-            UsersControllerFindEventsResponse,
-            UsersControllerFindEventsError,
+            MapsControllerFindStatsResponse,
+            MapsControllerFindStatsError,
             TData
         >,
         "queryKey" | "queryFn" | "initialData"
@@ -1504,11 +1504,11 @@ export const useUsersControllerFindEvents = <
 ) => {
     const { queryOptions, fetcherOptions } = useSppContext(options);
     return reactQuery.useQuery<
-        UsersControllerFindEventsResponse,
-        UsersControllerFindEventsError,
+        MapsControllerFindStatsResponse,
+        MapsControllerFindStatsError,
         TData
     >({
-        ...usersControllerFindEventsQuery(
+        ...mapsControllerFindStatsQuery(
             variables === reactQuery.skipToken
                 ? variables
                 : deepMerge(fetcherOptions, variables)
@@ -1847,6 +1847,1233 @@ export const useStatsControllerFindAll = <
     });
 };
 
+export type UsersControllerFindAllQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=username:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - username
+     *
+     * - uniqueCaps
+     *
+     * - hardest
+     *
+     * - gold
+     *
+     * - mapsCreated
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "username:ASC"
+        | "username:DESC"
+        | "uniqueCaps:ASC"
+        | "uniqueCaps:DESC"
+        | "hardest:ASC"
+        | "hardest:DESC"
+        | "gold:ASC"
+        | "gold:DESC"
+        | "mapsCreated:ASC"
+        | "mapsCreated:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** username
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - username
+     */
+    searchBy?: string[];
+};
+
+export type UsersControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindAllResponse = {
+    data: Schemas.FindAllUsersDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {};
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type UsersControllerFindAllVariables = {
+    queryParams?: UsersControllerFindAllQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindAll = (
+    variables: UsersControllerFindAllVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        UsersControllerFindAllResponse,
+        UsersControllerFindAllError,
+        undefined,
+        {},
+        UsersControllerFindAllQueryParams,
+        {}
+    >({ url: "/users", method: "get", ...variables, signal });
+
+export function usersControllerFindAllQuery(
+    variables: UsersControllerFindAllVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindAllResponse>;
+};
+
+export function usersControllerFindAllQuery(
+    variables: UsersControllerFindAllVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<UsersControllerFindAllResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindAllQuery(
+    variables: UsersControllerFindAllVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users",
+            operationId: "usersControllerFindAll",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindAll(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindAll = <
+    TData = UsersControllerFindAllResponse,
+>(
+    variables: UsersControllerFindAllVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindAllResponse,
+            UsersControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        UsersControllerFindAllResponse,
+        UsersControllerFindAllError,
+        TData
+    >({
+        ...usersControllerFindAllQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindAll = <
+    TData = UsersControllerFindAllResponse,
+>(
+    variables: UsersControllerFindAllVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindAllResponse,
+            UsersControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        UsersControllerFindAllResponse,
+        UsersControllerFindAllError,
+        TData
+    >({
+        ...usersControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindOneByUsernamePathParams = {
+    username: string;
+};
+
+export type UsersControllerFindOneByUsernameError =
+    Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindOneByUsernameVariables = {
+    pathParams: UsersControllerFindOneByUsernamePathParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindOneByUsername = (
+    variables: UsersControllerFindOneByUsernameVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameError,
+        undefined,
+        {},
+        {},
+        UsersControllerFindOneByUsernamePathParams
+    >({
+        url: "/users/by-username/{username}",
+        method: "get",
+        ...variables,
+        signal,
+    });
+
+export function usersControllerFindOneByUsernameQuery(
+    variables: UsersControllerFindOneByUsernameVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>;
+};
+
+export function usersControllerFindOneByUsernameQuery(
+    variables: UsersControllerFindOneByUsernameVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindOneByUsernameQuery(
+    variables: UsersControllerFindOneByUsernameVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/by-username/{username}",
+            operationId: "usersControllerFindOneByUsername",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindOneByUsername(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindOneByUsername = <
+    TData = Schemas.FindAllUsersDto,
+>(
+    variables: UsersControllerFindOneByUsernameVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllUsersDto,
+            UsersControllerFindOneByUsernameError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameError,
+        TData
+    >({
+        ...usersControllerFindOneByUsernameQuery(
+            deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindOneByUsername = <
+    TData = Schemas.FindAllUsersDto,
+>(
+    variables: UsersControllerFindOneByUsernameVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllUsersDto,
+            UsersControllerFindOneByUsernameError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneByUsernameError,
+        TData
+    >({
+        ...usersControllerFindOneByUsernameQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindOnePathParams = {
+    id: number;
+};
+
+export type UsersControllerFindOneError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindOneVariables = {
+    pathParams: UsersControllerFindOnePathParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindOne = (
+    variables: UsersControllerFindOneVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneError,
+        undefined,
+        {},
+        {},
+        UsersControllerFindOnePathParams
+    >({ url: "/users/{id}", method: "get", ...variables, signal });
+
+export function usersControllerFindOneQuery(
+    variables: UsersControllerFindOneVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>;
+};
+
+export function usersControllerFindOneQuery(
+    variables: UsersControllerFindOneVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<Schemas.FindAllUsersDto>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindOneQuery(
+    variables: UsersControllerFindOneVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/{id}",
+            operationId: "usersControllerFindOne",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindOne(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindOne = <
+    TData = Schemas.FindAllUsersDto,
+>(
+    variables: UsersControllerFindOneVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllUsersDto,
+            UsersControllerFindOneError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneError,
+        TData
+    >({
+        ...usersControllerFindOneQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindOne = <TData = Schemas.FindAllUsersDto>(
+    variables: UsersControllerFindOneVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.FindAllUsersDto,
+            UsersControllerFindOneError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        Schemas.FindAllUsersDto,
+        UsersControllerFindOneError,
+        TData
+    >({
+        ...usersControllerFindOneQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindEventsPathParams = {
+    userId: number;
+};
+
+export type UsersControllerFindEventsQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by type query param.
+     *
+     * **Format:** filter.type={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.type=$btw:John Doe&filter.type=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.type"]?: string[];
+    /**
+     * Filter by medal query param.
+     *
+     * **Format:** filter.medal={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.medal=$btw:John Doe&filter.medal=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.medal"]?: string[];
+    /**
+     * Filter by eventDate query param.
+     *
+     * **Format:** filter.eventDate={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.eventDate=$btw:John Doe&filter.eventDate=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.eventDate"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=type:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - type
+     *
+     * - medal
+     *
+     * - eventDate
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "type:ASC"
+        | "type:DESC"
+        | "medal:ASC"
+        | "medal:DESC"
+        | "eventDate:ASC"
+        | "eventDate:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
+};
+
+export type UsersControllerFindEventsError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindEventsResponse = {
+    data: Schemas.FindAllEventsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            type?: string | string[];
+            medal?: string | string[];
+            eventDate?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type UsersControllerFindEventsVariables = {
+    pathParams: UsersControllerFindEventsPathParams;
+    queryParams?: UsersControllerFindEventsQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindEvents = (
+    variables: UsersControllerFindEventsVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        undefined,
+        {},
+        UsersControllerFindEventsQueryParams,
+        UsersControllerFindEventsPathParams
+    >({ url: "/users/{userId}/events", method: "get", ...variables, signal });
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindEventsResponse>;
+};
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<UsersControllerFindEventsResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindEventsQuery(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/{userId}/events",
+            operationId: "usersControllerFindEvents",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindEvents(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindEvents = <
+    TData = UsersControllerFindEventsResponse,
+>(
+    variables: UsersControllerFindEventsVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindEventsResponse,
+            UsersControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        TData
+    >({
+        ...usersControllerFindEventsQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindEvents = <
+    TData = UsersControllerFindEventsResponse,
+>(
+    variables: UsersControllerFindEventsVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindEventsResponse,
+            UsersControllerFindEventsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        UsersControllerFindEventsResponse,
+        UsersControllerFindEventsError,
+        TData
+    >({
+        ...usersControllerFindEventsQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindStatsPathParams = {
+    userId: number;
+};
+
+export type UsersControllerFindStatsQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by mapId query param.
+     *
+     * **Format:** filter.mapId={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.mapId=$btw:John Doe&filter.mapId=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.mapId"]?: string[];
+    /**
+     * Filter by userId query param.
+     *
+     * **Format:** filter.userId={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.userId=$btw:John Doe&filter.userId=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.userId"]?: string[];
+    /**
+     * Filter by status query param.
+     *
+     * **Format:** filter.status={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.status=$btw:John Doe&filter.status=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.status"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=position:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - position
+     *
+     * - recordTime
+     *
+     * - recordDate
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "position:ASC"
+        | "position:DESC"
+        | "recordTime:ASC"
+        | "recordTime:DESC"
+        | "recordDate:ASC"
+        | "recordDate:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** user.username,map.mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - user.username
+     *
+     * - map.mapname
+     */
+    searchBy?: string[];
+};
+
+export type UsersControllerFindStatsError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindStatsResponse = {
+    data: Schemas.FindAllStatsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            mapId?: string | string[];
+            userId?: string | string[];
+            status?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type UsersControllerFindStatsVariables = {
+    pathParams: UsersControllerFindStatsPathParams;
+    queryParams?: UsersControllerFindStatsQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindStats = (
+    variables: UsersControllerFindStatsVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        UsersControllerFindStatsResponse,
+        UsersControllerFindStatsError,
+        undefined,
+        {},
+        UsersControllerFindStatsQueryParams,
+        UsersControllerFindStatsPathParams
+    >({ url: "/users/{userId}/stats", method: "get", ...variables, signal });
+
+export function usersControllerFindStatsQuery(
+    variables: UsersControllerFindStatsVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<UsersControllerFindStatsResponse>;
+};
+
+export function usersControllerFindStatsQuery(
+    variables: UsersControllerFindStatsVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<UsersControllerFindStatsResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindStatsQuery(
+    variables: UsersControllerFindStatsVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/{userId}/stats",
+            operationId: "usersControllerFindStats",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindStats(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindStats = <
+    TData = UsersControllerFindStatsResponse,
+>(
+    variables: UsersControllerFindStatsVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindStatsResponse,
+            UsersControllerFindStatsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        UsersControllerFindStatsResponse,
+        UsersControllerFindStatsError,
+        TData
+    >({
+        ...usersControllerFindStatsQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindStats = <
+    TData = UsersControllerFindStatsResponse,
+>(
+    variables: UsersControllerFindStatsVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            UsersControllerFindStatsResponse,
+            UsersControllerFindStatsError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        UsersControllerFindStatsResponse,
+        UsersControllerFindStatsError,
+        TData
+    >({
+        ...usersControllerFindStatsQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type UsersControllerFindActivityPathParams = {
+    id: number;
+};
+
+export type UsersControllerFindActivityQueryParams = {
+    type: "records" | "golds" | "silvers" | "bronzes";
+};
+
+export type UsersControllerFindActivityError = Fetcher.ErrorWrapper<undefined>;
+
+export type UsersControllerFindActivityVariables = {
+    pathParams: UsersControllerFindActivityPathParams;
+    queryParams: UsersControllerFindActivityQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchUsersControllerFindActivity = (
+    variables: UsersControllerFindActivityVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        Schemas.ActivityDayDto,
+        UsersControllerFindActivityError,
+        undefined,
+        {},
+        UsersControllerFindActivityQueryParams,
+        UsersControllerFindActivityPathParams
+    >({ url: "/users/{id}/activity", method: "get", ...variables, signal });
+
+export function usersControllerFindActivityQuery(
+    variables: UsersControllerFindActivityVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (options: QueryFnOptions) => Promise<Schemas.ActivityDayDto>;
+};
+
+export function usersControllerFindActivityQuery(
+    variables: UsersControllerFindActivityVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<Schemas.ActivityDayDto>)
+        | reactQuery.SkipToken;
+};
+
+export function usersControllerFindActivityQuery(
+    variables: UsersControllerFindActivityVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/users/{id}/activity",
+            operationId: "usersControllerFindActivity",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchUsersControllerFindActivity(variables, signal),
+    };
+}
+
+export const useSuspenseUsersControllerFindActivity = <
+    TData = Schemas.ActivityDayDto,
+>(
+    variables: UsersControllerFindActivityVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.ActivityDayDto,
+            UsersControllerFindActivityError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        Schemas.ActivityDayDto,
+        UsersControllerFindActivityError,
+        TData
+    >({
+        ...usersControllerFindActivityQuery(
+            deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useUsersControllerFindActivity = <TData = Schemas.ActivityDayDto>(
+    variables: UsersControllerFindActivityVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            Schemas.ActivityDayDto,
+            UsersControllerFindActivityError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        Schemas.ActivityDayDto,
+        UsersControllerFindActivityError,
+        TData
+    >({
+        ...usersControllerFindActivityQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
 export type QueryOperation =
     | {
           path: "/events";
@@ -1874,12 +3101,46 @@ export type QueryOperation =
           variables: MapsControllerFindEventsVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/users/{userId}/events";
-          operationId: "usersControllerFindEvents";
-          variables: UsersControllerFindEventsVariables | reactQuery.SkipToken;
+          path: "/maps/{mapId}/stats";
+          operationId: "mapsControllerFindStats";
+          variables: MapsControllerFindStatsVariables | reactQuery.SkipToken;
       }
     | {
           path: "/stats";
           operationId: "statsControllerFindAll";
           variables: StatsControllerFindAllVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users";
+          operationId: "usersControllerFindAll";
+          variables: UsersControllerFindAllVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/by-username/{username}";
+          operationId: "usersControllerFindOneByUsername";
+          variables:
+              | UsersControllerFindOneByUsernameVariables
+              | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/{id}";
+          operationId: "usersControllerFindOne";
+          variables: UsersControllerFindOneVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/{userId}/events";
+          operationId: "usersControllerFindEvents";
+          variables: UsersControllerFindEventsVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/{userId}/stats";
+          operationId: "usersControllerFindStats";
+          variables: UsersControllerFindStatsVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/users/{id}/activity";
+          operationId: "usersControllerFindActivity";
+          variables:
+              | UsersControllerFindActivityVariables
+              | reactQuery.SkipToken;
       };

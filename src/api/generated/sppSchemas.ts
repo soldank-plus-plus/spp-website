@@ -172,3 +172,69 @@ export type FindAllStatsDto = {
      */
     status: number | null;
 };
+
+export type FindAllUsersDto = {
+    /**
+     * User ID
+     */
+    id: number;
+    /**
+     * Username
+     */
+    username: string;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Capture positions without a medal
+     */
+    noMedal: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Playtime in seconds
+     */
+    playtime: number | null;
+    /**
+     * Account creation date as a unix timestamp in milliseconds
+     */
+    createdAt: number | null;
+    /**
+     * Last active date as a unix timestamp in milliseconds
+     */
+    lastActiveAt: number | null;
+};
+
+export type ActivityDayDto = {
+    /**
+     * Day in YYYY-MM-DD format
+     */
+    day: string;
+    /**
+     * Number of events on this day
+     */
+    count: number;
+};
