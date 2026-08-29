@@ -2,7 +2,7 @@ import React from "react";
 import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import { useNavigate } from "react-router-dom";
 import { User } from "@/types/user";
-import { SortKey } from "@/api/users";
+import { SortKey } from "@/hooks/users/useUsers";
 import playerAvatar from "@/assets/avatars/avatar.png";
 
 interface Props {
@@ -49,7 +49,7 @@ export const UserRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="text-center px-0.5 py-2 text-secondary">
-                {player.passed}%
+                {/* not computed by the backend yet */}—
             </TableCell>
 
             <TableCell
@@ -59,7 +59,7 @@ export const UserRow: React.FC<Props> = ({
                         : "text-secondary"
                 }`}
             >
-                {player.unique_caps}
+                {player.uniqueCaps}
             </TableCell>
 
             <TableCell

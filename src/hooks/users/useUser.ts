@@ -1,36 +1,20 @@
-import { useState, useEffect } from "react";
-import { AccountUser } from "@/types/user";
-import { usersApi } from "@/api/users";
+import { skipToken } from "@tanstack/react-query";
+import { useUsersControllerFindOneByUsername } from "@/api/generated/sppComponents";
+import { getErrorMessage } from "@/api/generated/sppErrors";
+import { User } from "@/types/user";
 
 export const useUser = (username: string | undefined) => {
-    const [user, setUser] = useState<AccountUser | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const { data, isPending, error } = useUsersControllerFindOneByUsername(
+        username ? { pathParams: { username } } : skipToken
+    );
+    // The backend actually returns { data: User }, but the generated type
+    // only reflects a bare User since @Serialize doesn't declare the
+    // response envelope in its Swagger annotation.
+    const envelope = data as unknown as { data: User } | undefined;
 
-    useEffect(() => {
-        if (!username) return;
-
-        const controller = new AbortController();
-
-        const fetch = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const res = await usersApi.getUserByUsername(username);
-                setUser(res.data);
-            } catch (err) {
-                if (err instanceof Error && err.name === "AbortError") return;
-                setError(err instanceof Error ? err.message : "Unknown error");
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetch();
-        return () => controller.abort();
-    }, [username]);
-
-    return { user, loading, error };
+    return {
+        user: envelope?.data ?? null,
+        loading: !!username && isPending,
+        error: error ? getErrorMessage(error, "Failed to fetch user") : null,
+    };
 };

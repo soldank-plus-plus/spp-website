@@ -31,7 +31,7 @@ const Sidebar = ({ user, loading }: Props) => {
         gold: user?.gold ?? 0,
         silver: user?.silver ?? 0,
         bronze: user?.bronze ?? 0,
-        noMedal: user?.no_medal ?? 0,
+        noMedal: user?.noMedal ?? 0,
     };
 
     return (
@@ -71,14 +71,20 @@ const Sidebar = ({ user, loading }: Props) => {
                 <div className="space-y-3 px-1">
                     <div className="flex items-center gap-2 text-sm">
                         <Calendar className="w-4 h-4" />
-                        Member since {formatDate(user.created_at)}
+                        Member since{" "}
+                        {user.createdAt !== null
+                            ? formatDate(user.createdAt)
+                            : "—"}
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                         <Clock className="w-4 h-4" />
-                        Last seen {formatDate(user.last_active_at)}
+                        Last seen{" "}
+                        {user.lastActiveAt !== null
+                            ? formatDate(user.lastActiveAt)
+                            : "—"}
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        Playtime: {formatPlaytime(user.playtime)}
+                        Playtime: {formatPlaytime(user.playtime ?? 0)}
                     </p>
 
                     <div className="flex gap-3 pt-1">

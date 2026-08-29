@@ -1,33 +1,12 @@
-export type ActivityDay = {
-    day: string;
-    count: number;
-};
+import type {
+    FindAllUsersDto,
+    ActivityDayDto,
+} from "@/api/generated/sppSchemas";
 
-export type User = {
-    id: number;
-    username: string;
-    clan_id: number | null;
-    country_id: number | null;
-    gold: number;
-    silver: number;
-    bronze: number;
-    no_medal: number;
-    unique_caps: number;
-    total_caps: number;
-    maps_created: number;
-    hardest: number;
-    playtime: number;
-    created_at: number;
-    last_active_at: number;
-    // computed by the API, not stored in DB
-    rank?: number;
-    passed?: number;
-};
+export type User = FindAllUsersDto;
 
-export type AccountUser = User & {
-    placement: {
-        records: number;
-        hardest: number;
-        golds: number;
-    };
-};
+// The backend doesn't compute rank/passed or a full account placement yet,
+// so this is just an alias for now rather than an extended type.
+export type AccountUser = User;
+
+export type ActivityDay = ActivityDayDto;

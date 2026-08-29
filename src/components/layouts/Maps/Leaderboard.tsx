@@ -54,7 +54,7 @@ export const Leaderboard: React.FC = () => {
                                 </span>
                             </div>
                             <span className="text-foreground text-sm shrink-0">
-                                {user.maps_created}
+                                {user.mapsCreated}
                             </span>
                         </li>
                     ))}

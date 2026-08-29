@@ -3,7 +3,6 @@
 import React from "react";
 import Completed from "@/components/layouts/Account/Children/Overview/Performance/Completed";
 import MedalCard from "@/components/layouts/Account/Children/Overview/Performance/MedalCard";
-import Placement from "@/components/layouts/Account/Children/Overview/Performance/Placement";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { AccountUser } from "@/types/user";
 
@@ -67,23 +66,19 @@ const Performance: React.FC<Props> = ({ user, loading }) => {
             <div className="flex flex-col md:flex-row items-stretch gap-5 max-w-3xl mx-auto">
                 <div className="flex-1 rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 p-5">
                     <Completed
-                        completed={user.unique_caps}
+                        completed={user.uniqueCaps ?? 0}
                         maxMaps={TOTAL_MAPS}
                     />
                 </div>
                 <div className="min-w-[150px] rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 p-5">
                     <MedalCard
                         medals={{
-                            gold: user.gold,
-                            silver: user.silver,
-                            bronze: user.bronze,
+                            gold: user.gold ?? 0,
+                            silver: user.silver ?? 0,
+                            bronze: user.bronze ?? 0,
                         }}
                     />
                 </div>
-            </div>
-
-            <div className="max-w-3xl mx-auto">
-                <Placement ranking={user.placement} />
             </div>
         </div>
     );

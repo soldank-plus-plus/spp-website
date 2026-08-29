@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TooltipProvider } from "@/components/ui/shadcn/tooltip";
-import { usersApi } from "@/api/users";
+import { useUsersControllerFindActivity } from "@/api/generated/sppComponents";
 import { ActivityDay } from "@/types/user";
 import {
     ActivityFilter,
@@ -20,27 +20,21 @@ type Props = {
 
 export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
     const [filter, setFilter] = useState<ActivityFilter>("records");
-    const [data, setData] = useState<ActivityDay[]>([]);
-    const [loading, setLoading] = useState(true);
 
     const handleFilterChange = (newFilter: ActivityFilter) => {
         setFilter(newFilter);
-        setLoading(true);
     };
 
-    useEffect(() => {
-        const controller = new AbortController();
-        usersApi
-            .getUserActivity(userId, filter, controller.signal)
-            .then((res) => {
-                setData(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                if (err?.name !== "AbortError") setLoading(false);
-            });
-        return () => controller.abort();
-    }, [userId, filter]);
+    const { data: response, isPending: loading } =
+        useUsersControllerFindActivity({
+            pathParams: { id: userId },
+            queryParams: { type: filter },
+        });
+    // The backend actually returns { data: ActivityDayDto[] }, but the
+    // generated type only reflects a single ActivityDayDto since
+    // @Serialize doesn't declare isArray on this endpoint.
+    const envelope = response as unknown as { data: ActivityDay[] } | undefined;
+    const data = envelope?.data ?? [];
 
     const palette = PALETTE[filter];
     const days = generateCalendar();
