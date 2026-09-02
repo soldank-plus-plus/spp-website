@@ -10,6 +10,7 @@ import {
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useEvents } from "@/hooks/events/useEvents";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "lucide-react";
@@ -165,13 +166,7 @@ export const PositionsTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={5}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={5} />}
 
                     {error && (
                         <TableRow>

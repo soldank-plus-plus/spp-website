@@ -10,6 +10,7 @@ import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useUsers, SortKey } from "@/hooks/users/useUsers";
 import { getFlagByName } from "@/utils/countryFlags";
 import { ChevronLeft } from "lucide-react";
@@ -108,13 +109,7 @@ export const CountryUsers: React.FC<Props> = ({
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={8}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={8} />}
 
                     {error && (
                         <TableRow>

@@ -10,6 +10,7 @@ import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { ClanRow } from "@/components/ui/custom/shared/Ranking/ClanRow/ClanRow";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useClans, ClanSortKey } from "@/hooks/clans/useClans";
 
 export const ClanTable: React.FC = () => {
@@ -79,13 +80,7 @@ export const ClanTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={8}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={8} />}
 
                     {error && (
                         <TableRow>

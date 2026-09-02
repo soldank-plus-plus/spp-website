@@ -10,6 +10,7 @@ import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/SortButtons";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { CountryRow } from "@/components/ui/custom/shared/Ranking/CountryRow/CountryRow";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { CountryUsers } from "./CountryUsers";
 import { useCountries, CountrySortKey } from "@/hooks/countries/useCountries";
 import { Country } from "@/types/country";
@@ -94,13 +95,7 @@ export const CountryTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={8}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={8} />}
 
                     {error && (
                         <TableRow>

@@ -11,6 +11,7 @@ import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/S
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
 import { useUsers, SortKey } from "@/hooks/users/useUsers";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 
 export const GlobalTable: React.FC = () => {
     const pageSize = 20;
@@ -76,13 +77,7 @@ export const GlobalTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={8}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={8} />}
 
                     {error && (
                         <TableRow>

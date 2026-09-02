@@ -10,6 +10,7 @@ import {
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useRecords } from "@/hooks/stats/useRecords";
 import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
@@ -157,13 +158,7 @@ export const RecordsTable: React.FC = () => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={5}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={5} />}
 
                     {error && (
                         <TableRow>
