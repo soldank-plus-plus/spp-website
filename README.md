@@ -11,7 +11,7 @@ The backend architecture can be found [here](https://github.com/soldank-plus-plu
 
 Create a `.env.development` (used by `npm run dev`) or `.env` (used by `npm run build`) file with:
 
-```
+```bash
 VITE_API_BASE_URL=http://localhost:3000
 ```
 
@@ -38,26 +38,26 @@ The project uses the following packages:
 
 Make sure you have [Node.js v16](https://nodejs.org/en/download) (or higher) and clone this repository:
 
-```
-> git clone https://github.com/soldank-plus-plus/spp-website
-> cd spp-website
+```bash
+git clone https://github.com/soldank-plus-plus/spp-website
+cd spp-website
 ```
 
 ### Running
 
 Install the dependencies and run the development server:
 
-```
-> npm install
-> npm run dev
+```bash
+npm install
+npm run dev
 ```
 
 ## Backend integration
 
 Typed API clients and React Query hooks for the endpoints the backend documents are generated, not hand-written. To regenerate them after a backend change (with [spp-webstats](https://github.com/soldank-plus-plus/spp-webstats) running locally on port 3000):
 
-```
-> npm run generate:api-types
+```bash
+npm run generate:api-types
 ```
 
 This reads the backend's live OpenAPI schema (`http://localhost:3000/api-json`) and writes the result to `src/api/generated/`.
