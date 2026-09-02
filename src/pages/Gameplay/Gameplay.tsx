@@ -1,13 +1,13 @@
 import { Header } from "@/components/ui/custom/core/Header";
+import { BrowserClient } from "@/components/layouts/Gameplay/BrowserClient";
 import { Footer } from "@/components/ui/custom/core/Footer";
-import underconstr from "@/assets/icons/underconstr.png";
 
 const Gameplay = () => {
     return (
         <>
             <Header />
-            <main className="flex justify-center items-center min-h-screen px-4">
-                <img src={underconstr} alt="Under construction" />
+            <main>
+                <BrowserClient />
             </main>
             <Footer />
         </>
