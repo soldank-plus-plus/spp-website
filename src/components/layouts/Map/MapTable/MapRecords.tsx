@@ -8,6 +8,7 @@ import {
     TableCell,
 } from "@/components/ui/shadcn/table";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
 
@@ -82,6 +83,7 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
 interface Props {
     records: Stat[];
     totalPages: number;
+    pageSize: number;
     loading: boolean;
     error: string | null;
     currentPage: number;
@@ -91,6 +93,7 @@ interface Props {
 export const MapRecords: React.FC<Props> = ({
     records,
     totalPages,
+    pageSize,
     loading,
     error,
     currentPage,
@@ -116,13 +119,7 @@ export const MapRecords: React.FC<Props> = ({
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={4}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={4} />}
                     {error && (
                         <TableRow>
                             <td

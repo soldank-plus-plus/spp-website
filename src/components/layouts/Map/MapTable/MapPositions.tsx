@@ -8,6 +8,7 @@ import {
     TableCell,
 } from "@/components/ui/shadcn/table";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useMapEvents } from "@/hooks/events/useMapEvents";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "lucide-react";
@@ -125,11 +126,7 @@ export const MapPositions: React.FC<Props> = ({ mapId }) => {
 
                     <TableBody>
                         {loading && (
-                            <TableRow>
-                                <td className="text-center py-4" colSpan={4}>
-                                    Loading...
-                                </td>
-                            </TableRow>
+                            <TableSkeleton rows={pageSize} columns={4} />
                         )}
                         {error && (
                             <TableRow>

@@ -1,9 +1,12 @@
 import React from "react";
 import { useMapCreators } from "@/hooks/maps/useMapCreators";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { useNavigate } from "react-router-dom";
 
 export const Leaderboard: React.FC = () => {
-    const { users, loading, error } = useMapCreators(20);
+    const creatorCount = 20;
+
+    const { users, loading, error } = useMapCreators(creatorCount);
     const navigate = useNavigate();
 
     return (
@@ -24,9 +27,20 @@ export const Leaderboard: React.FC = () => {
             <hr className="border-border/30 mb-2" />
 
             {loading && (
-                <p className="text-white/70 text-sm text-center py-4">
-                    Loading...
-                </p>
+                <ol className="space-y-1">
+                    {Array.from({ length: creatorCount }).map((_, index) => (
+                        <li
+                            key={index}
+                            className="flex items-center justify-between gap-2 px-2 py-1.5"
+                        >
+                            <div className="flex items-center gap-2 min-w-0">
+                                <Skeleton className="h-4 w-5 shrink-0" />
+                                <Skeleton className="h-4 w-32" />
+                            </div>
+                            <Skeleton className="h-4 w-6 shrink-0" />
+                        </li>
+                    ))}
+                </ol>
             )}
 
             {error && (

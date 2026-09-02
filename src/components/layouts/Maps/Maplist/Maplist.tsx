@@ -4,6 +4,7 @@ import { useMaps } from "@/hooks/maps/useMaps";
 import { Input } from "@/components/ui/shadcn/input";
 import { Search } from "lucide-react";
 import MapCard, { SortMode } from "@/components/layouts/Maps/Maplist/MapCard";
+import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 export const Maplist: React.FC = () => {
     const pageSize = 50;
@@ -88,9 +89,21 @@ export const Maplist: React.FC = () => {
             </div>
 
             {loading && (
-                <p className="text-secondary text-sm text-center py-8">
-                    Loading...
-                </p>
+                <div className="flex flex-col gap-6">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                        <div
+                            key={index}
+                            className="rounded-sm border border-white/10 bg-white/5 flex items-center gap-4 overflow-hidden"
+                        >
+                            <Skeleton className="w-[120px] aspect-square shrink-0 rounded-none" />
+                            <div className="px-4 py-5 space-y-2">
+                                <Skeleton className="h-5 w-48" />
+                                <Skeleton className="h-4 w-64" />
+                                <Skeleton className="h-4 w-24" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
             )}
 
             {error && (

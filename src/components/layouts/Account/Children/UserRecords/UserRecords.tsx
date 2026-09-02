@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/shadcn/table";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { SearchMap } from "@/components/ui/custom/shared/Ranking/SearchMap/SearchMap";
+import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useUserRecords } from "@/hooks/stats/useUserRecords";
 import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
@@ -139,13 +140,7 @@ export const UserRecordsTable: React.FC<Props> = ({ userId }) => {
                 </TableHeader>
 
                 <TableBody>
-                    {loading && (
-                        <TableRow>
-                            <td className="text-center py-4" colSpan={4}>
-                                Loading...
-                            </td>
-                        </TableRow>
-                    )}
+                    {loading && <TableSkeleton rows={pageSize} columns={4} />}
 
                     {error && (
                         <TableRow>

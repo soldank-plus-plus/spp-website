@@ -8,13 +8,15 @@ interface Props {
 }
 
 export const MapTable: React.FC<Props> = ({ mapId }) => {
+    const pageSize = 30;
+
     const [tab, setTab] = useState<"records" | "positions">("records");
     const [currentPage, setCurrentPage] = useState(1);
 
     const { records, totalPages, loading, error } = useMapRecords({
         mapId,
         page: currentPage,
-        pageSize: 30,
+        pageSize,
     });
 
     return (
@@ -45,6 +47,7 @@ export const MapTable: React.FC<Props> = ({ mapId }) => {
                         <MapRecords
                             records={records}
                             totalPages={totalPages}
+                            pageSize={pageSize}
                             loading={loading}
                             error={error}
                             currentPage={currentPage}
