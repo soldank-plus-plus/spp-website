@@ -1,6 +1,10 @@
 {
     "name": "soldank-plus-plus",
     "version": "1.0.0",
+    "description": "Frontend for Soldank++ website built with Vite, React, TypeScript, OpenAPI, TanStack, Tailwind CSS, and Shadcn as UI library",
+    "author": "max-ghz",
+    "private": true,
+    "license": "MIT",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
