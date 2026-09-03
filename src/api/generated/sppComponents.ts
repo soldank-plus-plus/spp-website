@@ -2085,7 +2085,7 @@ export type UsersControllerFindOneByUsernameError =
     Fetcher.ErrorWrapper<undefined>;
 
 export type UsersControllerFindOneByUsernameResponse = {
-    data?: Schemas.FindAllUsersDto;
+    data?: Schemas.FindOneUserDto;
 };
 
 export type UsersControllerFindOneByUsernameVariables = {
@@ -2210,7 +2210,7 @@ export type UsersControllerFindOnePathParams = {
 export type UsersControllerFindOneError = Fetcher.ErrorWrapper<undefined>;
 
 export type UsersControllerFindOneResponse = {
-    data?: Schemas.FindAllUsersDto;
+    data?: Schemas.FindOneUserDto;
 };
 
 export type UsersControllerFindOneVariables = {
@@ -3116,6 +3116,432 @@ export const useUsersControllerFindActivity = <
     });
 };
 
+export type ClansControllerFindAllQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=clanname:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - clanname
+     *
+     * - uniqueCaps
+     *
+     * - hardest
+     *
+     * - gold
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "clanname:ASC"
+        | "clanname:DESC"
+        | "uniqueCaps:ASC"
+        | "uniqueCaps:DESC"
+        | "hardest:ASC"
+        | "hardest:DESC"
+        | "gold:ASC"
+        | "gold:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** clanname,tag
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - clanname
+     *
+     * - tag
+     */
+    searchBy?: string[];
+};
+
+export type ClansControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
+
+export type ClansControllerFindAllResponse = {
+    data: Schemas.FindAllClansDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {};
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type ClansControllerFindAllVariables = {
+    queryParams?: ClansControllerFindAllQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchClansControllerFindAll = (
+    variables: ClansControllerFindAllVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        ClansControllerFindAllResponse,
+        ClansControllerFindAllError,
+        undefined,
+        {},
+        ClansControllerFindAllQueryParams,
+        {}
+    >({ url: "/clans", method: "get", ...variables, signal });
+
+export function clansControllerFindAllQuery(
+    variables: ClansControllerFindAllVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<ClansControllerFindAllResponse>;
+};
+
+export function clansControllerFindAllQuery(
+    variables: ClansControllerFindAllVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<ClansControllerFindAllResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function clansControllerFindAllQuery(
+    variables: ClansControllerFindAllVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/clans",
+            operationId: "clansControllerFindAll",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchClansControllerFindAll(variables, signal),
+    };
+}
+
+export const useSuspenseClansControllerFindAll = <
+    TData = ClansControllerFindAllResponse,
+>(
+    variables: ClansControllerFindAllVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindAllResponse,
+            ClansControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        ClansControllerFindAllResponse,
+        ClansControllerFindAllError,
+        TData
+    >({
+        ...clansControllerFindAllQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useClansControllerFindAll = <
+    TData = ClansControllerFindAllResponse,
+>(
+    variables: ClansControllerFindAllVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindAllResponse,
+            ClansControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        ClansControllerFindAllResponse,
+        ClansControllerFindAllError,
+        TData
+    >({
+        ...clansControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type CountriesControllerFindAllQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=countryname:DESC
+     *
+     *
+     * **Default Value:** countryname:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - countryname
+     *
+     * - uniqueCaps
+     *
+     * - hardest
+     *
+     * - gold
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "countryname:ASC"
+        | "countryname:DESC"
+        | "uniqueCaps:ASC"
+        | "uniqueCaps:DESC"
+        | "hardest:ASC"
+        | "hardest:DESC"
+        | "gold:ASC"
+        | "gold:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** countryname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - countryname
+     */
+    searchBy?: string[];
+};
+
+export type CountriesControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
+
+export type CountriesControllerFindAllResponse = {
+    data: Schemas.FindAllCountriesDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {};
+    };
+    links: Schemas.PaginatedLinksDocumented;
+};
+
+export type CountriesControllerFindAllVariables = {
+    queryParams?: CountriesControllerFindAllQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchCountriesControllerFindAll = (
+    variables: CountriesControllerFindAllVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        CountriesControllerFindAllResponse,
+        CountriesControllerFindAllError,
+        undefined,
+        {},
+        CountriesControllerFindAllQueryParams,
+        {}
+    >({ url: "/countries", method: "get", ...variables, signal });
+
+export function countriesControllerFindAllQuery(
+    variables: CountriesControllerFindAllVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<CountriesControllerFindAllResponse>;
+};
+
+export function countriesControllerFindAllQuery(
+    variables: CountriesControllerFindAllVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<CountriesControllerFindAllResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function countriesControllerFindAllQuery(
+    variables: CountriesControllerFindAllVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/countries",
+            operationId: "countriesControllerFindAll",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchCountriesControllerFindAll(variables, signal),
+    };
+}
+
+export const useSuspenseCountriesControllerFindAll = <
+    TData = CountriesControllerFindAllResponse,
+>(
+    variables: CountriesControllerFindAllVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            CountriesControllerFindAllResponse,
+            CountriesControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        CountriesControllerFindAllResponse,
+        CountriesControllerFindAllError,
+        TData
+    >({
+        ...countriesControllerFindAllQuery(
+            deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useCountriesControllerFindAll = <
+    TData = CountriesControllerFindAllResponse,
+>(
+    variables: CountriesControllerFindAllVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            CountriesControllerFindAllResponse,
+            CountriesControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        CountriesControllerFindAllResponse,
+        CountriesControllerFindAllError,
+        TData
+    >({
+        ...countriesControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
 export type QueryOperation =
     | {
           path: "/events";
@@ -3185,4 +3611,14 @@ export type QueryOperation =
           variables:
               | UsersControllerFindActivityVariables
               | reactQuery.SkipToken;
+      }
+    | {
+          path: "/clans";
+          operationId: "clansControllerFindAll";
+          variables: ClansControllerFindAllVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/countries";
+          operationId: "countriesControllerFindAll";
+          variables: CountriesControllerFindAllVariables | reactQuery.SkipToken;
       };

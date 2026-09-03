@@ -228,6 +228,80 @@ export type FindAllUsersDto = {
     lastActiveAt: number | null;
 };
 
+export type UserPlacementDto = {
+    /**
+     * Place in the unique captures ranking
+     */
+    records: number;
+    /**
+     * Place in the hardest map ranking
+     */
+    hardest: number;
+    /**
+     * Place in the gold medal ranking
+     */
+    golds: number;
+};
+
+export type FindOneUserDto = {
+    /**
+     * User ID
+     */
+    id: number;
+    /**
+     * Username
+     */
+    username: string;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Capture positions without a medal
+     */
+    noMedal: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Playtime in seconds
+     */
+    playtime: number | null;
+    /**
+     * Account creation date as a unix timestamp in milliseconds
+     */
+    createdAt: number | null;
+    /**
+     * Last active date as a unix timestamp in milliseconds
+     */
+    lastActiveAt: number | null;
+    /**
+     * Places in the rankings this user appears in
+     */
+    placement: UserPlacementDto;
+};
+
 export type ActivityDayDto = {
     /**
      * Day in YYYY-MM-DD format
@@ -237,4 +311,113 @@ export type ActivityDayDto = {
      * Number of events on this day
      */
     count: number;
+};
+
+export type ClanCreatorDto = {
+    /**
+     * User ID
+     */
+    id: number;
+    /**
+     * Username
+     */
+    username: string;
+};
+
+export type FindAllClansDto = {
+    /**
+     * Clan ID
+     */
+    id: number;
+    /**
+     * Clan name
+     */
+    clanname: string;
+    /**
+     * Clan tag
+     */
+    tag: string | null;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Clan founders
+     */
+    creators: ClanCreatorDto[];
+    /**
+     * Number of users in this clan
+     */
+    usersCount: number;
+};
+
+export type FindAllCountriesDto = {
+    /**
+     * Country ID
+     */
+    id: number;
+    /**
+     * Country name
+     */
+    countryname: string;
+    /**
+     * ISO 3166-1 alpha-2 country code
+     */
+    code: string;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Number of users from this country
+     */
+    usersCount: number;
 };

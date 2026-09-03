@@ -1,9 +1,19 @@
-import { useState, useEffect } from "react";
-import { Clan } from "@/types/clan";
-import { clansApi, ClanSortKey } from "@/api/clans";
+import { useClansControllerFindAll } from "@/api/generated/sppComponents";
+import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-export type { ClanSortKey };
+export type ClanSortKey = "unique_caps" | "hardest" | "gold";
+
+// Maps the UI's sort vocabulary to the actual sortable columns on the
+// backend (nestjs-paginate's sortBy=field:DESC convention).
+const SORT_BY: Record<
+    ClanSortKey,
+    "uniqueCaps:DESC" | "hardest:DESC" | "gold:DESC"
+> = {
+    unique_caps: "uniqueCaps:DESC",
+    hardest: "hardest:DESC",
+    gold: "gold:DESC",
+};
 
 interface UseClansProps {
     page: number;
@@ -18,47 +28,21 @@ export const useClans = ({
     search = "",
     sort = "unique_caps",
 }: UseClansProps) => {
-    const [clans, setClans] = useState<Clan[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const debouncedSearch = useDebounce(search, 500);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    const { data, isPending, error } = useClansControllerFindAll({
+        queryParams: {
+            page,
+            limit: pageSize,
+            sortBy: [SORT_BY[sort]],
+            ...(debouncedSearch && { search: debouncedSearch }),
+        },
+    });
 
-        const fetchClans = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const res = await clansApi.getClans({
-                    page,
-                    pageSize,
-                    search: debouncedSearch,
-                    sort,
-                    signal: controller.signal,
-                });
-
-                setClans(res.data || []);
-                setTotalPages(res.meta.totalPages);
-            } catch (err) {
-                if (err instanceof Error && err.name === "AbortError") return;
-                const message =
-                    err instanceof Error
-                        ? err.message
-                        : "Unknown error occurred";
-                setError(message);
-                setClans([]);
-                setTotalPages(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchClans();
-        return () => controller.abort();
-    }, [page, pageSize, debouncedSearch, sort]);
-
-    return { clans, totalPages, loading, error };
+    return {
+        clans: data?.data ?? [],
+        totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
+        loading: isPending,
+        error: error ? getErrorMessage(error, "Failed to fetch clans") : null,
+    };
 };
