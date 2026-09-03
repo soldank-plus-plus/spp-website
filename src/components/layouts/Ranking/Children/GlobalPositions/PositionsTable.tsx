@@ -106,7 +106,7 @@ const EventRow: React.FC<EventRowProps> = ({ event }) => {
                 )}
             </TableCell>
 
-            <TableCell className="px-1 py-2 text-center text-secondary">
+            <TableCell className="px-1 py-2 text-center text-secondary whitespace-nowrap">
                 {event.eventDate !== null ? formatDate(event.eventDate) : "—"}
             </TableCell>
         </TableRow>
@@ -123,6 +123,7 @@ export const PositionsTable: React.FC = () => {
         page: currentPage,
         pageSize,
         search: searchTerm,
+        mapSearch,
     });
 
     const handleSearch = (val: string) => {
@@ -159,7 +160,7 @@ export const PositionsTable: React.FC = () => {
                         <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[100px]">
                             Medal
                         </TableHead>
-                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[230px]">
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[260px]">
                             Date
                         </TableHead>
                     </TableRow>

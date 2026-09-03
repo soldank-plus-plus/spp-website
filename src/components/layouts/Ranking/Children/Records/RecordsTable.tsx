@@ -94,7 +94,7 @@ const RecordRow: React.FC<RecordRowProps> = ({ record }) => {
                     : "—"}
             </TableCell>
 
-            <TableCell className="px-1 py-2 text-center text-secondary">
+            <TableCell className="px-1 py-2 text-center text-secondary whitespace-nowrap">
                 {record.recordDate !== null
                     ? formatDate(record.recordDate)
                     : "—"}
@@ -113,6 +113,7 @@ export const RecordsTable: React.FC = () => {
         page: currentPage,
         pageSize,
         search: searchTerm,
+        mapSearch,
     });
 
     const handleSearch = (val: string) => {
@@ -151,7 +152,7 @@ export const RecordsTable: React.FC = () => {
                         <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[110px]">
                             Time
                         </TableHead>
-                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[230px]">
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[260px]">
                             Date
                         </TableHead>
                     </TableRow>
