@@ -67,7 +67,7 @@ export const Info: React.FC<Props> = ({
                                                 className="font-semibold text-sm cursor-pointer hover:text-foreground hover:underline text-heading"
                                                 onClick={() =>
                                                     navigate(
-                                                        `/profile/${record.username}`
+                                                        `/profile/${encodeURIComponent(record.username ?? "")}`
                                                     )
                                                 }
                                             >

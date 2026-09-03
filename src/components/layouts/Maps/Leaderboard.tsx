@@ -61,7 +61,9 @@ export const Leaderboard: React.FC = () => {
                                 <span
                                     className="text-secondary text-sm font-medium truncate cursor-pointer hover:text-foreground hover:underline"
                                     onClick={() =>
-                                        navigate(`/profile/${user.username}`)
+                                        navigate(
+                                            `/profile/${encodeURIComponent(user.username)}`
+                                        )
                                     }
                                 >
                                     {user.username}

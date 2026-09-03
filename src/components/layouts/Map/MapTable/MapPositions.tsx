@@ -74,7 +74,11 @@ const EventRow: React.FC<{ event: Event }> = ({ event }) => {
             <TableCell className="px-0.5 py-2 text-secondary">
                 <span
                     className="font-medium truncate cursor-pointer hover:text-foreground hover:underline"
-                    onClick={() => navigate(`/profile/${event.username}`)}
+                    onClick={() =>
+                        navigate(
+                            `/profile/${encodeURIComponent(event.username ?? "")}`
+                        )
+                    }
                 >
                     {event.username}
                 </span>

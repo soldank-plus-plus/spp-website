@@ -50,7 +50,9 @@ export const ClanMembers: React.FC<Props> = ({ clanId, clanname }) => {
                                 <p
                                     className="truncate text-sm font-medium leading-tight text-foreground cursor-pointer hover:underline"
                                     onClick={() =>
-                                        navigate(`/profile/${creator.username}`)
+                                        navigate(
+                                            `/profile/${encodeURIComponent(creator.username)}`
+                                        )
                                     }
                                 >
                                     {creator.username}

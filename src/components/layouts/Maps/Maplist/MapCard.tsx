@@ -44,7 +44,7 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
                                       className="cursor-pointer hover:text-foreground hover:underline"
                                       onClick={() =>
                                           navigate(
-                                              `/profile/${creator.username}`
+                                              `/profile/${encodeURIComponent(creator.username)}`
                                           )
                                       }
                                   >

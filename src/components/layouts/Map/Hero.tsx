@@ -86,7 +86,9 @@ export const Hero: React.FC<Props> = ({
                                 <span
                                     className="cursor-pointer hover:text-heading underline underline-offset-2"
                                     onClick={() =>
-                                        navigate(`/profile/${creator.username}`)
+                                        navigate(
+                                            `/profile/${encodeURIComponent(creator.username)}`
+                                        )
                                     }
                                 >
                                     {creator.username}
