@@ -44,7 +44,7 @@ export const CountryRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="text-center px-0.5 py-2 text-secondary">
-                {country.users_count}
+                {country.usersCount}
             </TableCell>
 
             <TableCell
@@ -54,7 +54,7 @@ export const CountryRow: React.FC<Props> = ({
                         : "text-secondary"
                 }`}
             >
-                {country.unique_caps}
+                {country.uniqueCaps}
             </TableCell>
 
             <TableCell

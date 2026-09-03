@@ -1,12 +1,15 @@
+// Hand-written until the backend's FindAllCountriesDto lands in the generated
+// schemas; the shape mirrors what GET /countries returns.
 export type Country = {
     id: number;
     countryname: string;
-    unique_caps: number;
-    total_caps: number;
-    maps_created: number;
-    hardest: number;
-    gold: number;
-    silver: number;
-    bronze: number;
-    users_count: number;
+    code: string;
+    gold: number | null;
+    silver: number | null;
+    bronze: number | null;
+    uniqueCaps: number | null;
+    totalCaps: number | null;
+    mapsCreated: number | null;
+    hardest: number | null;
+    usersCount: number;
 };

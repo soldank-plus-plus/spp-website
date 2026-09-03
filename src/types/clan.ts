@@ -1,15 +1,21 @@
+export type ClanCreator = {
+    id: number;
+    username: string;
+};
+
+// Hand-written until the backend's FindAllClansDto lands in the generated
+// schemas; the shape mirrors what GET /clans returns.
 export type Clan = {
     id: number;
     clanname: string;
     tag: string | null;
-    owner: number | null;
-    members: string | null;
-    unique_caps: number;
-    total_caps: number;
-    maps_created: number;
-    hardest: number;
-    gold: number;
-    silver: number;
-    bronze: number;
-    users_count: number;
+    gold: number | null;
+    silver: number | null;
+    bronze: number | null;
+    uniqueCaps: number | null;
+    totalCaps: number | null;
+    mapsCreated: number | null;
+    hardest: number | null;
+    creators: ClanCreator[];
+    usersCount: number;
 };

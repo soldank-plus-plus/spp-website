@@ -35,7 +35,7 @@ export const ClanRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="text-center px-0.5 py-2 text-secondary">
-                {clan.users_count}
+                {clan.usersCount}
             </TableCell>
 
             <TableCell
@@ -45,7 +45,7 @@ export const ClanRow: React.FC<Props> = ({
                         : "text-secondary"
                 }`}
             >
-                {clan.unique_caps}
+                {clan.uniqueCaps}
             </TableCell>
 
             <TableCell
