@@ -2,7 +2,7 @@ import React from "react";
 import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import { Country } from "@/types/country";
 import { CountrySortKey } from "@/api/countries";
-import { getFlagByName } from "@/utils/countryFlags";
+import { getFlagByCode } from "@/utils/countryFlags";
 
 interface Props {
     country: Country;
@@ -35,7 +35,7 @@ export const CountryRow: React.FC<Props> = ({
             <TableCell className="px-0.5 py-2 text-secondary">
                 <div className="flex items-center gap-1.5">
                     <span className="text-base leading-none" aria-hidden="true">
-                        {getFlagByName(country.countryname)}
+                        {getFlagByCode(country.code)}
                     </span>
                     <span className="font-medium truncate text-secondary hover:text-foreground hover:underline">
                         {country.countryname}

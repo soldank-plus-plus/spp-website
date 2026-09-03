@@ -12,18 +12,20 @@ import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/Sea
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
 import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useUsers, SortKey } from "@/hooks/users/useUsers";
-import { getFlagByName } from "@/utils/countryFlags";
+import { getFlagByCode } from "@/utils/countryFlags";
 import { ChevronLeft } from "lucide-react";
 
 interface Props {
     countryId: number;
     countryName: string;
+    countryCode: string;
     onBack: () => void;
 }
 
 export const CountryUsers: React.FC<Props> = ({
     countryId,
     countryName,
+    countryCode,
     onBack,
 }) => {
     const pageSize = 20;
@@ -40,7 +42,7 @@ export const CountryUsers: React.FC<Props> = ({
         countryId,
     });
 
-    const flag = getFlagByName(countryName);
+    const flag = getFlagByCode(countryCode);
 
     return (
         <div className="overflow-x-auto px-4 max-w-[900px] mx-auto">

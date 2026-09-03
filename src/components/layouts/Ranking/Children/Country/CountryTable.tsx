@@ -37,6 +37,7 @@ export const CountryTable: React.FC = () => {
             <CountryUsers
                 countryId={selectedCountry.id}
                 countryName={selectedCountry.countryname}
+                countryCode={selectedCountry.code}
                 onBack={() => setSelectedCountry(null)}
             />
         );

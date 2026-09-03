@@ -42,6 +42,10 @@ function isoToEmoji(iso: string): string {
         .join("");
 }
 
+export function getFlagByCode(code: string | null | undefined): string {
+    return code && /^[a-z]{2}$/i.test(code) ? isoToEmoji(code) : "";
+}
+
 export function getFlagByName(name: string): string {
     const iso = COUNTRY_ISO[name];
     return iso ? isoToEmoji(iso) : "";
