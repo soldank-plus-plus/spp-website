@@ -83,7 +83,7 @@ const Sidebar = ({ user, loading }: Props) => {
                             ? formatDate(user.lastActiveAt)
                             : "—"}
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm">
                         Playtime: {formatPlaytime(user.playtime ?? 0)}
                     </p>
 

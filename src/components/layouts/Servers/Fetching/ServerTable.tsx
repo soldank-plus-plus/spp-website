@@ -121,7 +121,7 @@ const ServersTable = ({
                                             >
                                                 <TableCell
                                                     colSpan={5}
-                                                    className="px-4 py-3 text-sm text-muted-foreground text-secondary"
+                                                    className="px-4 py-3 text-sm text-secondary"
                                                 >
                                                     <div className="grid grid-cols-3 gap-x-8 gap-y-1 text-sm">
                                                         {displayOrder.map(

@@ -18,7 +18,7 @@ const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
                     <span className="text-2xl sm:text-3xl font-bold tabular-nums">
                         {completed.toLocaleString()}
                     </span>
-                    <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                    <span className="text-xs uppercase tracking-wider">
                         Records
                     </span>
                 </div>
@@ -30,7 +30,7 @@ const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
                             style={{ width: `${percent}%` }}
                         />
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1 text-right tabular-nums">
+                    <p className="text-xs mt-1 text-right tabular-nums">
                         {percent.toFixed(1)}%
                     </p>
                 </div>
@@ -42,7 +42,7 @@ const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
                 <span className="text-lg font-bold tabular-nums">
                     {remaining.toLocaleString()}
                 </span>
-                <span className="text-xs uppercase tracking-wider text-muted-foreground">
+                <span className="text-xs uppercase tracking-wider">
                     Maps left to complete
                 </span>
             </div>

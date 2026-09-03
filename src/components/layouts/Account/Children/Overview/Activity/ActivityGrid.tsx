@@ -28,10 +28,7 @@ export const ActivityGrid: React.FC<Props> = ({
             {weeks.map((_, i) => {
                 const label = months.find((m) => Math.floor(m.index / 7) === i);
                 return (
-                    <div
-                        key={i}
-                        className="w-[12px] text-[10px] text-muted-foreground"
-                    >
+                    <div key={i} className="w-[12px] text-[10px]">
                         {label ? label.label : ""}
                     </div>
                 );

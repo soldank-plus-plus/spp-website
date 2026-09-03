@@ -25,7 +25,7 @@ export const Navigation: React.FC = () => {
                                 `px-4 py-2 font-tomorrow font-bold uppercase transition-colors duration-200 ${
                                     isActive
                                         ? "text-foreground border-b-2 border-foreground"
-                                        : "text-muted-foreground hover:text-foreground"
+                                        : "hover:text-foreground"
                                 }`
                             }
                         >
