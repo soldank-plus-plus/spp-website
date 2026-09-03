@@ -16,14 +16,14 @@ import Faq from "@/pages/Faq/Faq";
 import Login from "@/pages/Auth/Login";
 import Signup from "@/pages/Auth/Signup";
 
-//Account
-import Account from "@/pages/Account/Account";
-import { Overview } from "@/pages/Account/Children/Overview";
-import { UserClan } from "@/pages/Account/Children/UserClan";
-import { UserRecords } from "@/pages/Account/Children/UserRecords";
-import { UserPositions } from "@/pages/Account/Children/UserPositions";
-import { Medals } from "@/pages/Account/Children/Medals";
-import { UserMaps } from "@/pages/Account/Children/UserMaps";
+// User
+import User from "@/pages/User/User";
+import { Overview } from "@/pages/User/Children/Overview";
+import { UserClan } from "@/pages/User/Children/UserClan";
+import { UserRecords } from "@/pages/User/Children/UserRecords";
+import { UserPositions } from "@/pages/User/Children/UserPositions";
+import { Medals } from "@/pages/User/Children/Medals";
+import { UserMaps } from "@/pages/User/Children/UserMaps";
 
 // Ranking
 import { Global } from "@/pages/Ranking/Children/Global";
@@ -68,7 +68,7 @@ export const appRoutes: AppRoute[] = [
 
     {
         path: "/profile/:username",
-        element: <Account />,
+        element: <User />,
         children: [
             { index: true, element: <Overview /> },
             { path: "overview", element: <Overview /> },

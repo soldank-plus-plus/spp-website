@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import Completed from "@/components/layouts/Account/Children/Overview/Performance/Completed";
-import MedalCard from "@/components/layouts/Account/Children/Overview/Performance/MedalCard";
-import Placement from "@/components/layouts/Account/Children/Overview/Performance/Placement";
+import Completed from "@/components/layouts/User/Children/Overview/Performance/Completed";
+import MedalCard from "@/components/layouts/User/Children/Overview/Performance/MedalCard";
+import Placement from "@/components/layouts/User/Children/Overview/Performance/Placement";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { AccountUser } from "@/types/user";
+import { UserDetails } from "@/types/user";
 
 interface Props {
-    user?: AccountUser;
+    user?: UserDetails;
     loading?: boolean;
 }
 

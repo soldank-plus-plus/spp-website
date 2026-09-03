@@ -25,7 +25,7 @@ export const Banner = ({ avatarSrc, username, highlight }: BannerProps) => {
                         <div className="absolute inset-0 rounded-lg bg-primary/30 blur-lg opacity-70" />
                         <img
                             src={avatarSrc}
-                            alt="Account image"
+                            alt="User avatar"
                             className="relative w-24 h-24 rounded-lg border border-white/10 object-cover"
                         />
                     </div>

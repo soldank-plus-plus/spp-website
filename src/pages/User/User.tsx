@@ -1,18 +1,18 @@
 import React from "react";
 import { useParams, Outlet } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
-import { Navigation } from "@/components/layouts/Account/Navigation";
-import Sidebar from "@/components/layouts/Account/Children/Sidebar";
+import { Navigation } from "@/components/layouts/User/Navigation";
+import Sidebar from "@/components/layouts/User/Children/Sidebar";
 import { Footer } from "@/components/ui/custom/core/Footer";
 import { useUser } from "@/hooks/users/useUser";
-import { AccountUser } from "@/types/user";
+import { UserDetails } from "@/types/user";
 
-export interface AccountOutletContext {
-    user: AccountUser | null;
+export interface UserOutletContext {
+    user: UserDetails | null;
     loading: boolean;
 }
 
-const Account: React.FC = () => {
+const User: React.FC = () => {
     const { username } = useParams<{ username: string }>();
     const { user, loading, error } = useUser(username);
 
@@ -27,7 +27,7 @@ const Account: React.FC = () => {
                     {!error && (
                         <Outlet
                             context={
-                                { user, loading } satisfies AccountOutletContext
+                                { user, loading } satisfies UserOutletContext
                             }
                         />
                     )}
@@ -38,4 +38,4 @@ const Account: React.FC = () => {
     );
 };
 
-export default Account;
+export default User;

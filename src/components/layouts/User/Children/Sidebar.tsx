@@ -1,15 +1,15 @@
 "use client";
 
 import playerAvatar from "@/assets/avatars/avatar.png";
-import { Banner } from "@/components/ui/custom/shared/Account/Banner/Banner";
+import { Banner } from "@/components/ui/custom/shared/User/Banner/Banner";
 import { Calendar, Clock } from "lucide-react";
 import { FaTwitch, FaYoutube, FaDiscord, FaGithub } from "react-icons/fa";
-import { Recharts } from "@/components/ui/custom/shared/Account/Recharts/Recharts";
+import { Recharts } from "@/components/ui/custom/shared/User/Recharts/Recharts";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { AccountUser } from "@/types/user";
+import { UserDetails } from "@/types/user";
 
 interface Props {
-    user: AccountUser | null;
+    user: UserDetails | null;
     loading: boolean;
 }
 

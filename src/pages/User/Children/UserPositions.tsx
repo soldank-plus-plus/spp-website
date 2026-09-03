@@ -1,10 +1,10 @@
 import React from "react";
 import { useOutletContext } from "react-router-dom";
-import { AccountOutletContext } from "@/pages/Account/Account";
-import { UserPositionsTable } from "@/components/layouts/Account/Children/UserPositions/UserPositions";
+import { UserOutletContext } from "@/pages/User/User";
+import { UserPositionsTable } from "@/components/layouts/User/Children/UserPositions/UserPositions";
 
 export const UserPositions: React.FC = () => {
-    const { user, loading } = useOutletContext<AccountOutletContext>();
+    const { user, loading } = useOutletContext<UserOutletContext>();
 
     if (loading || !user) return null;
 

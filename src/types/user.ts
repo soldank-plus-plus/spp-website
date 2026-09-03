@@ -6,7 +6,7 @@ import type {
 } from "@/api/generated/sppSchemas";
 
 export type User = FindAllUsersDto;
-export type AccountUser = FindOneUserDto;
+export type UserDetails = FindOneUserDto;
 export type UserPlacement = UserPlacementDto;
 
 export type ActivityDay = ActivityDayDto;
