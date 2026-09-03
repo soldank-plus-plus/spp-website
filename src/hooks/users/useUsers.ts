@@ -21,9 +21,8 @@ interface UseUsersProps {
     pageSize: number;
     search?: string;
     sort?: SortKey;
-    // Accepted for API compatibility with callers; the backend doesn't
-    // support filtering by country yet (no countries table), so this is
-    // currently a no-op.
+    // Accepted for API compatibility with callers; /users exposes no filter
+    // for a country yet, so this is currently a no-op.
     countryId?: number;
 }
 

@@ -226,6 +226,10 @@ export type FindAllUsersDto = {
      * Last active date as a unix timestamp in milliseconds
      */
     lastActiveAt: number | null;
+    /**
+     * Percentage of all maps this user has captured
+     */
+    passed: number;
 };
 
 export type UserPlacementDto = {
@@ -297,9 +301,17 @@ export type FindOneUserDto = {
      */
     lastActiveAt: number | null;
     /**
+     * Percentage of all maps this user has captured
+     */
+    passed: number;
+    /**
      * Places in the rankings this user appears in
      */
     placement: UserPlacementDto;
+    /**
+     * Maps this user has not captured yet
+     */
+    mapsLeft: number;
 };
 
 export type ActivityDayDto = {

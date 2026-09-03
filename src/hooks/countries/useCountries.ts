@@ -1,9 +1,19 @@
-import { useState, useEffect } from "react";
-import { Country } from "@/types/country";
-import { countriesApi, CountrySortKey } from "@/api/countries";
+import { useCountriesControllerFindAll } from "@/api/generated/sppComponents";
+import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-export type { CountrySortKey };
+export type CountrySortKey = "unique_caps" | "hardest" | "gold";
+
+// Maps the UI's sort vocabulary to the actual sortable columns on the
+// backend (nestjs-paginate's sortBy=field:DESC convention).
+const SORT_BY: Record<
+    CountrySortKey,
+    "uniqueCaps:DESC" | "hardest:DESC" | "gold:DESC"
+> = {
+    unique_caps: "uniqueCaps:DESC",
+    hardest: "hardest:DESC",
+    gold: "gold:DESC",
+};
 
 interface UseCountriesProps {
     page: number;
@@ -18,47 +28,23 @@ export const useCountries = ({
     search = "",
     sort = "unique_caps",
 }: UseCountriesProps) => {
-    const [countries, setCountries] = useState<Country[]>([]);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
     const debouncedSearch = useDebounce(search, 500);
 
-    useEffect(() => {
-        const controller = new AbortController();
+    const { data, isPending, error } = useCountriesControllerFindAll({
+        queryParams: {
+            page,
+            limit: pageSize,
+            sortBy: [SORT_BY[sort]],
+            ...(debouncedSearch && { search: debouncedSearch }),
+        },
+    });
 
-        const fetchCountries = async () => {
-            setLoading(true);
-            setError(null);
-
-            try {
-                const res = await countriesApi.getCountries({
-                    page,
-                    pageSize,
-                    search: debouncedSearch,
-                    sort,
-                    signal: controller.signal,
-                });
-
-                setCountries(res.data || []);
-                setTotalPages(res.meta.totalPages);
-            } catch (err) {
-                if (err instanceof Error && err.name === "AbortError") return;
-                const message =
-                    err instanceof Error
-                        ? err.message
-                        : "Unknown error occurred";
-                setError(message);
-                setCountries([]);
-                setTotalPages(0);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchCountries();
-        return () => controller.abort();
-    }, [page, pageSize, debouncedSearch, sort]);
-
-    return { countries, totalPages, loading, error };
+    return {
+        countries: data?.data ?? [],
+        totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
+        loading: isPending,
+        error: error
+            ? getErrorMessage(error, "Failed to fetch countries")
+            : null,
+    };
 };

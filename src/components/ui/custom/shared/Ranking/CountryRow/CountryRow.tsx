@@ -1,7 +1,7 @@
 import React from "react";
 import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import { Country } from "@/types/country";
-import { CountrySortKey } from "@/api/countries";
+import { CountrySortKey } from "@/hooks/countries/useCountries";
 import { getFlagByCode } from "@/utils/countryFlags";
 
 interface Props {
