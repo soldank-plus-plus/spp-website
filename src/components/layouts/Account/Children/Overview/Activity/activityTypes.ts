@@ -17,13 +17,15 @@ export const PALETTE: Record<
     bronzes: ["#2a2a2a", "#CD7F32", "#CD7F32", "#CD7F32", "#CD7F32"],
 };
 
-export function generateCalendar(): string[] {
-    const today = new Date();
+// The window ends on `endDay` (YYYY-MM-DD) instead of today, so a player whose
+// activity is years old still gets a filled grid
+export function generateCalendar(endDay?: string): string[] {
+    const end = endDay ? new Date(`${endDay}T00:00:00Z`) : new Date();
     const days: string[] = [];
 
     for (let i = 364; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(today.getDate() - i);
+        const d = new Date(end);
+        d.setDate(end.getDate() - i);
         days.push(d.toISOString().slice(0, 10));
     }
 

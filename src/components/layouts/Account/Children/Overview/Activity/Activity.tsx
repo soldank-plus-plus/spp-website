@@ -12,6 +12,14 @@ import {
 import { ActivityFilters } from "./ActivityFilters";
 import { ActivityGrid } from "./ActivityGrid";
 
+function formatMonth(day: string): string {
+    return new Date(`${day}T00:00:00Z`).toLocaleString("en-US", {
+        month: "short",
+        year: "numeric",
+        timeZone: "UTC",
+    });
+}
+
 type Props = {
     userId: number;
     onDayClick?: (day: string, count: number) => void;
@@ -32,7 +40,11 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
     const data = response?.data ?? [];
 
     const palette = PALETTE[filter];
-    const days = generateCalendar();
+    const latestDay = data.reduce(
+        (latest, entry) => (entry.day > latest ? entry.day : latest),
+        ""
+    );
+    const days = generateCalendar(latestDay || undefined);
     const activityMap: Record<string, number> = {};
     data.forEach((d) => (activityMap[d.day] = d.count));
 
@@ -48,10 +60,19 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
     if (currentWeek.length) weeks.push(currentWeek);
 
     const months = getMonthLabels(days);
+    const firstDay = days[0];
+    const lastDay = days[days.length - 1];
 
     return (
         <div className="w-full max-w-4xl mx-auto px-3 sm:px-4 lg:px-0 mt-16 rounded-xl">
-            <h3 className="my-5">Activity</h3>
+            <div className="my-5 flex flex-wrap items-baseline gap-x-3">
+                <h3>Activity</h3>
+                {!loading && firstDay && lastDay && (
+                    <span className="text-xs text-secondary">
+                        {formatMonth(firstDay)} to {formatMonth(lastDay)}
+                    </span>
+                )}
+            </div>
 
             <TooltipProvider>
                 <div className="space-y-3">
