@@ -106,52 +106,48 @@ export const MapPositions: React.FC<Props> = ({ mapId }) => {
     });
 
     return (
-        <div className="flex justify-center">
-            <div className="overflow-x-auto">
-                <Table className="min-w-[800px]">
-                    <TableHeader>
+        <div className="w-full overflow-x-auto">
+            <Table className="min-w-[800px]">
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="w-[48px]" />
+                        <TableHead className="px-0.5 py-2 text-left text-blue-200 font-semibold w-[150px]">
+                            Player
+                        </TableHead>
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[80px]">
+                            Medal
+                        </TableHead>
+                        <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[230px]">
+                            Date
+                        </TableHead>
+                    </TableRow>
+                </TableHeader>
+
+                <TableBody>
+                    {loading && <TableSkeleton rows={pageSize} columns={4} />}
+                    {error && (
                         <TableRow>
-                            <TableHead className="w-[48px]" />
-                            <TableHead className="px-0.5 py-2 text-left text-blue-200 font-semibold w-[150px]">
-                                Player
-                            </TableHead>
-                            <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[80px]">
-                                Medal
-                            </TableHead>
-                            <TableHead className="px-1 py-2 text-center text-blue-200 font-semibold w-[230px]">
-                                Date
-                            </TableHead>
+                            <td
+                                className="text-center py-4 text-red-500"
+                                colSpan={4}
+                            >
+                                {error}
+                            </td>
                         </TableRow>
-                    </TableHeader>
+                    )}
+                    {!loading &&
+                        events.map((event) => (
+                            <EventRow key={event.id} event={event} />
+                        ))}
+                </TableBody>
+            </Table>
 
-                    <TableBody>
-                        {loading && (
-                            <TableSkeleton rows={pageSize} columns={4} />
-                        )}
-                        {error && (
-                            <TableRow>
-                                <td
-                                    className="text-center py-4 text-red-500"
-                                    colSpan={4}
-                                >
-                                    {error}
-                                </td>
-                            </TableRow>
-                        )}
-                        {!loading &&
-                            events.map((event) => (
-                                <EventRow key={event.id} event={event} />
-                            ))}
-                    </TableBody>
-                </Table>
-
-                <div className="mt-8 mb-20 flex justify-center">
-                    <CustomPagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={setCurrentPage}
-                    />
-                </div>
+            <div className="mt-8 mb-20 flex justify-center">
+                <CustomPagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={setCurrentPage}
+                />
             </div>
         </div>
     );

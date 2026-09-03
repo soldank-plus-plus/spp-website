@@ -22,7 +22,7 @@ export const MapTable: React.FC<Props> = ({ mapId }) => {
     return (
         <div className="max-w-[1100px] mx-auto mt-12 px-4">
             <div className="flex justify-center">
-                <div>
+                <div className="w-full max-w-[800px] min-w-0">
                     <div className="flex gap-2 mb-6">
                         {(["records", "positions"] as const).map((t) => (
                             <button
