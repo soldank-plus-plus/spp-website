@@ -4,13 +4,15 @@ import React from "react";
 
 interface CompletedProps {
     completed: number;
-    maxMaps: number;
+    percent: number;
+    remaining: number;
 }
 
-const Completed: React.FC<CompletedProps> = ({ completed, maxMaps }) => {
-    const percent = Math.min((completed / maxMaps) * 100, 100);
-    const remaining = maxMaps - completed;
-
+const Completed: React.FC<CompletedProps> = ({
+    completed,
+    percent,
+    remaining,
+}) => {
     return (
         <div className="flex flex-col gap-4 h-full justify-between">
             <div className="flex items-center gap-4">

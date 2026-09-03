@@ -3,10 +3,9 @@
 import React from "react";
 import Completed from "@/components/layouts/Account/Children/Overview/Performance/Completed";
 import MedalCard from "@/components/layouts/Account/Children/Overview/Performance/MedalCard";
+import Placement from "@/components/layouts/Account/Children/Overview/Performance/Placement";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { AccountUser } from "@/types/user";
-
-const TOTAL_MAPS = 200;
 
 interface Props {
     user?: AccountUser;
@@ -67,7 +66,8 @@ const Performance: React.FC<Props> = ({ user, loading }) => {
                 <div className="flex-1 rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 p-5">
                     <Completed
                         completed={user.uniqueCaps ?? 0}
-                        maxMaps={TOTAL_MAPS}
+                        percent={user.passed}
+                        remaining={user.mapsLeft}
                     />
                 </div>
                 <div className="min-w-[150px] rounded-xl border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 p-5">
@@ -79,6 +79,10 @@ const Performance: React.FC<Props> = ({ user, loading }) => {
                         }}
                     />
                 </div>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+                <Placement ranking={user.placement} />
             </div>
         </div>
     );

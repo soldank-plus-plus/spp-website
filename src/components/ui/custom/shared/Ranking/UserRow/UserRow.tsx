@@ -49,7 +49,7 @@ export const UserRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="text-center px-0.5 py-2 text-secondary">
-                {/* not computed by the backend yet */}—
+                {player.passed}%
             </TableCell>
 
             <TableCell
