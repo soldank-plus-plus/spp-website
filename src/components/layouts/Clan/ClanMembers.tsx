@@ -1,12 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Users, Crown } from "lucide-react";
+import { Crown } from "lucide-react";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { useClan } from "@/hooks/clans/useClan";
+import { useClanUsers } from "@/hooks/clans/useClanUsers";
 import playerAvatar from "@/assets/avatars/avatar.png";
 
 const rowClass =
-    "flex items-center gap-2.5 rounded-xl border border-white/10 px-3 py-1.5 leading-tight";
+    "flex min-h-[52px] items-center gap-2.5 rounded-xl border border-white/10 px-3 py-1.5 leading-tight";
 
 const rowBackground = (index: number) =>
     index % 2 === 0 ? "bg-rowdark" : "bg-rowlight";
@@ -19,9 +20,13 @@ interface Props {
 export const ClanMembers: React.FC<Props> = ({ clanId, clanname }) => {
     const navigate = useNavigate();
     const { clan, loading, error } = useClan({ clanId, clanname });
+    const { users, loading: usersLoading } = useClanUsers({ clanId });
 
-    const creators = clan?.creators ?? [];
-    const otherMembers = Math.max((clan?.usersCount ?? 0) - creators.length, 0);
+    const creatorIds = new Set(clan?.creators.map((creator) => creator.id));
+    // creators first, the rest keeps the ranking order the endpoint returns
+    const members = [...users].sort(
+        (a, b) => Number(creatorIds.has(b.id)) - Number(creatorIds.has(a.id))
+    );
 
     if (error || (!loading && !clan)) return null;
 
@@ -30,60 +35,50 @@ export const ClanMembers: React.FC<Props> = ({ clanId, clanname }) => {
             <h3 className="mb-4">Clan members</h3>
 
             <div className="max-w-[560px] space-y-3 pl-6">
-                {!clan &&
-                    [0, 1].map((i) => (
+                {(loading || usersLoading) &&
+                    [0, 1, 2].map((i) => (
                         <Skeleton key={i} className="h-[52px] rounded-xl" />
                     ))}
 
-                {creators.map((creator, index) => (
-                    <div
-                        key={creator.id}
-                        className={`${rowClass} ${rowBackground(index)}`}
-                    >
-                        <img
-                            src={playerAvatar}
-                            alt=""
-                            className="h-7 w-7 shrink-0 rounded-full"
-                        />
-                        <div className="min-w-0">
-                            <div className="flex items-center gap-1.5">
-                                <p
-                                    className="truncate text-sm font-medium leading-tight text-foreground cursor-pointer hover:underline"
-                                    onClick={() =>
-                                        navigate(
-                                            `/profile/${encodeURIComponent(creator.username)}`
-                                        )
-                                    }
-                                >
-                                    {creator.username}
-                                </p>
-                                <Crown className="h-3.5 w-3.5 shrink-0 text-gold" />
-                            </div>
-                            <span className="text-[11px] text-secondary">
-                                Creator
-                            </span>
-                        </div>
-                    </div>
-                ))}
+                {!usersLoading &&
+                    members.map((member, index) => {
+                        const isCreator = creatorIds.has(member.id);
 
-                {otherMembers > 0 && (
-                    <div
-                        className={`${rowClass} ${rowBackground(creators.length)}`}
-                    >
-                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-nocturne">
-                            <Users className="h-4 w-4 text-secondary" />
-                        </div>
-                        <div className="min-w-0">
-                            <p className="text-sm leading-tight text-foreground">
-                                {otherMembers}{" "}
-                                {otherMembers === 1 ? "player" : "players"}
-                            </p>
-                            <span className="text-[11px] text-secondary">
-                                Names not exposed by the API yet
-                            </span>
-                        </div>
-                    </div>
-                )}
+                        return (
+                            <div
+                                key={member.id}
+                                className={`${rowClass} ${rowBackground(index)}`}
+                            >
+                                <img
+                                    src={playerAvatar}
+                                    alt=""
+                                    className="h-7 w-7 shrink-0 rounded-full"
+                                />
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-1.5">
+                                        <p
+                                            className="truncate text-sm font-medium leading-tight text-foreground cursor-pointer hover:underline"
+                                            onClick={() =>
+                                                navigate(
+                                                    `/profile/${encodeURIComponent(member.username)}`
+                                                )
+                                            }
+                                        >
+                                            {member.username}
+                                        </p>
+                                        {isCreator && (
+                                            <Crown className="h-3.5 w-3.5 shrink-0 text-gold" />
+                                        )}
+                                    </div>
+                                    {isCreator && (
+                                        <span className="text-[11px] text-secondary">
+                                            Creator
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })}
             </div>
         </section>
     );

@@ -11,7 +11,8 @@ import { SortButtons } from "@/components/ui/custom/shared/Ranking/SortButtons/S
 import { SearchUser } from "@/components/ui/custom/shared/Ranking/SearchUser/SearchUser";
 import { UserRow } from "@/components/ui/custom/shared/Ranking/UserRow/UserRow";
 import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
-import { useUsers, SortKey } from "@/hooks/users/useUsers";
+import { SortKey } from "@/hooks/users/useUsers";
+import { useCountryUsers } from "@/hooks/countries/useCountryUsers";
 import { getFlagByCode } from "@/utils/countryFlags";
 import { ChevronLeft } from "lucide-react";
 
@@ -34,12 +35,12 @@ export const CountryUsers: React.FC<Props> = ({
     const [sortBy, setSortBy] = useState<SortKey>("unique_caps");
     const [searchTerm, setSearchTerm] = useState("");
 
-    const { users, totalPages, loading, error } = useUsers({
+    const { users, totalPages, loading, error } = useCountryUsers({
+        countryId,
         page: currentPage,
         pageSize,
         search: searchTerm,
         sort: sortBy,
-        countryId,
     });
 
     const flag = getFlagByCode(countryCode);

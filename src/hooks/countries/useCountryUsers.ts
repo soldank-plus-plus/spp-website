@@ -1,37 +1,27 @@
-import { useUsersControllerFindAll } from "@/api/generated/sppComponents";
+import { useCountriesControllerFindUsers } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
+import { SortKey, SORT_BY } from "@/hooks/users/useUsers";
 
-export type SortKey = "unique_caps" | "hardest" | "gold" | "maps_created";
-
-// Maps the UI's sort vocabulary to the actual sortable columns on the
-// backend (nestjs-paginate's sortBy=field:DESC convention).
-export const SORT_BY: Record<
-    SortKey,
-    "uniqueCaps:DESC" | "hardest:DESC" | "gold:DESC" | "mapsCreated:DESC"
-> = {
-    unique_caps: "uniqueCaps:DESC",
-    hardest: "hardest:DESC",
-    gold: "gold:DESC",
-    maps_created: "mapsCreated:DESC",
-};
-
-interface UseUsersProps {
+interface UseCountryUsersProps {
+    countryId: number;
     page: number;
     pageSize: number;
     search?: string;
     sort?: SortKey;
 }
 
-export const useUsers = ({
+export const useCountryUsers = ({
+    countryId,
     page,
     pageSize,
     search = "",
     sort = "unique_caps",
-}: UseUsersProps) => {
+}: UseCountryUsersProps) => {
     const debouncedSearch = useDebounce(search, 500);
 
-    const { data, isPending, error } = useUsersControllerFindAll({
+    const { data, isPending, error } = useCountriesControllerFindUsers({
+        pathParams: { countryId },
         queryParams: {
             page,
             limit: pageSize,
