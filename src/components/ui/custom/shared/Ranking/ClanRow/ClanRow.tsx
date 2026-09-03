@@ -1,7 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { TableRow, TableCell } from "@/components/ui/shadcn/table";
 import { Clan } from "@/types/clan";
-import { ClanSortKey } from "@/api/clans";
+import { ClanSortKey } from "@/hooks/clans/useClans";
 
 interface Props {
     clan: Clan;
@@ -18,6 +19,8 @@ export const ClanRow: React.FC<Props> = ({
     pageSize,
     sortBy,
 }) => {
+    const navigate = useNavigate();
+
     return (
         <TableRow
             className={`${
@@ -29,9 +32,23 @@ export const ClanRow: React.FC<Props> = ({
             </TableCell>
 
             <TableCell className="px-0.5 py-2 text-secondary">
-                <span className="font-medium truncate text-secondary">
-                    {clan.clanname}
-                </span>
+                <div className="flex min-w-0 items-baseline gap-1.5">
+                    <span
+                        className="font-medium truncate cursor-pointer hover:text-foreground hover:underline"
+                        onClick={() =>
+                            navigate(
+                                `/clans/${clan.id}?name=${encodeURIComponent(clan.clanname)}`
+                            )
+                        }
+                    >
+                        {clan.clanname}
+                    </span>
+                    {clan.tag && (
+                        <span className="shrink-0 text-xs text-secondary">
+                            {clan.tag}
+                        </span>
+                    )}
+                </div>
             </TableCell>
 
             <TableCell className="text-center px-0.5 py-2 text-secondary">

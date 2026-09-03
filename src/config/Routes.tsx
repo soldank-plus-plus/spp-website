@@ -6,6 +6,7 @@ import Gameplay from "@/pages/Gameplay/Gameplay";
 import Ranking from "@/pages/Ranking/Ranking";
 import Maps from "@/pages/Maps/Maps";
 import Map from "@/pages/Map/Map";
+import Clan from "@/pages/Clan/Clan";
 import Mapviewer from "@/pages/Map/Children/Mapviewer";
 import Gamemodes from "@/pages/Gamemodes/Gamemodes";
 import Servers from "@/pages/Servers/Servers";
@@ -78,6 +79,8 @@ export const appRoutes: AppRoute[] = [
             { path: "maps", element: <UserMaps /> },
         ],
     },
+
+    { path: "/clans/:clanId", element: <Clan /> },
 
     { path: "/maps", element: <Maps /> },
     { path: "/maps/:mapId", element: <Map /> },
