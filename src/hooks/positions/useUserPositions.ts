@@ -1,24 +1,24 @@
-import { useUsersControllerFindEvents } from "@/api/generated/sppComponents";
+import { useUsersControllerFindPositions } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
-import { Event } from "@/types/event";
+import { Position } from "@/types/position";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-interface UseUserEventsProps {
+interface UseUserPositionsProps {
     userId: number;
     page: number;
     pageSize: number;
     search?: string;
 }
 
-export const useUserEvents = ({
+export const useUserPositions = ({
     userId,
     page,
     pageSize,
     search = "",
-}: UseUserEventsProps) => {
+}: UseUserPositionsProps) => {
     const debouncedSearch = useDebounce(search, 500);
 
-    const { data, isPending, error } = useUsersControllerFindEvents({
+    const { data, isPending, error } = useUsersControllerFindPositions({
         pathParams: { userId },
         queryParams: {
             page,
@@ -28,9 +28,11 @@ export const useUserEvents = ({
     });
 
     return {
-        events: (data?.data as Event[] | undefined) ?? [],
+        positions: (data?.data as Position[] | undefined) ?? [],
         totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
         loading: isPending,
-        error: error ? getErrorMessage(error, "Failed to fetch events") : null,
+        error: error
+            ? getErrorMessage(error, "Failed to fetch positions")
+            : null,
     };
 };

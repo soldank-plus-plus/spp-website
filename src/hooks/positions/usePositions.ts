@@ -1,25 +1,25 @@
-import { useEventsControllerFindAll } from "@/api/generated/sppComponents";
+import { usePositionsControllerFindAll } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
-import { Event } from "@/types/event";
+import { Position } from "@/types/position";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-interface UseEventsProps {
+interface UsePositionsProps {
     page: number;
     pageSize: number;
     search?: string;
     mapSearch?: string;
 }
 
-export const useEvents = ({
+export const usePositions = ({
     page,
     pageSize,
     search = "",
     mapSearch = "",
-}: UseEventsProps) => {
+}: UsePositionsProps) => {
     const debouncedSearch = useDebounce(search, 500);
     const debouncedMapSearch = useDebounce(mapSearch, 500);
 
-    // /events accepts one search term and has no mapId filter, so a player
+    // /positions accepts one search term and has no mapId filter, so a player
     // search wins and the map name is applied to the fetched page below
     const searchParams = debouncedSearch
         ? { search: debouncedSearch, searchBy: ["user.username"] }
@@ -27,29 +27,31 @@ export const useEvents = ({
           ? { search: debouncedMapSearch, searchBy: ["map.mapname"] }
           : {};
 
-    const { data, isPending, error } = useEventsControllerFindAll({
+    const { data, isPending, error } = usePositionsControllerFindAll({
         queryParams: {
             page,
             limit: pageSize,
-            sortBy: ["eventDate:DESC"],
+            sortBy: ["positionDate:DESC"],
             ...searchParams,
         },
     });
 
-    const events = (data?.data as Event[] | undefined) ?? [];
+    const positions = (data?.data as Position[] | undefined) ?? [];
     const narrowed =
         debouncedSearch && debouncedMapSearch
-            ? events.filter((event) =>
-                  (event.mapname ?? "")
+            ? positions.filter((position) =>
+                  (position.mapname ?? "")
                       .toLowerCase()
                       .includes(debouncedMapSearch.toLowerCase())
               )
-            : events;
+            : positions;
 
     return {
-        events: narrowed,
+        positions: narrowed,
         totalPages: error ? 0 : (data?.meta.totalPages ?? 1),
         loading: isPending,
-        error: error ? getErrorMessage(error, "Failed to fetch events") : null,
+        error: error
+            ? getErrorMessage(error, "Failed to fetch positions")
+            : null,
     };
 };

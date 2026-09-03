@@ -29,23 +29,23 @@ export type PaginatedDocumented = {
     links: PaginatedLinksDocumented;
 };
 
-export type FindAllEventsDto = {
+export type FindAllPositionsDto = {
     /**
-     * Event ID
+     * Position ID
      */
     id: number;
     /**
-     * Event type
+     * Position type
      */
     type: number;
     /**
-     * Medal awarded for the event
+     * Medal awarded for the position
      */
     medal: number | null;
     /**
-     * Event date as a unix timestamp in milliseconds
+     * Position date as a unix timestamp in milliseconds
      */
-    eventDate: number | null;
+    positionDate: number | null;
     /**
      * Map ID
      */
@@ -183,6 +183,14 @@ export type FindAllUsersDto = {
      */
     username: string;
     /**
+     * Clan this user belongs to
+     */
+    clanId: number | null;
+    /**
+     * Country this user plays from
+     */
+    countryId: number | null;
+    /**
      * Gold medals
      */
     gold: number | null;
@@ -257,6 +265,14 @@ export type FindOneUserDto = {
      */
     username: string;
     /**
+     * Clan this user belongs to
+     */
+    clanId: number | null;
+    /**
+     * Country this user plays from
+     */
+    countryId: number | null;
+    /**
      * Gold medals
      */
     gold: number | null;
@@ -320,7 +336,7 @@ export type ActivityDayDto = {
      */
     day: string;
     /**
-     * Number of events on this day
+     * Number of records on this day
      */
     count: number;
 };

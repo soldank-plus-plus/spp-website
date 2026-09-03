@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/shadcn/table";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
-import { useMapEvents } from "@/hooks/events/useMapEvents";
+import { useMapPositions } from "@/hooks/positions/useMapPositions";
 import { useNavigate } from "react-router-dom";
 import { ArrowUp, ArrowDown } from "lucide-react";
-import { Event } from "@/types/event";
+import { Position } from "@/types/position";
 import goldIcon from "@/assets/icons/medal-gold.png";
 import silverIcon from "@/assets/icons/medal-silver.png";
 import bronzeIcon from "@/assets/icons/medal-bronze.png";
@@ -43,7 +43,7 @@ const MEDAL_ICON: Record<number, string> = {
     3: bronzeIcon,
 };
 
-const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
+const POSITION_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
     1: {
         icon: <ArrowUp className="mx-auto text-green-400" size={16} />,
         row: "bg-green-900/20",
@@ -58,11 +58,14 @@ const EVENT_STYLE: Record<number, { icon: React.ReactNode; row: string }> = {
     },
 };
 
-const EventRow: React.FC<{ event: Event }> = ({ event }) => {
+const PositionRow: React.FC<{ position: Position }> = ({ position }) => {
     const navigate = useNavigate();
-    const style = EVENT_STYLE[event.type] ?? { icon: null, row: "bg-rowdark" };
+    const style = POSITION_STYLE[position.type] ?? {
+        icon: null,
+        row: "bg-rowdark",
+    };
     const medalIcon =
-        event.medal !== null ? MEDAL_ICON[event.medal] : undefined;
+        position.medal !== null ? MEDAL_ICON[position.medal] : undefined;
 
     return (
         <TableRow
@@ -76,11 +79,11 @@ const EventRow: React.FC<{ event: Event }> = ({ event }) => {
                     className="font-medium truncate cursor-pointer hover:text-foreground hover:underline"
                     onClick={() =>
                         navigate(
-                            `/profile/${encodeURIComponent(event.username ?? "")}`
+                            `/profile/${encodeURIComponent(position.username ?? "")}`
                         )
                     }
                 >
-                    {event.username}
+                    {position.username}
                 </span>
             </TableCell>
             <TableCell className="px-1 py-2 text-center w-[80px]">
@@ -89,7 +92,9 @@ const EventRow: React.FC<{ event: Event }> = ({ event }) => {
                 )}
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary w-[230px]">
-                {event.eventDate !== null ? formatDate(event.eventDate) : "—"}
+                {position.positionDate !== null
+                    ? formatDate(position.positionDate)
+                    : "—"}
             </TableCell>
         </TableRow>
     );
@@ -103,7 +108,7 @@ export const MapPositions: React.FC<Props> = ({ mapId }) => {
     const pageSize = 30;
     const [currentPage, setCurrentPage] = useState(1);
 
-    const { events, totalPages, loading, error } = useMapEvents({
+    const { positions, totalPages, loading, error } = useMapPositions({
         mapId,
         page: currentPage,
         pageSize,
@@ -140,8 +145,11 @@ export const MapPositions: React.FC<Props> = ({ mapId }) => {
                         </TableRow>
                     )}
                     {!loading &&
-                        events.map((event) => (
-                            <EventRow key={event.id} event={event} />
+                        positions.map((position) => (
+                            <PositionRow
+                                key={position.id}
+                                position={position}
+                            />
                         ))}
                 </TableBody>
             </Table>
