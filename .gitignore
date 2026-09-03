@@ -39,6 +39,10 @@ next-env.d.ts
 *.db-wal
 *.db-shm
 
+#Tests 
+test.sql
+test.db
+
 # Coverage reports
 /coverage
 *.lcov
