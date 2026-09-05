@@ -74,10 +74,11 @@ export const StatisticsChart: React.FC<Props> = ({ clanId }) => {
                               <button
                                   key={user.id}
                                   onClick={() => toggle(user.id)}
-                                  className={`rounded px-3 py-1 text-sm font-semibold ${
+                                  aria-pressed={!excludedIds.includes(user.id)}
+                                  className={`rounded px-2 py-1 text-sm transition-colors ${
                                       excludedIds.includes(user.id)
-                                          ? "bg-sombre text-secondary"
-                                          : "bg-accent text-white"
+                                          ? "text-secondary hover:text-heading"
+                                          : "bg-gray-800 text-heading font-semibold"
                                   }`}
                               >
                                   {user.username}
