@@ -14,11 +14,10 @@ const MEDALS = [
 
 interface Props {
     clanId: number;
-    clanname: string;
 }
 
-export const ClanHeader: React.FC<Props> = ({ clanId, clanname }) => {
-    const { clan, loading, error } = useClan({ clanId, clanname });
+export const ClanHeader: React.FC<Props> = ({ clanId }) => {
+    const { clan, loading, error } = useClan({ clanId });
 
     if (error || (!loading && !clan))
         return (

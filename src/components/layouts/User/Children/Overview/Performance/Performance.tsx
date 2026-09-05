@@ -3,7 +3,7 @@
 import React from "react";
 import Completed from "@/components/layouts/User/Children/Overview/Performance/Completed";
 import MedalCard from "@/components/layouts/User/Children/Overview/Performance/MedalCard";
-import Placement from "@/components/layouts/User/Children/Overview/Performance/Placement";
+import Placement from "@/components/ui/custom/shared/Placement/Placement";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { UserDetails } from "@/types/user";
 

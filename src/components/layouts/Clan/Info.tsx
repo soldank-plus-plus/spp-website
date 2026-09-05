@@ -3,6 +3,7 @@ import { Users, Trophy, Flag, Map } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { useClan } from "@/hooks/clans/useClan";
+import Placement from "@/components/ui/custom/shared/Placement/Placement";
 
 const boxClass =
     "flex items-center gap-2.5 rounded border border-white/10 px-3 py-2 transition-colors hover:bg-sombre";
@@ -26,11 +27,10 @@ const Stat: React.FC<StatProps> = ({ icon: Icon, label, value }) => (
 
 interface Props {
     clanId: number;
-    clanname: string;
 }
 
-export const Info: React.FC<Props> = ({ clanId, clanname }) => {
-    const { clan, loading, error } = useClan({ clanId, clanname });
+export const Info: React.FC<Props> = ({ clanId }) => {
+    const { clan, loading, error } = useClan({ clanId });
 
     if (error || (!loading && !clan)) return null;
 
@@ -72,6 +72,17 @@ export const Info: React.FC<Props> = ({ clanId, clanname }) => {
                               value={stat.value}
                           />
                       ))}
+            </div>
+
+            <div className="mt-6 pl-6">
+                {!clan ? (
+                    <Skeleton className="h-[92px] rounded" />
+                ) : (
+                    <Placement
+                        ranking={clan.placement}
+                        className="rounded border border-white/10 transition-colors hover:bg-sombre"
+                    />
+                )}
             </div>
         </section>
     );
