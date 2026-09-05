@@ -29,16 +29,16 @@ interface Props {
     clanname: string;
 }
 
-export const MainStats: React.FC<Props> = ({ clanId, clanname }) => {
+export const Info: React.FC<Props> = ({ clanId, clanname }) => {
     const { clan, loading, error } = useClan({ clanId, clanname });
 
     if (error || (!loading && !clan)) return null;
 
     return (
-        <section className="border-t border-white/10 mt-10 pt-8">
-            <h3 className="mb-4">Main stats</h3>
-
-            <div className="grid grid-cols-2 gap-3 pl-6 lg:grid-cols-4">
+        <section className="border-t border-white/10 pt-8">
+            {/* Offset by the height the removed heading used to take, so the
+                cards stay level with the member list next to them */}
+            <div className="mt-11 grid grid-cols-2 gap-3 pl-6">
                 {!clan
                     ? [0, 1, 2, 3].map((i) => (
                           <Skeleton key={i} className="h-[66px] rounded" />
