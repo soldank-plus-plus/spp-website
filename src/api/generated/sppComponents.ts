@@ -349,6 +349,10 @@ export const usePositionsControllerFindAll = <
 
 export type MapsControllerFindAllQueryParams = {
     /**
+     * Keep only maps made by a creator whose name contains this
+     */
+    creator?: string;
+    /**
      * Page number to retrieve. If you provide invalid value the default page number will applied
      *
      * **Example:** 1
@@ -750,14 +754,190 @@ export type MapsControllerFindByUserPathParams = {
     userId: number;
 };
 
+export type MapsControllerFindByUserQueryParams = {
+    /**
+     * Page number to retrieve. If you provide invalid value the default page number will applied
+     *
+     * **Example:** 1
+     *
+     *
+     * **Default Value:** 1
+     */
+    page?: number;
+    /**
+     * Number of records per page.
+     *
+     *
+     * **Example:** 20
+     *
+     *
+     *
+     * **Default Value:** 20
+     *
+     *
+     *
+     * **Max Value:** 100
+     *
+     *
+     * If provided value is greater than max value, max value will be applied.
+     */
+    limit?: number;
+    /**
+     * Filter by mapname query param.
+     *
+     * **Format:** filter.mapname={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.mapname=$btw:John Doe&filter.mapname=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.mapname"]?: string[];
+    /**
+     * Filter by date query param.
+     *
+     * **Format:** filter.date={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.date=$btw:John Doe&filter.date=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.date"]?: string[];
+    /**
+     * Parameter to sort by.
+     * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
+     *
+     * **Format:** {fieldName}:{DIRECTION}
+     *
+     *
+     * **Example:** sortBy=id:DESC&sortBy=mapname:DESC
+     *
+     *
+     * **Default Value:** id:ASC
+     *
+     * **Available Fields**
+     * - id
+     *
+     * - mapname
+     *
+     * - date
+     *
+     * - hardest
+     */
+    sortBy?: (
+        | "id:ASC"
+        | "id:DESC"
+        | "mapname:ASC"
+        | "mapname:DESC"
+        | "date:ASC"
+        | "date:DESC"
+        | "hardest:ASC"
+        | "hardest:DESC"
+    )[];
+    /**
+     * Search term to filter result values
+     *
+     * **Example:** John
+     *
+     *
+     * **Default Value:** No default value
+     */
+    search?: string;
+    /**
+     * List of fields to search by term to filter result values
+     *
+     * **Example:** mapname
+     *
+     *
+     * **Default Value:** By default all fields mentioned below will be used to search by term
+     *
+     * **Available Fields**
+     * - mapname
+     */
+    searchBy?: string[];
+};
+
 export type MapsControllerFindByUserError = Fetcher.ErrorWrapper<undefined>;
 
 export type MapsControllerFindByUserResponse = {
-    data?: Schemas.FindAllMapsDto[];
+    data: Schemas.FindAllMapsDto[];
+    meta: {
+        itemsPerPage: number;
+        totalItems: number;
+        currentPage: number;
+        totalPages: number;
+        sortBy?: (string | ("ASC" | "DESC"))[][];
+        searchBy?: string[];
+        search?: string;
+        select?: string[];
+        filter?: {
+            mapname?: string | string[];
+            date?: string | string[];
+        };
+    };
+    links: Schemas.PaginatedLinksDocumented;
 };
 
 export type MapsControllerFindByUserVariables = {
     pathParams: MapsControllerFindByUserPathParams;
+    queryParams?: MapsControllerFindByUserQueryParams;
 } & SppContext["fetcherOptions"];
 
 export const fetchMapsControllerFindByUser = (
@@ -769,7 +949,7 @@ export const fetchMapsControllerFindByUser = (
         MapsControllerFindByUserError,
         undefined,
         {},
-        {},
+        MapsControllerFindByUserQueryParams,
         MapsControllerFindByUserPathParams
     >({ url: "/maps/by-user/{userId}", method: "get", ...variables, signal });
 
@@ -3436,7 +3616,7 @@ export type ClansControllerFindUsersQueryParams = {
 export type ClansControllerFindUsersError = Fetcher.ErrorWrapper<undefined>;
 
 export type ClansControllerFindUsersResponse = {
-    data: Schemas.FindAllUsersDto[];
+    data: Schemas.ClanMemberDto[];
     meta: {
         itemsPerPage: number;
         totalItems: number;
@@ -3551,6 +3731,142 @@ export const useClansControllerFindUsers = <
         TData
     >({
         ...clansControllerFindUsersQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type ClansControllerFindRecordsHistoryPathParams = {
+    clanId: number;
+};
+
+export type ClansControllerFindRecordsHistoryQueryParams = {
+    /**
+     * Comma-separated ids of the clan users to include
+     */
+    userIds: string;
+};
+
+export type ClansControllerFindRecordsHistoryError =
+    Fetcher.ErrorWrapper<undefined>;
+
+export type ClansControllerFindRecordsHistoryResponse = {
+    data?: Schemas.ClanRecordsHistoryDto[];
+};
+
+export type ClansControllerFindRecordsHistoryVariables = {
+    pathParams: ClansControllerFindRecordsHistoryPathParams;
+    queryParams: ClansControllerFindRecordsHistoryQueryParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchClansControllerFindRecordsHistory = (
+    variables: ClansControllerFindRecordsHistoryVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        ClansControllerFindRecordsHistoryResponse,
+        ClansControllerFindRecordsHistoryError,
+        undefined,
+        {},
+        ClansControllerFindRecordsHistoryQueryParams,
+        ClansControllerFindRecordsHistoryPathParams
+    >({
+        url: "/clans/{clanId}/records-history",
+        method: "get",
+        ...variables,
+        signal,
+    });
+
+export function clansControllerFindRecordsHistoryQuery(
+    variables: ClansControllerFindRecordsHistoryVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<ClansControllerFindRecordsHistoryResponse>;
+};
+
+export function clansControllerFindRecordsHistoryQuery(
+    variables: ClansControllerFindRecordsHistoryVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<ClansControllerFindRecordsHistoryResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function clansControllerFindRecordsHistoryQuery(
+    variables: ClansControllerFindRecordsHistoryVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/clans/{clanId}/records-history",
+            operationId: "clansControllerFindRecordsHistory",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchClansControllerFindRecordsHistory(variables, signal),
+    };
+}
+
+export const useSuspenseClansControllerFindRecordsHistory = <
+    TData = ClansControllerFindRecordsHistoryResponse,
+>(
+    variables: ClansControllerFindRecordsHistoryVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindRecordsHistoryResponse,
+            ClansControllerFindRecordsHistoryError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        ClansControllerFindRecordsHistoryResponse,
+        ClansControllerFindRecordsHistoryError,
+        TData
+    >({
+        ...clansControllerFindRecordsHistoryQuery(
+            deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useClansControllerFindRecordsHistory = <
+    TData = ClansControllerFindRecordsHistoryResponse,
+>(
+    variables:
+        | ClansControllerFindRecordsHistoryVariables
+        | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindRecordsHistoryResponse,
+            ClansControllerFindRecordsHistoryError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        ClansControllerFindRecordsHistoryResponse,
+        ClansControllerFindRecordsHistoryError,
+        TData
+    >({
+        ...clansControllerFindRecordsHistoryQuery(
             variables === reactQuery.skipToken
                 ? variables
                 : deepMerge(fetcherOptions, variables)
@@ -4085,6 +4401,13 @@ export type QueryOperation =
           path: "/clans/{clanId}/users";
           operationId: "clansControllerFindUsers";
           variables: ClansControllerFindUsersVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/clans/{clanId}/records-history";
+          operationId: "clansControllerFindRecordsHistory";
+          variables:
+              | ClansControllerFindRecordsHistoryVariables
+              | reactQuery.SkipToken;
       }
     | {
           path: "/countries";

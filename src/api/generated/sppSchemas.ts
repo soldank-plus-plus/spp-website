@@ -403,6 +403,100 @@ export type FindAllClansDto = {
     usersCount: number;
 };
 
+export type ClanMemberDto = {
+    /**
+     * User ID
+     */
+    id: number;
+    /**
+     * Username
+     */
+    username: string;
+    /**
+     * Clan this user belongs to
+     */
+    clanId: number | null;
+    /**
+     * Country this user plays from
+     */
+    countryId: number | null;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Capture positions without a medal
+     */
+    noMedal: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Playtime in seconds
+     */
+    playtime: number | null;
+    /**
+     * Account creation date as a unix timestamp in milliseconds
+     */
+    createdAt: number | null;
+    /**
+     * Last active date as a unix timestamp in milliseconds
+     */
+    lastActiveAt: number | null;
+    /**
+     * Percentage of all maps this user has captured
+     */
+    passed: number;
+    /**
+     * Whether this member founded the clan
+     */
+    founder: boolean;
+};
+
+export type ClanRecordsHistoryDto = {
+    /**
+     * Year label, for example "2015"
+     */
+    label: string;
+    /**
+     * Number of records set in this year
+     */
+    records: number;
+    /**
+     * Number of first places taken in this year
+     */
+    gold: number;
+    /**
+     * Number of second places taken in this year
+     */
+    silver: number;
+    /**
+     * Number of third places taken in this year
+     */
+    bronze: number;
+};
+
 export type FindAllCountriesDto = {
     /**
      * Country ID
