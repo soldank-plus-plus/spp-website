@@ -1,39 +1,29 @@
-import { useMapsControllerFindAll } from "@/api/generated/sppComponents";
+import { useMapsControllerFindByUser } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
-export type MapSortKey = "hardest" | "latest";
-
-const SORT_BY: Record<MapSortKey, "hardest:ASC" | "date:DESC"> = {
-    hardest: "hardest:ASC",
-    latest: "date:DESC",
-};
-
-interface UseMapsProps {
+interface UseUserMapsProps {
+    userId: number;
     page: number;
     pageSize: number;
     search?: string;
-    creator?: string;
-    sort?: MapSortKey;
 }
 
-export const useMaps = ({
+export const useUserMaps = ({
+    userId,
     page,
     pageSize,
     search = "",
-    creator = "",
-    sort = "hardest",
-}: UseMapsProps) => {
+}: UseUserMapsProps) => {
     const debouncedSearch = useDebounce(search, 500);
-    const debouncedCreator = useDebounce(creator, 500);
 
-    const { data, isPending, error } = useMapsControllerFindAll({
+    const { data, isPending, error } = useMapsControllerFindByUser({
+        pathParams: { userId },
         queryParams: {
             page,
             limit: pageSize,
-            sortBy: [SORT_BY[sort]],
+            sortBy: ["hardest:ASC"],
             ...(debouncedSearch && { search: debouncedSearch }),
-            ...(debouncedCreator && { creator: debouncedCreator }),
         },
     });
 

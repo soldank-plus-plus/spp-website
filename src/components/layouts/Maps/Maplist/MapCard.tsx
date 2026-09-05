@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Map } from "@/types/map";
-
-export type SortMode = "hardest" | "latest";
+import { MapSortKey } from "@/hooks/maps/useMaps";
 
 interface Props {
     map: Map;
-    sortMode: SortMode;
+    sortMode: MapSortKey;
+    showCreators?: boolean;
 }
 
-const MapCard: React.FC<Props> = ({ map, sortMode }) => {
+const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
     const navigate = useNavigate();
     const mapname = map.mapname ?? "";
 
@@ -34,26 +34,28 @@ const MapCard: React.FC<Props> = ({ map, sortMode }) => {
                     #{sortMode === "hardest" ? (map.hardest ?? "?") : map.id} –{" "}
                     {mapname}
                 </h3>
-                <p className="text-white/70 text-sm mb-1">
-                    created by{" "}
-                    {map.creators.length > 0
-                        ? map.creators.map((creator, i) => (
-                              <React.Fragment key={creator.id}>
-                                  {i > 0 && ", "}
-                                  <span
-                                      className="cursor-pointer hover:text-foreground hover:underline"
-                                      onClick={() =>
-                                          navigate(
-                                              `/profile/${encodeURIComponent(creator.username)}`
-                                          )
-                                      }
-                                  >
-                                      {creator.username}
-                                  </span>
-                              </React.Fragment>
-                          ))
-                        : "unknown"}
-                </p>
+                {showCreators && (
+                    <p className="text-white/70 text-sm mb-1">
+                        created by{" "}
+                        {map.creators.length > 0
+                            ? map.creators.map((creator, i) => (
+                                  <React.Fragment key={creator.id}>
+                                      {i > 0 && ", "}
+                                      <span
+                                          className="cursor-pointer hover:text-foreground hover:underline"
+                                          onClick={() =>
+                                              navigate(
+                                                  `/profile/${encodeURIComponent(creator.username)}`
+                                              )
+                                          }
+                                      >
+                                          {creator.username}
+                                      </span>
+                                  </React.Fragment>
+                              ))
+                            : "unknown"}
+                    </p>
+                )}
                 <p className="text-white/70 text-sm">
                     {map.recordsCount} records
                 </p>

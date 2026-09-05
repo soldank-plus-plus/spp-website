@@ -1,43 +1,25 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
-import { useMaps } from "@/hooks/maps/useMaps";
+import { useMaps, MapSortKey } from "@/hooks/maps/useMaps";
 import { Input } from "@/components/ui/shadcn/input";
 import { Search } from "lucide-react";
-import MapCard, { SortMode } from "@/components/layouts/Maps/Maplist/MapCard";
-import { Skeleton } from "@/components/ui/shadcn/skeleton";
+import MapCard from "@/components/layouts/Maps/Maplist/MapCard";
+import { MapCardSkeleton } from "@/components/ui/custom/shared/MapCardSkeleton/MapCardSkeleton";
 
 export const Maplist: React.FC = () => {
     const pageSize = 50;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchMap, setSearchMap] = useState("");
     const [searchPlayer, setSearchPlayer] = useState("");
-    const [sortMode, setSortMode] = useState<SortMode>("hardest");
+    const [sortMode, setSortMode] = useState<MapSortKey>("hardest");
 
     const { maps, totalPages, loading, error } = useMaps({
         page: currentPage,
         pageSize,
+        search: searchMap,
+        creator: searchPlayer,
+        sort: sortMode,
     });
-
-    const filtered = useMemo(() => {
-        const q = searchMap.toLowerCase();
-        const p = searchPlayer.toLowerCase();
-        const base = maps.filter((m) => {
-            const matchMap = q
-                ? (m.mapname ?? "").toLowerCase().includes(q)
-                : true;
-            const matchPlayer = p
-                ? m.creators.some((creator) =>
-                      creator.username.toLowerCase().includes(p)
-                  )
-                : true;
-            return matchMap && matchPlayer;
-        });
-        return [...base].sort((a, b) =>
-            sortMode === "hardest"
-                ? (a.hardest ?? 0) - (b.hardest ?? 0)
-                : (b.date ?? 0) - (a.date ?? 0)
-        );
-    }, [maps, searchMap, searchPlayer, sortMode]);
 
     return (
         <div>
@@ -71,10 +53,13 @@ export const Maplist: React.FC = () => {
                 </div>
 
                 <div className="flex gap-2">
-                    {(["hardest", "latest"] as SortMode[]).map((mode) => (
+                    {(["hardest", "latest"] as MapSortKey[]).map((mode) => (
                         <button
                             key={mode}
-                            onClick={() => setSortMode(mode)}
+                            onClick={() => {
+                                setSortMode(mode);
+                                setCurrentPage(1);
+                            }}
                             className={`rounded px-3 py-1 text-sm font-semibold whitespace-nowrap ${
                                 sortMode === mode
                                     ? "bg-accent text-white"
@@ -88,23 +73,7 @@ export const Maplist: React.FC = () => {
                 </div>
             </div>
 
-            {loading && (
-                <div className="flex flex-col gap-6">
-                    {Array.from({ length: 8 }).map((_, index) => (
-                        <div
-                            key={index}
-                            className="rounded-sm border border-white/10 bg-white/5 flex items-center gap-4 overflow-hidden"
-                        >
-                            <Skeleton className="w-[120px] aspect-square shrink-0 rounded-none" />
-                            <div className="px-4 py-5 space-y-2">
-                                <Skeleton className="h-5 w-48" />
-                                <Skeleton className="h-4 w-64" />
-                                <Skeleton className="h-4 w-24" />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+            {loading && <MapCardSkeleton cards={8} />}
 
             {error && (
                 <p className="text-red-500 text-sm text-center py-8">{error}</p>
@@ -112,7 +81,7 @@ export const Maplist: React.FC = () => {
 
             {!loading && (
                 <div className="flex flex-col gap-6">
-                    {filtered.map((map) => (
+                    {maps.map((map) => (
                         <MapCard key={map.id} map={map} sortMode={sortMode} />
                     ))}
                 </div>
