@@ -255,6 +255,21 @@ export type UserPlacementDto = {
     golds: number;
 };
 
+export type UserClanDto = {
+    /**
+     * Clan ID
+     */
+    id: number;
+    /**
+     * Clan name
+     */
+    clanname: string;
+    /**
+     * Clan tag
+     */
+    tag: string | null;
+};
+
 export type FindOneUserDto = {
     /**
      * User ID
@@ -328,6 +343,10 @@ export type FindOneUserDto = {
      * Maps this user has not captured yet
      */
     mapsLeft: number;
+    /**
+     * Clan this user belongs to
+     */
+    clan: UserClanDto | null;
 };
 
 export type ActivityDayDto = {
@@ -401,6 +420,76 @@ export type FindAllClansDto = {
      * Number of users in this clan
      */
     usersCount: number;
+};
+
+export type ClanPlacementDto = {
+    /**
+     * Place in the unique captures ranking
+     */
+    records: number;
+    /**
+     * Place in the hardest map ranking
+     */
+    hardest: number;
+    /**
+     * Place in the gold medal ranking
+     */
+    golds: number;
+};
+
+export type FindOneClanDto = {
+    /**
+     * Clan ID
+     */
+    id: number;
+    /**
+     * Clan name
+     */
+    clanname: string;
+    /**
+     * Clan tag
+     */
+    tag: string | null;
+    /**
+     * Gold medals
+     */
+    gold: number | null;
+    /**
+     * Silver medals
+     */
+    silver: number | null;
+    /**
+     * Bronze medals
+     */
+    bronze: number | null;
+    /**
+     * Number of unique maps captured
+     */
+    uniqueCaps: number | null;
+    /**
+     * Total number of captures
+     */
+    totalCaps: number | null;
+    /**
+     * Number of maps created
+     */
+    mapsCreated: number | null;
+    /**
+     * Difficulty rank of the hardest map captured
+     */
+    hardest: number | null;
+    /**
+     * Clan founders
+     */
+    creators: ClanCreatorDto[];
+    /**
+     * Number of users in this clan
+     */
+    usersCount: number;
+    /**
+     * Places in the rankings this clan appears in
+     */
+    placement: ClanPlacementDto;
 };
 
 export type ClanMemberDto = {

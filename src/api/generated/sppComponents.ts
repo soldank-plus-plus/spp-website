@@ -1532,6 +1532,45 @@ export type MapsControllerFindStatsQueryParams = {
      */
     ["filter.status"]?: string[];
     /**
+     * Filter by position query param.
+     *
+     * **Format:** filter.position={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.position=$btw:John Doe&filter.position=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.position"]?: string[];
+    /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
      *
@@ -1604,6 +1643,7 @@ export type MapsControllerFindStatsResponse = {
             mapId?: string | string[];
             userId?: string | string[];
             status?: string | string[];
+            position?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
@@ -1864,6 +1904,45 @@ export type StatsControllerFindAllQueryParams = {
      */
     ["filter.status"]?: string[];
     /**
+     * Filter by position query param.
+     *
+     * **Format:** filter.position={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.position=$btw:John Doe&filter.position=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.position"]?: string[];
+    /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
      *
@@ -1936,6 +2015,7 @@ export type StatsControllerFindAllResponse = {
             mapId?: string | string[];
             userId?: string | string[];
             status?: string | string[];
+            position?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
@@ -2996,6 +3076,45 @@ export type UsersControllerFindStatsQueryParams = {
      */
     ["filter.status"]?: string[];
     /**
+     * Filter by position query param.
+     *
+     * **Format:** filter.position={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.position=$btw:John Doe&filter.position=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.position"]?: string[];
+    /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
      *
@@ -3068,6 +3187,7 @@ export type UsersControllerFindStatsResponse = {
             mapId?: string | string[];
             userId?: string | string[];
             status?: string | string[];
+            position?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
@@ -3510,6 +3630,122 @@ export const useClansControllerFindAll = <
         TData
     >({
         ...clansControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export type ClansControllerFindOnePathParams = {
+    clanId: number;
+};
+
+export type ClansControllerFindOneError = Fetcher.ErrorWrapper<undefined>;
+
+export type ClansControllerFindOneResponse = {
+    data?: Schemas.FindOneClanDto;
+};
+
+export type ClansControllerFindOneVariables = {
+    pathParams: ClansControllerFindOnePathParams;
+} & SppContext["fetcherOptions"];
+
+export const fetchClansControllerFindOne = (
+    variables: ClansControllerFindOneVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        ClansControllerFindOneResponse,
+        ClansControllerFindOneError,
+        undefined,
+        {},
+        {},
+        ClansControllerFindOnePathParams
+    >({ url: "/clans/{clanId}", method: "get", ...variables, signal });
+
+export function clansControllerFindOneQuery(
+    variables: ClansControllerFindOneVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<ClansControllerFindOneResponse>;
+};
+
+export function clansControllerFindOneQuery(
+    variables: ClansControllerFindOneVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((options: QueryFnOptions) => Promise<ClansControllerFindOneResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function clansControllerFindOneQuery(
+    variables: ClansControllerFindOneVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/clans/{clanId}",
+            operationId: "clansControllerFindOne",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchClansControllerFindOne(variables, signal),
+    };
+}
+
+export const useSuspenseClansControllerFindOne = <
+    TData = ClansControllerFindOneResponse,
+>(
+    variables: ClansControllerFindOneVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindOneResponse,
+            ClansControllerFindOneError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        ClansControllerFindOneResponse,
+        ClansControllerFindOneError,
+        TData
+    >({
+        ...clansControllerFindOneQuery(deepMerge(fetcherOptions, variables)),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useClansControllerFindOne = <
+    TData = ClansControllerFindOneResponse,
+>(
+    variables: ClansControllerFindOneVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            ClansControllerFindOneResponse,
+            ClansControllerFindOneError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        ClansControllerFindOneResponse,
+        ClansControllerFindOneError,
+        TData
+    >({
+        ...clansControllerFindOneQuery(
             variables === reactQuery.skipToken
                 ? variables
                 : deepMerge(fetcherOptions, variables)
@@ -4396,6 +4632,11 @@ export type QueryOperation =
           path: "/clans";
           operationId: "clansControllerFindAll";
           variables: ClansControllerFindAllVariables | reactQuery.SkipToken;
+      }
+    | {
+          path: "/clans/{clanId}";
+          operationId: "clansControllerFindOne";
+          variables: ClansControllerFindOneVariables | reactQuery.SkipToken;
       }
     | {
           path: "/clans/{clanId}/users";
