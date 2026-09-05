@@ -5,6 +5,7 @@ import { AiOutlineTeam } from "react-icons/ai";
 interface BannerProps {
     avatarSrc: string;
     username: string;
+    clanname?: string;
     highlight?: string;
     socials?: {
         twitch?: string;
@@ -14,7 +15,12 @@ interface BannerProps {
     };
 }
 
-export const Banner = ({ avatarSrc, username, highlight }: BannerProps) => {
+export const Banner = ({
+    avatarSrc,
+    username,
+    clanname,
+    highlight,
+}: BannerProps) => {
     return (
         <div className="relative w-full h-48 bg-sombre rounded-xl overflow-hidden">
             <div className="absolute  inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
@@ -35,10 +41,14 @@ export const Banner = ({ avatarSrc, username, highlight }: BannerProps) => {
                             {username} {highlight && <span>{highlight}</span>}
                         </h3>
 
-                        <div className="flex items-center gap-2 text-sm">
-                            <AiOutlineTeam className="w-4 h-4" />
-                            <span className="mr-1 text-sm">Clan</span>
-                        </div>
+                        {clanname && (
+                            <div className="flex items-center gap-2 text-sm">
+                                <AiOutlineTeam className="w-4 h-4 shrink-0" />
+                                <span className="mr-1 truncate text-sm">
+                                    {clanname}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

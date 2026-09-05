@@ -7,23 +7,11 @@ import { FaTwitch, FaYoutube, FaDiscord, FaGithub } from "react-icons/fa";
 import { Recharts } from "@/components/ui/custom/shared/User/Recharts/Recharts";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 import { UserDetails } from "@/types/user";
+import { formatPlaytime, formatShortDate } from "@/utils/format";
 
 interface Props {
     user: UserDetails | null;
     loading: boolean;
-}
-
-function formatDate(timestamp: number) {
-    return new Date(timestamp).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-    });
-}
-
-function formatPlaytime(ms: number) {
-    const hours = Math.floor(ms / 3_600_000);
-    return `${hours.toLocaleString()}h`;
 }
 
 const Sidebar = ({ user, loading }: Props) => {
@@ -42,6 +30,7 @@ const Sidebar = ({ user, loading }: Props) => {
                 <Banner
                     avatarSrc={playerAvatar}
                     username={user?.username ?? ""}
+                    clanname={user?.clan?.clanname}
                 />
             )}
 
@@ -73,14 +62,14 @@ const Sidebar = ({ user, loading }: Props) => {
                         <Calendar className="w-4 h-4" />
                         Member since{" "}
                         {user.createdAt !== null
-                            ? formatDate(user.createdAt)
+                            ? formatShortDate(user.createdAt)
                             : "—"}
                     </div>
                     <div className="flex items-center gap-2 text-sm">
                         <Clock className="w-4 h-4" />
                         Last seen{" "}
                         {user.lastActiveAt !== null
-                            ? formatDate(user.lastActiveAt)
+                            ? formatShortDate(user.lastActiveAt)
                             : "—"}
                     </div>
                     <p className="text-sm">
