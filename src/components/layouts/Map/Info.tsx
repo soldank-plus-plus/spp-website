@@ -6,23 +6,10 @@ import { Specs } from "@/components/layouts/Map/Specs";
 import goldIcon from "@/assets/icons/medal-gold.png";
 import silverIcon from "@/assets/icons/medal-silver.png";
 import bronzeIcon from "@/assets/icons/medal-bronze.png";
+import { formatNumericDate, formatRecordTime } from "@/utils/format";
 
 const MEDAL_ICONS = [goldIcon, silverIcon, bronzeIcon];
 const MEDAL_LABELS = ["Gold", "Silver", "Bronze"];
-
-function formatTime(ms: number): string {
-    const totalCs = Math.floor(ms / 10);
-    const cs = totalCs % 100;
-    const totalSec = Math.floor(totalCs / 100);
-    const sec = totalSec % 60;
-    const min = Math.floor(totalSec / 60);
-    return `${min}:${String(sec).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
-}
-
-function formatDate(timestamp: number): string {
-    const d = new Date(timestamp);
-    return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()}`;
-}
 
 interface Props {
     mapId: number;
@@ -75,13 +62,13 @@ export const Info: React.FC<Props> = ({
                                             </span>
                                             <span className="text-xs text-secondary font-mono">
                                                 {record.recordTime !== null
-                                                    ? formatTime(
+                                                    ? formatRecordTime(
                                                           record.recordTime
                                                       )
                                                     : "—"}{" "}
                                                 ·{" "}
                                                 {record.recordDate !== null
-                                                    ? formatDate(
+                                                    ? formatNumericDate(
                                                           record.recordDate
                                                       )
                                                     : "—"}

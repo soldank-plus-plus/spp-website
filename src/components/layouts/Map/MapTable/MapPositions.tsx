@@ -16,26 +16,7 @@ import { Position } from "@/types/position";
 import goldIcon from "@/assets/icons/medal-gold.png";
 import silverIcon from "@/assets/icons/medal-silver.png";
 import bronzeIcon from "@/assets/icons/medal-bronze.png";
-
-function ordinal(n: number): string {
-    const s = ["th", "st", "nd", "rd"];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]!);
-}
-
-function formatDate(timestamp: number): string {
-    const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-    });
-    const day = ordinal(d.getDate());
-    const month = d.toLocaleString("en-US", { month: "long" });
-    const year = d.getFullYear();
-    return `${time} on ${day} ${month} ${year}`;
-}
+import { formatFullDate } from "@/utils/format";
 
 const MEDAL_ICON: Record<number, string> = {
     1: goldIcon,
@@ -93,7 +74,7 @@ const PositionRow: React.FC<{ position: Position }> = ({ position }) => {
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary w-[230px]">
                 {position.positionDate !== null
-                    ? formatDate(position.positionDate)
+                    ? formatFullDate(position.positionDate)
                     : "—"}
             </TableCell>
         </TableRow>

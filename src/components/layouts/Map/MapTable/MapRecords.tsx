@@ -11,35 +11,7 @@ import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { TableSkeleton } from "@/components/ui/custom/shared/TableSkeleton/TableSkeleton";
 import { useNavigate } from "react-router-dom";
 import { Stat } from "@/types/stat";
-
-function formatTime(ms: number): string {
-    const totalCs = Math.floor(ms / 10);
-    const cs = totalCs % 100;
-    const totalSec = Math.floor(totalCs / 100);
-    const sec = totalSec % 60;
-    const min = Math.floor(totalSec / 60);
-    return `${min}:${String(sec).padStart(2, "0")}.${String(cs).padStart(2, "0")}`;
-}
-
-function ordinal(n: number): string {
-    const s = ["th", "st", "nd", "rd"];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] ?? s[v] ?? s[0]!);
-}
-
-function formatDate(timestamp: number): string {
-    const d = new Date(timestamp);
-    const time = d.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-    });
-    const day = ordinal(d.getDate());
-    const month = d.toLocaleString("en-US", { month: "long" });
-    const year = d.getFullYear();
-    return `${time} on ${day} ${month} ${year}`;
-}
+import { formatFullDate, formatRecordTime } from "@/utils/format";
 
 const ROW_BG: Record<number, string> = {
     1: "bg-gold/30",
@@ -72,12 +44,12 @@ const RecordRow: React.FC<{ record: Stat }> = ({ record }) => {
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary font-mono">
                 {record.recordTime !== null
-                    ? formatTime(record.recordTime)
+                    ? formatRecordTime(record.recordTime)
                     : "—"}
             </TableCell>
             <TableCell className="px-1 py-2 text-center text-secondary">
                 {record.recordDate !== null
-                    ? formatDate(record.recordDate)
+                    ? formatFullDate(record.recordDate)
                     : "—"}
             </TableCell>
         </TableRow>
