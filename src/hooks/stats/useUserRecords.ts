@@ -1,6 +1,7 @@
 import { useUsersControllerFindStats } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 import { Stat } from "@/types/stat";
+import { Medal } from "@/types/position";
 import { useDebounce } from "@/hooks/core/useDebounce";
 
 interface UseUserRecordsProps {
@@ -8,6 +9,7 @@ interface UseUserRecordsProps {
     page: number;
     pageSize: number;
     search?: string;
+    medal?: Medal;
 }
 
 export const useUserRecords = ({
@@ -15,6 +17,7 @@ export const useUserRecords = ({
     page,
     pageSize,
     search = "",
+    medal,
 }: UseUserRecordsProps) => {
     const debouncedSearch = useDebounce(search, 500);
 
@@ -23,6 +26,10 @@ export const useUserRecords = ({
         queryParams: {
             page,
             limit: pageSize,
+            ...(medal && {
+                "filter.position": [`$eq:${medal}`],
+                sortBy: ["recordDate:DESC" as const],
+            }),
             ...(debouncedSearch && { search: debouncedSearch }),
         },
     });
