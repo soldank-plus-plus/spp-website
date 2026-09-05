@@ -1,10 +1,20 @@
 import React from "react";
-import underconstr from "@/assets/icons/underconstr.png";
+import { useOutletContext } from "react-router-dom";
+import { UserOutletContext } from "@/pages/User/User";
+import { UserClanMembers } from "@/components/layouts/User/Children/UserClan/UserClan";
 
 export const UserClan: React.FC = () => {
+    const { user, loading } = useOutletContext<UserOutletContext>();
+
+    if (loading || !user) return null;
+
     return (
-        <section className="flex justify-center items-center min-h-screen px-4">
-            <img src={underconstr} alt="Under construction" />
+        <section className="flex items-start justify-center px-4 pt-8">
+            {user.clanId === null ? (
+                <p className="text-secondary">This player has no clan.</p>
+            ) : (
+                <UserClanMembers clanId={user.clanId} />
+            )}
         </section>
     );
 };
