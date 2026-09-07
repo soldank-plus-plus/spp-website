@@ -25,7 +25,7 @@ const SignupCard: React.FC = () => {
                         Sign up in the game
                     </Button>
                     <Button asChild variant="outline">
-                        <Link to="/login">Login</Link>
+                        <Link to="/ranking/global">Find your account</Link>
                     </Button>
                 </CardFooter>
             </Card>

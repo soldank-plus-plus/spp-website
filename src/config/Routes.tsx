@@ -13,9 +13,8 @@ import Gamemode from "@/pages/Gamemodes/Children/Gamemode";
 import Servers from "@/pages/Servers/Servers";
 import Faq from "@/pages/Faq/Faq";
 
-// Auth
-import Login from "@/pages/Auth/Login";
-import Signup from "@/pages/Auth/Signup";
+// Account
+import Signup from "@/pages/Account/Signup";
 
 // User
 import User from "@/pages/User/User";
@@ -92,7 +91,6 @@ export const appRoutes: AppRoute[] = [
     { path: "/servers", element: <Servers /> },
     { path: "/faq", element: <Faq /> },
 
-    { path: "/login", element: <Login /> },
     { path: "/signup", element: <Signup /> },
 
     { path: "/earlyaccess", element: <EarlyAccess /> },

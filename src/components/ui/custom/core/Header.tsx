@@ -29,10 +29,10 @@ export const Header = () => {
                 </nav>
 
                 <div className="hidden md:flex items-center ml-4">
-                    <a href="/login">
+                    <a href="/signup">
                         <img
                             src={login}
-                            alt="Login"
+                            alt="Sign up"
                             className="h-11 w-auto transition-opacity duration-300 hover:opacity-50"
                         />
                     </a>
@@ -64,10 +64,10 @@ export const Header = () => {
                                         variant="ghost"
                                         className="w-full uppercase"
                                         onClick={() =>
-                                            (window.location.href = "/login")
+                                            (window.location.href = "/signup")
                                         }
                                     >
-                                        Sign in
+                                        Sign up
                                     </Button>
                                 </div>
                             </nav>
