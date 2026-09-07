@@ -9,7 +9,7 @@ export const UserClan: React.FC = () => {
     if (loading || !user) return null;
 
     return (
-        <section className="flex items-start justify-center px-4 pt-8">
+        <section className="flex items-start justify-center px-4">
             {user.clanId === null ? (
                 <p className="text-secondary">This player has no clan.</p>
             ) : (
