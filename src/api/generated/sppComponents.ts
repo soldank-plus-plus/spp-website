@@ -252,7 +252,7 @@ export const fetchPositionsControllerFindAll = (
         {},
         PositionsControllerFindAllQueryParams,
         {}
-    >({ url: "/positions", method: "get", ...variables, signal });
+    >({ url: "/climb/positions", method: "get", ...variables, signal });
 
 export function positionsControllerFindAllQuery(
     variables: PositionsControllerFindAllVariables
@@ -279,7 +279,7 @@ export function positionsControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/positions",
+            path: "/climb/positions",
             operationId: "positionsControllerFindAll",
             variables,
         }),
@@ -458,6 +458,318 @@ export type MapsControllerFindAllQueryParams = {
      */
     ["filter.date"]?: string[];
     /**
+     * Filter by hardest query param.
+     *
+     * **Format:** filter.hardest={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.hardest=$btw:John Doe&filter.hardest=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.hardest"]?: string[];
+    /**
+     * Filter by anticoop query param.
+     *
+     * **Format:** filter.anticoop={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.anticoop=$btw:John Doe&filter.anticoop=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.anticoop"]?: string[];
+    /**
+     * Filter by jets query param.
+     *
+     * **Format:** filter.jets={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.jets=$btw:John Doe&filter.jets=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.jets"]?: string[];
+    /**
+     * Filter by m79 query param.
+     *
+     * **Format:** filter.m79={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.m79=$btw:John Doe&filter.m79=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.m79"]?: string[];
+    /**
+     * Filter by nade query param.
+     *
+     * **Format:** filter.nade={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.nade=$btw:John Doe&filter.nade=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.nade"]?: string[];
+    /**
+     * Filter by switch query param.
+     *
+     * **Format:** filter.switch={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.switch=$btw:John Doe&filter.switch=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.switch"]?: string[];
+    /**
+     * Filter by coop query param.
+     *
+     * **Format:** filter.coop={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.coop=$btw:John Doe&filter.coop=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.coop"]?: string[];
+    /**
+     * Filter by m79c query param.
+     *
+     * **Format:** filter.m79c={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.m79c=$btw:John Doe&filter.m79c=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.m79c"]?: string[];
+    /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
      *
@@ -527,6 +839,14 @@ export type MapsControllerFindAllResponse = {
         filter?: {
             mapname?: string | string[];
             date?: string | string[];
+            hardest?: string | string[];
+            anticoop?: string | string[];
+            jets?: string | string[];
+            m79?: string | string[];
+            nade?: string | string[];
+            ["switch"]?: string | string[];
+            coop?: string | string[];
+            m79c?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
@@ -547,7 +867,7 @@ export const fetchMapsControllerFindAll = (
         {},
         MapsControllerFindAllQueryParams,
         {}
-    >({ url: "/maps", method: "get", ...variables, signal });
+    >({ url: "/climb/maps", method: "get", ...variables, signal });
 
 export function mapsControllerFindAllQuery(
     variables: MapsControllerFindAllVariables
@@ -572,7 +892,7 @@ export function mapsControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/maps",
+            path: "/climb/maps",
             operationId: "mapsControllerFindAll",
             variables,
         }),
@@ -661,7 +981,7 @@ export const fetchMapsControllerFindOne = (
         {},
         {},
         MapsControllerFindOnePathParams
-    >({ url: "/maps/{id}", method: "get", ...variables, signal });
+    >({ url: "/climb/maps/{id}", method: "get", ...variables, signal });
 
 export function mapsControllerFindOneQuery(
     variables: MapsControllerFindOneVariables
@@ -686,7 +1006,7 @@ export function mapsControllerFindOneQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/maps/{id}",
+            path: "/climb/maps/{id}",
             operationId: "mapsControllerFindOne",
             variables,
         }),
@@ -861,6 +1181,318 @@ export type MapsControllerFindByUserQueryParams = {
      */
     ["filter.date"]?: string[];
     /**
+     * Filter by hardest query param.
+     *
+     * **Format:** filter.hardest={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.hardest=$btw:John Doe&filter.hardest=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.hardest"]?: string[];
+    /**
+     * Filter by anticoop query param.
+     *
+     * **Format:** filter.anticoop={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.anticoop=$btw:John Doe&filter.anticoop=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.anticoop"]?: string[];
+    /**
+     * Filter by jets query param.
+     *
+     * **Format:** filter.jets={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.jets=$btw:John Doe&filter.jets=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.jets"]?: string[];
+    /**
+     * Filter by m79 query param.
+     *
+     * **Format:** filter.m79={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.m79=$btw:John Doe&filter.m79=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.m79"]?: string[];
+    /**
+     * Filter by nade query param.
+     *
+     * **Format:** filter.nade={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.nade=$btw:John Doe&filter.nade=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.nade"]?: string[];
+    /**
+     * Filter by switch query param.
+     *
+     * **Format:** filter.switch={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.switch=$btw:John Doe&filter.switch=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.switch"]?: string[];
+    /**
+     * Filter by coop query param.
+     *
+     * **Format:** filter.coop={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.coop=$btw:John Doe&filter.coop=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.coop"]?: string[];
+    /**
+     * Filter by m79c query param.
+     *
+     * **Format:** filter.m79c={$not}:OPERATION:VALUE
+     *
+     *
+     *
+     * **Example:** filter.m79c=$btw:John Doe&filter.m79c=$contains:John Doe
+     *
+     * **Available Operations**
+     * - $eq
+     *
+     * - $gt
+     *
+     * - $gte
+     *
+     * - $in
+     *
+     * - $null
+     *
+     * - $lt
+     *
+     * - $lte
+     *
+     * - $btw
+     *
+     * - $ilike
+     *
+     * - $sw
+     *
+     * - $contains
+     *
+     * - $not
+     *
+     * - $and
+     *
+     * - $or
+     */
+    ["filter.m79c"]?: string[];
+    /**
      * Parameter to sort by.
      * To sort by multiple fields, just provide query param multiple types. The order in url defines an order of sorting
      *
@@ -930,6 +1562,14 @@ export type MapsControllerFindByUserResponse = {
         filter?: {
             mapname?: string | string[];
             date?: string | string[];
+            hardest?: string | string[];
+            anticoop?: string | string[];
+            jets?: string | string[];
+            m79?: string | string[];
+            nade?: string | string[];
+            ["switch"]?: string | string[];
+            coop?: string | string[];
+            m79c?: string | string[];
         };
     };
     links: Schemas.PaginatedLinksDocumented;
@@ -951,7 +1591,12 @@ export const fetchMapsControllerFindByUser = (
         {},
         MapsControllerFindByUserQueryParams,
         MapsControllerFindByUserPathParams
-    >({ url: "/maps/by-user/{userId}", method: "get", ...variables, signal });
+    >({
+        url: "/climb/maps/by-user/{userId}",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function mapsControllerFindByUserQuery(
     variables: MapsControllerFindByUserVariables
@@ -978,7 +1623,7 @@ export function mapsControllerFindByUserQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/maps/by-user/{userId}",
+            path: "/climb/maps/by-user/{userId}",
             operationId: "mapsControllerFindByUser",
             variables,
         }),
@@ -1287,7 +1932,12 @@ export const fetchMapsControllerFindPositions = (
         {},
         MapsControllerFindPositionsQueryParams,
         MapsControllerFindPositionsPathParams
-    >({ url: "/maps/{mapId}/positions", method: "get", ...variables, signal });
+    >({
+        url: "/climb/maps/{mapId}/positions",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function mapsControllerFindPositionsQuery(
     variables: MapsControllerFindPositionsVariables
@@ -1314,7 +1964,7 @@ export function mapsControllerFindPositionsQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/maps/{mapId}/positions",
+            path: "/climb/maps/{mapId}/positions",
             operationId: "mapsControllerFindPositions",
             variables,
         }),
@@ -1665,7 +2315,12 @@ export const fetchMapsControllerFindStats = (
         {},
         MapsControllerFindStatsQueryParams,
         MapsControllerFindStatsPathParams
-    >({ url: "/maps/{mapId}/stats", method: "get", ...variables, signal });
+    >({
+        url: "/climb/maps/{mapId}/stats",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function mapsControllerFindStatsQuery(
     variables: MapsControllerFindStatsVariables
@@ -1692,7 +2347,7 @@ export function mapsControllerFindStatsQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/maps/{mapId}/stats",
+            path: "/climb/maps/{mapId}/stats",
             operationId: "mapsControllerFindStats",
             variables,
         }),
@@ -2036,7 +2691,7 @@ export const fetchStatsControllerFindAll = (
         {},
         StatsControllerFindAllQueryParams,
         {}
-    >({ url: "/stats", method: "get", ...variables, signal });
+    >({ url: "/climb/stats", method: "get", ...variables, signal });
 
 export function statsControllerFindAllQuery(
     variables: StatsControllerFindAllVariables
@@ -2061,7 +2716,7 @@ export function statsControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/stats",
+            path: "/climb/stats",
             operationId: "statsControllerFindAll",
             variables,
         }),
@@ -2250,7 +2905,7 @@ export const fetchUsersControllerFindAll = (
         {},
         UsersControllerFindAllQueryParams,
         {}
-    >({ url: "/users", method: "get", ...variables, signal });
+    >({ url: "/climb/users", method: "get", ...variables, signal });
 
 export function usersControllerFindAllQuery(
     variables: UsersControllerFindAllVariables
@@ -2275,7 +2930,7 @@ export function usersControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users",
+            path: "/climb/users",
             operationId: "usersControllerFindAll",
             variables,
         }),
@@ -2368,7 +3023,7 @@ export const fetchUsersControllerFindOneByUsername = (
         {},
         UsersControllerFindOneByUsernamePathParams
     >({
-        url: "/users/by-username/{username}",
+        url: "/climb/users/by-username/{username}",
         method: "get",
         ...variables,
         signal,
@@ -2399,7 +3054,7 @@ export function usersControllerFindOneByUsernameQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/by-username/{username}",
+            path: "/climb/users/by-username/{username}",
             operationId: "usersControllerFindOneByUsername",
             variables,
         }),
@@ -2492,7 +3147,7 @@ export const fetchUsersControllerFindOne = (
         {},
         {},
         UsersControllerFindOnePathParams
-    >({ url: "/users/{id}", method: "get", ...variables, signal });
+    >({ url: "/climb/users/{id}", method: "get", ...variables, signal });
 
 export function usersControllerFindOneQuery(
     variables: UsersControllerFindOneVariables
@@ -2517,7 +3172,7 @@ export function usersControllerFindOneQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/{id}",
+            path: "/climb/users/{id}",
             operationId: "usersControllerFindOne",
             variables,
         }),
@@ -2827,7 +3482,7 @@ export const fetchUsersControllerFindPositions = (
         UsersControllerFindPositionsQueryParams,
         UsersControllerFindPositionsPathParams
     >({
-        url: "/users/{userId}/positions",
+        url: "/climb/users/{userId}/positions",
         method: "get",
         ...variables,
         signal,
@@ -2858,7 +3513,7 @@ export function usersControllerFindPositionsQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/{userId}/positions",
+            path: "/climb/users/{userId}/positions",
             operationId: "usersControllerFindPositions",
             variables,
         }),
@@ -3209,7 +3864,12 @@ export const fetchUsersControllerFindStats = (
         {},
         UsersControllerFindStatsQueryParams,
         UsersControllerFindStatsPathParams
-    >({ url: "/users/{userId}/stats", method: "get", ...variables, signal });
+    >({
+        url: "/climb/users/{userId}/stats",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function usersControllerFindStatsQuery(
     variables: UsersControllerFindStatsVariables
@@ -3236,7 +3896,7 @@ export function usersControllerFindStatsQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/{userId}/stats",
+            path: "/climb/users/{userId}/stats",
             operationId: "usersControllerFindStats",
             variables,
         }),
@@ -3332,7 +3992,12 @@ export const fetchUsersControllerFindActivity = (
         {},
         UsersControllerFindActivityQueryParams,
         UsersControllerFindActivityPathParams
-    >({ url: "/users/{id}/activity", method: "get", ...variables, signal });
+    >({
+        url: "/climb/users/{id}/activity",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function usersControllerFindActivityQuery(
     variables: UsersControllerFindActivityVariables
@@ -3359,7 +4024,7 @@ export function usersControllerFindActivityQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/users/{id}/activity",
+            path: "/climb/users/{id}/activity",
             operationId: "usersControllerFindActivity",
             variables,
         }),
@@ -3548,7 +4213,7 @@ export const fetchClansControllerFindAll = (
         {},
         ClansControllerFindAllQueryParams,
         {}
-    >({ url: "/clans", method: "get", ...variables, signal });
+    >({ url: "/climb/clans", method: "get", ...variables, signal });
 
 export function clansControllerFindAllQuery(
     variables: ClansControllerFindAllVariables
@@ -3573,7 +4238,7 @@ export function clansControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/clans",
+            path: "/climb/clans",
             operationId: "clansControllerFindAll",
             variables,
         }),
@@ -3664,7 +4329,7 @@ export const fetchClansControllerFindOne = (
         {},
         {},
         ClansControllerFindOnePathParams
-    >({ url: "/clans/{clanId}", method: "get", ...variables, signal });
+    >({ url: "/climb/clans/{clanId}", method: "get", ...variables, signal });
 
 export function clansControllerFindOneQuery(
     variables: ClansControllerFindOneVariables
@@ -3689,7 +4354,7 @@ export function clansControllerFindOneQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/clans/{clanId}",
+            path: "/climb/clans/{clanId}",
             operationId: "clansControllerFindOne",
             variables,
         }),
@@ -3883,7 +4548,12 @@ export const fetchClansControllerFindUsers = (
         {},
         ClansControllerFindUsersQueryParams,
         ClansControllerFindUsersPathParams
-    >({ url: "/clans/{clanId}/users", method: "get", ...variables, signal });
+    >({
+        url: "/climb/clans/{clanId}/users",
+        method: "get",
+        ...variables,
+        signal,
+    });
 
 export function clansControllerFindUsersQuery(
     variables: ClansControllerFindUsersVariables
@@ -3910,7 +4580,7 @@ export function clansControllerFindUsersQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/clans/{clanId}/users",
+            path: "/climb/clans/{clanId}/users",
             operationId: "clansControllerFindUsers",
             variables,
         }),
@@ -4011,7 +4681,7 @@ export const fetchClansControllerFindRecordsHistory = (
         ClansControllerFindRecordsHistoryQueryParams,
         ClansControllerFindRecordsHistoryPathParams
     >({
-        url: "/clans/{clanId}/records-history",
+        url: "/climb/clans/{clanId}/records-history",
         method: "get",
         ...variables,
         signal,
@@ -4042,7 +4712,7 @@ export function clansControllerFindRecordsHistoryQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/clans/{clanId}/records-history",
+            path: "/climb/clans/{clanId}/records-history",
             operationId: "clansControllerFindRecordsHistory",
             variables,
         }),
@@ -4231,7 +4901,7 @@ export const fetchCountriesControllerFindAll = (
         {},
         CountriesControllerFindAllQueryParams,
         {}
-    >({ url: "/countries", method: "get", ...variables, signal });
+    >({ url: "/climb/countries", method: "get", ...variables, signal });
 
 export function countriesControllerFindAllQuery(
     variables: CountriesControllerFindAllVariables
@@ -4258,7 +4928,7 @@ export function countriesControllerFindAllQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/countries",
+            path: "/climb/countries",
             operationId: "countriesControllerFindAll",
             variables,
         }),
@@ -4455,7 +5125,7 @@ export const fetchCountriesControllerFindUsers = (
         CountriesControllerFindUsersQueryParams,
         CountriesControllerFindUsersPathParams
     >({
-        url: "/countries/{countryId}/users",
+        url: "/climb/countries/{countryId}/users",
         method: "get",
         ...variables,
         signal,
@@ -4486,7 +5156,7 @@ export function countriesControllerFindUsersQuery(
 ) {
     return {
         queryKey: queryKeyFn({
-            path: "/countries/{countryId}/users",
+            path: "/climb/countries/{countryId}/users",
             operationId: "countriesControllerFindUsers",
             variables,
         }),
@@ -4554,111 +5224,230 @@ export const useCountriesControllerFindUsers = <
     });
 };
 
+export type GamemodesControllerFindAllError = Fetcher.ErrorWrapper<undefined>;
+
+export type GamemodesControllerFindAllResponse = {
+    data?: Schemas.FindAllGamemodesDto[];
+};
+
+export type GamemodesControllerFindAllVariables = SppContext["fetcherOptions"];
+
+export const fetchGamemodesControllerFindAll = (
+    variables: GamemodesControllerFindAllVariables,
+    signal?: AbortSignal
+) =>
+    sppFetch<
+        GamemodesControllerFindAllResponse,
+        GamemodesControllerFindAllError,
+        undefined,
+        {},
+        {},
+        {}
+    >({ url: "/gamemodes", method: "get", ...variables, signal });
+
+export function gamemodesControllerFindAllQuery(
+    variables: GamemodesControllerFindAllVariables
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn: (
+        options: QueryFnOptions
+    ) => Promise<GamemodesControllerFindAllResponse>;
+};
+
+export function gamemodesControllerFindAllQuery(
+    variables: GamemodesControllerFindAllVariables | reactQuery.SkipToken
+): {
+    queryKey: reactQuery.QueryKey;
+    queryFn:
+        | ((
+              options: QueryFnOptions
+          ) => Promise<GamemodesControllerFindAllResponse>)
+        | reactQuery.SkipToken;
+};
+
+export function gamemodesControllerFindAllQuery(
+    variables: GamemodesControllerFindAllVariables | reactQuery.SkipToken
+) {
+    return {
+        queryKey: queryKeyFn({
+            path: "/gamemodes",
+            operationId: "gamemodesControllerFindAll",
+            variables,
+        }),
+        queryFn:
+            variables === reactQuery.skipToken
+                ? reactQuery.skipToken
+                : ({ signal }: QueryFnOptions) =>
+                      fetchGamemodesControllerFindAll(variables, signal),
+    };
+}
+
+export const useSuspenseGamemodesControllerFindAll = <
+    TData = GamemodesControllerFindAllResponse,
+>(
+    variables: GamemodesControllerFindAllVariables,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            GamemodesControllerFindAllResponse,
+            GamemodesControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useSuspenseQuery<
+        GamemodesControllerFindAllResponse,
+        GamemodesControllerFindAllError,
+        TData
+    >({
+        ...gamemodesControllerFindAllQuery(
+            deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
+export const useGamemodesControllerFindAll = <
+    TData = GamemodesControllerFindAllResponse,
+>(
+    variables: GamemodesControllerFindAllVariables | reactQuery.SkipToken,
+    options?: Omit<
+        reactQuery.UseQueryOptions<
+            GamemodesControllerFindAllResponse,
+            GamemodesControllerFindAllError,
+            TData
+        >,
+        "queryKey" | "queryFn" | "initialData"
+    >
+) => {
+    const { queryOptions, fetcherOptions } = useSppContext(options);
+    return reactQuery.useQuery<
+        GamemodesControllerFindAllResponse,
+        GamemodesControllerFindAllError,
+        TData
+    >({
+        ...gamemodesControllerFindAllQuery(
+            variables === reactQuery.skipToken
+                ? variables
+                : deepMerge(fetcherOptions, variables)
+        ),
+        ...options,
+        ...queryOptions,
+    });
+};
+
 export type QueryOperation =
     | {
-          path: "/positions";
+          path: "/climb/positions";
           operationId: "positionsControllerFindAll";
           variables: PositionsControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/maps";
+          path: "/climb/maps";
           operationId: "mapsControllerFindAll";
           variables: MapsControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/maps/{id}";
+          path: "/climb/maps/{id}";
           operationId: "mapsControllerFindOne";
           variables: MapsControllerFindOneVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/maps/by-user/{userId}";
+          path: "/climb/maps/by-user/{userId}";
           operationId: "mapsControllerFindByUser";
           variables: MapsControllerFindByUserVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/maps/{mapId}/positions";
+          path: "/climb/maps/{mapId}/positions";
           operationId: "mapsControllerFindPositions";
           variables:
               | MapsControllerFindPositionsVariables
               | reactQuery.SkipToken;
       }
     | {
-          path: "/maps/{mapId}/stats";
+          path: "/climb/maps/{mapId}/stats";
           operationId: "mapsControllerFindStats";
           variables: MapsControllerFindStatsVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/stats";
+          path: "/climb/stats";
           operationId: "statsControllerFindAll";
           variables: StatsControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/users";
+          path: "/climb/users";
           operationId: "usersControllerFindAll";
           variables: UsersControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/users/by-username/{username}";
+          path: "/climb/users/by-username/{username}";
           operationId: "usersControllerFindOneByUsername";
           variables:
               | UsersControllerFindOneByUsernameVariables
               | reactQuery.SkipToken;
       }
     | {
-          path: "/users/{id}";
+          path: "/climb/users/{id}";
           operationId: "usersControllerFindOne";
           variables: UsersControllerFindOneVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/users/{userId}/positions";
+          path: "/climb/users/{userId}/positions";
           operationId: "usersControllerFindPositions";
           variables:
               | UsersControllerFindPositionsVariables
               | reactQuery.SkipToken;
       }
     | {
-          path: "/users/{userId}/stats";
+          path: "/climb/users/{userId}/stats";
           operationId: "usersControllerFindStats";
           variables: UsersControllerFindStatsVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/users/{id}/activity";
+          path: "/climb/users/{id}/activity";
           operationId: "usersControllerFindActivity";
           variables:
               | UsersControllerFindActivityVariables
               | reactQuery.SkipToken;
       }
     | {
-          path: "/clans";
+          path: "/climb/clans";
           operationId: "clansControllerFindAll";
           variables: ClansControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/clans/{clanId}";
+          path: "/climb/clans/{clanId}";
           operationId: "clansControllerFindOne";
           variables: ClansControllerFindOneVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/clans/{clanId}/users";
+          path: "/climb/clans/{clanId}/users";
           operationId: "clansControllerFindUsers";
           variables: ClansControllerFindUsersVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/clans/{clanId}/records-history";
+          path: "/climb/clans/{clanId}/records-history";
           operationId: "clansControllerFindRecordsHistory";
           variables:
               | ClansControllerFindRecordsHistoryVariables
               | reactQuery.SkipToken;
       }
     | {
-          path: "/countries";
+          path: "/climb/countries";
           operationId: "countriesControllerFindAll";
           variables: CountriesControllerFindAllVariables | reactQuery.SkipToken;
       }
     | {
-          path: "/countries/{countryId}/users";
+          path: "/climb/countries/{countryId}/users";
           operationId: "countriesControllerFindUsers";
           variables:
               | CountriesControllerFindUsersVariables
               | reactQuery.SkipToken;
+      }
+    | {
+          path: "/gamemodes";
+          operationId: "gamemodesControllerFindAll";
+          variables: GamemodesControllerFindAllVariables | reactQuery.SkipToken;
       };

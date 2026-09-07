@@ -85,7 +85,7 @@ export type FindAllMapsDto = {
      */
     mapname: string | null;
     /**
-     * Map date as a unix timestamp
+     * Map creation date as a unix timestamp in milliseconds, null when unknown
      */
     date: number | null;
     /**
@@ -117,7 +117,7 @@ export type FindAllMapsDto = {
      */
     m79c: number | null;
     /**
-     * Difficulty rank among all maps
+     * Difficulty rank, 1 being the hardest map and 0 unranked
      */
     hardest: number | null;
     /**
@@ -631,4 +631,23 @@ export type FindAllCountriesDto = {
      * Number of users from this country
      */
     usersCount: number;
+};
+
+export type FindAllGamemodesDto = {
+    /**
+     * Gamemode slug used in URLs and query params
+     */
+    slug: string;
+    /**
+     * Gamemode name
+     */
+    name: string;
+    /**
+     * Whether this gamemode already has a database behind it
+     */
+    available: boolean;
+    /**
+     * Whether this gamemode is the one served by default
+     */
+    isDefault: boolean;
 };
