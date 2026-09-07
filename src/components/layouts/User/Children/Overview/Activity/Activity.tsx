@@ -29,7 +29,7 @@ type Props = {
 
 export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
     const [filter, setFilter] = useState<ActivityFilter>("records");
-    const [year, setYear] = useState<number | null>(null);
+    const [year, setYear] = useState<number>();
 
     const handleFilterChange = (newFilter: ActivityFilter) => {
         setFilter(newFilter);
@@ -41,9 +41,7 @@ export const Activity: React.FC<Props> = ({ userId, onDayClick }) => {
         useUsersControllerFindActivity(
             {
                 pathParams: { id: userId },
-                // The fetcher turns an undefined year into "year=undefined", so the
-                // param is left out entirely until a year is picked
-                queryParams: year ? { type: filter, year } : { type: filter },
+                queryParams: { type: filter, year },
             },
             {
                 // Keeps the squares on screen while the next year is being

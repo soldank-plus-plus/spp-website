@@ -103,12 +103,31 @@ export async function sppFetch<
     throw error;
 }
 
+// Passing the params straight to URLSearchParams would send a missing one as
+// the literal string "undefined", so optional params are dropped here rather
+// than at every call site. Array values become repeated keys, which is what
+// the backend's pagination expects for multiple sorts and filters
+const appendParam = (search: URLSearchParams, key: string, value: unknown) => {
+    if (value === undefined || value === null) return;
+    if (typeof value === "number" && Number.isNaN(value)) return;
+    search.append(key, String(value));
+};
+
 const resolveUrl = (
     url: string,
-    queryParams: Record<string, string> = {},
+    queryParams: Record<string, unknown> = {},
     pathParams: Record<string, string> = {}
 ) => {
-    let query = new URLSearchParams(queryParams).toString();
+    const search = new URLSearchParams();
+    Object.entries(queryParams).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+            value.forEach((entry) => appendParam(search, key, entry));
+            return;
+        }
+        appendParam(search, key, value);
+    });
+
+    let query = search.toString();
     if (query) query = `?${query}`;
     return (
         url.replace(/\{\w*\}/g, (key) =>
