@@ -1,5 +1,6 @@
 import { Header } from "@/components/ui/custom/core/Header";
 import { Leaderboard } from "@/components/layouts/Maps/Leaderboard";
+import { Guidelines } from "@/components/layouts/Maps/Guidelines";
 import { Maplist } from "@/components/layouts/Maps/Maplist/Maplist";
 import { Footer } from "@/components/ui/custom/core/Footer";
 import { GamemodePicker } from "@/components/ui/custom/shared/Gamemode/GamemodePicker";
@@ -32,8 +33,9 @@ const Maps = () => {
                         <section>
                             <Maplist />
                         </section>
-                        <aside className="lg:sticky lg:top-8">
+                        <aside>
                             <Leaderboard />
+                            <Guidelines />
                         </aside>
                     </div>
                 )}
