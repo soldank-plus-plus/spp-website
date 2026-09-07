@@ -17,20 +17,20 @@ export const PALETTE: Record<
     bronzes: ["#2a2a2a", "#CD7F32", "#CD7F32", "#CD7F32", "#CD7F32"],
 };
 
-// The window ends on `endDay` (YYYY-MM-DD) instead of today, so a player whose
-// activity is years old still gets a filled grid
-export function generateCalendar(endDay?: string): string[] {
-    const end = endDay ? new Date(`${endDay}T00:00:00Z`) : new Date();
+// A full year of squares, padded with empty cells so January starts the first
+// column and the last week is complete
+export function generateYear(year: number): string[] {
     const days: string[] = [];
+    const date = new Date(Date.UTC(year, 0, 1));
 
-    for (let i = 364; i >= 0; i--) {
-        const d = new Date(end);
-        d.setDate(end.getDate() - i);
-        days.push(d.toISOString().slice(0, 10));
+    for (let i = 0; i < date.getUTCDay(); i++) days.push("");
+
+    while (date.getUTCFullYear() === year) {
+        days.push(date.toISOString().slice(0, 10));
+        date.setUTCDate(date.getUTCDate() + 1);
     }
 
-    const remainder = days.length % 7;
-    if (remainder > 0) days.splice(0, remainder);
+    while (days.length % 7 !== 0) days.push("");
 
     return days;
 }
