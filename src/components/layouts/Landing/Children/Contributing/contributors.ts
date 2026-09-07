@@ -1,5 +1,5 @@
 import cpp from "@/assets/technologies/cpp.png";
-import electron from "@/assets/technologies/electron.png";
+import python from "@/assets/technologies/python.png";
 import artist from "@/assets/icons/artist.png";
 import tester from "@/assets/icons/tester.png";
 import dascript from "@/assets/technologies/dascript.png";
@@ -20,11 +20,11 @@ export const contributors: Contributor[] = [
             "The core of the game is written in C++, possibility of contributing in networking, game mechanics, improving performance, and implement new functionalities.",
     },
     {
-        role: "Electron Developer",
-        tag: "ELECTRON",
-        icon: electron,
+        role: "Python Developer",
+        tag: "PYTHON",
+        icon: python,
         description:
-            "The game launcher (GUI) is written in Electron, so contributions here involve improving the launcher, adding new features, and fixing bugs.",
+            "The game lobby that talks to the servers is written in Python with FastAPI, so contributions here involve improving the lobby and bringing MMR based matchmaking to it.",
     },
     {
         role: "2D Game Artist",
