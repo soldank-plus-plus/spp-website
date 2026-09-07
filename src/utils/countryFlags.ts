@@ -1,5 +1,5 @@
-// Maps country names to ISO 3166-1 alpha-2 codes.
-// The order matches the mock data country list (id 1 = Poland, id 2 = Germany, …).
+// Maps country names to ISO 3166-1 alpha-2 codes
+// The order matches the mock data country list (id 1 = Poland, id 2 = Germany, …)
 const COUNTRY_ISO: Record<string, string> = {
     Poland: "PL",
     Germany: "DE",
