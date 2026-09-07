@@ -5,7 +5,7 @@ import { Footer } from "@/components/ui/custom/core/Footer";
 import { ClanHeader } from "@/components/layouts/Clan/ClanHeader";
 import { Members } from "@/components/layouts/Clan/Members";
 import { Info } from "@/components/layouts/Clan/Info";
-import { Statistics } from "@/pages/Clan/Children/Statistics";
+import { StatisticsChart } from "@/components/layouts/Clan/Statistics";
 
 const Clan: React.FC = () => {
     const { clanId: clanIdParam } = useParams<{ clanId: string }>();
@@ -27,7 +27,7 @@ const Clan: React.FC = () => {
                     <Members clanId={clanId} />
                     <Info clanId={clanId} />
                 </div>
-                <Statistics clanId={clanId} />
+                <StatisticsChart clanId={clanId} />
             </main>
             <Footer />
         </>
