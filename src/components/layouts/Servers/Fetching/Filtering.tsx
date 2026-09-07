@@ -70,11 +70,11 @@ export const Filtering: React.FC<Props> = ({
     }, [filteredData, sortConfig]);
 
     const parsePlayers = (players: string): [number, number] | null => {
-        const parts = players.split("/").map(Number);
-        if (parts.length === 2 && parts.every((n) => !isNaN(n))) {
-            return [parts[0], parts[1]];
-        }
-        return null;
+        const [current, max] = players.split("/").map(Number);
+        if (current === undefined || max === undefined) return null;
+        if (isNaN(current) || isNaN(max)) return null;
+
+        return [current, max];
     };
 
     useEffect(() => {

@@ -33,8 +33,10 @@ export const GlobalTable: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-x-4">
                 <SearchUser
                     searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    onSearch={() => setCurrentPage(1)} // reset page on search
+                    setSearchTerm={(value) => {
+                        setSearchTerm(value);
+                        setCurrentPage(1);
+                    }}
                 />
                 <SortButtons
                     sortBy={sortBy}

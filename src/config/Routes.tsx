@@ -26,12 +26,12 @@ import { Medals } from "@/pages/User/Children/Medals";
 import { UserMaps } from "@/pages/User/Children/UserMaps";
 
 // Ranking
-import { Global } from "@/pages/Ranking/Children/Global";
-import { Country } from "@/pages/Ranking/Children/Country";
-import { GlobalClan } from "@/pages/Ranking/Children/GlobalClan";
-import { GlobalRecords } from "@/pages/Ranking/Children/GlobalRecords";
-import { GlobalPositions } from "@/pages/Ranking/Children/GlobalPositions";
-import { More } from "@/pages/Ranking/Children/More";
+import { Global } from "@/pages/Ranking/Children/Climb/Global";
+import { Country } from "@/pages/Ranking/Children/Climb/Country";
+import { GlobalClan } from "@/pages/Ranking/Children/Climb/GlobalClan";
+import { GlobalRecords } from "@/pages/Ranking/Children/Climb/GlobalRecords";
+import { GlobalPositions } from "@/pages/Ranking/Children/Climb/GlobalPositions";
+import { More } from "@/pages/Ranking/Children/Climb/More";
 
 // Layouts / misc
 import EarlyAccess from "@/pages/Landing/Children/EarlyAccess/EarlyAccess";
@@ -41,7 +41,8 @@ import Roadmap from "@/pages/Faq/Children/Roadmap/Roadmap";
 import NotFound from "@/components/ui/custom/core/NotFound";
 
 export interface AppRoute {
-    path: string;
+    path?: string;
+    index?: boolean;
     element: React.ReactNode;
     icon?: React.ReactNode;
     children?: AppRoute[];

@@ -36,11 +36,10 @@ export function generateCalendar(endDay?: string): string[] {
 }
 
 export function getColor(count: number, palette: string[]): string {
-    if (count === 0) return palette[0];
-    if (count < 3) return palette[1];
-    if (count < 6) return palette[2];
-    if (count < 10) return palette[3];
-    return palette[4];
+    const step =
+        count === 0 ? 0 : count < 3 ? 1 : count < 6 ? 2 : count < 10 ? 3 : 4;
+
+    return palette[step] ?? palette[palette.length - 1] ?? "transparent";
 }
 
 export function getMonthLabels(
