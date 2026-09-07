@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CustomPagination } from "@/components/ui/custom/core/Pagination";
 import { useMaps, MapSortKey } from "@/hooks/maps/useMaps";
+import { useMapFlags } from "@/hooks/maps/useMapFlags";
 import { Input } from "@/components/ui/shadcn/input";
 import { Search } from "lucide-react";
 import MapCard from "@/components/layouts/Maps/Maplist/MapCard";
@@ -11,7 +12,11 @@ export const Maplist: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchMap, setSearchMap] = useState("");
     const [searchPlayer, setSearchPlayer] = useState("");
-    const [sortMode, setSortMode] = useState<MapSortKey>("hardest");
+    const [sortMode, setSortMode] = useState<MapSortKey>("latest");
+    const { flags } = useMapFlags();
+
+    const activeFlags = flags.join(",");
+    useEffect(() => setCurrentPage(1), [activeFlags]);
 
     const { maps, totalPages, loading, error } = useMaps({
         page: currentPage,
@@ -19,6 +24,7 @@ export const Maplist: React.FC = () => {
         search: searchMap,
         creator: searchPlayer,
         sort: sortMode,
+        flags,
     });
 
     return (
@@ -53,7 +59,7 @@ export const Maplist: React.FC = () => {
                 </div>
 
                 <div className="flex gap-2">
-                    {(["hardest", "latest"] as MapSortKey[]).map((mode) => (
+                    {(["latest", "hardest"] as MapSortKey[]).map((mode) => (
                         <button
                             key={mode}
                             onClick={() => {
@@ -66,7 +72,7 @@ export const Maplist: React.FC = () => {
                                     : "bg-sombre text-secondary"
                             }`}
                         >
-                            {mode === "hardest" ? "Hardest" : "Latest"}
+                            {mode === "latest" ? "Latest" : "Hardest"}
                             {sortMode === mode ? " ▼" : ""}
                         </button>
                     ))}
@@ -79,6 +85,12 @@ export const Maplist: React.FC = () => {
                 <p className="text-red-500 text-sm text-center py-8">{error}</p>
             )}
 
+            {!loading && !error && maps.length === 0 && (
+                <p className="text-secondary text-center py-8">
+                    No maps found.
+                </p>
+            )}
+
             {!loading && (
                 <div className="flex flex-col gap-6">
                     {maps.map((map) => (
@@ -87,7 +99,7 @@ export const Maplist: React.FC = () => {
                 </div>
             )}
 
-            {totalPages > 1 && (
+            {sortMode !== "hardest" && totalPages > 1 && (
                 <div className="mt-6 mb-8 flex justify-center">
                     <CustomPagination
                         currentPage={currentPage}

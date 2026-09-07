@@ -22,7 +22,7 @@ export const useUserMaps = ({
         queryParams: {
             page,
             limit: pageSize,
-            sortBy: ["hardest:ASC"],
+            sortBy: ["id:DESC"],
             ...(debouncedSearch && { search: debouncedSearch }),
         },
     });

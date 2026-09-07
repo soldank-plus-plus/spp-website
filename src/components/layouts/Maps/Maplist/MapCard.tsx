@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Map } from "@/types/map";
 import { MapSortKey } from "@/hooks/maps/useMaps";
+import { formatNumericDate } from "@/utils/format";
 
 interface Props {
     map: Map;
@@ -12,6 +13,8 @@ interface Props {
 const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
     const navigate = useNavigate();
     const mapname = map.mapname ?? "";
+    // The difficulty rank leads the hardest list, everything else keeps its map number
+    const number = sortMode === "hardest" && map.hardest ? map.hardest : map.id;
 
     return (
         <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 flex items-center gap-4 overflow-hidden">
@@ -22,7 +25,7 @@ const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
                     className="w-full h-full object-cover"
                 />
             </div>
-            <div className="px-4 py-5">
+            <div className="min-w-0 px-4 py-5">
                 <h3
                     className="text-lg cursor-pointer hover:underline"
                     onClick={() =>
@@ -31,8 +34,7 @@ const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
                         )
                     }
                 >
-                    #{sortMode === "hardest" ? (map.hardest ?? "?") : map.id} –{" "}
-                    {mapname}
+                    #{number} – {mapname}
                 </h3>
                 {showCreators && (
                     <p className="text-white/70 text-sm mb-1">
@@ -58,6 +60,7 @@ const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
                 )}
                 <p className="text-white/70 text-sm">
                     {map.recordsCount} records
+                    {map.date !== null && ` · ${formatNumericDate(map.date)}`}
                 </p>
             </div>
         </div>

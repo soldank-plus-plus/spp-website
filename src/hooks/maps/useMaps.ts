@@ -1,12 +1,15 @@
 import { useMapsControllerFindAll } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 import { useDebounce } from "@/hooks/core/useDebounce";
+import { MapFlag } from "@/hooks/maps/useMapFlags";
 
 export type MapSortKey = "hardest" | "latest";
 
-const SORT_BY: Record<MapSortKey, "hardest:ASC" | "date:DESC"> = {
+// The hardest map is rank 1, and maps added recently have no date on record,
+// so the newest ones are the highest map numbers rather than the latest dates
+const SORT_BY: Record<MapSortKey, "hardest:ASC" | "id:DESC"> = {
     hardest: "hardest:ASC",
-    latest: "date:DESC",
+    latest: "id:DESC",
 };
 
 interface UseMapsProps {
@@ -15,6 +18,7 @@ interface UseMapsProps {
     search?: string;
     creator?: string;
     sort?: MapSortKey;
+    flags?: MapFlag[];
 }
 
 export const useMaps = ({
@@ -23,6 +27,7 @@ export const useMaps = ({
     search = "",
     creator = "",
     sort = "hardest",
+    flags = [],
 }: UseMapsProps) => {
     const debouncedSearch = useDebounce(search, 500);
     const debouncedCreator = useDebounce(creator, 500);
@@ -32,6 +37,11 @@ export const useMaps = ({
             page,
             limit: pageSize,
             sortBy: [SORT_BY[sort]],
+            // The hardest view is the ranked maps only, everything else sits at 0
+            ...(sort === "hardest" && { "filter.hardest": ["$gt:0"] }),
+            ...Object.fromEntries(
+                flags.map((flag) => [`filter.${flag}`, ["$eq:1"]])
+            ),
             ...(debouncedSearch && { search: debouncedSearch }),
             ...(debouncedCreator && { creator: debouncedCreator }),
         },
