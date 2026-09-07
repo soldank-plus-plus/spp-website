@@ -9,6 +9,7 @@ import Map from "@/pages/Map/Map";
 import Clan from "@/pages/Clan/Clan";
 import Mapviewer from "@/pages/Map/Children/Mapviewer";
 import Gamemodes from "@/pages/Gamemodes/Gamemodes";
+import Gamemode from "@/pages/Gamemodes/Children/Gamemode";
 import Servers from "@/pages/Servers/Servers";
 import Faq from "@/pages/Faq/Faq";
 
@@ -87,6 +88,7 @@ export const appRoutes: AppRoute[] = [
     { path: "/maps/:mapId", element: <Map /> },
     { path: "/mapviewer", element: <Mapviewer /> },
     { path: "/gamemodes", element: <Gamemodes /> },
+    { path: "/gamemodes/:slug", element: <Gamemode /> },
     { path: "/servers", element: <Servers /> },
     { path: "/faq", element: <Faq /> },
 
