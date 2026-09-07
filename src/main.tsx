@@ -7,7 +7,17 @@ import "./index.css";
 
 import { appRoutes, AppRoute } from "@/config/Routes";
 
-const queryClient = new QueryClient();
+// Stats change rarely, so a minute of freshness saves a request on every
+// remount, tab switch and page revisit
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 60_000,
+            refetchOnWindowFocus: false,
+            retry: 1,
+        },
+    },
+});
 
 function renderRoutes(routes: AppRoute[]) {
     return routes.map(({ path, element, children }, idx) => (

@@ -1,35 +1,17 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Server as RawServerType } from "@/components/layouts/Servers/Fetching/serverTypes";
+import React, { useState, useMemo } from "react";
 import ServersTable from "@/components/layouts/Servers/Fetching/ServerTable";
 import {
     Filtering,
     Server as FilteredServerType,
 } from "@/components/layouts/Servers/Fetching/Filtering";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+import { useServers } from "@/hooks/servers/useServers";
 
 const Fetching: React.FC = () => {
-    const [rawServers, setRawServers] = useState<RawServerType[]>([]);
+    const { servers: rawServers } = useServers();
     const [filteredSortedServers, setFilteredSortedServers] = useState<
         FilteredServerType[]
     >([]);
     const [totalPlayers, setTotalPlayers] = useState(0);
-
-    useEffect(() => {
-        fetch(`${API_BASE_URL}/servers`)
-            .then((res) => {
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
-            .then((data: RawServerType[]) => {
-                setRawServers(data);
-            })
-            .catch((error) => {
-                console.error("Fetching servers error:", error);
-            });
-    }, []);
 
     const transformedData: FilteredServerType[] = useMemo(() => {
         return rawServers.map((s) => ({

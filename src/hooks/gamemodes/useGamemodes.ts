@@ -2,7 +2,11 @@ import { useGamemodesControllerFindAll } from "@/api/generated/sppComponents";
 import { getErrorMessage } from "@/api/generated/sppErrors";
 
 export const useGamemodes = () => {
-    const { data, isPending, error } = useGamemodesControllerFindAll({});
+    // The list of gamemodes only changes when the backend is redeployed
+    const { data, isPending, error } = useGamemodesControllerFindAll(
+        {},
+        { staleTime: Infinity }
+    );
 
     return {
         gamemodes: data?.data ?? [],
