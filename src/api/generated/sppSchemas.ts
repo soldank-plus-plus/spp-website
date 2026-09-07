@@ -360,6 +360,21 @@ export type ActivityDayDto = {
     count: number;
 };
 
+export type ActivityDto = {
+    /**
+     * Year the days belong to
+     */
+    year: number;
+    /**
+     * Years the user was active, newest first
+     */
+    years: number[];
+    /**
+     * Days of the year the user was active
+     */
+    days: ActivityDayDto[];
+};
+
 export type ClanCreatorDto = {
     /**
      * User ID

@@ -3968,12 +3968,16 @@ export type UsersControllerFindActivityPathParams = {
 
 export type UsersControllerFindActivityQueryParams = {
     type: "records" | "golds" | "silvers" | "bronzes";
+    /**
+     * Defaults to the most recent year the user was active
+     */
+    year?: number;
 };
 
 export type UsersControllerFindActivityError = Fetcher.ErrorWrapper<undefined>;
 
 export type UsersControllerFindActivityResponse = {
-    data?: Schemas.ActivityDayDto[];
+    data?: Schemas.ActivityDto;
 };
 
 export type UsersControllerFindActivityVariables = {
