@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Input } from "@/components/ui/shadcn/input";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
+import { findGame } from "@/components/layouts/Gamemodes/List/listTypes";
 
 export interface Server {
     gamemode: string;
@@ -25,7 +27,18 @@ export const Filtering: React.FC<Props> = ({
     onChange,
     onStatsChange,
 }) => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const [filter, setFilter] = useState("");
+
+    // A gamemode in the url narrows the list to that mode, so the gamemode
+    // pages can link straight to the servers running them
+    const gamemode = findGame(searchParams.get("gamemode") ?? undefined);
+
+    const clearGamemode = () => {
+        const params = new URLSearchParams(searchParams);
+        params.delete("gamemode");
+        setSearchParams(params);
+    };
     const [sortConfig, setSortConfig] = useState<{
         key: keyof Server;
         direction: "asc" | "desc";
@@ -34,17 +47,25 @@ export const Filtering: React.FC<Props> = ({
         direction: "asc",
     });
 
+    const scopedData = useMemo(() => {
+        if (!gamemode) return data;
+        const mode = gamemode.title.toLowerCase();
+        return data.filter((item) =>
+            item.gamemode.toLowerCase().includes(mode)
+        );
+    }, [data, gamemode]);
+
     const filteredData = useMemo(() => {
-        if (!filter) return data;
+        if (!filter) return scopedData;
         const lowerFilter = filter.toLowerCase();
-        return data.filter(
+        return scopedData.filter(
             (item) =>
                 item.server.toLowerCase().includes(lowerFilter) ||
                 item.gamemode.toLowerCase().includes(lowerFilter) ||
                 item.map.toLowerCase().includes(lowerFilter) ||
                 item.players.toLowerCase().includes(lowerFilter)
         );
-    }, [filter, data]);
+    }, [filter, scopedData]);
 
     const filteredSortedData = useMemo(() => {
         const sorted = [...filteredData];
@@ -116,6 +137,17 @@ export const Filtering: React.FC<Props> = ({
                         aria-label="Filter servers"
                     />
                 </div>
+
+                {gamemode && (
+                    <button
+                        type="button"
+                        onClick={clearGamemode}
+                        className="flex items-center gap-1.5 rounded border border-white/20 px-2.5 py-1.5 text-sm text-secondary transition-colors hover:text-foreground"
+                    >
+                        {gamemode.title}
+                        <X className="h-3.5 w-3.5" />
+                    </button>
+                )}
 
                 <div className="flex flex-wrap gap-2 justify-center">
                     {(
