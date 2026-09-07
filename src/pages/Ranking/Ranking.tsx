@@ -4,7 +4,7 @@ import { RankingHeader } from "@/components/layouts/Ranking/RankingHeader";
 import { Outlet } from "react-router-dom";
 import { Footer } from "@/components/ui/custom/core/Footer";
 import { GamemodeUnavailable } from "@/components/ui/custom/shared/Gamemode/GamemodeUnavailable";
-import { useGamemode } from "@/hooks/core/useGamemode";
+import { useGamemode } from "@/hooks/gamemodes/useGamemode";
 
 const Ranking = () => {
     const { gamemode, loading } = useGamemode();

@@ -1,5 +1,5 @@
 import React from "react";
-import { useGamemode } from "@/hooks/core/useGamemode";
+import { useGamemode } from "@/hooks/gamemodes/useGamemode";
 
 export const GamemodeUnavailable: React.FC = () => {
     const { gamemode } = useGamemode();

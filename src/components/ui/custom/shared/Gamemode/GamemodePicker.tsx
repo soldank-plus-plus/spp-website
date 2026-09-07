@@ -7,7 +7,7 @@ import {
     SelectValue,
 } from "@/components/ui/shadcn/select";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
-import { useGamemode } from "@/hooks/core/useGamemode";
+import { useGamemode } from "@/hooks/gamemodes/useGamemode";
 
 export const GamemodePicker: React.FC = () => {
     const { gamemode, gamemodes, setGamemode, loading } = useGamemode();

@@ -5,7 +5,7 @@ import { Footer } from "@/components/ui/custom/core/Footer";
 import { GamemodePicker } from "@/components/ui/custom/shared/Gamemode/GamemodePicker";
 import { MapFilters } from "@/components/layouts/Maps/Maplist/MapFilters";
 import { GamemodeUnavailable } from "@/components/ui/custom/shared/Gamemode/GamemodeUnavailable";
-import { useGamemode } from "@/hooks/core/useGamemode";
+import { useGamemode } from "@/hooks/gamemodes/useGamemode";
 
 const Maps = () => {
     const { gamemode, loading } = useGamemode();
