@@ -1,5 +1,5 @@
 import React from "react";
-import { CountryTable } from "@/components/layouts/Ranking/Children/Country/CountryTable";
+import { CountryTable } from "@/components/layouts/Ranking/Children/Climb/Country/CountryTable";
 
 export const Country: React.FC = () => {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { RecordsTable } from "@/components/layouts/Ranking/Children/Records/RecordsTable";
+import { RecordsTable } from "@/components/layouts/Ranking/Children/Climb/Records/RecordsTable";
 
 export const GlobalRecords: React.FC = () => {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { PositionsTable } from "@/components/layouts/Ranking/Children/GlobalPositions/PositionsTable";
+import { PositionsTable } from "@/components/layouts/Ranking/Children/Climb/GlobalPositions/PositionsTable";
 
 export const GlobalPositions: React.FC = () => {
     return (
