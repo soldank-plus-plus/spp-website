@@ -3970,6 +3970,8 @@ export type UsersControllerFindActivityQueryParams = {
     type: "records" | "golds" | "silvers" | "bronzes";
     /**
      * Defaults to the most recent year the user was active
+     *
+     * @minimum 1
      */
     year?: number;
 };
