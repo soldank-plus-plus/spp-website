@@ -58,6 +58,11 @@ export const Footer = () => {
                                 FAQ
                             </a>
                         </li>
+                        <li>
+                            <a href="/privacy" className="hover:underline">
+                                Privacy
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

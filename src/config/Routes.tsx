@@ -12,6 +12,7 @@ import Gamemodes from "@/pages/Gamemodes/Gamemodes";
 import Gamemode from "@/pages/Gamemodes/Children/Gamemode";
 import Servers from "@/pages/Servers/Servers";
 import Faq from "@/pages/Faq/Faq";
+import Privacy from "@/pages/Privacy/Privacy";
 
 // Account
 import Signup from "@/pages/Account/Signup";
@@ -90,6 +91,7 @@ export const appRoutes: AppRoute[] = [
     { path: "/gamemodes/:slug", element: <Gamemode /> },
     { path: "/servers", element: <Servers /> },
     { path: "/faq", element: <Faq /> },
+    { path: "/privacy", element: <Privacy /> },
 
     { path: "/signup", element: <Signup /> },
 
