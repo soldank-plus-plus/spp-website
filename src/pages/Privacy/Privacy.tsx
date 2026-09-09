@@ -36,11 +36,8 @@ const Privacy = () => {
                 <div className="px-6 sm:px-12 lg:px-20 flex justify-center">
                     <div className="w-full max-w-3xl mt-60 mb-20 flex flex-col gap-10 text-white">
                         <div className="flex flex-col gap-3">
-                            <span className="font-tomorrow text-xs uppercase tracking-widest text-blue-200">
-                                · privacy
-                            </span>
                             <h1>Privacy Policy</h1>
-                            <p className="text-sm text-white/70">
+                            <p className="text-sm text-blue-200">
                                 Last updated: 8 September 2026
                             </p>
                         </div>
@@ -64,15 +61,15 @@ const Privacy = () => {
 
                         <Section title="What this policy covers">
                             <p>
-                                This Privacy Policy explains how the Soldank++
-                                website handles information when you visit the
-                                site or view player profiles, rankings,
-                                statistics and records.
+                                This Privacy Policy explains how the website
+                                handles information when you visit the site or
+                                view player profiles, rankings, statistics and
+                                records.
                             </p>
                             <p>
                                 The website is primarily a read-only
                                 presentation of data generated through playing
-                                Soldank++. The website does not create or modify
+                                the game. The website does not create or modify
                                 player statistics based on your visit.
                             </p>
                             <p>
@@ -306,7 +303,7 @@ const Privacy = () => {
                             </p>
                         </Section>
 
-                        <Section title="The trailer video">
+                        <Section title="External content and links">
                             <p>
                                 The trailer on the home page is not loaded from
                                 YouTube until you press Play. Before you press
@@ -321,12 +318,10 @@ const Privacy = () => {
                                 point, Google and YouTube may receive
                                 information such as your IP address and
                                 information about your device and browser as
-                                necessary to provide the video.
-                            </p>
-                            <p>
-                                The processing of information by Google is
-                                governed by Google&apos;s own privacy practices,
-                                described in the{" "}
+                                necessary to provide the video. The processing
+                                of information by Google is governed by
+                                Google&apos;s own privacy practices, described
+                                in the{" "}
                                 <a
                                     href="https://policies.google.com/privacy"
                                     target="_blank"
@@ -337,22 +332,17 @@ const Privacy = () => {
                                 . If you do not want the YouTube player to be
                                 loaded, you can simply choose not to press Play.
                             </p>
-                        </Section>
-
-                        <Section title="External links">
                             <p>
-                                The website contains links to external services
-                                such as Discord, GitHub, X, Reddit, TikTok,
-                                Instagram and the Soldank++ browser client.
-                            </p>
-                            <p>
-                                These are ordinary links. The website does not
-                                load these services or send information to them
-                                merely because you visit our website. When you
-                                choose to follow one of these links, you leave
-                                our website and the destination service may
-                                process information about you according to its
-                                own privacy policy.
+                                The website also contains links to external
+                                services such as Discord, GitHub, X, Reddit,
+                                TikTok, Instagram and the Soldank++ browser
+                                client. These are ordinary links. The website
+                                does not load these services or send information
+                                to them merely because you visit our website.
+                                When you choose to follow one of these links,
+                                you leave our website and the destination
+                                service may process information about you
+                                according to its own privacy policy.
                             </p>
                         </Section>
 
@@ -412,22 +402,6 @@ const Privacy = () => {
                                 Regardless of where you live, you may contact us
                                 if you want your Soldank++ profile removed or
                                 anonymised, and we will review the request.
-                            </p>
-                        </Section>
-
-                        <Section title="Data security">
-                            <p>
-                                We take reasonable technical and organisational
-                                measures to protect the information handled by
-                                the Soldank++ website and statistics API. The
-                                website does not intentionally collect
-                                passwords, email addresses, IP addresses, Steam
-                                IDs or Discord IDs through the public statistics
-                                system.
-                            </p>
-                            <p>
-                                However, no internet service can guarantee
-                                absolute security.
                             </p>
                         </Section>
 
