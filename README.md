@@ -61,3 +61,18 @@ npm run generate:api-types
 ```
 
 This reads the backend's live OpenAPI schema (`http://localhost:3000/api-json`) and writes the result to `src/api/generated/`.
+
+## Security headers
+
+The production build injects a Content Security Policy as a `<meta>` tag (see the `content-security-policy` plugin in `vite.config.ts`). The dev server deliberately gets no policy, because hot reload needs an inline script and a websocket. `connect-src` is derived from `VITE_API_BASE_URL` at build time, so a deployment pointing at a different API host needs no change here.
+
+Browsers ignore some directives in a `<meta>` tag, so the following have to be set as real HTTP response headers by whatever serves the built files:
+
+```
+Content-Security-Policy: frame-ancestors 'none'
+X-Content-Type-Options: nosniff
+Referrer-Policy: strict-origin-when-cross-origin
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+`frame-ancestors` is the clickjacking protection and is the reason a header is needed at all. `Referrer-Policy` keeps profile URLs out of the `Referer` sent to the embedded YouTube player. Send `Strict-Transport-Security` only once the site is served over HTTPS.
