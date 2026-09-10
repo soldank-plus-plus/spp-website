@@ -90,13 +90,14 @@ export async function sppFetch<
             return (await response.blob()) as unknown as TData;
         }
     } catch (e) {
+        // The underlying failure can name the api host, the port it tried and
+        // the reason the browser refused it. Every hook renders this message
+        // straight into the page, so the detail is kept on `cause` for the
+        // console and only a generic line is thrown
         const errorObject: Error = {
             name: "unknown" as const,
-            message:
-                e instanceof Error
-                    ? `Network error (${e.message})`
-                    : "Network error",
-            stack: e as string,
+            message: "Network error",
+            cause: e,
         };
         throw errorObject;
     }

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ScrollToTop from "@/hooks/core/ScrollToTop";
+import { ErrorBoundary } from "@/components/ui/custom/core/ErrorBoundary";
 import "@fontsource/tomorrow/400.css";
 import "@fontsource/tomorrow/500.css";
 import "@fontsource/tomorrow/700.css";
@@ -43,7 +44,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <QueryClientProvider client={queryClient}>
             <BrowserRouter>
                 <ScrollToTop />
-                <Routes>{renderRoutes(appRoutes)}</Routes>
+                <ErrorBoundary>
+                    <Routes>{renderRoutes(appRoutes)}</Routes>
+                </ErrorBoundary>
             </BrowserRouter>
         </QueryClientProvider>
     </React.StrictMode>
