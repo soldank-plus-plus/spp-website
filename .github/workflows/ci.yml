@@ -1,0 +1,46 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+# A second push to the same branch makes the first run pointless
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    verify:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
+
+            # Puppeteer only backs the mapviewer screenshot script, so its
+            # browser download is dead weight in every ci run
+            - name: Install dependencies
+              run: npm ci
+              env:
+                  PUPPETEER_SKIP_DOWNLOAD: "true"
+
+            # The same three gates the pre-push hook runs locally, kept as
+            # separate steps so a failure names itself in the run summary
+            - name: Lint
+              run: npm run lint
+
+            - name: Type check
+              run: npm run type-check
+
+            - name: Test
+              run: npm run test
+
+            # No VITE_API_BASE_URL is set, so this checks that the app compiles
+            # rather than producing a deployable bundle
+            - name: Build
+              run: npm run build
