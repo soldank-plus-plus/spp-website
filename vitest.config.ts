@@ -11,6 +11,9 @@ export default defineConfig((env) =>
             restoreMocks: true,
             unstubEnvs: true,
             unstubGlobals: true,
+            // Headroom for the coverage run, where instrumentation makes a
+            // test that normally takes milliseconds take seconds
+            testTimeout: 20_000,
             coverage: {
                 provider: "v8",
                 reporter: ["text", "html"],
