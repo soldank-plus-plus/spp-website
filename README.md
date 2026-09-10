@@ -1,5 +1,7 @@
 # Soldank++ Website
 
+[![CI](https://github.com/soldank-plus-plus/spp-website/actions/workflows/ci.yml/badge.svg)](https://github.com/soldank-plus-plus/spp-website/actions/workflows/ci.yml)
+
 Frontend for [Soldank++](https://github.com/soldank-plus-plus/soldank-plus-plus) website built with Vite, React, TypeScript, OpenAPI, TanStack, Tailwind CSS, and Shadcn as UI library.
 The backend architecture can be found [here](https://github.com/soldank-plus-plus/spp-webstats).
 
