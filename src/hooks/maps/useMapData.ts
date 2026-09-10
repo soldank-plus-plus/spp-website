@@ -3,10 +3,7 @@ import {
     parseMap,
     PmsMap,
 } from "@/components/layouts/Map/Chlldren/Mapviewer/map";
-
-export function escapeUrl(s: string): string {
-    return s.replace(/#/g, "%23");
-}
+import { mapFileUrl } from "@/utils/mapUrl";
 
 export const useMapData = (mapname: string, category: string) => {
     const [mapInfo, setMapInfo] = useState<PmsMap | null>(null);
@@ -23,9 +20,7 @@ export const useMapData = (mapname: string, category: string) => {
         setLoadError(false);
 
         Promise.all([
-            fetch(
-                `/mapviewer/data/${category}/maps/${escapeUrl(mapname)}.pms`
-            ).then((r) => {
+            fetch(mapFileUrl(category, mapname)).then((r) => {
                 if (!r.ok) throw new Error("not found");
                 return r.arrayBuffer();
             }),

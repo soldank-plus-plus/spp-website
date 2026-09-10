@@ -2,7 +2,13 @@ import React from "react";
 import JSZip from "jszip";
 import { useNavigate } from "react-router-dom";
 import { useMap } from "@/hooks/maps/useMap";
-import { useMapData, escapeUrl } from "@/hooks/maps/useMapData";
+import { useMapData } from "@/hooks/maps/useMapData";
+import {
+    mapDataUrl,
+    mapScreenshotUrl,
+    normalizePath,
+    safeFileName,
+} from "@/utils/mapUrl";
 import { Button } from "@/components/ui/shadcn/button";
 
 interface Props {
@@ -20,7 +26,7 @@ export const Hero: React.FC<Props> = ({
     const { map } = useMap(mapId);
     const { mapInfo, edgeslist } = useMapData(mapname, category);
     const creators = map?.creators ?? [];
-    const screenshotUrl = `/mapviewer/screenshots/${category}_${mapname}.png`;
+    const screenshotUrl = mapScreenshotUrl(category, mapname);
 
     const handleDownload = async () => {
         if (!mapInfo) return;
@@ -44,10 +50,9 @@ export const Hero: React.FC<Props> = ({
         await Promise.all(
             urls.map(async (url) => {
                 try {
-                    const res = await fetch(
-                        `/mapviewer/data/${category}/${escapeUrl(url)}`
-                    );
-                    if (res.ok) zip.file(url, await res.arrayBuffer());
+                    const res = await fetch(mapDataUrl(category, url));
+                    if (res.ok)
+                        zip.file(normalizePath(url), await res.arrayBuffer());
                     else window.alert(`Warning: ${url} not found`);
                 } catch {
                     window.alert(`Warning: ${url} could not be fetched`);
@@ -58,7 +63,7 @@ export const Hero: React.FC<Props> = ({
         const blob = await zip.generateAsync({ type: "blob" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = `${mapname} (${mapInfo.name}).zip`;
+        link.download = `${safeFileName(`${mapname} (${mapInfo.name})`)}.zip`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

@@ -9,8 +9,8 @@ import {
     HIGHLIGHT_LABELS,
     SIDEBAR_WIDTH,
     defaultConfig,
-    escapeUrl,
 } from "./appTypes";
+import { mapFileUrl } from "@/utils/mapUrl";
 import {
     Sidebar,
     SidebarContent,
@@ -102,7 +102,7 @@ export const App: React.FC = () => {
             setLoading(true);
             setLoadError(false);
 
-            fetch(`/mapviewer/data/${category}/maps/${escapeUrl(name)}.pms`)
+            fetch(mapFileUrl(category, name))
                 .then((res) => {
                     if (!res.ok) throw new Error("not found");
                     return res.arrayBuffer();

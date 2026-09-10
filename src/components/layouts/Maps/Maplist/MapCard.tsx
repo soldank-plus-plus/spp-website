@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Map } from "@/types/map";
 import { MapSortKey } from "@/hooks/maps/useMaps";
 import { formatNumericDate } from "@/utils/format";
+import { mapScreenshotUrl } from "@/utils/mapUrl";
 
 interface Props {
     map: Map;
@@ -20,7 +21,7 @@ const MapCard: React.FC<Props> = ({ map, sortMode, showCreators = true }) => {
         <div className="rounded-sm border border-white/10 bg-gradient-to-b from-white/5 via-white/10 to-white/5 flex items-center gap-4 overflow-hidden">
             <div className="w-[120px] aspect-square shrink-0 rounded-l-sm overflow-hidden">
                 <img
-                    src={`/mapviewer/screenshots/climb_${mapname}.png`}
+                    src={mapScreenshotUrl("climb", mapname)}
                     alt={mapname}
                     className="w-full h-full object-cover"
                 />

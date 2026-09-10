@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { mapScreenshotUrl } from "@/utils/mapUrl";
 
 interface Props {
     mapname: string;
@@ -17,7 +18,7 @@ export const Preview: React.FC<Props> = ({
 
     return (
         <img
-            src={`/mapviewer/screenshots/${category}_${mapname}.png`}
+            src={mapScreenshotUrl(category, mapname)}
             alt={mapname}
             onError={() => setFailed(true)}
             className={

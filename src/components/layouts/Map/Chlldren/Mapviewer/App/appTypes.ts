@@ -65,7 +65,3 @@ export const defaultConfig: RendererConfig = {
     objects: true,
     objects_list: SPAWN_LABELS.map((_, i) => i),
 };
-
-export function escapeUrl(s: string): string {
-    return s.replace(/#/g, "%23");
-}

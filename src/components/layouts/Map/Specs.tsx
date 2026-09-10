@@ -1,5 +1,6 @@
 import React from "react";
-import { useMapData, escapeUrl } from "@/hooks/maps/useMapData";
+import { useMapData } from "@/hooks/maps/useMapData";
+import { mapTextureUrl } from "@/utils/mapUrl";
 import { Skeleton } from "@/components/ui/shadcn/skeleton";
 
 interface Props {
@@ -25,7 +26,7 @@ export const Specs: React.FC<Props> = ({ mapname, category = "climb" }) => {
 
     const displayCategory =
         category.charAt(0).toUpperCase() + category.slice(1);
-    const texturePath = `/mapviewer/data/${category}/textures/${escapeUrl(mapInfo.texture)}`;
+    const texturePath = mapTextureUrl(category, mapInfo.texture);
 
     return (
         <div className="flex flex-col gap-1.5 text-sm">
@@ -44,7 +45,7 @@ export const Specs: React.FC<Props> = ({ mapname, category = "climb" }) => {
                 <a
                     href={texturePath}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="underline hover:underline"
                 >
                     {mapInfo.texture}
