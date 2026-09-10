@@ -8,12 +8,6 @@ interface BannerProps {
     username: string;
     clanname?: string;
     highlight?: string;
-    socials?: {
-        twitch?: string;
-        youtube?: string;
-        discord?: string;
-        github?: string;
-    };
 }
 
 export const Banner = ({
