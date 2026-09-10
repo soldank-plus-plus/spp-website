@@ -1,24 +1,7 @@
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { fileURLToPath, URL } from "url";
-
-const buildContentSecurityPolicy = (apiBaseUrl: string | undefined) =>
-    [
-        "default-src 'self'",
-        "script-src 'self'",
-        // Radix and the shadcn chart component append <style> tags at runtime,
-        // and neither can be given a nonce from a static build
-        "style-src 'self' 'unsafe-inline'",
-        // the YouTube player pulls its poster frame from this host, and it
-        // is only ever reached after a visitor asks for the video
-        "img-src 'self' data: https://i.ytimg.com",
-        "font-src 'self'",
-        ["connect-src 'self'", apiBaseUrl].filter(Boolean).join(" "),
-        "frame-src https://www.youtube-nocookie.com",
-        "base-uri 'self'",
-        "form-action 'self'",
-        "object-src 'none'",
-    ].join("; ");
+import { buildContentSecurityPolicy } from "./src/config/contentSecurityPolicy";
 
 // only the production build carries a policy, since the dev server serves an
 // inline script for hot reload and talks to itself over a websocket

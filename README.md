@@ -30,6 +30,7 @@ The project uses the following packages:
 - [Framer Motion](https://www.framer.com/motion/): animations
 - [Recharts](https://recharts.org/): charts (roadmap, account activity)
 - [Embla Carousel](https://www.embla-carousel.com/): carousels
+- [Vitest](https://vitest.dev/) + [Testing Library](https://testing-library.com/docs/react-testing-library/intro/): unit and component tests
 - ESLint + Prettier + Husky + lint-staged: linting, formatting, and git hooks
 
 ## Setup
@@ -62,17 +63,26 @@ npm run generate:api-types
 
 This reads the backend's live OpenAPI schema (`http://localhost:3000/api-json`) and writes the result to `src/api/generated/`.
 
-## Security headers
+## Development
 
-The production build injects a Content Security Policy as a `<meta>` tag (see the `content-security-policy` plugin in `vite.config.ts`). The dev server deliberately gets no policy, because hot reload needs an inline script and a websocket. `connect-src` is derived from `VITE_API_BASE_URL` at build time, so a deployment pointing at a different API host needs no change here.
+### Testing
 
-Browsers ignore some directives in a `<meta>` tag, so the following have to be set as real HTTP response headers by whatever serves the built files:
+Tests run on [Vitest](https://vitest.dev/) in a jsdom environment, with [Testing Library](https://testing-library.com/docs/react-testing-library/intro/) for rendering components. There is no e2e runner.
 
+```bash
+# all tests
+npm run test
+
+# re-run the tests touching whatever you edit
+npm run test:watch
+
+# the security suite on its own
+npm run test:security
+
+# test coverage
+npm run test:coverage
 ```
-Content-Security-Policy: frame-ancestors 'none'
-X-Content-Type-Options: nosniff
-Referrer-Policy: strict-origin-when-cross-origin
-Strict-Transport-Security: max-age=31536000; includeSubDomains
-```
 
-`frame-ancestors` is the clickjacking protection and is the reason a header is needed at all. `Referrer-Policy` keeps profile URLs out of the `Referer` sent to the embedded YouTube player. Send `Strict-Transport-Security` only once the site is served over HTTPS.
+### Type checking and linting
+
+These and the tests all run automatically before every `git push` (via husky's `pre-push` hook), so you don't need to run them manually.
