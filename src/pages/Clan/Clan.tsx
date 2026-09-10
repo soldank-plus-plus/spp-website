@@ -1,22 +1,19 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Footer } from "@/components/ui/custom/core/Footer";
 import { ClanHeader } from "@/components/layouts/Clan/ClanHeader";
 import { Members } from "@/components/layouts/Clan/Members";
 import { Info } from "@/components/layouts/Clan/Info";
 import { StatisticsChart } from "@/components/layouts/Clan/Statistics";
+import { parseRouteId } from "@/utils/routeParams";
 
 const Clan: React.FC = () => {
     const { clanId: clanIdParam } = useParams<{ clanId: string }>();
-    const navigate = useNavigate();
 
-    const clanId = Number(clanIdParam);
+    const clanId = parseRouteId(clanIdParam);
 
-    if (!clanIdParam || isNaN(clanId)) {
-        navigate("/ranking/clan");
-        return null;
-    }
+    if (clanId === null) return <Navigate to="/ranking/clan" replace />;
 
     return (
         <>

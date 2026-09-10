@@ -1,24 +1,21 @@
 import React from "react";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { Header } from "@/components/ui/custom/core/Header";
 import { Hero } from "@/components/layouts/Map/Hero";
 import { Info } from "@/components/layouts/Map/Info";
 import { MapTable } from "@/components/layouts/Map/MapTable/MapTable";
 import { Footer } from "@/components/ui/custom/core/Footer";
+import { parseRouteId } from "@/utils/routeParams";
 
 const Map: React.FC = () => {
     const { mapId: mapIdParam } = useParams<{ mapId: string }>();
     const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
 
-    const mapId = Number(mapIdParam);
+    const mapId = parseRouteId(mapIdParam);
     const mapname = searchParams.get("name") ?? "";
     const category = searchParams.get("category") ?? "climb";
 
-    if (!mapIdParam || isNaN(mapId)) {
-        navigate("/maps");
-        return null;
-    }
+    if (mapId === null) return <Navigate to="/maps" replace />;
 
     return (
         <>

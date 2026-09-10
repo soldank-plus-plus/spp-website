@@ -69,12 +69,25 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
+// The style tag below is the one piece of raw html this app writes, so both
+// halves of every declaration are checked against what a css custom property
+// may contain. A colour that closed the rule and opened another could load an
+// off site url from inside a page that otherwise never does
+const CSS_IDENTIFIER = /^[A-Za-z_][A-Za-z0-9_-]*$/;
+
+// Hex, rgb()/hsl()/oklch() and var() cover every colour the charts use. The
+// characters that would end the declaration or start a new one are absent by
+// construction rather than stripped after the fact
+const CSS_COLOR = /^[A-Za-z0-9\s(),.%#/_-]+$/;
+
+const isSafeChartColor = (color: string): boolean => CSS_COLOR.test(color);
+
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     const colorConfig = Object.entries(config).filter(
         ([, config]) => config.theme || config.color
     );
 
-    if (!colorConfig.length) {
+    if (!colorConfig.length || !CSS_IDENTIFIER.test(id)) {
         return null;
     }
 
@@ -90,8 +103,12 @@ ${colorConfig
         const color =
             itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
             itemConfig.color;
-        return color ? `  --color-${key}: ${color};` : null;
+        if (!color || !CSS_IDENTIFIER.test(key) || !isSafeChartColor(color)) {
+            return null;
+        }
+        return `  --color-${key}: ${color};`;
     })
+    .filter(Boolean)
     .join("\n")}
 }
 `
